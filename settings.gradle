@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':spotify-player-24-2.20b'
