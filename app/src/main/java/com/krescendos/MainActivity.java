@@ -2,6 +2,7 @@ package com.krescendos;
 
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,9 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-public class MainActivity extends Activity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+import java.util.List;
+
+public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
 
     // TODO: Replace with your client ID
@@ -32,6 +35,9 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
+
+    private List<Track> trackList;
+    private PlayerListAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,11 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
                 }
             }
         });
+
+        trackList = Track.getTrackList();
+        listAdapter = new PlayerListAdapter(this, trackList);
+        setListAdapter(listAdapter);
+
     }
 
     @Override
