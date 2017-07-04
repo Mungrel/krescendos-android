@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -43,6 +45,33 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        Button back = findViewById(R.id.skpBkBtn);
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                mPlayer.skipToPrevious(null);
+            }
+        });
+
+        Button fwd = findViewById(R.id.skipFwdBtn);
+        fwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPlayer.skipToNext(null);
+            }
+        });
+
+        Button play = findViewById(R.id.playBtn);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPlayer.getPlaybackState().isPlaying){
+                    mPlayer.pause(null);
+                } else {
+                    mPlayer.resume(null);
+                }
+            }
+        });
     }
 
     @Override
