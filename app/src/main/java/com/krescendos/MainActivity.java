@@ -3,6 +3,7 @@ package com.krescendos;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +26,7 @@ import java.util.List;
 public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
 
-    // TODO: Replace with your client ID
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
-    // TODO: Replace with your redirect URI
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
     private Player mPlayer;
@@ -39,10 +38,14 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
     private List<Track> trackList;
     private PlayerListAdapter listAdapter;
 
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActivity.context = getApplicationContext();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -162,5 +165,9 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
     @Override
     public void onConnectionMessage(String message) {
         Log.d("MainActivity", "Received connection message: " + message);
+    }
+
+    public static Context getAppContext(){
+        return MainActivity.context;
     }
 }
