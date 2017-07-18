@@ -34,7 +34,7 @@ public class Requester {
     }
 
     public void get(String url, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener, Map<String, String> params) {
-        url = "http://192.168.43.247/recommend";
+        url = "http://10.0.2.2:8080/recommend";
         if (!params.keySet().isEmpty()){
             url+="?";
             for (String s : params.keySet()){
