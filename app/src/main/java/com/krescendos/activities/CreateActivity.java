@@ -2,6 +2,7 @@ package com.krescendos.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void createParty(String text){
+        Log.d("CREATING: ",text);
         // some api call
     }
 }
