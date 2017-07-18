@@ -1,11 +1,23 @@
 package com.krescendos;
 
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -17,12 +29,16 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-public class MainActivity extends Activity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
 
-    // TODO: Replace with your client ID
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
-    // TODO: Replace with your redirect URI
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
     private Player mPlayer;
@@ -31,10 +47,18 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
 
+    private List<Track> trackList;
+    private PlayerListAdapter listAdapter;
+    private RequestQueue requestQueue;
+
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActivity.context = getApplicationContext();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -43,6 +67,61 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        Button back = findViewById(R.id.skpBkBtn);
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                mPlayer.skipToPrevious(null);
+            }
+        });
+
+        Button fwd = findViewById(R.id.skipFwdBtn);
+        fwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPlayer.skipToNext(null);
+            }
+        });
+
+        Button play = findViewById(R.id.playBtn);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPlayer.getPlaybackState().isPlaying){
+                    mPlayer.pause(null);
+                } else {
+                    mPlayer.resume(null);
+                }
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(new JsonArrayRequest(Request.Method.GET, "http://192.168.1.235:8080/recommend?trackSeed=2TpxZ7JUBn3uw46aR7qd6V", null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("RESPONSE", response.toString());
+                        Type listType = new TypeToken<List<Track>>() {}.getType();
+                        trackList = new Gson().fromJson(response.toString(), listType);
+                        Log.d("TRACKLISTSIZE", ""+trackList.size());
+                        listAdapter = new PlayerListAdapter(getApplicationContext(), trackList);
+                        listAdapter.notifyDataSetChanged();
+                        setListAdapter(listAdapter);
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ERROR", ""+error.getMessage());
+            }
+        }));
+
+
+
+        //trackList = Track.getTrackList();
+
+
     }
 
     @Override
@@ -122,5 +201,9 @@ public class MainActivity extends Activity implements SpotifyPlayer.Notification
     @Override
     public void onConnectionMessage(String message) {
         Log.d("MainActivity", "Received connection message: " + message);
+    }
+
+    public static Context getAppContext(){
+        return MainActivity.context;
     }
 }
