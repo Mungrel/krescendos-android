@@ -96,7 +96,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
         });
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(new JsonArrayRequest(Request.Method.GET, "http://192.168.1.235:8080/recommend?trackSeed=2TpxZ7JUBn3uw46aR7qd6V", null,
+        requestQueue.add(new JsonArrayRequest(Request.Method.GET, "http://172.24.27.117:8080/recommend?trackSeed=2TpxZ7JUBn3uw46aR7qd6V", null,
                 new Response.Listener<JSONArray>() {
 
                     @Override
