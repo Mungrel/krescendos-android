@@ -1,7 +1,6 @@
 package com.krescendos;
 
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -21,7 +27,12 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
@@ -37,6 +48,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     private List<Track> trackList;
     private PlayerListAdapter listAdapter;
+    private Requester requester;
 
     private static Context context;
 
@@ -82,9 +94,37 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
             }
         });
 
-        trackList = Track.getTrackList();
-        listAdapter = new PlayerListAdapter(this, trackList);
-        setListAdapter(listAdapter);
+        requester = new Requester(MainActivity.getAppContext());
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("trackSeed", "2TpxZ7JUBn3uw46aR7qd6V");
+        requester.get(Requester.RECOMMENDATION, new Response.Listener<JSONArray>(){
+
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("RESPONSE:", response.toString());
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Track>>() {}.getType();
+
+                trackList = new Gson().fromJson(response.toString(), listType);
+                listAdapter = new PlayerListAdapter(MainActivity.getAppContext(), trackList);
+                setListAdapter(listAdapter);
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error != null && error.getMessage() != null){
+                    Log.d("VOLLEYERROR", error.getMessage());
+                } else {
+                    Log.d("VOLLEYERROR", "no error message");
+                }
+
+                trackList = null;
+            }
+        }, params);
+
+        //trackList = Track.getTrackList();
+
 
     }
 
