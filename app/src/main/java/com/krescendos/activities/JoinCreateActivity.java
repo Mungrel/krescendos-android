@@ -1,7 +1,9 @@
-package com.krescendos;
+package com.krescendos.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.krescendos.R;
 
 public class JoinCreateActivity extends AppCompatActivity {
 

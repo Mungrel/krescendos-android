@@ -1,4 +1,4 @@
-package com.krescendos;
+package com.krescendos.activities;
 
 
 import android.app.ListActivity;
@@ -17,6 +17,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.krescendos.PlayerListAdapter;
+import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -30,7 +32,6 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.List;
