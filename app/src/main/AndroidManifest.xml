@@ -22,7 +22,7 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.PlayerActivity" />
         <activity android:name=".activities.JoinActivity" />
         <activity android:name=".activities.CreateActivity"></activity>
     </application>

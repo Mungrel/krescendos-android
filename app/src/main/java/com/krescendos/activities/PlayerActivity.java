@@ -36,7 +36,7 @@ import org.json.JSONArray;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+public class PlayerActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
 
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
@@ -53,13 +53,15 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
     private RequestQueue requestQueue;
 
     private static Context context;
+    private boolean isHost = getIntent().getBooleanExtra("isHost", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("USER IS HOST: ", ""+isHost);
 
-        MainActivity.context = getApplicationContext();
+        PlayerActivity.context = getApplicationContext();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -138,13 +140,13 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
                     @Override
                     public void onInitialized(SpotifyPlayer spotifyPlayer) {
                         mPlayer = spotifyPlayer;
-                        mPlayer.addConnectionStateCallback(MainActivity.this);
-                        mPlayer.addNotificationCallback(MainActivity.this);
+                        mPlayer.addConnectionStateCallback(PlayerActivity.this);
+                        mPlayer.addNotificationCallback(PlayerActivity.this);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
+                        Log.e("PlayerActivity", "Could not initialize player: " + throwable.getMessage());
                     }
                 });
             }
@@ -159,7 +161,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onPlaybackEvent(PlayerEvent playerEvent) {
-        Log.d("MainActivity", "Playback event received: " + playerEvent.name());
+        Log.d("PlayerActivity", "Playback event received: " + playerEvent.name());
         switch (playerEvent) {
             // Handle event type as necessary
             default:
@@ -169,7 +171,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onPlaybackError(Error error) {
-        Log.d("MainActivity", "Playback error received: " + error.name());
+        Log.d("PlayerActivity", "Playback error received: " + error.name());
         switch (error) {
             // Handle error type as necessary
             default:
@@ -179,32 +181,32 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onLoggedIn() {
-        Log.d("MainActivity", "User logged in");
+        Log.d("PlayerActivity", "User logged in");
 
         mPlayer.playUri(null, "spotify:track:2TpxZ7JUBn3uw46aR7qd6V", 0, 0);
     }
 
     @Override
     public void onLoggedOut() {
-        Log.d("MainActivity", "User logged out");
+        Log.d("PlayerActivity", "User logged out");
     }
 
     @Override
     public void onLoginFailed(Error e) {
-        Log.d("MainActivity", "Login failed");
+        Log.d("PlayerActivity", "Login failed");
     }
 
     @Override
     public void onTemporaryError() {
-        Log.d("MainActivity", "Temporary error occurred");
+        Log.d("PlayerActivity", "Temporary error occurred");
     }
 
     @Override
     public void onConnectionMessage(String message) {
-        Log.d("MainActivity", "Received connection message: " + message);
+        Log.d("PlayerActivity", "Received connection message: " + message);
     }
 
     public static Context getAppContext(){
-        return MainActivity.context;
+        return PlayerActivity.context;
     }
 }

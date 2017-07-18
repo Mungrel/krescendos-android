@@ -1,5 +1,6 @@
 package com.krescendos.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.krescendos.R;
-
-import org.w3c.dom.Text;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -25,13 +24,21 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = joinCodeTextField.getText().toString();
-                submitCode(text);
+                boolean success = joinParty(text);
+
+                if (success){
+                    Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                    intent.putExtra("isHost", false);
+                    startActivity(intent);
+                }
+
             }
         });
     }
-
-    private void submitCode(String joinCode){
+// Returns true if party successfully joined
+    private boolean joinParty(String joinCode){
         Log.d("JOINING: ", joinCode);
         // Call some api or something
+        return true;
     }
 }

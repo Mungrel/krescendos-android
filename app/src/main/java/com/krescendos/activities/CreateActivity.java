@@ -1,5 +1,6 @@
 package com.krescendos.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,13 +24,20 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = partyName.getText().toString();
-                createParty(name);
+                boolean success = createParty(name);
+
+                if (success){
+                    Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                    intent.putExtra("isHost", true);
+                    startActivity(intent);
+                }
             }
         });
     }
-
-    private void createParty(String text){
+// Returns true if party successfully created
+    private boolean createParty(String text){
         Log.d("CREATING: ",text);
         // some api call
+        return true;
     }
 }
