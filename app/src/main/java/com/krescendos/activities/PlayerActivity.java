@@ -53,12 +53,13 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
     private RequestQueue requestQueue;
 
     private static Context context;
-    private boolean isHost = getIntent().getBooleanExtra("isHost", false);
+    private boolean isHost = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        isHost = getIntent().getBooleanExtra("isHost", false);
         Log.d("USER IS HOST: ", ""+isHost);
 
         PlayerActivity.context = getApplicationContext();
