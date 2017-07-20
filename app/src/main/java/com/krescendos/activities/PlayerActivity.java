@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -59,6 +62,8 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         isHost = getIntent().getBooleanExtra("isHost", false);
         Log.d("USER IS HOST: ", ""+isHost);
 
+        requester = new Requester(getApplicationContext());
+
         PlayerActivity.context = getApplicationContext();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
@@ -110,12 +115,27 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
                 listView.setAdapter(listAdapter);
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.player_menu, menu);
+        return true;
+    }
 
-
-        //trackList = Track.getTrackList();
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.addTrackItem:
+                Log.d("HERE", "hello");
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     @Override

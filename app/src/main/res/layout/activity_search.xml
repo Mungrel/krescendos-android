@@ -7,9 +7,16 @@
     android:orientation="vertical"
     tools:context="com.krescendos.activities.SearchActivity">
 
+    <TextView
+        android:id="@+id/searchRecommendedText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
+        android:text="Recommended" />
+
     <ListView
         android:id="@+id/searchResultList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_dark"/>
+        android:background="@android:color/background_dark" />
 </LinearLayout>

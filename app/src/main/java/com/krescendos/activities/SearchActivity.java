@@ -20,9 +20,7 @@ import com.krescendos.domain.Track;
 import org.json.JSONArray;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -39,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
+        inflater.inflate(R.menu.search_menu, menu);
         MenuItem item = menu.findItem(R.id.searchView);
         SearchView searchView = (SearchView) item.getActionView();
         final ListView listView = (ListView) findViewById(R.id.searchResultList);
