@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.krescendos.activities.PlayerActivity"
-    android:baselineAligned="false">
+    >
 
     <TextView
         android:id="@+id/playerText"
@@ -14,28 +14,34 @@
         android:layout_height="wrap_content"
         android:background="@android:color/background_dark"
         android:textColor="@android:color/darker_gray"
+        android:layout_alignParentTop="true"
         android:text="Up Next" />
 
     <ListView
         android:id="@+id/playerList"
         android:layout_width="match_parent"
-        android:layout_height="490dp"
-        android:layout_alignParentTop="true"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/playerText"
+        android:layout_above="@id/seekBar"
         android:background="@android:color/background_dark" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonsContainer"/>
 
     <LinearLayout
+        android:id="@+id/buttonsContainer"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2.71"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/skpBkBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,14 +49,15 @@
 
         <Button
             android:id="@+id/playBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:text="Play/Pause" />
 
         <Button
             android:id="@+id/skipFwdBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -58,4 +65,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
