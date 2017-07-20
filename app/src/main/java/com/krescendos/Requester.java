@@ -8,6 +8,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class Requester {
 
     private RequestQueue requestQueue;
-    private static String baseURL = "localhost:8080";
+    private static String baseURL = "http://192.168.1.235:8080";
     public static String RECOMMENDATION = baseURL+"/recommend";
     public static String SEARCH = baseURL+"/search";
 
@@ -28,13 +29,7 @@ public class Requester {
         this.requestQueue = Volley.newRequestQueue(context);
     }
 
-    public void get(String url, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, listener, errorListener);
-        requestQueue.add(jsonArrayRequest);
-    }
-
-    public void get(String url, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener, Map<String, String> params) {
-        url = "http://10.0.2.2:8080/recommend";
+    public void get(String url, Response.Listener<JSONArray> listener, Map<String, String> params) {
         if (!params.keySet().isEmpty()){
             url+="?";
             for (String s : params.keySet()){
@@ -45,8 +40,8 @@ public class Requester {
             }
         }
 
-        Log.d("SENDING:", url);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, listener, errorListener);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                listener, new DefaultErrorListener());
         requestQueue.add(jsonArrayRequest);
     }
 
