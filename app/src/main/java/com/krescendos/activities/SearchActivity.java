@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.google.gson.Gson;
@@ -32,6 +33,22 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         requester = new Requester(getApplicationContext());
+
+        // Search result list will be filled with recommendations until the user completes a search
+        final ListView listView = (ListView) findViewById(R.id.searchResultList);
+        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>(){
+
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("RESPONSE", response.toString());
+                Type listType = new TypeToken<List<Track>>() {}.getType();
+                List<Track> trackList = new Gson().fromJson(response.toString(), listType);
+                Log.d("QUERYRESPONSELISTSIZE", ""+trackList.size());
+                listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
+                listAdapter.notifyDataSetChanged();
+                listView.setAdapter(listAdapter);
+            }
+        });
     }
 
     @Override
@@ -41,6 +58,9 @@ public class SearchActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.searchView);
         SearchView searchView = (SearchView) item.getActionView();
         final ListView listView = (ListView) findViewById(R.id.searchResultList);
+
+        // Starts as "Recommended" until user searches
+        final TextView resultHeader = (TextView) findViewById(R.id.searchRecommendedText);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -57,6 +77,7 @@ public class SearchActivity extends AppCompatActivity {
                         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
                         listAdapter.notifyDataSetChanged();
                         listView.setAdapter(listAdapter);
+                        resultHeader.setText("Search Results");
                     }
                 });
 

@@ -31,7 +31,7 @@ public class Requester {
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
     public void recommend(String trackID, Response.Listener<JSONArray> listener){
-        String url = Requester.RECOMMEND+"?seed_tracks="+trackID;
+        String url = Requester.RECOMMEND+"?trackSeed="+trackID;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
         requestQueue.add(jsonArrayRequest);

@@ -101,20 +101,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
             }
         });
 
-        final ListView listView = (ListView) findViewById(R.id.playerList);
-        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>(){
 
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d("RESPONSE", response.toString());
-                Type listType = new TypeToken<List<Track>>() {}.getType();
-                List<Track> trackList = new Gson().fromJson(response.toString(), listType);
-                Log.d("QUERYRESPONSELISTSIZE", ""+trackList.size());
-                listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
-                listAdapter.notifyDataSetChanged();
-                listView.setAdapter(listAdapter);
-            }
-        });
     }
 
     @Override
