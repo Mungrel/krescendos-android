@@ -8,6 +8,14 @@
     tools:context="com.krescendos.activities.PlayerActivity"
     android:baselineAligned="false">
 
+    <TextView
+        android:id="@+id/playerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/darker_gray"
+        android:text="Up Next" />
+
     <ListView
         android:id="@+id/playerList"
         android:layout_width="match_parent"

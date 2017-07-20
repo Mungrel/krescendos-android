@@ -11,11 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.krescendos.Requester;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
@@ -31,14 +27,10 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import org.json.JSONArray;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
-
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
@@ -52,7 +44,6 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
     private TrackListAdapter listAdapter;
     private Requester requester;
 
-    private static Context context;
     private boolean isHost = false;
 
     @Override
@@ -63,8 +54,6 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         Log.d("USER IS HOST: ", ""+isHost);
 
         requester = new Requester(getApplicationContext());
-
-        PlayerActivity.context = getApplicationContext();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -100,8 +89,6 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
                 }
             }
         });
-
-
     }
 
     @Override
@@ -202,9 +189,5 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
     @Override
     public void onConnectionMessage(String message) {
         Log.d("PlayerActivity", "Received connection message: " + message);
-    }
-
-    public static Context getAppContext(){
-        return PlayerActivity.context;
     }
 }
