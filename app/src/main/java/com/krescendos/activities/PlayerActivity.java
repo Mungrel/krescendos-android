@@ -1,23 +1,20 @@
 package com.krescendos.activities;
 
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.krescendos.PlayerListAdapter;
+import com.krescendos.Requester;
+import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -36,7 +33,7 @@ import org.json.JSONArray;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class PlayerActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
 
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
@@ -49,8 +46,8 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
     private static final int REQUEST_CODE = 1337;
 
     private List<Track> trackList;
-    private PlayerListAdapter listAdapter;
-    private RequestQueue requestQueue;
+    private TrackListAdapter listAdapter;
+    private Requester requester;
 
     private static Context context;
     private boolean isHost = false;
@@ -58,7 +55,7 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_player);
         isHost = getIntent().getBooleanExtra("isHost", false);
         Log.d("USER IS HOST: ", ""+isHost);
 
@@ -72,14 +69,14 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
-        Button back = findViewById(R.id.skpBkBtn);
+        Button back = (Button) findViewById(R.id.skpBkBtn);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 mPlayer.skipToPrevious(null);
             }
         });
 
-        Button fwd = findViewById(R.id.skipFwdBtn);
+        Button fwd = (Button) findViewById(R.id.skipFwdBtn);
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +84,7 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
             }
         });
 
-        Button play = findViewById(R.id.playBtn);
+        Button play = (Button) findViewById(R.id.playBtn);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,27 +96,20 @@ public class PlayerActivity extends ListActivity implements SpotifyPlayer.Notifi
             }
         });
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(new JsonArrayRequest(Request.Method.GET, "http://172.24.27.117:8080/recommend?trackSeed=2TpxZ7JUBn3uw46aR7qd6V", null,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("RESPONSE", response.toString());
-                        Type listType = new TypeToken<List<Track>>() {}.getType();
-                        trackList = new Gson().fromJson(response.toString(), listType);
-                        Log.d("TRACKLISTSIZE", ""+trackList.size());
-                        listAdapter = new PlayerListAdapter(getApplicationContext(), trackList);
-                        listAdapter.notifyDataSetChanged();
-                        setListAdapter(listAdapter);
-                    }
-                }, new Response.ErrorListener() {
+        final ListView listView = (ListView) findViewById(R.id.playerList);
+        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>(){
 
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", ""+error.getMessage());
+            public void onResponse(JSONArray response) {
+                Log.d("RESPONSE", response.toString());
+                Type listType = new TypeToken<List<Track>>() {}.getType();
+                List<Track> trackList = new Gson().fromJson(response.toString(), listType);
+                Log.d("QUERYRESPONSELISTSIZE", ""+trackList.size());
+                listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
+                listAdapter.notifyDataSetChanged();
+                listView.setAdapter(listAdapter);
             }
-        }));
+        });
 
 
 

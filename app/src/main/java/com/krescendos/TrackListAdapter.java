@@ -13,14 +13,14 @@ import com.krescendos.domain.Track;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerListAdapter extends ArrayAdapter<Track> {
+public class TrackListAdapter extends ArrayAdapter<Track> {
     private Context context;
     private List<Track> tracks;
 
     private LayoutInflater mInflater;
     private boolean mNotifyOnChange = true;
 
-    public PlayerListAdapter(Context context, List<Track> tracks) {
+    public TrackListAdapter(Context context, List<Track> tracks) {
         super(context, R.layout.player_list);
         this.context = context;
         this.tracks = new ArrayList<Track>(tracks);

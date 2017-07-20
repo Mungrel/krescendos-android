@@ -9,7 +9,7 @@
     android:baselineAligned="false">
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/playerList"
         android:layout_width="match_parent"
         android:layout_height="490dp"
         android:layout_alignParentTop="true"
