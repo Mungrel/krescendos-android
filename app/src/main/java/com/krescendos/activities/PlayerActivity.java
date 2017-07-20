@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.krescendos.Requester;
 import com.krescendos.TrackListAdapter;
@@ -63,14 +64,14 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
-        Button back = (Button) findViewById(R.id.skpBkBtn);
+        ImageButton back = (ImageButton) findViewById(R.id.skpBkBtn);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 mPlayer.skipToPrevious(null);
             }
         });
 
-        Button fwd = (Button) findViewById(R.id.skipFwdBtn);
+        ImageButton fwd = (ImageButton) findViewById(R.id.skipFwdBtn);
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,13 +79,15 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
             }
         });
 
-        Button play = (Button) findViewById(R.id.playBtn);
+        final ImageButton play = (ImageButton) findViewById(R.id.playBtn);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPlayer.getPlaybackState().isPlaying){
+                    play.setImageResource(android.R.drawable.ic_media_play);
                     mPlayer.pause(null);
                 } else {
+                    play.setImageResource(android.R.drawable.ic_media_pause);
                     mPlayer.resume(null);
                 }
             }

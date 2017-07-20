@@ -22,14 +22,15 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/playerText"
-        android:layout_above="@id/seekBar"
+        android:layout_above="@+id/seekBar"
         android:background="@android:color/background_dark" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/buttonsContainer"/>
+        android:layout_above="@+id/buttonsContainer"
+        android:background="@android:color/background_dark" />
 
     <LinearLayout
         android:id="@+id/buttonsContainer"
@@ -39,29 +40,35 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/skpBkBtn"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back" />
+            android:background="@android:color/background_dark"
+            android:text="Back"
+            app:srcCompat="@android:drawable/ic_media_previous" />
 
-        <Button
+        <ImageButton
             android:id="@+id/playBtn"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Play/Pause" />
+            android:background="@android:color/background_dark"
+            android:text="Play/Pause"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
-        <Button
+        <ImageButton
             android:id="@+id/skipFwdBtn"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Skip" />
+            android:background="@android:color/background_dark"
+            android:text="Skip"
+            app:srcCompat="@android:drawable/ic_media_next" />
 
     </LinearLayout>
 
