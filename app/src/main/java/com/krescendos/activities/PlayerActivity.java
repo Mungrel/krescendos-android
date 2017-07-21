@@ -1,22 +1,21 @@
-package com.krescendos;
+package com.krescendos.activities;
 
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.krescendos.Requester;
+import com.krescendos.TrackListAdapter;
+import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -29,15 +28,10 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
-public class MainActivity extends ListActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
-
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
@@ -48,17 +42,19 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
     private static final int REQUEST_CODE = 1337;
 
     private List<Track> trackList;
-    private PlayerListAdapter listAdapter;
-    private RequestQueue requestQueue;
+    private TrackListAdapter listAdapter;
+    private Requester requester;
 
-    private static Context context;
+    private boolean isHost = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_player);
+        isHost = getIntent().getBooleanExtra("isHost", false);
+        Log.d("USER IS HOST: ", ""+isHost);
 
-        MainActivity.context = getApplicationContext();
+        requester = new Requester(getApplicationContext());
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -68,14 +64,14 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
-        Button back = findViewById(R.id.skpBkBtn);
+        ImageButton back = (ImageButton) findViewById(R.id.skpBkBtn);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 mPlayer.skipToPrevious(null);
             }
         });
 
-        Button fwd = findViewById(R.id.skipFwdBtn);
+        ImageButton fwd = (ImageButton) findViewById(R.id.skipFwdBtn);
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,45 +79,40 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
             }
         });
 
-        Button play = findViewById(R.id.playBtn);
+        final ImageButton play = (ImageButton) findViewById(R.id.playBtn);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPlayer.getPlaybackState().isPlaying){
+                    play.setImageResource(android.R.drawable.ic_media_play);
                     mPlayer.pause(null);
                 } else {
+                    play.setImageResource(android.R.drawable.ic_media_pause);
                     mPlayer.resume(null);
                 }
             }
         });
+    }
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(new JsonArrayRequest(Request.Method.GET, "http://192.168.1.235:8080/recommend?trackSeed=2TpxZ7JUBn3uw46aR7qd6V", null,
-                new Response.Listener<JSONArray>() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.player_menu, menu);
+        return true;
+    }
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("RESPONSE", response.toString());
-                        Type listType = new TypeToken<List<Track>>() {}.getType();
-                        trackList = new Gson().fromJson(response.toString(), listType);
-                        Log.d("TRACKLISTSIZE", ""+trackList.size());
-                        listAdapter = new PlayerListAdapter(getApplicationContext(), trackList);
-                        listAdapter.notifyDataSetChanged();
-                        setListAdapter(listAdapter);
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", ""+error.getMessage());
-            }
-        }));
-
-
-
-        //trackList = Track.getTrackList();
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.addTrackItem:
+                Log.d("HERE", "hello");
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     @Override
@@ -137,13 +128,13 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
                     @Override
                     public void onInitialized(SpotifyPlayer spotifyPlayer) {
                         mPlayer = spotifyPlayer;
-                        mPlayer.addConnectionStateCallback(MainActivity.this);
-                        mPlayer.addNotificationCallback(MainActivity.this);
+                        mPlayer.addConnectionStateCallback(PlayerActivity.this);
+                        mPlayer.addNotificationCallback(PlayerActivity.this);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
+                        Log.e("PlayerActivity", "Could not initialize player: " + throwable.getMessage());
                     }
                 });
             }
@@ -158,7 +149,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onPlaybackEvent(PlayerEvent playerEvent) {
-        Log.d("MainActivity", "Playback event received: " + playerEvent.name());
+        Log.d("PlayerActivity", "Playback event received: " + playerEvent.name());
         switch (playerEvent) {
             // Handle event type as necessary
             default:
@@ -168,7 +159,7 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onPlaybackError(Error error) {
-        Log.d("MainActivity", "Playback error received: " + error.name());
+        Log.d("PlayerActivity", "Playback error received: " + error.name());
         switch (error) {
             // Handle error type as necessary
             default:
@@ -178,32 +169,28 @@ public class MainActivity extends ListActivity implements SpotifyPlayer.Notifica
 
     @Override
     public void onLoggedIn() {
-        Log.d("MainActivity", "User logged in");
+        Log.d("PlayerActivity", "User logged in");
 
         mPlayer.playUri(null, "spotify:track:2TpxZ7JUBn3uw46aR7qd6V", 0, 0);
     }
 
     @Override
     public void onLoggedOut() {
-        Log.d("MainActivity", "User logged out");
+        Log.d("PlayerActivity", "User logged out");
     }
 
     @Override
     public void onLoginFailed(Error e) {
-        Log.d("MainActivity", "Login failed");
+        Log.d("PlayerActivity", "Login failed");
     }
 
     @Override
     public void onTemporaryError() {
-        Log.d("MainActivity", "Temporary error occurred");
+        Log.d("PlayerActivity", "Temporary error occurred");
     }
 
     @Override
     public void onConnectionMessage(String message) {
-        Log.d("MainActivity", "Received connection message: " + message);
-    }
-
-    public static Context getAppContext(){
-        return MainActivity.context;
+        Log.d("PlayerActivity", "Received connection message: " + message);
     }
 }
