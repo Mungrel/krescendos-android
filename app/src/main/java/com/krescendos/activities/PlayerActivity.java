@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.krescendos.Requester;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
+import com.krescendos.TrackPlayer;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -36,12 +37,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
+public class PlayerActivity extends AppCompatActivity implements ConnectionStateCallback
 {
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
-    private Player mPlayer;
+    private TrackPlayer mPlayer;
 
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
@@ -53,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
     private Requester requester;
 
     private boolean isHost = false;
+    private ImageButton playbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         ImageButton back = (ImageButton) findViewById(R.id.skpBkBtn);
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                mPlayer.skipToPrevious(null);
+                mPlayer.previous();
             }
         });
 
@@ -82,21 +84,20 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPlayer.skipToNext(null);
+                mPlayer.next();
             }
         });
 
-        final ImageButton play = (ImageButton) findViewById(R.id.playBtn);
-        play.setOnClickListener(new View.OnClickListener() {
+        playbtn = (ImageButton) findViewById(R.id.playBtn);
+        playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mPlayer.getPlaybackState().isPlaying){
-                    play.setImageResource(android.R.drawable.ic_media_play);
-                    mPlayer.pause(null);
+                if (mPlayer.isPlaying()){
+                    mPlayer.pause();
                 } else {
-                    play.setImageResource(android.R.drawable.ic_media_pause);
-                    mPlayer.resume(null);
+                    mPlayer.play();
                 }
+                refreshPlayBtn();
             }
         });
 
@@ -106,6 +107,21 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         listAdapter.notifyDataSetChanged();
         ListView listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int targetTrackPos, long l) {
+                mPlayer.skipTo(targetTrackPos);
+                refreshPlayBtn();
+            }
+        });
+    }
+
+    private void refreshPlayBtn(){
+        if (mPlayer.isPlaying()){
+            playbtn.setImageResource(android.R.drawable.ic_media_pause);
+        } else {
+            playbtn.setImageResource(android.R.drawable.ic_media_play);
+        }
     }
 
     @Override
@@ -143,9 +159,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = spotifyPlayer;
-                            mPlayer.addConnectionStateCallback(PlayerActivity.this);
-                            mPlayer.addNotificationCallback(PlayerActivity.this);
+                            mPlayer = new TrackPlayer(spotifyPlayer);
                         }
 
                         @Override
@@ -162,6 +176,8 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
 
                 trackList.add(track);
                 listAdapter.updateTracks(trackList);
+                mPlayer.queue(track);
+                refreshPlayBtn();
         }
     }
 
@@ -172,30 +188,8 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
     }
 
     @Override
-    public void onPlaybackEvent(PlayerEvent playerEvent) {
-        Log.d("PlayerActivity", "Playback event received: " + playerEvent.name());
-        switch (playerEvent) {
-            // Handle event type as necessary
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onPlaybackError(Error error) {
-        Log.d("PlayerActivity", "Playback error received: " + error.name());
-        switch (error) {
-            // Handle error type as necessary
-            default:
-                break;
-        }
-    }
-
-    @Override
     public void onLoggedIn() {
         Log.d("PlayerActivity", "User logged in");
-
-        mPlayer.playUri(null, "spotify:track:2TpxZ7JUBn3uw46aR7qd6V", 0, 0);
     }
 
     @Override

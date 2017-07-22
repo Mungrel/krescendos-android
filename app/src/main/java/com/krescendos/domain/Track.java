@@ -17,6 +17,10 @@ public class Track {
 		return id;
 	}
 
+	public String getTrackURI(){
+		return "spotify:track:"+this.id;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
