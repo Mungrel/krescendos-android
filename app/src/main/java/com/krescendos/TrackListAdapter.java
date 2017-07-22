@@ -86,6 +86,11 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return convertView;
     }
 
+    public void updateTracks(List<Track> tracks){
+        this.tracks = tracks;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();

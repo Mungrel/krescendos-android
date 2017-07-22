@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.krescendos.Requester;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
@@ -28,6 +32,8 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback
@@ -40,6 +46,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
+    private static final int SEARCH_CODE = 1234;
 
     private List<Track> trackList;
     private TrackListAdapter listAdapter;
@@ -92,6 +99,13 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
                 }
             }
         });
+
+        Type listType = new TypeToken<List<Track>>() {}.getType();
+        trackList = new ArrayList<Track>();
+        listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
+        listAdapter.notifyDataSetChanged();
+        ListView listView = (ListView) findViewById(R.id.playerList);
+        listView.setAdapter(listAdapter);
     }
 
     @Override
@@ -107,7 +121,7 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
             case R.id.addTrackItem:
                 Log.d("HERE", "hello");
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, SEARCH_CODE);
                 break;
             default:
                 super.onOptionsItemSelected(item);
@@ -115,29 +129,39 @@ public class PlayerActivity extends AppCompatActivity implements SpotifyPlayer.N
         return true;
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
         // Check if result comes from the correct activity
-        if (requestCode == REQUEST_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-            if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-                Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
-                    @Override
-                    public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                        mPlayer = spotifyPlayer;
-                        mPlayer.addConnectionStateCallback(PlayerActivity.this);
-                        mPlayer.addNotificationCallback(PlayerActivity.this);
-                    }
+        switch (requestCode){
+            case REQUEST_CODE:
+                AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+                if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+                    Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+                    Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
+                        @Override
+                        public void onInitialized(SpotifyPlayer spotifyPlayer) {
+                            mPlayer = spotifyPlayer;
+                            mPlayer.addConnectionStateCallback(PlayerActivity.this);
+                            mPlayer.addNotificationCallback(PlayerActivity.this);
+                        }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        Log.e("PlayerActivity", "Could not initialize player: " + throwable.getMessage());
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            Log.e("PlayerActivity", "Could not initialize player: " + throwable.getMessage());
+                        }
+                    });
+                    break;
             }
+            case SEARCH_CODE:
+                Gson gson = new Gson();
+                Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
+                Log.d("APPENDTRACK", "Track: "+track.getName());
+
+                trackList.add(track);
+                listAdapter.updateTracks(trackList);
         }
     }
 

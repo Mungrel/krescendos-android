@@ -21,7 +21,7 @@ import java.util.Map;
 public class Requester {
 
     private RequestQueue requestQueue;
-    private static String baseURL = "http://192.168.1.235:8080";
+    private static String baseURL = "https://krescendos-174122.appspot.com";
     public static String RECOMMEND = baseURL+"/recommend";
     public static String SEARCH = baseURL+"/search";
 
