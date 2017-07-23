@@ -145,7 +145,7 @@ public class TrackPlayer {
     }
 
     public void play(){
-        if (spotifyPlayer.getPlaybackState().positionMs != 0){
+        if (trackLoaded() && spotifyPlayer.getPlaybackState().positionMs != 0){
             resume();
         } else {
             playTrack(trackList.get(pos));
