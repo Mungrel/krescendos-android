@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SeekBar;
 
 import com.google.gson.Gson;
 import com.krescendos.TrackListAdapter;
@@ -29,6 +30,8 @@ import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HostPlayerActivity extends AppCompatActivity implements ConnectionStateCallback
 {
@@ -46,11 +49,14 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackListAdapter listAdapter;
 
     private ImageButton playbtn;
+    private SeekBar seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
+
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -100,6 +106,22 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 refreshPlayBtn();
             }
         });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                mPlayer.seekTo(progress);
+            }
+        });
     }
 
     private void refreshPlayBtn(){
@@ -145,7 +167,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer);
+                            mPlayer = new TrackPlayer(spotifyPlayer, seekBar);
                         }
 
                         @Override
