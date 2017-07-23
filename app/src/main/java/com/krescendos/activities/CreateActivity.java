@@ -27,7 +27,7 @@ public class CreateActivity extends AppCompatActivity {
                 boolean success = createParty(name);
 
                 if (success){
-                    Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
                     intent.putExtra("isHost", true);
                     startActivity(intent);
                 }

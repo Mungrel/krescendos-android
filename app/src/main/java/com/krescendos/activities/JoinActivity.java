@@ -27,7 +27,7 @@ public class JoinActivity extends AppCompatActivity {
                 boolean success = joinParty(text);
 
                 if (success){
-                    Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
                     intent.putExtra("isHost", false);
                     startActivity(intent);
                 }
