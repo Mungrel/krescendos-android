@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.krescendos.R;
@@ -27,7 +28,7 @@ public class CreateActivity extends AppCompatActivity {
                 boolean success = createParty(name);
 
                 if (success){
-                    Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
                     intent.putExtra("isHost", true);
                     startActivity(intent);
                 }

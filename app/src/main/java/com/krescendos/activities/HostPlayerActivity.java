@@ -1,7 +1,6 @@
 package com.krescendos.activities;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +10,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SeekBar;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.krescendos.Requester;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
 import com.krescendos.TrackPlayer;
@@ -28,16 +25,15 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
-import com.spotify.sdk.android.player.Player;
-import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class PlayerActivity extends AppCompatActivity implements ConnectionStateCallback
+public class HostPlayerActivity extends AppCompatActivity implements ConnectionStateCallback
 {
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
@@ -51,19 +47,16 @@ public class PlayerActivity extends AppCompatActivity implements ConnectionState
 
     private List<Track> trackList;
     private TrackListAdapter listAdapter;
-    private Requester requester;
 
-    private boolean isHost = false;
     private ImageButton playbtn;
+    private SeekBar seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
-        isHost = getIntent().getBooleanExtra("isHost", false);
-        Log.d("USER IS HOST: ", ""+isHost);
+        setContentView(R.layout.activity_host_player);
 
-        requester = new Requester(getApplicationContext());
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -101,7 +94,6 @@ public class PlayerActivity extends AppCompatActivity implements ConnectionState
             }
         });
 
-        Type listType = new TypeToken<List<Track>>() {}.getType();
         trackList = new ArrayList<Track>();
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
         listAdapter.notifyDataSetChanged();
@@ -112,6 +104,22 @@ public class PlayerActivity extends AppCompatActivity implements ConnectionState
             public void onItemClick(AdapterView<?> adapterView, View view, int targetTrackPos, long l) {
                 mPlayer.skipTo(targetTrackPos);
                 refreshPlayBtn();
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                mPlayer.seekTo(progress);
             }
         });
     }
@@ -159,12 +167,12 @@ public class PlayerActivity extends AppCompatActivity implements ConnectionState
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer);
+                            mPlayer = new TrackPlayer(spotifyPlayer, seekBar);
                         }
 
                         @Override
                         public void onError(Throwable throwable) {
-                            Log.e("PlayerActivity", "Could not initialize player: " + throwable.getMessage());
+                            Log.e("HostPlayerActivity", "Could not initialize player: " + throwable.getMessage());
                         }
                     });
                     break;
@@ -189,26 +197,26 @@ public class PlayerActivity extends AppCompatActivity implements ConnectionState
 
     @Override
     public void onLoggedIn() {
-        Log.d("PlayerActivity", "User logged in");
+        Log.d("HostPlayerActivity", "User logged in");
     }
 
     @Override
     public void onLoggedOut() {
-        Log.d("PlayerActivity", "User logged out");
+        Log.d("HostPlayerActivity", "User logged out");
     }
 
     @Override
     public void onLoginFailed(Error e) {
-        Log.d("PlayerActivity", "Login failed");
+        Log.d("HostPlayerActivity", "Login failed");
     }
 
     @Override
     public void onTemporaryError() {
-        Log.d("PlayerActivity", "Temporary error occurred");
+        Log.d("HostPlayerActivity", "Temporary error occurred");
     }
 
     @Override
     public void onConnectionMessage(String message) {
-        Log.d("PlayerActivity", "Received connection message: " + message);
+        Log.d("HostPlayerActivity", "Received connection message: " + message);
     }
 }
