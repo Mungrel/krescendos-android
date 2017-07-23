@@ -59,17 +59,17 @@ public class TrackPlayer {
                     double currentPos = (double)spotifyPlayer.getPlaybackState().positionMs;
                     double prog = (currentPos/trackDur) * 100;
                     int progressPercent = (int)Math.round(prog);
+
                     seekBar.setProgress(progressPercent);
                 }
             }
-        }, 0, 400);
+        }, 0, 300);
     }
 
     private void playTrack(Track track){
         Log.d("PLAYING", track.getName());
         spotifyPlayer.playUri(null, track.getTrackURI(), 0, 0);
         isPlaying = true;
-
     }
 
     private boolean trackLoaded(){

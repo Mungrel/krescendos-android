@@ -82,7 +82,6 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
                 Log.d("APPENDTRACK", "Track: "+track.getName());
-
                 trackList.add(track);
                 listAdapter.updateTracks(trackList);
         }
