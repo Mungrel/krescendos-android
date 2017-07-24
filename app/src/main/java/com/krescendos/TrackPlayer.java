@@ -23,6 +23,7 @@ public class TrackPlayer {
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
     private SeekBar seekBar;
+    private OnTrackChangeListener onTrackChangeListener;
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, final SeekBar seekBar){
         this.spotifyPlayer = spotifyPlayer;
@@ -40,6 +41,8 @@ public class TrackPlayer {
                         pos = 0;
                     }
                     playTrack(trackList.get(pos));
+                } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged){
+                    onTrackChangeListener.onTrackChange(pos);
                 }
 
             }
@@ -64,6 +67,10 @@ public class TrackPlayer {
                 }
             }
         }, 0, 300);
+    }
+
+    public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener){
+        this.onTrackChangeListener = onTrackChangeListener;
     }
 
     private void playTrack(Track track){
@@ -150,6 +157,10 @@ public class TrackPlayer {
         } else {
             playTrack(trackList.get(pos));
         }
+    }
+
+    public int getCurrentPos(){
+        return pos;
     }
 
 }

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 
 import com.google.gson.Gson;
+import com.krescendos.OnTrackChangeListener;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
 import com.krescendos.TrackPlayer;
@@ -97,7 +98,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         trackList = new ArrayList<Track>();
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
         listAdapter.notifyDataSetChanged();
-        ListView listView = (ListView) findViewById(R.id.playerList);
+        final ListView listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,6 +123,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 mPlayer.seekTo(progress);
             }
         });
+
+
     }
 
     private void refreshPlayBtn(){
@@ -168,6 +171,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, seekBar);
+                            mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
+                                @Override
+                                public void onTrackChange(int newTrackPosition) {
+                                    listAdapter.setCurrentPlayingId(mPlayer.getCurrentlyPlaying().getId());
+                                    listAdapter.notifyDataSetChanged();
+                                }
+                            });
                         }
 
                         @Override
