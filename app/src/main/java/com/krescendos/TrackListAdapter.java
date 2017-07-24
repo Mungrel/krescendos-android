@@ -1,6 +1,7 @@
 package com.krescendos;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,14 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
     private LayoutInflater mInflater;
     private boolean mNotifyOnChange = true;
+    private String currentPlayingId;
 
     public TrackListAdapter(Context context, List<Track> tracks) {
         super(context, R.layout.player_list);
         this.context = context;
         this.tracks = new ArrayList<Track>(tracks);
         this.mInflater = LayoutInflater.from(context);
+        currentPlayingId = null;
     }
 
     @Override
@@ -83,6 +86,15 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         artistString = artistString.trim();
         holder.artistName.setText(artistString);
         holder.pos = position;
+
+        if (tracks.get(position).getId().equals(currentPlayingId)){
+            holder.artistName.setTextColor(Color.BLUE);
+            holder.trackName.setTextColor(Color.BLUE);
+        } else {
+            holder.artistName.setTextColor(Color.WHITE);
+            holder.trackName.setTextColor(Color.WHITE);
+        }
+
         return convertView;
     }
 
@@ -107,5 +119,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         TextView trackName;
         TextView artistName;
         int pos;
+    }
+
+    public void setCurrentPlayingId(String currentPlayingId){
+        this.currentPlayingId = currentPlayingId;
     }
 }
