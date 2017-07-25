@@ -1,6 +1,7 @@
 package com.krescendos;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.SeekBar;
 
@@ -25,11 +26,12 @@ public class TrackPlayer {
     private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer){
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context){
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
+        this.requester = new Requester(context);
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
             @Override
@@ -43,7 +45,6 @@ public class TrackPlayer {
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged){
                     onTrackChangeListener.onTrackChange(pos);
                 }
-
             }
 
             @Override
