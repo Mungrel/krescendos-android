@@ -112,6 +112,18 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
+        seekBar.setMax(100);
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (mPlayer != null){
+                    seekBar.setProgress(mPlayer.getProgressPercent());
+                }
+            }
+        }, 0, 300);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -179,7 +191,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, seekBar);
+                            mPlayer = new TrackPlayer(spotifyPlayer);
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(int newTrackPosition) {

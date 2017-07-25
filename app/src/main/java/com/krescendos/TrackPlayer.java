@@ -22,15 +22,14 @@ public class TrackPlayer {
     private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
-    private SeekBar seekBar;
     private OnTrackChangeListener onTrackChangeListener;
+    private Requester requester;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, final SeekBar seekBar){
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer){
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
-        this.seekBar = seekBar;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
             @Override
@@ -51,26 +50,23 @@ public class TrackPlayer {
             public void onPlaybackError(Error error) {}
         });
 
-        seekBar.setMax(100);
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (trackLoaded()){
-                    double trackDur = (double)spotifyPlayer.getMetadata().currentTrack.durationMs;
-                    double currentPos = (double)spotifyPlayer.getPlaybackState().positionMs;
-                    double prog = (currentPos/trackDur) * 100;
-                    int progressPercent = (int)Math.round(prog);
-
-                    seekBar.setProgress(progressPercent);
-                }
-            }
-        }, 0, 300);
     }
 
     public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener){
         this.onTrackChangeListener = onTrackChangeListener;
+    }
+
+    public int getProgressPercent(){
+        if (trackLoaded()) {
+            double trackDur = (double) spotifyPlayer.getMetadata().currentTrack.durationMs;
+            double currentPos = (double) spotifyPlayer.getPlaybackState().positionMs;
+            double prog = (currentPos / trackDur) * 100;
+            int progressPercent = (int) Math.round(prog);
+            return progressPercent;
+        } else {
+            return 0;
+        }
     }
 
     private void playTrack(Track track){
