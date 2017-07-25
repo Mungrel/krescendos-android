@@ -26,7 +26,7 @@ public class TrackPlayer {
     private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context){
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, String partyId){
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
@@ -50,8 +50,6 @@ public class TrackPlayer {
             @Override
             public void onPlaybackError(Error error) {}
         });
-
-
     }
 
     public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener){

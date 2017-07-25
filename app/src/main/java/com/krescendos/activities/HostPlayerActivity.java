@@ -191,7 +191,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext());
+                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getId());
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(int newTrackPosition) {
