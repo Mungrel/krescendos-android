@@ -25,6 +25,7 @@ public class TrackPlayer {
     private boolean isPlaying;
     private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
+    private String partyId;
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, String partyId){
         this.spotifyPlayer = spotifyPlayer;
@@ -32,6 +33,7 @@ public class TrackPlayer {
         this.pos = 0;
         this.isPlaying = false;
         this.requester = new Requester(context);
+        this.partyId = partyId;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
             @Override
@@ -92,6 +94,7 @@ public class TrackPlayer {
 
     public void queue(Track track){
         trackList.add(track);
+        requester.append(partyId, track);
     }
 
     public void pause(){
