@@ -19,6 +19,7 @@ import com.krescendos.OnTrackChangeListener;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
 import com.krescendos.TrackPlayer;
+import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -51,11 +52,14 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private ImageButton playbtn;
     private SeekBar seekBar;
+    private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
+
+        party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
 
@@ -124,7 +128,12 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-
+        // Compatibility between versions
+        if (getActionBar() != null){
+            getActionBar().setTitle(party.getName());
+        } else {
+            getSupportActionBar().setTitle(party.getName());
+        }
     }
 
     private void refreshPlayBtn(){

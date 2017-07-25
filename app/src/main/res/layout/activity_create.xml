@@ -15,9 +15,18 @@
         android:hint="Party Name"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/createErrorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Could not create party"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="invisible" />
+
     <Button
         android:id="@+id/partyCreateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create" />
+
 </LinearLayout>
