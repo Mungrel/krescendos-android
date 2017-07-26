@@ -1,4 +1,4 @@
-package com.krescendos;
+package com.krescendos.web;
 
 import android.util.Log;
 

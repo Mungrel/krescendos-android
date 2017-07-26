@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
-import com.krescendos.Requester;
+import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
 
