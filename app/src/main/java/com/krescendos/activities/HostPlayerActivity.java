@@ -142,7 +142,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         // Compatibility between versions
         if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else {
+        } else if (getSupportActionBar() != null){
             getSupportActionBar().setTitle(party.getName());
         }
     }

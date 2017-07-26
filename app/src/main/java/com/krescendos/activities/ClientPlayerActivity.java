@@ -46,7 +46,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         // Compatibility between versions
         if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else {
+        } else if (getSupportActionBar() != null){
             getSupportActionBar().setTitle(party.getName());
         }
     }
