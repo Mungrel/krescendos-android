@@ -2,8 +2,8 @@ package com.krescendos.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,9 +28,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
-
 public class SearchActivity extends AppCompatActivity {
 
     private Requester requester;
@@ -53,21 +50,22 @@ public class SearchActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 String json = gson.toJson(selection, Track.class);
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("AddedTrack",json);
-                setResult(Activity.RESULT_OK,returnIntent);
+                returnIntent.putExtra("AddedTrack", json);
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
 
         // Search result list will be filled with recommendations until the user completes a search
-        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>(){
+        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("RESPONSE", response.toString());
-                Type listType = new TypeToken<List<Track>>() {}.getType();
+                Type listType = new TypeToken<List<Track>>() {
+                }.getType();
                 trackList = new Gson().fromJson(response.toString(), listType);
-                Log.d("QUERYRESPONSELISTSIZE", ""+trackList.size());
+                Log.d("QUERYRESPONSELISTSIZE", "" + trackList.size());
                 listAdapter.updateTracks(trackList);
             }
         });
@@ -88,14 +86,15 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("QUERY:", query);
-                requester.search(query, new Response.Listener<JSONArray>(){
+                requester.search(query, new Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("RESPONSE", response.toString());
-                        Type listType = new TypeToken<List<Track>>() {}.getType();
+                        Type listType = new TypeToken<List<Track>>() {
+                        }.getType();
                         trackList = new Gson().fromJson(response.toString(), listType);
-                        Log.d("QUERYRESPONSELISTSIZE", ""+trackList.size());
+                        Log.d("QUERYRESPONSELISTSIZE", "" + trackList.size());
                         resultHeader.setText("Search Results");
                         listAdapter.updateTracks(trackList);
                     }

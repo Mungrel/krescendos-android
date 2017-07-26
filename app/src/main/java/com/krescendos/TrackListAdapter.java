@@ -80,14 +80,14 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         }
         holder.trackName.setText(tracks.get(position).getName());
         String artistString = "";
-        for (Artist artist : tracks.get(position).getArtists()){
-            artistString += artist.getName()+" ";
+        for (Artist artist : tracks.get(position).getArtists()) {
+            artistString += artist.getName() + " ";
         }
         artistString = artistString.trim();
         holder.artistName.setText(artistString);
         holder.pos = position;
 
-        if (tracks.get(position).getId().equals(currentPlayingId)){
+        if (tracks.get(position).getId().equals(currentPlayingId)) {
             holder.artistName.setTextColor(Color.BLUE);
             holder.trackName.setTextColor(Color.BLUE);
         } else {
@@ -98,7 +98,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return convertView;
     }
 
-    public void updateTracks(List<Track> tracks){
+    public void updateTracks(List<Track> tracks) {
         this.tracks = tracks;
         notifyDataSetChanged();
     }
@@ -121,7 +121,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         int pos;
     }
 
-    public void setCurrentPlayingId(String currentPlayingId){
+    public void setCurrentPlayingId(String currentPlayingId) {
         this.currentPlayingId = currentPlayingId;
     }
 }

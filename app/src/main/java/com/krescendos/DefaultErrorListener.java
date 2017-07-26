@@ -8,6 +8,6 @@ import com.android.volley.VolleyError;
 public class DefaultErrorListener implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.d("ERROR:", ""+error.getMessage());
+        Log.d("ERROR:", "" + error.getMessage());
     }
 }
