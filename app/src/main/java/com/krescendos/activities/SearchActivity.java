@@ -77,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem item = menu.findItem(R.id.searchView);
         SearchView searchView = (SearchView) item.getActionView();
-        final ListView listView = (ListView) findViewById(R.id.searchResultList);
 
         // Starts as "Recommended" until user searches
         final TextView resultHeader = (TextView) findViewById(R.id.searchRecommendedText);
@@ -95,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
                         }.getType();
                         trackList = new Gson().fromJson(response.toString(), listType);
                         Log.d("QUERYRESPONSELISTSIZE", "" + trackList.size());
-                        resultHeader.setText("Search Results");
+                        resultHeader.setText(R.string.searchResults);
                         listAdapter.updateTracks(trackList);
                     }
                 });

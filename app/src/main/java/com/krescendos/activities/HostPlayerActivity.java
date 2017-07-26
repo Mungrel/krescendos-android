@@ -166,7 +166,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addTrackItem:
-                Log.d("HERE", "hello");
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivityForResult(intent, SEARCH_CODE);
                 break;
