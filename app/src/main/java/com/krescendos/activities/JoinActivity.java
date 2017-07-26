@@ -1,9 +1,8 @@
 package com.krescendos.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
-import com.krescendos.Requester;
+import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
 
@@ -40,7 +39,7 @@ public class JoinActivity extends AppCompatActivity {
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
                     }
-                }, new Response.ErrorListener(){
+                }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {

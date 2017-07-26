@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Krescendos</string>
+    <string name="searchResults">Search Results</string>
 </resources>

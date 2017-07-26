@@ -8,31 +8,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.TrackListAdapter;
-import com.krescendos.TrackPlayer;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
-import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationRequest;
-import com.spotify.sdk.android.authentication.AuthenticationResponse;
-import com.spotify.sdk.android.player.Config;
+import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
-import com.spotify.sdk.android.player.Spotify;
-import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientPlayerActivity extends AppCompatActivity implements ConnectionStateCallback
-{
+public class ClientPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int SEARCH_CODE = 1234;
@@ -40,11 +30,13 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
     private List<Track> trackList;
     private TrackListAdapter listAdapter;
     private Party party;
+    private Requester requester;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_player);
+        requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
@@ -55,9 +47,9 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         listView.setAdapter(listAdapter);
 
         // Compatibility between versions
-        if (getActionBar() != null){
+        if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else {
+        } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
     }
@@ -71,9 +63,8 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.addTrackItem:
-                Log.d("HERE", "hello");
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivityForResult(intent, SEARCH_CODE);
                 break;
@@ -88,13 +79,14 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         super.onActivityResult(requestCode, resultCode, intent);
 
         // Check if result comes from the correct activity
-        switch (requestCode){
+        switch (requestCode) {
             case SEARCH_CODE:
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
-                Log.d("APPENDTRACK", "Track: "+track.getName());
+                Log.d("APPENDTRACK", "Track: " + track.getName());
                 trackList.add(track);
                 listAdapter.updateTracks(trackList);
+                requester.append(party.getId(), track);
         }
     }
 

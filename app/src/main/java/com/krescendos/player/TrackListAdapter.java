@@ -1,13 +1,15 @@
-package com.krescendos;
+package com.krescendos.player;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.krescendos.R;
 import com.krescendos.domain.Artist;
 import com.krescendos.domain.Track;
 
@@ -15,16 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackListAdapter extends ArrayAdapter<Track> {
-    private Context context;
     private List<Track> tracks;
-
     private LayoutInflater mInflater;
-    private boolean mNotifyOnChange = true;
     private String currentPlayingId;
 
     public TrackListAdapter(Context context, List<Track> tracks) {
         super(context, R.layout.player_list);
-        this.context = context;
         this.tracks = new ArrayList<Track>(tracks);
         this.mInflater = LayoutInflater.from(context);
         currentPlayingId = null;
@@ -61,33 +59,31 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     }
 
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         final ViewHolder holder;
-        int type = getItemViewType(position);
         if (convertView == null) {
             holder = new ViewHolder();
-            switch (type) {
-                case 1:
-                    convertView = mInflater.inflate(R.layout.player_list, parent, false);
-                    holder.trackName = (TextView) convertView.findViewById(R.id.listTrackName);
-                    holder.artistName = (TextView) convertView.findViewById(R.id.listArtistName);
-                    break;
-            }
+            convertView = mInflater.inflate(R.layout.player_list, parent, false);
+            holder.trackName = convertView.findViewById(R.id.listTrackName);
+            holder.artistName = convertView.findViewById(R.id.listArtistName);
+
             convertView.setTag(holder);
+
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.trackName.setText(tracks.get(position).getName());
         String artistString = "";
-        for (Artist artist : tracks.get(position).getArtists()){
-            artistString += artist.getName()+" ";
+        for (Artist artist : tracks.get(position).getArtists()) {
+            artistString += artist.getName() + " ";
         }
         artistString = artistString.trim();
         holder.artistName.setText(artistString);
         holder.pos = position;
 
-        if (tracks.get(position).getId().equals(currentPlayingId)){
+        if (tracks.get(position).getId().equals(currentPlayingId)) {
             holder.artistName.setTextColor(Color.BLUE);
             holder.trackName.setTextColor(Color.BLUE);
         } else {
@@ -98,7 +94,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return convertView;
     }
 
-    public void updateTracks(List<Track> tracks){
+    public void updateTracks(List<Track> tracks) {
         this.tracks = tracks;
         notifyDataSetChanged();
     }
@@ -106,22 +102,16 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        mNotifyOnChange = true;
     }
 
-    public void setNotifyOnChange(boolean notifyOnChange) {
-        mNotifyOnChange = notifyOnChange;
-    }
-
-
-    static class ViewHolder {
+    private static class ViewHolder {
 
         TextView trackName;
         TextView artistName;
         int pos;
     }
 
-    public void setCurrentPlayingId(String currentPlayingId){
+    public void setCurrentPlayingId(String currentPlayingId) {
         this.currentPlayingId = currentPlayingId;
     }
 }

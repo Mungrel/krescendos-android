@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 
 import com.google.gson.Gson;
-import com.krescendos.OnTrackChangeListener;
-import com.krescendos.TrackListAdapter;
 import com.krescendos.R;
-import com.krescendos.TrackPlayer;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
+import com.krescendos.player.OnTrackChangeListener;
+import com.krescendos.player.TrackListAdapter;
+import com.krescendos.player.TrackPlayer;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -35,8 +35,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HostPlayerActivity extends AppCompatActivity implements ConnectionStateCallback
-{
+public class HostPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
@@ -72,8 +71,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
         ImageButton back = (ImageButton) findViewById(R.id.skpBkBtn);
-        back.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 mPlayer.previous();
             }
         });
@@ -90,7 +89,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mPlayer.isPlaying()){
+                if (mPlayer.isPlaying()) {
                     mPlayer.pause();
                 } else {
                     mPlayer.play();
@@ -118,7 +117,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (mPlayer != null){
+                if (mPlayer != null) {
                     seekBar.setProgress(mPlayer.getProgressPercent());
                 }
             }
@@ -141,15 +140,15 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
 
         // Compatibility between versions
-        if (getActionBar() != null){
+        if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else {
+        } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
     }
 
-    private void refreshPlayBtn(){
-        if (mPlayer.isPlaying()){
+    private void refreshPlayBtn() {
+        if (mPlayer.isPlaying()) {
             playbtn.setImageResource(android.R.drawable.ic_media_pause);
         } else {
             playbtn.setImageResource(android.R.drawable.ic_media_play);
@@ -165,9 +164,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.addTrackItem:
-                Log.d("HERE", "hello");
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivityForResult(intent, SEARCH_CODE);
                 break;
@@ -183,7 +181,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         super.onActivityResult(requestCode, resultCode, intent);
 
         // Check if result comes from the correct activity
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_CODE:
                 AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
                 if (response.getType() == AuthenticationResponse.Type.TOKEN) {
@@ -207,11 +205,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         }
                     });
                     break;
-            }
+                }
             case SEARCH_CODE:
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
-                Log.d("APPENDTRACK", "Track: "+track.getName());
+                Log.d("APPENDTRACK", "Track: " + track.getName());
 
                 trackList.add(track);
                 listAdapter.updateTracks(trackList);
