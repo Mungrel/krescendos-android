@@ -1,6 +1,7 @@
 package com.krescendos;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.SeekBar;
 
@@ -22,15 +23,17 @@ public class TrackPlayer {
     private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
-    private SeekBar seekBar;
     private OnTrackChangeListener onTrackChangeListener;
+    private Requester requester;
+    private String partyId;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, final SeekBar seekBar){
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, String partyId){
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
-        this.seekBar = seekBar;
+        this.requester = new Requester(context);
+        this.partyId = partyId;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
             @Override
@@ -44,33 +47,27 @@ public class TrackPlayer {
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged){
                     onTrackChangeListener.onTrackChange(pos);
                 }
-
             }
 
             @Override
             public void onPlaybackError(Error error) {}
         });
-
-        seekBar.setMax(100);
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (trackLoaded()){
-                    double trackDur = (double)spotifyPlayer.getMetadata().currentTrack.durationMs;
-                    double currentPos = (double)spotifyPlayer.getPlaybackState().positionMs;
-                    double prog = (currentPos/trackDur) * 100;
-                    int progressPercent = (int)Math.round(prog);
-
-                    seekBar.setProgress(progressPercent);
-                }
-            }
-        }, 0, 300);
     }
 
     public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener){
         this.onTrackChangeListener = onTrackChangeListener;
+    }
+
+    public int getProgressPercent(){
+        if (trackLoaded()) {
+            double trackDur = (double) spotifyPlayer.getMetadata().currentTrack.durationMs;
+            double currentPos = (double) spotifyPlayer.getPlaybackState().positionMs;
+            double prog = (currentPos / trackDur) * 100;
+            int progressPercent = (int) Math.round(prog);
+            return progressPercent;
+        } else {
+            return 0;
+        }
     }
 
     private void playTrack(Track track){
@@ -97,6 +94,7 @@ public class TrackPlayer {
 
     public void queue(Track track){
         trackList.add(track);
+        requester.append(partyId, track);
     }
 
     public void pause(){

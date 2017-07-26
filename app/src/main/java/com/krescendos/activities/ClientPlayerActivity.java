@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.TrackListAdapter;
 import com.krescendos.TrackPlayer;
+import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -38,17 +39,27 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
     private List<Track> trackList;
     private TrackListAdapter listAdapter;
+    private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_player);
 
+        party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
+
         trackList = new ArrayList<Track>();
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
         listAdapter.notifyDataSetChanged();
-        ListView listView = (ListView) findViewById(R.id.playerList);
+        ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
+
+        // Compatibility between versions
+        if (getActionBar() != null){
+            getActionBar().setTitle(party.getName());
+        } else {
+            getSupportActionBar().setTitle(party.getName());
+        }
     }
 
     @Override

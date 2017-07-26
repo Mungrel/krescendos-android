@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.krescendos.R;
+import com.krescendos.Requester;
+
+import org.json.JSONObject;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -16,28 +22,32 @@ public class JoinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
+        final Requester requester = new Requester(getApplicationContext());
 
         Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
-        final TextView joinCodeTextField = (TextView) findViewById(R.id.joinCodeField);
+        final EditText joinCodeTextField = (EditText) findViewById(R.id.joinCodeField);
+
+        final TextView errorText = (TextView) findViewById(R.id.joinErrorTextView);
 
         joinCodeSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = joinCodeTextField.getText().toString();
-                boolean success = joinParty(text);
+                requester.join(text, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
+                        intent.putExtra("party", response.toString());
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener(){
 
-                if (success){
-                    Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
-                    startActivity(intent);
-                }
-
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        errorText.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
-    }
-// Returns true if party successfully joined
-    private boolean joinParty(String joinCode){
-        Log.d("JOINING: ", joinCode);
-        // Call some api or something
-        return true;
     }
 }

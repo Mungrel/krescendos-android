@@ -6,10 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.Requester;
+import com.krescendos.domain.Party;
+
+import org.json.JSONObject;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -17,28 +25,31 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        final Requester requester = new Requester(getApplicationContext());
 
         Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
-        final TextView partyName = (TextView) findViewById(R.id.partyNameField);
+        final EditText partyName = (EditText) findViewById(R.id.partyNameField);
+
+        final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
 
         partyCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = partyName.getText().toString();
-                boolean success = createParty(name);
-
-                if (success){
-                    Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
-                    intent.putExtra("isHost", true);
-                    startActivity(intent);
-                }
+                requester.create(name, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
+                        intent.putExtra("party", response.toString());
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        errorText.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
-    }
-// Returns true if party successfully created
-    private boolean createParty(String text){
-        Log.d("CREATING: ",text);
-        // some api call
-        return true;
     }
 }

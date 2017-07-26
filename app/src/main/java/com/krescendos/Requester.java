@@ -53,17 +53,17 @@ public class Requester {
         requestQueue.add(jsonArrayRequest);
     }
 
-    public void create(String partyName, Response.Listener<JSONObject> listener){
+    public void create(String partyName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
         String url = Requester.CREATE+"?name="+partyName;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                listener, new DefaultErrorListener());
+                listener, errorListener);
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void join(String code, Response.Listener<JSONObject> listener){
+    public void join(String code, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
         String url = Requester.JOIN+"?code="+code;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                listener, new DefaultErrorListener());
+                listener, errorListener);
         requestQueue.add(jsonObjectRequest);
     }
 
