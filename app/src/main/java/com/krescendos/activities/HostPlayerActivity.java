@@ -14,6 +14,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
@@ -21,6 +26,7 @@ import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.web.TrackChangeListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -39,6 +45,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
+    private DatabaseReference ref;
     private TrackPlayer mPlayer;
 
     // Request code that will be used to verify if the result comes from correct activity
@@ -60,7 +67,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        ref = FirebaseDatabase.getInstance().getReference(party.getId());
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -111,6 +118,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(100);
 
         Timer timer = new Timer();
@@ -145,6 +153,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
+
+        ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     private void refreshPlayBtn() {
