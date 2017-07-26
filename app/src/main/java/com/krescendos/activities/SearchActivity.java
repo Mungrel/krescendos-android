@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.krescendos.R;
 import com.krescendos.Requester;
-import com.krescendos.TrackListAdapter;
+import com.krescendos.player.TrackListAdapter;
 import com.krescendos.domain.Track;
 
 import org.json.JSONArray;

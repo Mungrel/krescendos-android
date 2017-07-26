@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.TrackListAdapter;
+import com.krescendos.player.TrackListAdapter;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.player.ConnectionStateCallback;

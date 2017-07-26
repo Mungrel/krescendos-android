@@ -1,4 +1,4 @@
-package com.krescendos;
+package com.krescendos.player;
 
 public interface OnTrackChangeListener {
 

@@ -1,9 +1,10 @@
-package com.krescendos;
+package com.krescendos.player;
 
 
 import android.content.Context;
 import android.util.Log;
 
+import com.krescendos.Requester;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.PlayerEvent;

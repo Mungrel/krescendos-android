@@ -15,10 +15,10 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 
 import com.google.gson.Gson;
-import com.krescendos.OnTrackChangeListener;
+import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.R;
-import com.krescendos.TrackListAdapter;
-import com.krescendos.TrackPlayer;
+import com.krescendos.player.TrackListAdapter;
+import com.krescendos.player.TrackPlayer;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;

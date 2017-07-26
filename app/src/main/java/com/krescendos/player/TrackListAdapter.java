@@ -1,4 +1,4 @@
-package com.krescendos;
+package com.krescendos.player;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.krescendos.R;
 import com.krescendos.domain.Artist;
 import com.krescendos.domain.Track;
 
