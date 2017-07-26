@@ -10,12 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.web.Requester;
+import com.krescendos.web.TrackChangeListener;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 
@@ -31,6 +34,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
     private TrackListAdapter listAdapter;
     private Party party;
     private Requester requester;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
+
+        ref = FirebaseDatabase.getInstance().getReference(party.getId());
 
         trackList = new ArrayList<Track>();
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
@@ -52,6 +58,8 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
+
+        ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     @Override
