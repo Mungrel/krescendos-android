@@ -18,9 +18,9 @@ import com.android.volley.Response;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.krescendos.R;
-import com.krescendos.web.Requester;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.domain.Track;
+import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.Requester;
 
 import org.json.JSONArray;
 

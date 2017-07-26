@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 
 import com.google.gson.Gson;
-import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.R;
-import com.krescendos.player.TrackListAdapter;
-import com.krescendos.player.TrackPlayer;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
+import com.krescendos.player.OnTrackChangeListener;
+import com.krescendos.player.TrackListAdapter;
+import com.krescendos.player.TrackPlayer;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -142,7 +142,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         // Compatibility between versions
         if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else if (getSupportActionBar() != null){
+        } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
     }

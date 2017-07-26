@@ -12,9 +12,9 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
+import com.krescendos.player.TrackListAdapter;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 
@@ -46,7 +46,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         // Compatibility between versions
         if (getActionBar() != null) {
             getActionBar().setTitle(party.getName());
-        } else if (getSupportActionBar() != null){
+        } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
     }
