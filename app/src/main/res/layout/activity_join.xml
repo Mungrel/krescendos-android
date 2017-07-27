@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Join Code"
+        android:hint="@string/join_code"
         android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/joinErrorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Party does not exist"
+        android:text="@string/party_does_not_exist"
         android:textColor="@android:color/holo_red_dark"
         android:visibility="invisible" />
 
@@ -27,5 +27,5 @@
         android:id="@+id/joinCodeSubmitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Join" />
+        android:text="@string/join" />
 </LinearLayout>

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/background_dark"
         android:textColor="@android:color/darker_gray"
-        android:text="Recommended"
+        android:text="@string/recommended"
          />
 
     <ListView
