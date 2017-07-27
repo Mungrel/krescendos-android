@@ -21,9 +21,9 @@ public class Requester {
     private static String baseURL = "https://krescendos-174122.appspot.com";
     private static String RECOMMEND = baseURL + "/recommend";
     private static String SEARCH = baseURL + "/search";
-    private static String CREATE = baseURL + "/create";
-    private static String JOIN = baseURL + "/join";
-    private static String APPEND_TRACK = baseURL + "/append";
+    private static String CREATE = baseURL + "/party";
+    private static String JOIN = baseURL + "/party";
+    private static String APPEND_TRACK = baseURL + "/party";
 
     public Requester(Context context) {
         this.requestQueue = Volley.newRequestQueue(context);
@@ -45,14 +45,14 @@ public class Requester {
     }
 
     public void create(String partyName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = Requester.CREATE + "?name=" + partyName;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        String url = Requester.CREATE + "?id=" + partyName;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
                 listener, errorListener);
         requestQueue.add(jsonObjectRequest);
     }
 
     public void join(String code, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = Requester.JOIN + "?code=" + code;
+        String url = Requester.JOIN + "?id=" + code;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 listener, errorListener);
         requestQueue.add(jsonObjectRequest);
@@ -60,21 +60,13 @@ public class Requester {
 
     // No response expected, so we'll handle the response listener
     public void append(String code, Track track) {
-        String url = Requester.APPEND_TRACK + "?code=" + code;
-        String json = new Gson().toJson(track, Track.class);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        String url = Requester.APPEND_TRACK + "/"+ code+"/playlist?=spotifyTrackId="+track.getId();
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
         };
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, listener, new DefaultErrorListener());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, listener, new DefaultErrorListener());
         requestQueue.add(jsonObjectRequest);
     }
 
