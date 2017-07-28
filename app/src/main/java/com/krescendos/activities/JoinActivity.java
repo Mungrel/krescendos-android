@@ -33,10 +33,10 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = joinCodeTextField.getText().toString();
+                errorText.setVisibility(View.INVISIBLE);
                 requester.join(text, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("NULL", response.toString());
                         Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
@@ -45,6 +45,7 @@ public class JoinActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR", ""+error.getMessage());
                         errorText.setVisibility(View.VISIBLE);
                     }
                 });

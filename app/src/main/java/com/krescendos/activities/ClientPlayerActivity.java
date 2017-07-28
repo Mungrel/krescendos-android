@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
+import com.krescendos.firebase.FirebasePaths;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.web.Requester;
 import com.krescendos.web.TrackChangeListener;
@@ -44,7 +45,9 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        //ref = FirebaseDatabase.getInstance().getReference(party.getId());
+        ref = FirebaseDatabase.getInstance().getReference("party");
+
+        Log.d("DB", ref.child(party.getPartyId()).toString());
 
         trackList = party.getPlaylist();
         if (trackList == null){
