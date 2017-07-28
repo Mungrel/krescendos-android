@@ -114,4 +114,8 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     public void setCurrentPlayingId(String currentPlayingId) {
         this.currentPlayingId = currentPlayingId;
     }
+
+    public List<Track> getTracks(){
+        return tracks;
+    }
 }

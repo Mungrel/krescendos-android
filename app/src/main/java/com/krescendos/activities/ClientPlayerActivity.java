@@ -10,16 +10,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
-import com.krescendos.firebase.FirebasePaths;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PlaylistAppendListener;
 import com.krescendos.web.Requester;
-import com.krescendos.web.TrackChangeListener;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 
@@ -45,9 +47,9 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference("party");
+        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
-        Log.d("DB", ref.child(party.getPartyId()).toString());
+        ref.child("playlist").addChildEventListener(new PlaylistAppendListener());
 
         trackList = party.getPlaylist();
         if (trackList == null){
