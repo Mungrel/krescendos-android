@@ -67,7 +67,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference(party.getId());
+        //ref = FirebaseDatabase.getInstance().getReference(party.getId());
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -154,7 +154,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             getSupportActionBar().setTitle(party.getName());
         }
 
-        ref.addValueEventListener(new TrackChangeListener(listAdapter));
+       // ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     private void refreshPlayBtn() {
@@ -199,7 +199,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getId());
+                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(int newTrackPosition) {

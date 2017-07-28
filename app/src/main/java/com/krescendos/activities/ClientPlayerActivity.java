@@ -44,9 +44,12 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference(party.getId());
+        //ref = FirebaseDatabase.getInstance().getReference(party.getId());
 
-        trackList = new ArrayList<Track>();
+        trackList = party.getPlaylist();
+        if (trackList == null){
+            trackList = new ArrayList<Track>();
+        }
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
         listAdapter.notifyDataSetChanged();
         ListView listView = (ListView) findViewById(R.id.client_playerList);
@@ -59,7 +62,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
             getSupportActionBar().setTitle(party.getName());
         }
 
-        ref.addValueEventListener(new TrackChangeListener(listAdapter));
+        //ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     @Override
@@ -94,7 +97,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
                 Log.d("APPENDTRACK", "Track: " + track.getName());
                 trackList.add(track);
                 listAdapter.updateTracks(trackList);
-                requester.append(party.getId(), track);
+                requester.append(party.getPartyId(), track);
         }
     }
 

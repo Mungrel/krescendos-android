@@ -3,6 +3,7 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class JoinActivity extends AppCompatActivity {
                 requester.join(text, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("NULL", response.toString());
                         Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
