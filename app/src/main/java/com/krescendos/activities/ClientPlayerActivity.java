@@ -51,6 +51,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
             trackList = new ArrayList<Track>();
         }
         listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
+        listAdapter.setCurrentPlayingId(trackList.get(party.getPlayheadIndex()).getId());
         listAdapter.notifyDataSetChanged();
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
