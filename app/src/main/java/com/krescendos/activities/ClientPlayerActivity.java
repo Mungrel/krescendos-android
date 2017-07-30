@@ -49,8 +49,6 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
-        ref.child("playlist").addChildEventListener(new PlaylistAppendListener());
-
         trackList = party.getPlaylist();
         if (trackList == null){
             trackList = new ArrayList<Track>();
@@ -60,6 +58,8 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         listAdapter.notifyDataSetChanged();
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
+
+        ref.child("playlist").addChildEventListener(new PlaylistAppendListener(listAdapter));
 
         // Compatibility between versions
         if (getActionBar() != null) {

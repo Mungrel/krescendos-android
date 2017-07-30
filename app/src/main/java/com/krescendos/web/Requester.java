@@ -18,8 +18,7 @@ import org.json.JSONObject;
 public class Requester {
 
     private RequestQueue requestQueue;
-    //private static String baseURL = "https://krescendos-174122.appspot.com";
-    private static String baseURL = "https://172.24.19.235:8080";
+    private static String baseURL = "https://krescendos-174122.appspot.com";
     private static String RECOMMEND = baseURL + "/recommend";
     private static String SEARCH = baseURL + "/search";
     private static String CREATE = baseURL + "/party";
