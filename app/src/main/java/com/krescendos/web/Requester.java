@@ -45,7 +45,7 @@ public class Requester {
     }
 
     public void create(String partyName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = Requester.CREATE + "?id=" + partyName;
+        String url = Requester.CREATE + "?name=" + partyName;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
                 listener, errorListener);
         requestQueue.add(jsonObjectRequest);

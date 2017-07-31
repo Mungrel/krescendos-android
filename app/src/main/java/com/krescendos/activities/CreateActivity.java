@@ -32,6 +32,7 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = partyName.getText().toString();
+                errorText.setVisibility(View.INVISIBLE);
                 requester.create(name, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
