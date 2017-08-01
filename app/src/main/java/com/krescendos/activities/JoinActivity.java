@@ -45,7 +45,7 @@ public class JoinActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("ERROR", ""+error.getMessage());
+                        Log.d("ERROR", "" + error.getMessage());
                         errorText.setVisibility(View.VISIBLE);
                     }
                 });

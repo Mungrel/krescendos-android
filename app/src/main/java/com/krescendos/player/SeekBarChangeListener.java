@@ -6,7 +6,7 @@ public class SeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
 
     private TrackPlayer trackPlayer;
 
-    public SeekBarChangeListener(TrackPlayer trackPlayer){
+    public SeekBarChangeListener(TrackPlayer trackPlayer) {
         this.trackPlayer = trackPlayer;
     }
 

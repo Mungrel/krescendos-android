@@ -14,14 +14,14 @@ import java.util.List;
 public class TrackChangeListener implements ValueEventListener {
     TrackListAdapter trackListAdapter;
 
-    public TrackChangeListener(TrackListAdapter trackListAdapter){
+    public TrackChangeListener(TrackListAdapter trackListAdapter) {
         this.trackListAdapter = trackListAdapter;
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         List<Track> tracks = new ArrayList<Track>();
-        for (DataSnapshot trackSnapshot : dataSnapshot.getChildren()){
+        for (DataSnapshot trackSnapshot : dataSnapshot.getChildren()) {
             Track track = trackSnapshot.getValue(Track.class);
             tracks.add(track);
         }

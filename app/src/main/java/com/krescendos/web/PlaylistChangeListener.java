@@ -10,23 +10,23 @@ import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlaylistChangeListener implements ValueEventListener {
     private TrackListAdapter trackListAdapter;
 
-    public PlaylistChangeListener(TrackListAdapter trackListAdapter){
+    public PlaylistChangeListener(TrackListAdapter trackListAdapter) {
         this.trackListAdapter = trackListAdapter;
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        GenericTypeIndicator<Map<String, Track>> t = new GenericTypeIndicator<Map<String, Track>>() {};
+        GenericTypeIndicator<Map<String, Track>> t = new GenericTypeIndicator<Map<String, Track>>() {
+        };
         Map<String, Track> playlist = dataSnapshot.getValue(t);
         List<Track> list = new ArrayList<Track>();
-        if (playlist != null){
+        if (playlist != null) {
             list.addAll(playlist.values());
         }
         trackListAdapter.updateTracks(list);
@@ -34,6 +34,6 @@ public class PlaylistChangeListener implements ValueEventListener {
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
-        Log.d("DB_ERROR", ""+databaseError.getMessage()+": "+databaseError.getDetails());
+        Log.d("DB_ERROR", "" + databaseError.getMessage() + ": " + databaseError.getDetails());
     }
 }

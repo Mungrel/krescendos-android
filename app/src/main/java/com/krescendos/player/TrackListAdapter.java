@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.krescendos.R;
 import com.krescendos.domain.Artist;
 import com.krescendos.domain.Track;
-import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +99,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         notifyDataSetChanged();
     }
 
-    public void updateTracks(List<Track> tracks){
+    public void updateTracks(List<Track> tracks) {
         this.tracks = tracks;
         notifyDataSetChanged();
     }
@@ -121,7 +120,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         this.currentPlayingId = currentPlayingId;
     }
 
-    public List<Track> getTracks(){
+    public List<Track> getTracks() {
         return tracks;
     }
 }

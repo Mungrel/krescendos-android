@@ -25,7 +25,6 @@ import com.krescendos.web.Requester;
 import org.json.JSONArray;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {

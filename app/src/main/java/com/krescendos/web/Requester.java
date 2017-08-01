@@ -8,11 +8,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.krescendos.domain.Track;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Requester {
@@ -60,7 +58,7 @@ public class Requester {
 
     // No response expected, so we'll handle the response listener
     public void append(String code, Track track) {
-        String url = Requester.APPEND_TRACK + "/"+ code+"/playlist?spotifyTrackId="+track.getId();
+        String url = Requester.APPEND_TRACK + "/" + code + "/playlist?spotifyTrackId=" + track.getId();
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
