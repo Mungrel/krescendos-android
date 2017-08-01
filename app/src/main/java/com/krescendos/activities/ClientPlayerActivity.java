@@ -49,7 +49,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
-        trackList = party.getPlaylist();
+        trackList = party.getPlaylistAsList();
         if (trackList == null){
             trackList = new ArrayList<Track>();
         }
