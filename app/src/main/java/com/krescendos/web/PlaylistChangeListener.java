@@ -1,5 +1,7 @@
 package com.krescendos.web;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -32,6 +34,6 @@ public class PlaylistChangeListener implements ValueEventListener {
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
-
+        Log.d("DB_ERROR", ""+databaseError.getMessage()+": "+databaseError.getDetails());
     }
 }

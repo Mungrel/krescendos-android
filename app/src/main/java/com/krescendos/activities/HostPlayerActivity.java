@@ -41,9 +41,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
-    private DatabaseReference ref;
     private TrackPlayer mPlayer;
-    private Requester requester;
 
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
@@ -60,11 +58,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
-        requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,

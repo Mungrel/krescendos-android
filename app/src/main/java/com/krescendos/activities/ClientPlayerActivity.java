@@ -24,13 +24,10 @@ import com.spotify.sdk.android.player.Error;
 
 public class ClientPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
     // Request code that will be used to verify if the result comes from correct activity
-    // Can be any integer
     private static final int SEARCH_CODE = 1234;
 
-    private TrackListAdapter listAdapter;
     private Party party;
     private Requester requester;
-    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +37,9 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
-        listAdapter = new TrackListAdapter(getApplicationContext());
+        TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
