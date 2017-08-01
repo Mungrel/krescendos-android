@@ -20,12 +20,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.krescendos.PlaylistChangeListener;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.web.Requester;
 import com.krescendos.web.TrackChangeListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -47,13 +49,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private DatabaseReference ref;
     private TrackPlayer mPlayer;
+    private Requester requester;
 
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
     private static final int SEARCH_CODE = 1234;
 
-    private List<Track> trackList;
     private TrackListAdapter listAdapter;
 
     private ImageButton playbtn;
@@ -64,10 +66,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
+        requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        //ref = FirebaseDatabase.getInstance().getReference(party.getId());
+        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -105,9 +108,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        trackList = new ArrayList<Track>();
-        listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
-        listAdapter.notifyDataSetChanged();
+        listAdapter = new TrackListAdapter(getApplicationContext());
         final ListView listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,6 +118,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 refreshPlayBtn();
             }
         });
+
+        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(100);
@@ -220,10 +223,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
                 Log.d("APPENDTRACK", "Track: " + track.getName());
-
-                trackList.add(track);
-                listAdapter.updateTracks(trackList);
-                mPlayer.queue(track);
+                mPlayer.queue(track); // Queue will call requester.append()
                 refreshPlayBtn();
         }
     }

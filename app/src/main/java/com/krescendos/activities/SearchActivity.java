@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         requester = new Requester(getApplicationContext());
-        listAdapter = new TrackListAdapter(getApplicationContext(), new ArrayList<Track>());
+        listAdapter = new TrackListAdapter(getApplicationContext());
         ListView listView = (ListView) findViewById(R.id.searchResultList);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
