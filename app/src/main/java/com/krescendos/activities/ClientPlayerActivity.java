@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,8 +50,6 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
-
-        //ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     @Override

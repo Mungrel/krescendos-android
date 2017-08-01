@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +43,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackPlayer mPlayer;
 
     // Request code that will be used to verify if the result comes from correct activity
-    // Can be any integer
     private static final int REQUEST_CODE = 1337;
     private static final int SEARCH_CODE = 1234;
 
