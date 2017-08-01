@@ -1,28 +1,43 @@
 package com.krescendos.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Party {
 
-    private String name;
-    private String id;
+    private static int PLAYHEAD_START_POSITION = 0;
 
-    public Party(String name, String id) {
+    private int playheadIndex;
+    private Map<String, Track> playlist;
+    private String name;
+    private String partyId;
+
+    public Party(String name, String partyId) {
         this.name = name;
-        this.id = id;
+        this.playheadIndex = PLAYHEAD_START_POSITION;
+        this.playlist = new HashMap<String, Track>();
+        this.partyId = partyId;
+    }
+
+    public int getPlayheadIndex() {
+        return playheadIndex;
+    }
+
+    public Map<String, Track> getPlaylist() {
+        return playlist;
+    }
+
+    public List<Track> getPlaylistAsList() {
+        return new ArrayList<Track>(playlist.values());
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public String getPartyId() {
+        return partyId;
     }
 }

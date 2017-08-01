@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,25 +9,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClientPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
     // Request code that will be used to verify if the result comes from correct activity
-    // Can be any integer
     private static final int SEARCH_CODE = 1234;
 
-    private List<Track> trackList;
-    private TrackListAdapter listAdapter;
     private Party party;
     private Requester requester;
 
@@ -40,11 +36,13 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        trackList = new ArrayList<Track>();
-        listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
-        listAdapter.notifyDataSetChanged();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+
+        TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
+
+        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -84,9 +82,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
                 Log.d("APPENDTRACK", "Track: " + track.getName());
-                trackList.add(track);
-                listAdapter.updateTracks(trackList);
-                requester.append(party.getId(), track);
+                requester.append(party.getPartyId(), track);
         }
     }
 

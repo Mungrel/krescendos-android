@@ -25,7 +25,6 @@ import com.krescendos.web.Requester;
 import org.json.JSONArray;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         requester = new Requester(getApplicationContext());
-        listAdapter = new TrackListAdapter(getApplicationContext(), new ArrayList<Track>());
+        listAdapter = new TrackListAdapter(getApplicationContext());
         ListView listView = (ListView) findViewById(R.id.searchResultList);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

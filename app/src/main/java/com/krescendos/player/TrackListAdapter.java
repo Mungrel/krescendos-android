@@ -21,9 +21,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private LayoutInflater mInflater;
     private String currentPlayingId;
 
-    public TrackListAdapter(Context context, List<Track> tracks) {
+    public TrackListAdapter(Context context) {
         super(context, R.layout.player_list);
-        this.tracks = new ArrayList<Track>(tracks);
+        this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
         currentPlayingId = null;
     }
@@ -94,6 +94,11 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return convertView;
     }
 
+    public void addTrack(Track track) {
+        tracks.add(track);
+        notifyDataSetChanged();
+    }
+
     public void updateTracks(List<Track> tracks) {
         this.tracks = tracks;
         notifyDataSetChanged();
@@ -113,5 +118,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
     public void setCurrentPlayingId(String currentPlayingId) {
         this.currentPlayingId = currentPlayingId;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
     }
 }

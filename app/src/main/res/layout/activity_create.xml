@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Party Name"
+        android:hint="@string/party_name"
         android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/createErrorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Could not create party"
+        android:text="@string/could_not_create_party"
         android:textColor="@android:color/holo_red_dark"
         android:visibility="invisible" />
 
@@ -27,6 +27,6 @@
         android:id="@+id/partyCreateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create" />
+        android:text="@string/create" />
 
 </LinearLayout>

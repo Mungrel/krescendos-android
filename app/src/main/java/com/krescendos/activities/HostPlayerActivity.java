@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +13,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
+import com.krescendos.player.SeekBarChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.web.PlaylistChangeListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -30,8 +33,6 @@ import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,11 +43,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackPlayer mPlayer;
 
     // Request code that will be used to verify if the result comes from correct activity
-    // Can be any integer
     private static final int REQUEST_CODE = 1337;
     private static final int SEARCH_CODE = 1234;
 
-    private List<Track> trackList;
     private TrackListAdapter listAdapter;
 
     private ImageButton playbtn;
@@ -60,7 +59,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -98,9 +97,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        trackList = new ArrayList<Track>();
-        listAdapter = new TrackListAdapter(getApplicationContext(), trackList);
-        listAdapter.notifyDataSetChanged();
+        listAdapter = new TrackListAdapter(getApplicationContext());
         final ListView listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,6 +108,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
+        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
+
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(100);
 
         Timer timer = new Timer();
@@ -123,21 +123,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         }, 0, 300);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int progress = seekBar.getProgress();
-                mPlayer.seekTo(progress);
-            }
-        });
+        seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(mPlayer));
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -189,7 +175,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getId());
+                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(int newTrackPosition) {
@@ -210,10 +196,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 Gson gson = new Gson();
                 Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
                 Log.d("APPENDTRACK", "Track: " + track.getName());
-
-                trackList.add(track);
-                listAdapter.updateTracks(trackList);
-                mPlayer.queue(track);
+                mPlayer.queue(track); // Queue will call requester.append()
                 refreshPlayBtn();
         }
     }

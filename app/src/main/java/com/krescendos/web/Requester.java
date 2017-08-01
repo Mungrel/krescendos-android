@@ -1,6 +1,7 @@
 package com.krescendos.web;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -8,22 +9,14 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.krescendos.domain.Track;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Requester {
 
     private RequestQueue requestQueue;
-    private static String baseURL = "https://krescendos-174122.appspot.com";
-    private static String RECOMMEND = baseURL + "/recommend";
-    private static String SEARCH = baseURL + "/search";
-    private static String CREATE = baseURL + "/create";
-    private static String JOIN = baseURL + "/join";
-    private static String APPEND_TRACK = baseURL + "/append";
 
     public Requester(Context context) {
         this.requestQueue = Volley.newRequestQueue(context);
@@ -31,28 +24,40 @@ public class Requester {
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
     public void recommend(String trackID, Response.Listener<JSONArray> listener) {
-        String url = Requester.RECOMMEND + "?trackSeed=" + trackID;
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("recommend").appendQueryParameter("trackSeed", trackID);
+        String url = builder.build().toString();
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
         requestQueue.add(jsonArrayRequest);
     }
 
     public void search(String searchTerm, Response.Listener<JSONArray> listener) {
-        String url = Requester.SEARCH + "?k=" + searchTerm;
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("search").appendQueryParameter("k", searchTerm);
+        String url = builder.build().toString();
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
         requestQueue.add(jsonArrayRequest);
     }
 
     public void create(String partyName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = Requester.CREATE + "?name=" + partyName;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendQueryParameter("name", partyName);
+        String url = builder.build().toString();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
                 listener, errorListener);
         requestQueue.add(jsonObjectRequest);
     }
 
     public void join(String code, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = Requester.JOIN + "?code=" + code;
+        Uri.Builder builder = getBaseBuilder();
+        builder.path("party").appendQueryParameter("id", code);
+        String url = builder.build().toString();
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 listener, errorListener);
         requestQueue.add(jsonObjectRequest);
@@ -60,22 +65,18 @@ public class Requester {
 
     // No response expected, so we'll handle the response listener
     public void append(String code, Track track) {
-        String url = Requester.APPEND_TRACK + "?code=" + code;
-        String json = new Gson().toJson(track, Track.class);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendPath(code).appendPath("playlist").appendQueryParameter("spotifyTrackId", track.getId());
+        String url = builder.build().toString();
 
-        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        };
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, listener, new DefaultErrorListener());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         requestQueue.add(jsonObjectRequest);
     }
 
+    private Uri.Builder getBaseBuilder() {
+        Uri.Builder builder = new Uri.Builder();
+        String baseURL = "krescendos-174122.appspot.com";
+        builder.scheme("https").authority(baseURL);
+        return builder;
+    }
 }

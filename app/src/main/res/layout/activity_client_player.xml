@@ -15,7 +15,7 @@
         android:background="@android:color/background_dark"
         android:textColor="@android:color/darker_gray"
         android:layout_alignParentTop="true"
-        android:text="Up Next" />
+        android:text="@string/up_next" />
 
     <ListView
         android:id="@+id/client_playerList"

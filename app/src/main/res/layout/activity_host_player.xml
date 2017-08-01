@@ -15,7 +15,7 @@
         android:background="@android:color/background_dark"
         android:textColor="@android:color/darker_gray"
         android:layout_alignParentTop="true"
-        android:text="Up Next" />
+        android:text="@string/up_next" />
 
     <ListView
         android:id="@+id/playerList"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/background_dark"
-            android:text="Back"
+            android:text="@string/back"
             app:srcCompat="@android:drawable/ic_media_previous" />
 
         <ImageButton
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/background_dark"
-            android:text="Play/Pause"
+            android:text="@string/play_pause"
             app:srcCompat="@android:drawable/ic_media_play" />
 
         <ImageButton
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/background_dark"
-            android:text="Skip"
+            android:text="@string/skip"
             app:srcCompat="@android:drawable/ic_media_next" />
 
     </LinearLayout>
