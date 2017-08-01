@@ -59,12 +59,7 @@ public class Requester {
     // No response expected, so we'll handle the response listener
     public void append(String code, Track track) {
         String url = Requester.APPEND_TRACK + "/" + code + "/playlist?spotifyTrackId=" + track.getId();
-        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        };
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, listener, new DefaultErrorListener());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         requestQueue.add(jsonObjectRequest);
     }
 
