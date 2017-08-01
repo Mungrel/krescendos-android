@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
+import com.krescendos.player.SeekBarChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
@@ -123,21 +124,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         }, 0, 300);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int progress = seekBar.getProgress();
-                mPlayer.seekTo(progress);
-            }
-        });
+        seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(mPlayer));
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -145,8 +132,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
-
-       // ref.addValueEventListener(new TrackChangeListener(listAdapter));
     }
 
     private void refreshPlayBtn() {
