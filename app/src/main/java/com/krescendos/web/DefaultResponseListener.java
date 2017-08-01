@@ -6,7 +6,7 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
-public class DefaultResponseListener implements Response.Listener<JSONObject>{
+public class DefaultResponseListener implements Response.Listener<JSONObject> {
     @Override
     public void onResponse(JSONObject response) {
         Log.d("RESPONSE", response.toString());

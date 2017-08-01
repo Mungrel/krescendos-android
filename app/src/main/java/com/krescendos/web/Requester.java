@@ -73,7 +73,7 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private Uri.Builder getBaseBuilder(){
+    private Uri.Builder getBaseBuilder() {
         Uri.Builder builder = new Uri.Builder();
         String baseURL = "krescendos-174122.appspot.com";
         builder.scheme("https").authority(baseURL);
