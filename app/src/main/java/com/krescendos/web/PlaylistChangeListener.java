@@ -1,4 +1,4 @@
-package com.krescendos;
+package com.krescendos.web;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
