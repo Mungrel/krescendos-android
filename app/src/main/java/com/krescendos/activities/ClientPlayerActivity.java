@@ -46,7 +46,7 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
+        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         listAdapter = new TrackListAdapter(getApplicationContext());
         ListView listView = (ListView) findViewById(R.id.client_playerList);
