@@ -17,6 +17,7 @@ import org.json.JSONObject;
 public class Requester {
 
     private RequestQueue requestQueue;
+    private static int TIMEOUT_MS = 5000;
 
     public Requester(Context context) {
         this.requestQueue = Volley.newRequestQueue(context);
@@ -30,6 +31,7 @@ public class Requester {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -40,6 +42,7 @@ public class Requester {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -50,6 +53,7 @@ public class Requester {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
                 listener, errorListener);
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -60,6 +64,7 @@ public class Requester {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 listener, errorListener);
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -70,6 +75,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
     }
 
