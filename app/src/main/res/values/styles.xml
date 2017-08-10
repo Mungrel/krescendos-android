@@ -4,6 +4,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:listViewStyle">@style/List</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+    </style>
+    
+    <style name="ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="BodyText" parent="@android:style/TextAppearance.Medium">
@@ -18,6 +26,11 @@
         <item name="android:textColor">@color/colorButtonText</item>
         <item name="android:background">@color/colorAccent</item>
     </style>
-
+    
+    <style name="List" parent="@android:style/Widget.ListView">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:divider">@null</item>
+    </style>
 
 </resources>
