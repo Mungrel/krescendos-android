@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.krescendos.activities.CreateActivity">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/create_toolbar"
-        style="@style/ToolbarStyle"
+        android:id="@+id/join_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/partyNameWrapper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@color/colorText"
+        app:theme="@style/TextInput">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/partyNameField"
@@ -26,8 +27,24 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/party_name"
-            android:textAppearance="@style/BodyText"
-            android:inputType="textPersonName" />
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/partyWelcomeWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:hintTextAppearance="@color/colorText"
+        app:theme="@style/TextInput">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/partyWelcomeField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/party_welcome_message"
+            android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -40,6 +57,7 @@
 
     <Button
         android:id="@+id/partyCreateButton"
+        style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create" />

@@ -17,4 +17,5 @@
     <string name="krescendos_logo">Krescendos Logo</string>
     <string name="enter_party_code">Enter Party Code</string>
     <string name="join_short">Join</string>
+    <string name="party_welcome_message">Party Welcome Message</string>
 </resources>
