@@ -12,20 +12,94 @@
         android:id="@+id/join_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ToolbarTheme"/>
+        android:theme="@style/ToolbarTheme" />
 
-    <EditText
-        android:id="@+id/joinCodeField"
+    <TextView
+        android:id="@+id/partyCodeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingTop="17dp"
-        />
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="140dp"
+        android:text="@string/enter_party_code"
+        android:textAppearance="@style/TitleText"
+        android:textSize="11pt" />
+
+    <LinearLayout
+        android:id="@+id/joinCodeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
+
+        <EditText
+            android:id="@+id/joinCode1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+        <EditText
+            android:id="@+id/joinCode2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+        <EditText
+            android:id="@+id/joinCode3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+        <EditText
+            android:id="@+id/joinCode4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+        <EditText
+            android:id="@+id/joinCode5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+        <EditText
+            android:id="@+id/joinCode6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:theme="@style/CodeInput" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/joinErrorTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/party_does_not_exist"
         android:textColor="@android:color/holo_red_dark"
@@ -36,5 +110,5 @@
         style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/join" />
+        android:text="@string/join_short" />
 </LinearLayout>

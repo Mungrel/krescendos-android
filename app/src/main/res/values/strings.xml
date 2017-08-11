@@ -15,4 +15,6 @@
     <string name="track_name">Track Name</string>
     <string name="artist_name">Artist Name</string>
     <string name="krescendos_logo">Krescendos Logo</string>
+    <string name="enter_party_code">Enter Party Code</string>
+    <string name="join_short">Join</string>
 </resources>
