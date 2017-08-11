@@ -4,14 +4,15 @@
     <string name="up_next">Up Next</string>
     <string name="party_name">Party Name</string>
     <string name="could_not_create_party">Could not create party</string>
-    <string name="create">Create</string>
+    <string name="create">Start a party</string>
     <string name="back">Back</string>
     <string name="play_pause">Play/Pause</string>
     <string name="skip">Skip</string>
     <string name="join_code">Join Code</string>
     <string name="party_does_not_exist">Party does not exist</string>
-    <string name="join">Join</string>
+    <string name="join">Join a party</string>
     <string name="recommended">Recommended</string>
     <string name="track_name">Track Name</string>
     <string name="artist_name">Artist Name</string>
+    <string name="krescendos_logo">Krescendos Logo</string>
 </resources>
