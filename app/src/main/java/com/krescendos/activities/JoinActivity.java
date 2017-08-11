@@ -2,8 +2,11 @@ package com.krescendos.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,9 +27,14 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join);
         final Requester requester = new Requester(getApplicationContext());
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.join_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
         final EditText joinCodeTextField = (EditText) findViewById(R.id.joinCodeField);
-
         final TextView errorText = (TextView) findViewById(R.id.joinErrorTextView);
 
         joinCodeSubmit.setOnClickListener(new View.OnClickListener() {
@@ -51,5 +59,16 @@ public class JoinActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

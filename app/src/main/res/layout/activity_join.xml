@@ -7,13 +7,21 @@
     android:orientation="vertical"
     tools:context="com.krescendos.activities.JoinActivity">
 
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/join_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"/>
+
     <EditText
         android:id="@+id/joinCodeField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/join_code"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:paddingTop="17dp"
+        />
 
     <TextView
         android:id="@+id/joinErrorTextView"
@@ -25,6 +33,7 @@
 
     <Button
         android:id="@+id/joinCodeSubmitButton"
+        style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/join" />
