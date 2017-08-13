@@ -24,7 +24,7 @@
         android:paddingTop="140dp"
         android:text="@string/enter_party_code"
         android:textAppearance="@style/TitleText"
-        android:textSize="11pt" />
+        android:textSize="@dimen/title_size" />
 
     <LinearLayout
         android:id="@+id/joinCodeLayout"
@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />
@@ -51,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />
@@ -61,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />
@@ -71,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />
@@ -81,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />
@@ -91,6 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textCapCharacters"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:theme="@style/CodeInput" />

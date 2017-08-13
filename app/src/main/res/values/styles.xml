@@ -37,7 +37,7 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="android:textAppearance">@color/colorText</item>
-        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
         <item name="android:textColorHint">@color/colorText</item>
         <item name="android:inputType">text</item>
     </style>
@@ -59,6 +59,15 @@
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:dividerHeight">0dp</item>
         <item name="android:divider">@null</item>
+    </style>
+    
+    <style name="Switch" parent="@style/AppTheme">
+        <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">10pt</item>
+        <item name="colorControlNormal">@color/colorText</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
 </resources>
