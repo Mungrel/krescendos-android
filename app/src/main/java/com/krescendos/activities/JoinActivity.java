@@ -86,10 +86,4 @@ public class JoinActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        Log.d("ONKEYUP", "");
-        return super.onKeyUp(keyCode, event);
-    }
 }
