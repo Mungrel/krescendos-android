@@ -54,6 +54,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private TrackListAdapter listAdapter;
     private Requester requester;
+    private boolean liked = false;
 
     private ImageButton playbtn;
     private SeekBar seekBar;
@@ -80,14 +81,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
-        ImageButton back = (ImageButton) findViewById(R.id.skpBkBtn);
-        back.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                mPlayer.previous();
-            }
-        });
-
-        ImageButton fwd = (ImageButton) findViewById(R.id.skipFwdBtn);
+        ImageButton fwd = (ImageButton) findViewById(R.id.host_skip_button);
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,11 +92,26 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         TextView title = (TextView) findViewById(R.id.host_title_text);
         title.setText(party.getName());
 
+        final ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
+        like.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                liked = !liked;
+                if (liked){
+                    like.setImageResource(R.drawable.like_button_on);
+                } else {
+                    like.setImageResource(R.drawable.like_button_off);
+                }
+
+            }
+        });
+
         albumArt = (NetworkImageView) findViewById(R.id.host_album_image);
         trackTitle = (TextView) findViewById(R.id.host_current_track_title);
         artistAlbum = (TextView) findViewById(R.id.host_current_track_artist_album);
 
-        playbtn = (ImageButton) findViewById(R.id.playBtn);
+        playbtn = (ImageButton) findViewById(R.id.host_play_button);
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,7 +212,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                                     AlbumArt largestImage = images.get(images.size()-1);
                                     albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
                                     trackTitle.setText(newTrack.getName());
-                                    artistAlbum.setText(Joiner.join(newTrack.getArtists())+" - "+newTrack.getAlbum().getName());
+                                    artistAlbum.setText(Joiner.join(newTrack.getArtists())+"  -  "+newTrack.getAlbum().getName());
                                 }
                             });
                         }

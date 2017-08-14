@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.domain.Artist;
 import com.krescendos.domain.Track;
+import com.krescendos.text.Joiner;
+import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +23,13 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private List<Track> tracks;
     private LayoutInflater mInflater;
     private String currentPlayingId;
+    private Requester requester;
 
     public TrackListAdapter(Context context) {
         super(context, R.layout.player_list);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
+        this.requester = new Requester(context);
         currentPlayingId = null;
     }
 
@@ -66,28 +71,26 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.player_list, parent, false);
-            holder.trackName = convertView.findViewById(R.id.listTrackName);
-            holder.artistName = convertView.findViewById(R.id.listArtistName);
+            holder.trackName = convertView.findViewById(R.id.up_next_track_name);
+            holder.artistAlbum = convertView.findViewById(R.id.up_next_artist_album);
+            holder.albumArt = convertView.findViewById(R.id.up_next_album_art);
 
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.trackName.setText(tracks.get(position).getName());
-        String artistString = "";
-        for (Artist artist : tracks.get(position).getArtists()) {
-            artistString += artist.getName() + " ";
-        }
-        artistString = artistString.trim();
-        holder.artistName.setText(artistString);
+        Track track = tracks.get(position);
+        holder.trackName.setText(track.getName());
+        holder.artistAlbum.setText(Joiner.join(track.getArtists()));
+        holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
         holder.pos = position;
 
         if (tracks.get(position).getId().equals(currentPlayingId)) {
-            holder.artistName.setTextColor(Color.BLUE);
+            holder.artistAlbum.setTextColor(Color.BLUE);
             holder.trackName.setTextColor(Color.BLUE);
         } else {
-            holder.artistName.setTextColor(Color.WHITE);
+            holder.artistAlbum.setTextColor(Color.WHITE);
             holder.trackName.setTextColor(Color.WHITE);
         }
 
@@ -112,7 +115,8 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private static class ViewHolder {
 
         TextView trackName;
-        TextView artistName;
+        TextView artistAlbum;
+        NetworkImageView albumArt;
         int pos;
     }
 
