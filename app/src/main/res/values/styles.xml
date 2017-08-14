@@ -76,4 +76,10 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
+    <style name="SeekBar" parent="@style/AppTheme">
+        <item name="colorControlNormal">@color/colorText</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
 </resources>

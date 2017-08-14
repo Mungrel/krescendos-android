@@ -156,6 +156,22 @@ public class TrackPlayer {
         }
     }
 
+    public long getCurrentTrackTime(){
+        if (trackLoaded()){
+            return spotifyPlayer.getPlaybackState().positionMs;
+        } else {
+            return 0;
+        }
+    }
+
+    public long getCurrentTrackLength(){
+        if (trackLoaded()){
+            return spotifyPlayer.getMetadata().currentTrack.durationMs;
+        } else {
+            return 0;
+        }
+    }
+
     public int getCurrentPos() {
         return pos;
     }

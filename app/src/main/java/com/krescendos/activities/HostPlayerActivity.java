@@ -27,6 +27,7 @@ import com.krescendos.player.SeekBarChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.Joiner;
+import com.krescendos.text.Time;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -37,6 +38,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Timer;
@@ -55,13 +58,15 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackListAdapter listAdapter;
     private Requester requester;
     private boolean liked = false;
+    private Party party;
 
     private ImageButton playbtn;
     private SeekBar seekBar;
     private NetworkImageView albumArt;
     private TextView trackTitle;
     private TextView artistAlbum;
-    private Party party;
+    private TextView timeElapsed;
+    private TextView timeRemaining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         TextView title = (TextView) findViewById(R.id.host_title_text);
         title.setText(party.getName());
+
+        timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
+        timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 
         final ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
         like.setOnClickListener(new View.OnClickListener(){
@@ -146,9 +154,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             public void run() {
                 if (mPlayer != null) {
                     seekBar.setProgress(mPlayer.getProgressPercent());
+                    long elapsed = mPlayer.getCurrentTrackTime();
+                    long remaining = mPlayer.getCurrentTrackLength() - elapsed;
+                    timeElapsed.setText(Time.msTommss(elapsed));
+                    timeRemaining.setText(Time.msTommss(remaining));
                 }
             }
-        }, 0, 300);
+        }, 0, 200);
 
         seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(mPlayer));
 
@@ -162,9 +174,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private void refreshPlayBtn() {
         if (mPlayer.isPlaying()) {
-            playbtn.setImageResource(android.R.drawable.ic_media_pause);
+            playbtn.setImageResource(R.drawable.pause_button);
         } else {
-            playbtn.setImageResource(android.R.drawable.ic_media_play);
+            playbtn.setImageResource(R.drawable.play_button);
         }
     }
 
