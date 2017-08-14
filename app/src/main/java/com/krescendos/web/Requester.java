@@ -1,11 +1,14 @@
 package com.krescendos.web;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -17,10 +20,22 @@ import org.json.JSONObject;
 public class Requester {
 
     private RequestQueue requestQueue;
+    private ImageLoader imageLoader;
     private static int TIMEOUT_MS = 5000;
 
     public Requester(Context context) {
         this.requestQueue = Volley.newRequestQueue(context);
+
+        imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+            private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
+
+            public void putBitmap(String url, Bitmap bitmap) {
+                mCache.put(url, bitmap);
+            }
+            public Bitmap getBitmap(String url) {
+                return mCache.get(url);
+            }
+        });
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
@@ -77,6 +92,10 @@ public class Requester {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public ImageLoader getImageLoader(){
+        return imageLoader;
     }
 
     private Uri.Builder getBaseBuilder() {
