@@ -92,7 +92,9 @@
         android:id="@+id/host_track_times_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp">
 
         <TextView
             android:id="@+id/host_time_elapsed"
@@ -101,8 +103,7 @@
             android:layout_weight="1"
             android:text="@string/_0_00"
             android:textAppearance="@style/BodyText"
-            android:textSize="@dimen/time_text"
-            />
+            android:textSize="@dimen/time_text" />
 
         <TextView
             android:id="@+id/host_time_remaining"
@@ -112,14 +113,14 @@
             android:gravity="end"
             android:text="@string/_n0_00"
             android:textAppearance="@style/BodyText"
-            android:textSize="@dimen/time_text"
-            />
+            android:textSize="@dimen/time_text" />
     </LinearLayout>
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/colorText"
         android:theme="@style/SeekBar" />
 
     <LinearLayout
@@ -128,7 +129,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
         <ImageButton
             android:id="@+id/host_like_button"

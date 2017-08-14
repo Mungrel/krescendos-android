@@ -152,13 +152,18 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (mPlayer != null) {
-                    seekBar.setProgress(mPlayer.getProgressPercent());
-                    long elapsed = mPlayer.getCurrentTrackTime();
-                    long remaining = mPlayer.getCurrentTrackLength() - elapsed;
-                    timeElapsed.setText(Time.msTommss(elapsed));
-                    timeRemaining.setText(Time.msTommss(remaining));
-                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mPlayer != null) {
+                            seekBar.setProgress(mPlayer.getProgressPercent());
+                            long elapsed = mPlayer.getCurrentTrackTime();
+                            long remaining = mPlayer.getCurrentTrackLength() - elapsed;
+                            timeElapsed.setText(Time.msTommss(elapsed));
+                            timeRemaining.setText("-"+Time.msTommss(remaining));
+                        }
+                    }
+                });
             }
         }, 0, 200);
 
