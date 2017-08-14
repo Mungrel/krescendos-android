@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
-import com.krescendos.domain.Artist;
 import com.krescendos.domain.Track;
 import com.krescendos.text.Joiner;
 import com.krescendos.web.Requester;

@@ -1,8 +1,5 @@
 package com.krescendos.domain;
 
-import com.krescendos.domain.AlbumArt;
-import com.krescendos.domain.Artist;
-
 import java.util.ArrayList;
 import java.util.List;
 

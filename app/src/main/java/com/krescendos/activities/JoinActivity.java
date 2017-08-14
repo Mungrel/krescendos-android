@@ -29,7 +29,7 @@ public class JoinActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.join_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

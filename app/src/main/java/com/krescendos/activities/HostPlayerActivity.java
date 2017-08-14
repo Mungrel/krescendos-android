@@ -39,8 +39,6 @@ import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -101,12 +99,12 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 
         final ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
-        like.setOnClickListener(new View.OnClickListener(){
+        like.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 liked = !liked;
-                if (liked){
+                if (liked) {
                     like.setImageResource(R.drawable.like_button_on);
                 } else {
                     like.setImageResource(R.drawable.like_button_off);
@@ -160,7 +158,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             long elapsed = mPlayer.getCurrentTrackTime();
                             long remaining = mPlayer.getCurrentTrackLength() - elapsed;
                             timeElapsed.setText(Time.msTommss(elapsed));
-                            timeRemaining.setText("-"+Time.msTommss(remaining));
+                            timeRemaining.setText("-" + Time.msTommss(remaining));
                         }
                     }
                 });
@@ -226,10 +224,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                                     listAdapter.setCurrentPlayingId(newTrack.getId());
                                     listAdapter.notifyDataSetChanged();
                                     List<AlbumArt> images = newTrack.getAlbum().getImages();
-                                    AlbumArt largestImage = images.get(images.size()-1);
+                                    AlbumArt largestImage = images.get(images.size() - 1);
                                     albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
                                     trackTitle.setText(newTrack.getName());
-                                    artistAlbum.setText(Joiner.join(newTrack.getArtists())+"  -  "+newTrack.getAlbum().getName());
+                                    artistAlbum.setText(Joiner.join(newTrack.getArtists()) + "  -  " + newTrack.getAlbum().getName());
                                 }
                             });
                         }

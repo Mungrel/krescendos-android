@@ -32,6 +32,7 @@ public class Requester {
             public void putBitmap(String url, Bitmap bitmap) {
                 mCache.put(url, bitmap);
             }
+
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
@@ -94,7 +95,7 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public ImageLoader getImageLoader(){
+    public ImageLoader getImageLoader() {
         return imageLoader;
     }
 

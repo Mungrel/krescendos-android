@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,21 +7,20 @@
     tools:context="com.krescendos.activities.JoinActivity">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/join_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/ToolbarTheme">
 
-    <TextView
-        android:id="@+id/create_toolbar_text"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical"
-        android:paddingBottom="8dp"
-        android:text="@string/join"
-        android:textAppearance="@style/TitleText"
-        android:textSize="@dimen/title_size" />
+        <TextView
+            android:id="@+id/create_toolbar_text"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:text="@string/join"
+            android:textAppearance="@style/TitleText"
+            android:textSize="@dimen/title_size" />
 
     </android.support.v7.widget.Toolbar>
 

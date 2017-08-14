@@ -27,7 +27,7 @@ public class CreateActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

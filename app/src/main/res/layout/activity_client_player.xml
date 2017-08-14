@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.krescendos.activities.HostPlayerActivity"
-    >
+    tools:context="com.krescendos.activities.HostPlayerActivity">
 
     <TextView
         android:id="@+id/client_playerText"
@@ -20,6 +18,6 @@
         android:id="@+id/client_playerList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/client_playerText"/>
+        android:layout_below="@id/client_playerText" />
 
 </RelativeLayout>

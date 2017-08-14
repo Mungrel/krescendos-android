@@ -9,7 +9,7 @@ public class TextChangeListener implements TextWatcher {
     private EditText left;
     private EditText right;
 
-    public TextChangeListener(EditText left, EditText right){
+    public TextChangeListener(EditText left, EditText right) {
         this.left = left;
         this.right = right;
     }
@@ -25,7 +25,7 @@ public class TextChangeListener implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (!editable.toString().isEmpty()){
+        if (!editable.toString().isEmpty()) {
             right.requestFocus();
         } else {
             left.requestFocus();
