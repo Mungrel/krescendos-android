@@ -3,7 +3,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:listViewStyle">@style/List</item>
+        <item name="android:homeAsUpIndicator">@drawable/back_arrow</item>
+        <item name="homeAsUpIndicator">@drawable/back_arrow</item>
     </style>
+
     <style name="ToolbarStyle" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:elevation">4dp</item>
         <item name="android:background">@color/colorPrimaryDark</item>
@@ -11,6 +14,7 @@
 
     <style name="ToolbarTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="BodyText" parent="@android:style/TextAppearance.Medium">
