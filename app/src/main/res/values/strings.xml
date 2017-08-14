@@ -24,4 +24,6 @@
     <string name="auto_suggest_songs">Auto-suggest songs</string>
     <string name="allow_others_to_suggest_songs">Allow others to suggest songs</string>
     <string name="krescendos">Krescendos</string>
+    <string name="trackname">TrackName</string>
+    <string name="artist_album">Artist-Album</string>
 </resources>

@@ -43,7 +43,7 @@ public class TrackPlayer {
                     }
                     playTrack(trackList.get(pos));
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
-                    onTrackChangeListener.onTrackChange(pos);
+                    onTrackChangeListener.onTrackChange(trackList.get(pos));
                 }
             }
 

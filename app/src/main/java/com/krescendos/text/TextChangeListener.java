@@ -1,4 +1,4 @@
-package com.krescendos.input;
+package com.krescendos.text;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -14,17 +14,21 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.text.Joiner;
 import com.krescendos.web.PlaylistChangeListener;
+import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -34,6 +38,7 @@ import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,15 +53,20 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final int SEARCH_CODE = 1234;
 
     private TrackListAdapter listAdapter;
+    private Requester requester;
 
     private ImageButton playbtn;
     private SeekBar seekBar;
+    private NetworkImageView albumArt;
+    private TextView trackTitle;
+    private TextView artistAlbum;
     private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
+        requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
@@ -87,6 +97,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         TextView title = (TextView) findViewById(R.id.host_title_text);
         title.setText(party.getName());
+
+        albumArt = (NetworkImageView) findViewById(R.id.host_album_image);
+        trackTitle = (TextView) findViewById(R.id.host_current_track_title);
+        artistAlbum = (TextView) findViewById(R.id.host_current_track_artist_album);
 
         playbtn = (ImageButton) findViewById(R.id.playBtn);
         playbtn.setOnClickListener(new View.OnClickListener() {
@@ -182,9 +196,14 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
-                                public void onTrackChange(int newTrackPosition) {
-                                    listAdapter.setCurrentPlayingId(mPlayer.getCurrentlyPlaying().getId());
+                                public void onTrackChange(Track newTrack) {
+                                    listAdapter.setCurrentPlayingId(newTrack.getId());
                                     listAdapter.notifyDataSetChanged();
+                                    List<AlbumArt> images = newTrack.getAlbum().getImages();
+                                    AlbumArt largestImage = images.get(images.size()-1);
+                                    albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
+                                    trackTitle.setText(newTrack.getName());
+                                    artistAlbum.setText(Joiner.join(newTrack.getArtists())+" - "+newTrack.getAlbum().getName());
                                 }
                             });
                         }

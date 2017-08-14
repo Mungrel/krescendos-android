@@ -19,10 +19,12 @@
 
     <style name="BodyText" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="TitleText" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 
     <style name="CodeInput" parent="AppTheme">
