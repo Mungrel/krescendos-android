@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -83,6 +84,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 mPlayer.next();
             }
         });
+
+        TextView title = (TextView) findViewById(R.id.host_title_text);
+        title.setText(party.getName());
 
         playbtn = (ImageButton) findViewById(R.id.playBtn);
         playbtn.setOnClickListener(new View.OnClickListener() {

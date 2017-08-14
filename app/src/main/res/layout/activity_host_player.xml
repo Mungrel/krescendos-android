@@ -1,28 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.krescendos.activities.HostPlayerActivity"
-    >
+    android:paddingBottom="10dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    tools:context="com.krescendos.activities.HostPlayerActivity">
+
+    <LinearLayout
+        android:id="@+id/host_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/host_title_icon"
+            android:layout_width="57dp"
+            android:layout_height="63dp"
+            android:layout_weight="0.05"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:paddingEnd="10dp"
+            android:paddingStart="5dp"
+            app:srcCompat="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/host_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/krescendos"
+            android:textAppearance="@style/TitleText"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:id="@+id/host_title_placeholder"
+            android:layout_width="57dp"
+            android:layout_height="63dp"
+            android:layout_weight="0.05"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/icon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/host_current_track_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/host_current_track_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/host_current_track_artist-album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/host_album_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/playerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_dark"
-        android:textColor="@android:color/darker_gray"
         android:layout_alignParentTop="true"
-        android:text="@string/up_next" />
+        android:background="@android:color/background_dark"
+        android:text="@string/up_next"
+        android:textColor="@android:color/darker_gray" />
 
     <ListView
         android:id="@+id/playerList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/playerText"
         android:layout_above="@+id/seekBar"
+        android:layout_below="@id/playerText"
         android:background="@android:color/background_dark" />
 
     <SeekBar
@@ -72,4 +145,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

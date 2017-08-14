@@ -1,4 +1,4 @@
-package domain;
+package com.krescendos.domain;
 
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Artist;
