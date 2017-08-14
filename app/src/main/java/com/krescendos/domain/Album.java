@@ -1,4 +1,7 @@
-package com.krescendos.domain;
+package domain;
+
+import com.krescendos.domain.AlbumArt;
+import com.krescendos.domain.Artist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,7 @@ public class Album {
     private String name;
     private String type;
     private List<Artist> artists;
+    private List<AlbumArt> images;
 
     public Album() {
         this.artists = new ArrayList<Artist>();
@@ -47,5 +51,13 @@ public class Album {
 
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
+    }
+
+    public List<AlbumArt> getImages() {
+        return images;
+    }
+
+    public void setImages(List<AlbumArt> images) {
+        this.images = images;
     }
 }
