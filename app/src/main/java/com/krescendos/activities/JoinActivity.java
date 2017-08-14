@@ -56,6 +56,11 @@ public class JoinActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text = text1.getText().toString();
                 text += text2.getText().toString();
+                text += text3.getText().toString();
+                text += text4.getText().toString();
+                text += text5.getText().toString();
+                text += text6.getText().toString();
+
                 errorText.setVisibility(View.INVISIBLE);
                 requester.join(text, new Response.Listener<JSONObject>() {
                     @Override
