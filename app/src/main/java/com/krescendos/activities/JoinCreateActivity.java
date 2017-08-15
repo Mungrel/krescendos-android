@@ -29,7 +29,7 @@ public class JoinCreateActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateDetailsActivity.class);
                 startActivity(intent);
             }
         });

@@ -17,12 +17,12 @@ import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_create_details);
         final Requester requester = new Requester(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_toolbar);
@@ -44,7 +44,7 @@ public class CreateActivity extends AppCompatActivity {
                 requester.create(name, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), HostPlayerActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateStartActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
                     }
