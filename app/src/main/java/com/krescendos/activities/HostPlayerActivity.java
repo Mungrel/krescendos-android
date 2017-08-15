@@ -95,6 +95,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         TextView title = (TextView) findViewById(R.id.host_title_text);
         title.setText(party.getName());
 
+        TextView partyCode = (TextView) findViewById(R.id.host_party_code);
+        partyCode.setText(party.getPartyId());
+
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 

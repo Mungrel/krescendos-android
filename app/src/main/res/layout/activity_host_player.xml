@@ -33,14 +33,31 @@
             android:paddingStart="5dp"
             app:srcCompat="@drawable/icon" />
 
-        <TextView
-            android:id="@+id/host_title_text"
+        <LinearLayout
+            android:id="@+id/host_title_text_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/krescendos"
-            android:textAppearance="@style/TitleText"
-            android:textSize="@dimen/title_size" />
+            android:layout_gravity="center"
+            android:layout_weight="0.05"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/host_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/krescendos"
+                android:textAppearance="@style/TitleText"
+                android:textSize="@dimen/title_size" />
+
+            <TextView
+                android:id="@+id/host_party_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/code_placeholder"
+                android:textAppearance="@style/BodyText" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/host_title_placeholder"
