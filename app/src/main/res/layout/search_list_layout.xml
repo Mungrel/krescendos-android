@@ -12,14 +12,14 @@
         android:id="@+id/search_list_album_art"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:scaleType="fitXY" />
 
     <LinearLayout
         android:id="@+id/search_list_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_centerInParent="true"
         android:layout_toEndOf="@+id/search_list_album_art"
         android:layout_toStartOf="@+id/search_list_add_button"
         android:orientation="vertical"
@@ -29,15 +29,23 @@
             android:id="@+id/search_list_track_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:text="@string/track_name"
-            android:textAppearance="@style/TitleText" />
+            android:textAppearance="@style/TitleText"
+            android:textSize="@dimen/list_text_size" />
 
         <TextView
             android:id="@+id/search_list_artist_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:text="@string/artist_album"
-            android:textAppearance="@style/BodyText" />
+            android:textAppearance="@style/ListSubtitleText"
+            android:textSize="@dimen/list_text_size" />
 
     </LinearLayout>
 

@@ -57,6 +57,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Requester requester;
     private boolean liked = false;
     private Party party;
+    private DatabaseReference ref;
 
     private ImageButton playbtn;
     private SeekBar seekBar;
@@ -74,7 +75,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+        ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -145,7 +146,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
+
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(100);
@@ -209,6 +210,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
+                            ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {

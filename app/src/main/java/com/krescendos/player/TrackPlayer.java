@@ -94,7 +94,6 @@ public class TrackPlayer {
 
     public void queue(Track track) {
         trackList.add(track);
-        requester.append(partyId, track);
     }
 
     public void pause() {

@@ -23,14 +23,22 @@
             android:id="@+id/up_next_track_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:text="@string/track_name"
+            android:textSize="@dimen/list_text_size"
             android:textAppearance="@style/TitleText" />
 
         <TextView
             android:id="@+id/up_next_artist_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:text="@string/artist_album"
+            android:textSize="@dimen/list_text_size"
             android:textAppearance="@style/BodyText" />
 
     </LinearLayout>

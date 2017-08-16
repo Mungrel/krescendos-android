@@ -3,6 +3,7 @@ package com.krescendos.player;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,14 +86,6 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
         holder.pos = position;
 
-        if (tracks.get(position).getId().equals(currentPlayingId)) {
-            holder.artistAlbum.setTextColor(Color.BLUE);
-            holder.trackName.setTextColor(Color.BLUE);
-        } else {
-            holder.artistAlbum.setTextColor(Color.WHITE);
-            holder.trackName.setTextColor(Color.WHITE);
-        }
-
         return convertView;
     }
 
@@ -102,6 +95,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     }
 
     public void updateTracks(List<Track> tracks) {
+        Log.d("UPDATE", "newListSize: "+tracks.size());
         this.tracks = tracks;
         notifyDataSetChanged();
     }
