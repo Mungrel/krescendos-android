@@ -54,20 +54,7 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // Search result list will be filled with recommendations until the user completes a search
-        requester.recommend("0LuHnB1UunIuivub6x3jaj", new Response.Listener<JSONArray>() {
-
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d("RESPONSE", response.toString());
-                Type listType = new TypeToken<List<Track>>() {
-                }.getType();
-                trackList = new Gson().fromJson(response.toString(), listType);
-                Log.d("QUERYRESPONSELISTSIZE", "" + trackList.size());
-                listAdapter.updateTracks(trackList);
-            }
-        });
+        
     }
 
     @Override

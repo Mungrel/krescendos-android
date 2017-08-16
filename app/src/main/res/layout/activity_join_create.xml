@@ -11,6 +11,7 @@
         android:id="@+id/join_create_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/krescendos_logo"
         android:cropToPadding="true"
@@ -23,7 +24,7 @@
     <Button
         android:id="@+id/joinButton"
         style="@style/TextButton"
-        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
         android:text="@string/join" />
 
     <Button
@@ -31,7 +32,6 @@
         style="@style/TextButton"
         android:layout_marginBottom="220dp"
         android:layout_marginTop="0dp"
-        android:layout_weight="1"
         android:text="@string/create" />
 
 </LinearLayout>
