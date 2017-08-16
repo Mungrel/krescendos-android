@@ -19,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.ToggleImageClickListener;
+import com.krescendos.buttons.DislikeButtonClickListener;
+import com.krescendos.buttons.LikeButtonClickListener;
+import com.krescendos.buttons.ToggleImageClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
@@ -40,7 +42,6 @@ import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -106,8 +107,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         ImageButton dislike = (ImageButton) findViewById(R.id.host_dislike_button);
         ImageButton add = (ImageButton) findViewById(R.id.host_add_button);
 
-        like.setOnClickListener(new ToggleImageClickListener(like, R.drawable.like_off, R.drawable.like_on));
-        dislike.setOnClickListener(new ToggleImageClickListener(dislike, R.drawable.dislike_off, R.drawable.dislike_on));
+        like.setOnClickListener(new LikeButtonClickListener(like));
+        dislike.setOnClickListener(new DislikeButtonClickListener(dislike));
+        
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
