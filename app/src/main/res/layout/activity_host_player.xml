@@ -12,7 +12,7 @@
     android:paddingTop="10dp"
     tools:context="com.krescendos.activities.HostPlayerActivity">
 
-    <include layout="@layout/title_bar_layout" />
+    <include android:id="@+id/host_title_bar" layout="@layout/title_bar_layout" />
 
     <LinearLayout
         android:id="@+id/host_current_track_layout"
@@ -96,7 +96,16 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@null"
-            app:srcCompat="@drawable/like_button_off" />
+            android:paddingEnd="15dp"
+            app:srcCompat="@drawable/like_off" />
+
+        <ImageButton
+            android:id="@+id/host_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            app:srcCompat="@drawable/add" />
 
         <ImageButton
             android:id="@+id/host_play_button"
@@ -117,6 +126,15 @@
             android:background="@null"
             android:text="@string/skip"
             app:srcCompat="@drawable/next_button" />
+
+        <ImageButton
+            android:id="@+id/host_dislike_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:paddingStart="15dp"
+            app:srcCompat="@drawable/dislike_off" />
 
     </LinearLayout>
 

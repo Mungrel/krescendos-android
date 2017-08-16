@@ -4,9 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -29,21 +35,23 @@ public class CreateStartActivity extends AppCompatActivity {
         title.setText(party.getName());
         titleCode.setText(party.getPartyId());
 
-        TextView code1 = (TextView) findViewById(R.id.joinCode1);
-        TextView code2 = (TextView) findViewById(R.id.joinCode2);
-        TextView code3 = (TextView) findViewById(R.id.joinCode3);
-        TextView code4 = (TextView) findViewById(R.id.joinCode4);
-        TextView code5 = (TextView) findViewById(R.id.joinCode5);
-        TextView code6 = (TextView) findViewById(R.id.joinCode6);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.create_start_title_bar);
+
+        EditText code1 = (EditText) layout.findViewById(R.id.joinCode1);
+        EditText code2 = (EditText) layout.findViewById(R.id.joinCode2);
+        EditText code3 = (EditText) layout.findViewById(R.id.joinCode3);
+        EditText code4 = (EditText) layout.findViewById(R.id.joinCode4);
+        EditText code5 = (EditText) layout.findViewById(R.id.joinCode5);
+        EditText code6 = (EditText) layout.findViewById(R.id.joinCode6);
 
         char[] partyCode = party.getPartyId().toCharArray();
 
-        code1.setText(partyCode[0]);
-        code2.setText(partyCode[1]);
-        code3.setText(partyCode[2]);
-        code4.setText(partyCode[3]);
-        code5.setText(partyCode[4]);
-        code6.setText(partyCode[5]);
+        code1.setText(""+partyCode[0]);
+        code2.setText(""+partyCode[1]);
+        code3.setText(""+partyCode[2]);
+        code4.setText(""+partyCode[3]);
+        code5.setText(""+partyCode[4]);
+        code6.setText(""+partyCode[5]);
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);

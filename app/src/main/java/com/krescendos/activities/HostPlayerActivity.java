@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.ToggleImageClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
@@ -101,18 +102,17 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 
-        final ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
-        like.setOnClickListener(new View.OnClickListener() {
+        ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
+        ImageButton dislike = (ImageButton) findViewById(R.id.host_dislike_button);
+        ImageButton add = (ImageButton) findViewById(R.id.host_add_button);
 
+        like.setOnClickListener(new ToggleImageClickListener(like, R.drawable.like_off, R.drawable.like_on));
+        dislike.setOnClickListener(new ToggleImageClickListener(dislike, R.drawable.dislike_off, R.drawable.dislike_on));
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                liked = !liked;
-                if (liked) {
-                    like.setImageResource(R.drawable.like_button_on);
-                } else {
-                    like.setImageResource(R.drawable.like_button_off);
-                }
-
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivityForResult(intent, SEARCH_CODE);
             }
         });
 
