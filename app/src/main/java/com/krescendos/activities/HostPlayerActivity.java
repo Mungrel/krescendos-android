@@ -106,8 +106,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         ImageButton dislike = (ImageButton) findViewById(R.id.host_dislike_button);
         ImageButton add = (ImageButton) findViewById(R.id.host_add_button);
 
-        like.setOnClickListener(new LikeButtonClickListener(like));
-        dislike.setOnClickListener(new DislikeButtonClickListener(dislike));
+        like.setTag("off");
+        dislike.setTag("off");
+
+        like.setOnClickListener(new LikeButtonClickListener(like, dislike));
+        dislike.setOnClickListener(new DislikeButtonClickListener(dislike, like));
         
         add.setOnClickListener(new View.OnClickListener() {
             @Override

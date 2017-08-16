@@ -7,21 +7,27 @@ import com.krescendos.R;
 
 public class LikeButtonClickListener implements View.OnClickListener {
 
-    private ImageButton imageButton;
-    private boolean on;
+    private ImageButton likeButton;
+    private ImageButton dislikeButton;
 
-    public LikeButtonClickListener(ImageButton imageButton){
-        this.imageButton = imageButton;
-        on = false;
+    public LikeButtonClickListener(ImageButton likeButton, ImageButton dislikeButton){
+        this.likeButton = likeButton;
+        this.dislikeButton = dislikeButton;
+        this.likeButton.setTag("off");
+        this.dislikeButton.setTag("off");
     }
 
     @Override
     public void onClick(View view) {
-        on = !on;
-        if (on) {
-            imageButton.setImageResource(R.drawable.like_on);
+        boolean off = likeButton.getTag().equals("off");
+        if (off) {
+            likeButton.setImageResource(R.drawable.like_on);
+            dislikeButton.setImageResource(R.drawable.dislike_off);
+            likeButton.setTag("on");
+            dislikeButton.setTag("off");
         } else {
-            imageButton.setImageResource(R.drawable.like_off);
+            likeButton.setImageResource(R.drawable.like_off);
+            likeButton.setTag("off");
         }
     }
 }
