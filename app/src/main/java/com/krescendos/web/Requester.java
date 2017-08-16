@@ -28,11 +28,9 @@ public class Requester {
 
         imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
-
             public void putBitmap(String url, Bitmap bitmap) {
                 mCache.put(url, bitmap);
             }
-
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
@@ -88,6 +86,26 @@ public class Requester {
     public void append(String code, Track track) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendPath(code).appendPath("playlist").appendQueryParameter("spotifyTrackId", track.getId());
+        String url = builder.build().toString();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void nextTrack(String code) {
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendPath(code).appendPath("next");
+        String url = builder.build().toString();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void nextTrack(String code, int newPos) {
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendPath(code).appendPath("next").appendQueryParameter("index", ""+newPos);
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());

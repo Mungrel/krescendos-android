@@ -25,7 +25,7 @@ public class TrackPlayer {
     private Requester requester;
     private String partyId;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, String partyId) {
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
@@ -42,6 +42,7 @@ public class TrackPlayer {
                         pos = 0;
                     }
                     playTrack(trackList.get(pos));
+                    requester.nextTrack(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
                 }
@@ -138,6 +139,7 @@ public class TrackPlayer {
             return;
         }
         playTrack(trackList.get(pos));
+        requester.nextTrack(partyId, pos);
     }
 
     public Track getCurrentlyPlaying() {
