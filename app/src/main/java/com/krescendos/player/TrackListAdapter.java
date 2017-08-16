@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
-import com.krescendos.text.Joiner;
+import com.krescendos.text.TextUtils;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         }
         Track track = tracks.get(position);
         holder.trackName.setText(track.getName());
-        holder.artistAlbum.setText(Joiner.join(track.getArtists()));
+        holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
         holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
         holder.pos = position;
 

@@ -78,7 +78,7 @@ public class TrackPlayer {
     private boolean trackLoaded() {
         return ((spotifyPlayer != null) && (spotifyPlayer.getMetadata() != null) &&
                 (spotifyPlayer.getPlaybackState() != null) &&
-                (spotifyPlayer.getMetadata().currentTrack != null));
+                (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
     }
 
     public void seekTo(int percent) {
@@ -152,7 +152,9 @@ public class TrackPlayer {
         if (trackLoaded() && spotifyPlayer.getPlaybackState().positionMs != 0) {
             resume();
         } else {
-            playTrack(trackList.get(pos));
+            if (!trackList.isEmpty()){
+                playTrack(trackList.get(pos));
+            }
         }
     }
 

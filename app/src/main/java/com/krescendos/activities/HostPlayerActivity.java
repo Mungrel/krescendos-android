@@ -27,7 +27,7 @@ import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
-import com.krescendos.text.Joiner;
+import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
@@ -226,11 +226,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                                 public void onTrackChange(Track newTrack) {
                                     listAdapter.setCurrentPlayingId(newTrack.getId());
                                     listAdapter.notifyDataSetChanged();
-                                    List<AlbumArt> images = newTrack.getAlbum().getImages();
-                                    AlbumArt largestImage = images.get(images.size() - 1);
+                                    AlbumArt largestImage = newTrack.getAlbum().getImages().get(0);
                                     albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
                                     trackTitle.setText(newTrack.getName());
-                                    artistAlbum.setText(Joiner.join(newTrack.getArtists()) + "  -  " + newTrack.getAlbum().getName());
+                                    artistAlbum.setText(TextUtils.join(newTrack.getArtists()) + "  -  " + newTrack.getAlbum().getName());
                                 }
                             });
                         }

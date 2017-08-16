@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
+import com.krescendos.text.TextUtils;
 import com.krescendos.web.UnimplementedClickListener;
 
 public class CreateStartActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class CreateStartActivity extends AppCompatActivity {
         TextView titleCode = (TextView) findViewById(R.id.host_party_code);
 
         title.setText(party.getName());
-        titleCode.setText(party.getPartyId());
+        titleCode.setText(TextUtils.space(party.getPartyId()));
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.create_start_title_bar);
 
@@ -45,6 +46,19 @@ public class CreateStartActivity extends AppCompatActivity {
         EditText code6 = (EditText) layout.findViewById(R.id.joinCode6);
 
         char[] partyCode = party.getPartyId().toCharArray();
+
+        code1.setEnabled(false);
+        code1.setFocusable(false);
+        code2.setEnabled(false);
+        code2.setFocusable(false);
+        code3.setEnabled(false);
+        code3.setFocusable(false);
+        code4.setEnabled(false);
+        code4.setFocusable(false);
+        code5.setEnabled(false);
+        code5.setFocusable(false);
+        code6.setEnabled(false);
+        code6.setFocusable(false);
 
         code1.setText(""+partyCode[0]);
         code2.setText(""+partyCode[1]);
