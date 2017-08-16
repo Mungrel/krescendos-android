@@ -25,11 +25,14 @@ public class CreateDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_details);
         final Requester requester = new Requester(getApplicationContext());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.create_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.create_details_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        toolbarTitle.setText(R.string.create);
 
         Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);

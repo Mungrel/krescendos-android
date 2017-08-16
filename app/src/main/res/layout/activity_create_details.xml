@@ -11,23 +11,7 @@
     android:paddingRight="10dp"
     tools:context="com.krescendos.activities.CreateDetailsActivity">
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/create_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ToolbarTheme">
-
-        <TextView
-            android:id="@+id/create_toolbar_text"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp"
-            android:text="@string/create"
-            android:textAppearance="@style/TitleText"
-            android:textSize="@dimen/title_size" />
-
-    </android.support.v7.widget.Toolbar>
+    <include android:id="@+id/create_details_toolbar" layout="@layout/toolbar_layout" />
 
     <TextView
         android:id="@+id/partyDetailsText"

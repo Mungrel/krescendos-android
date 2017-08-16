@@ -18,6 +18,7 @@ import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -32,6 +33,9 @@ public class JoinActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        toolbarTitle.setText(R.string.join);
 
         Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
         final EditText text1 = (EditText) findViewById(R.id.joinCode1);

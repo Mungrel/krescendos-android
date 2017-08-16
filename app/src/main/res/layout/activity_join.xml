@@ -6,23 +6,7 @@
     android:orientation="vertical"
     tools:context="com.krescendos.activities.JoinActivity">
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/join_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ToolbarTheme">
-
-        <TextView
-            android:id="@+id/create_toolbar_text"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp"
-            android:text="@string/join"
-            android:textAppearance="@style/TitleText"
-            android:textSize="@dimen/title_size" />
-
-    </android.support.v7.widget.Toolbar>
+    <include android:id="@+id/join_toolbar" layout="@layout/toolbar_layout" />
 
     <TextView
         android:id="@+id/partyCodeText"
