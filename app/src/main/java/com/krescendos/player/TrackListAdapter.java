@@ -25,7 +25,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private Requester requester;
 
     public TrackListAdapter(Context context) {
-        super(context, R.layout.player_list);
+        super(context, R.layout.player_list_layout);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
         this.requester = new Requester(context);
@@ -69,7 +69,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.player_list, parent, false);
+            convertView = mInflater.inflate(R.layout.player_list_layout, parent, false);
             holder.trackName = convertView.findViewById(R.id.up_next_track_name);
             holder.artistAlbum = convertView.findViewById(R.id.up_next_artist_album);
             holder.albumArt = convertView.findViewById(R.id.up_next_album_art);

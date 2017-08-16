@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
-import com.krescendos.buttons.ToggleImageClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
@@ -53,7 +52,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
-    private static final int SEARCH_CODE = 1234;
 
     private TrackListAdapter listAdapter;
     private Requester requester;
@@ -98,7 +96,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         title.setText(party.getName());
 
         TextView partyCode = (TextView) findViewById(R.id.host_party_code);
-        partyCode.setText(party.getPartyId());
+        partyCode.setText(TextUtils.space(party.getPartyId()));
 
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
@@ -114,7 +112,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivityForResult(intent, SEARCH_CODE);
+                intent.putExtra("party", new Gson().toJson(party));
+                startActivity(intent);
             }
         });
 
@@ -195,19 +194,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addTrackItem:
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivityForResult(intent, SEARCH_CODE);
-                break;
-            default:
-                super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -243,12 +229,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     });
                     break;
                 }
-            case SEARCH_CODE:
-                Gson gson = new Gson();
-                Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
-                Log.d("APPENDTRACK", "Track: " + track.getName());
-                mPlayer.queue(track); // Queue will call requester.append()
-                refreshPlayBtn();
         }
     }
 
