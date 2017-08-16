@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@android:drawable/ic_menu_share" />
+            app:srcCompat="@drawable/share" />
     </LinearLayout>
 
     <include android:id="@+id/create_start_title_bar" layout="@layout/join_code_layout" />
