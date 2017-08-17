@@ -30,7 +30,7 @@ public class TrackPlayer {
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.partyId = partyId;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {

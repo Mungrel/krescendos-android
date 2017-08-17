@@ -30,7 +30,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         super(context, R.layout.player_list_layout);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         currentPlayingId = null;
         this.itemsSelectable = false;
     }

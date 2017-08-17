@@ -24,8 +24,10 @@ public class Requester {
     private ImageLoader imageLoader;
     private static int TIMEOUT_MS = 5000;
 
-    public Requester(Context context) {
-        this.requestQueue = Volley.newRequestQueue(context);
+    private static Requester instance;
+
+    private Requester(Context context) {
+        requestQueue = Volley.newRequestQueue(context);
 
         imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
@@ -34,6 +36,22 @@ public class Requester {
             }
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
+            }
+        });
+    }
+
+    public static Requester getInstance(Context context){
+        if (instance == null){
+            instance = new Requester(context);
+        }
+        return instance;
+    }
+
+    public void cancelAll(){
+        requestQueue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
             }
         });
     }

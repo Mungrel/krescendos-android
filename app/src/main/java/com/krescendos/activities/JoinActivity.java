@@ -26,7 +26,7 @@ public class JoinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        final Requester requester = new Requester(getApplicationContext());
+        final Requester requester = Requester.getInstance(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.join_toolbar);
         setSupportActionBar(toolbar);

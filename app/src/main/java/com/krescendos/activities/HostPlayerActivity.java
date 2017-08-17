@@ -71,7 +71,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
-        requester = new Requester(getApplicationContext());
+        requester = Requester.getInstance(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 

@@ -12,7 +12,7 @@ public class SearchTextWatcher implements TextWatcher {
     private SearchTrackListAdapter adapter;
 
     public SearchTextWatcher(Context context, SearchTrackListAdapter adapter){
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.adapter = adapter;
     }
 
@@ -23,6 +23,7 @@ public class SearchTextWatcher implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String term = charSequence.toString();
+        requester.cancelAll();
         requester.search(term, new SearchResponseListener(adapter));
     }
 
