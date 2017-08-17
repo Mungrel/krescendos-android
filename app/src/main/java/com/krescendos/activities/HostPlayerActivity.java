@@ -25,7 +25,7 @@ import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
-import com.krescendos.player.SeekBarChangeListener;
+import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
@@ -174,7 +174,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         }, 0, 200);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(mPlayer));
+        seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
         // Compatibility between versions
         if (getActionBar() != null) {
