@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -120,10 +120,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 startActivity(intent);
             }
         });
+        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
-        albumArt = (NetworkImageView) findViewById(R.id.host_album_image);
-        trackTitle = (TextView) findViewById(R.id.host_current_track_title);
-        artistAlbum = (TextView) findViewById(R.id.host_current_track_artist_album);
+        albumArt = currentTrackLayout.findViewById(R.id.album_image);
+        trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
+        artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
 
         playbtn = (ImageButton) findViewById(R.id.host_play_button);
         playbtn.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +152,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
 
 
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
         seekBar.setMax(100);
 
         Timer timer = new Timer();
