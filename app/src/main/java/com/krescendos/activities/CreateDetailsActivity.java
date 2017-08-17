@@ -49,6 +49,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Intent intent = new Intent(getApplicationContext(), CreateStartActivity.class);
                         intent.putExtra("party", response.toString());
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
                     }
                 }, new Response.ErrorListener() {

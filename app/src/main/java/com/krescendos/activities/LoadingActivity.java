@@ -13,6 +13,8 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        final int targetIndex = getIntent().getIntExtra(TargetActivityIndex.INTENT_KEY, -1);
+
         Thread splashThread = new Thread() {
             @Override
             public void run() {
@@ -22,7 +24,8 @@ public class LoadingActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(getApplicationContext(), JoinCreateActivity.class);
+                    Intent intent = fromIndex(targetIndex);
+                    intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     finish();
                 }
@@ -31,4 +34,26 @@ public class LoadingActivity extends AppCompatActivity {
 
         splashThread.start();
     }
+
+    private Intent fromIndex(int index){
+        switch (index) {
+            case TargetActivityIndex.CLIENT_PLAYER:
+                return new Intent(getApplicationContext(), ClientPlayerActivity.class);
+            case TargetActivityIndex.CREATE_DETAILS:
+                return new Intent(getApplicationContext(), CreateDetailsActivity.class);
+            case TargetActivityIndex.CREATE_START:
+                return new Intent(getApplicationContext(), CreateStartActivity.class);
+            case TargetActivityIndex.HOST_PLAYER:
+                return new Intent(getApplicationContext(), HostPlayerActivity.class);
+            case TargetActivityIndex.JOIN:
+                return new Intent(getApplicationContext(), JoinActivity.class);
+            case TargetActivityIndex.JOIN_CREATE:
+                return new Intent(getApplicationContext(), JoinCreateActivity.class);
+            case TargetActivityIndex.SEARCH:
+                return new Intent(getApplicationContext(), SearchActivity.class);
+            default:
+                return new Intent(getApplicationContext(), JoinCreateActivity.class);
+        }
+    }
+
 }
