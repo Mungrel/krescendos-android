@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.krescendos.domain.Track;
+import com.krescendos.player.PlayState;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -106,6 +107,18 @@ public class Requester {
     public void nextTrack(String code, int newPos) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendPath(code).appendPath("next").appendQueryParameter("index", ""+newPos);
+        String url = builder.build().toString();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void updatePlayState(String code, PlayState state, long timeMs){
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendPath(code).appendPath("state")
+                .appendQueryParameter("newState", state.toString().toLowerCase())
+                .appendQueryParameter("trackTime", ""+timeMs);
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
