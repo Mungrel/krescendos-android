@@ -24,6 +24,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private LayoutInflater mInflater;
     private String currentPlayingId;
     private Requester requester;
+    private boolean itemsSelectable;
 
     public TrackListAdapter(Context context) {
         super(context, R.layout.player_list_layout);
@@ -31,6 +32,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         this.mInflater = LayoutInflater.from(context);
         this.requester = new Requester(context);
         currentPlayingId = null;
+        this.itemsSelectable = false;
     }
 
     @Override
@@ -105,6 +107,11 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         super.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean isEnabled(int pos) {
+        return itemsSelectable;
+    }
+
     private static class ViewHolder {
 
         TextView trackName;
@@ -119,5 +126,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
     public List<Track> getTracks() {
         return tracks;
+    }
+
+    public void setItemsSelectable(boolean itemsSelectable){
+        this.itemsSelectable = itemsSelectable;
     }
 }

@@ -37,6 +37,8 @@ public class ClientPlayerActivity extends AppCompatActivity {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
+        listAdapter.setItemsSelectable(false);
+
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
