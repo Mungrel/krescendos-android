@@ -29,7 +29,8 @@
         <activity android:name=".activities.CreateDetailsActivity" />
         <activity android:name=".activities.HostPlayerActivity" />
         <activity android:name=".activities.ClientPlayerActivity" />
-        <activity android:name=".activities.CreateStartActivity"/>
+        <activity android:name=".activities.CreateStartActivity" />
+        <activity android:name=".activities.LoadingActivity"></activity>
     </application>
 
 </manifest>
