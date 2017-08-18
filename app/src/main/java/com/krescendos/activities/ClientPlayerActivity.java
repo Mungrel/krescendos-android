@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +19,7 @@ import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
@@ -42,7 +44,9 @@ public class ClientPlayerActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
 
         // Compatibility between versions
         if (getActionBar() != null) {

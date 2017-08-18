@@ -123,7 +123,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
         LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
-        albumArt = currentTrackLayout.findViewById(R.id.album_image);
+        albumArt = currentTrackLayout.findViewById(R.id.current_track_album_art);
         trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
         artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
 
