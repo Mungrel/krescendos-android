@@ -25,11 +25,7 @@ public class Party {
         return playheadIndex;
     }
 
-    public Map<String, Track> getPlaylist() {
-        return playlist;
-    }
-
-    public List<Track> getPlaylistAsList() {
+    public List<Track> getPlaylist() {
         return new ArrayList<Track>(playlist.values());
     }
 

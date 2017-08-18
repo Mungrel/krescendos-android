@@ -31,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
 
         toolbarTitle.setText(party.getName());
-        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(getApplicationContext(), party.getPlaylistAsList(), party.getPartyId());
+        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(getApplicationContext(), party.getPlaylist(), party.getPartyId());
 
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
