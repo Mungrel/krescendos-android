@@ -30,13 +30,12 @@ public class PlaylistChangeListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        GenericTypeIndicator<Map<String, Track>> t = new GenericTypeIndicator<Map<String, Track>>() {
-        };
-        Map<String, Track> playlist = dataSnapshot.getValue(t);
         List<Track> newList = new ArrayList<Track>();
-        if (playlist != null) {
-            newList.addAll(playlist.values());
+
+        for (DataSnapshot track : dataSnapshot.getChildren()){
+            newList.add(track.getValue(Track.class));
         }
+
         List<Track> oldList = trackListAdapter.getTracks();
         logList("OLD:", oldList);
         newList = trackListDiff(oldList, newList);

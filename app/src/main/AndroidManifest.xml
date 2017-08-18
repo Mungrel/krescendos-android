@@ -21,7 +21,12 @@
         <activity android:name=".activities.HostPlayerActivity" />
         <activity android:name=".activities.ClientPlayerActivity" />
         <activity android:name=".activities.CreateStartActivity" />
-        <activity android:name=".activities.JoinCreateActivity"></activity>
+        <activity android:name=".activities.JoinCreateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
