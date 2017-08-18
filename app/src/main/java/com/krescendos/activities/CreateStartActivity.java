@@ -2,13 +2,9 @@ package com.krescendos.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
-import android.text.Layout;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -60,12 +56,12 @@ public class CreateStartActivity extends AppCompatActivity {
         code6.setEnabled(false);
         code6.setFocusable(false);
 
-        code1.setText(""+partyCode[0]);
-        code2.setText(""+partyCode[1]);
-        code3.setText(""+partyCode[2]);
-        code4.setText(""+partyCode[3]);
-        code5.setText(""+partyCode[4]);
-        code6.setText(""+partyCode[5]);
+        code1.setText("" + partyCode[0]);
+        code2.setText("" + partyCode[1]);
+        code3.setText("" + partyCode[2]);
+        code4.setText("" + partyCode[3]);
+        code5.setText("" + partyCode[4]);
+        code6.setText("" + partyCode[5]);
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);

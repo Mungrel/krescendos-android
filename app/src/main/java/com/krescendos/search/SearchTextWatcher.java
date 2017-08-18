@@ -11,7 +11,7 @@ public class SearchTextWatcher implements TextWatcher {
     private Requester requester;
     private SearchTrackListAdapter adapter;
 
-    public SearchTextWatcher(Context context, SearchTrackListAdapter adapter){
+    public SearchTextWatcher(Context context, SearchTrackListAdapter adapter) {
         this.requester = Requester.getInstance(context);
         this.adapter = adapter;
     }

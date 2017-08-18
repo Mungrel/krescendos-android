@@ -31,23 +31,25 @@ public class Requester {
 
         imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
+
             public void putBitmap(String url, Bitmap bitmap) {
                 mCache.put(url, bitmap);
             }
+
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
         });
     }
 
-    public static Requester getInstance(Context context){
-        if (instance == null){
+    public static Requester getInstance(Context context) {
+        if (instance == null) {
             instance = new Requester(context);
         }
         return instance;
     }
 
-    public void cancelAll(){
+    public void cancelAll() {
         requestQueue.cancelAll(new RequestQueue.RequestFilter() {
             @Override
             public boolean apply(Request<?> request) {
@@ -124,7 +126,7 @@ public class Requester {
 
     public void nextTrack(String code, int newPos) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("next").appendQueryParameter("index", ""+newPos);
+        builder.appendPath("party").appendPath(code).appendPath("next").appendQueryParameter("index", "" + newPos);
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
@@ -132,11 +134,11 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void updatePlayState(String code, PlayState state, long timeMs){
+    public void updatePlayState(String code, PlayState state, long timeMs) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendPath(code).appendPath("state")
                 .appendQueryParameter("newState", state.toString().toLowerCase())
-                .appendQueryParameter("trackTime", ""+timeMs);
+                .appendQueryParameter("trackTime", "" + timeMs);
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());

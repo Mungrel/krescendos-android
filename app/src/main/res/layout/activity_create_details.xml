@@ -11,7 +11,9 @@
     android:paddingRight="10dp"
     tools:context="com.krescendos.activities.CreateDetailsActivity">
 
-    <include android:id="@+id/create_details_toolbar" layout="@layout/toolbar_layout" />
+    <include
+        android:id="@+id/create_details_toolbar"
+        layout="@layout/toolbar_layout" />
 
     <TextView
         android:id="@+id/partyDetailsText"

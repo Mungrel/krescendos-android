@@ -10,7 +10,7 @@ public class LikeButtonClickListener implements View.OnClickListener {
     private ImageButton likeButton;
     private ImageButton dislikeButton;
 
-    public LikeButtonClickListener(ImageButton likeButton, ImageButton dislikeButton){
+    public LikeButtonClickListener(ImageButton likeButton, ImageButton dislikeButton) {
         this.likeButton = likeButton;
         this.dislikeButton = dislikeButton;
         this.likeButton.setTag("off");

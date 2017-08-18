@@ -1,6 +1,5 @@
 package com.krescendos.buttons;
 
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -11,7 +10,7 @@ public class DislikeButtonClickListener implements View.OnClickListener {
     private ImageButton dislikeButton;
     private ImageButton likeButton;
 
-    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton){
+    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton) {
         this.dislikeButton = dislikeButton;
         this.likeButton = likeButton;
         this.dislikeButton.setTag("off");

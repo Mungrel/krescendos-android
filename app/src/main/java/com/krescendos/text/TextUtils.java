@@ -17,10 +17,10 @@ public class TextUtils {
         return out;
     }
 
-    public static String space(String s){
+    public static String space(String s) {
         String out = "";
-        for (int i = 0; i < s.length(); i++){
-            out += s.charAt(i) +" ";
+        for (int i = 0; i < s.length(); i++) {
+            out += s.charAt(i) + " ";
         }
         return out.trim();
     }

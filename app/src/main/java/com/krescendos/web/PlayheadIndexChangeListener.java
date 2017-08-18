@@ -12,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
-import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 
 public class PlayheadIndexChangeListener implements ValueEventListener {
@@ -24,7 +23,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
     private TextView artistAlbum;
     private NetworkImageView albumArt;
 
-    public PlayheadIndexChangeListener(Context context, LinearLayout trackDetailsLayout, TrackListAdapter adapter){
+    public PlayheadIndexChangeListener(Context context, LinearLayout trackDetailsLayout, TrackListAdapter adapter) {
         this.adapter = adapter;
         this.imageLoader = Requester.getInstance(context).getImageLoader();
 
@@ -39,7 +38,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
         trackTitle.setText(newCurrentTrack.getName());
-        artistAlbum.setText(TextUtils.join(newCurrentTrack.getArtists())+" - "+newCurrentTrack.getAlbum());
+        artistAlbum.setText(TextUtils.join(newCurrentTrack.getArtists()) + " - " + newCurrentTrack.getAlbum());
         albumArt.setImageUrl(newCurrentTrack.getAlbum().getImages().get(0).getUrl(), imageLoader);
     }
 

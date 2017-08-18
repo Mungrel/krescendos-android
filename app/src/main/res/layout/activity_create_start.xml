@@ -40,7 +40,9 @@
             app:srcCompat="@drawable/share" />
     </LinearLayout>
 
-    <include android:id="@+id/create_start_title_bar" layout="@layout/join_code_layout" />
+    <include
+        android:id="@+id/create_start_title_bar"
+        layout="@layout/join_code_layout" />
 
     <TextView
         android:id="@+id/find_music_text"

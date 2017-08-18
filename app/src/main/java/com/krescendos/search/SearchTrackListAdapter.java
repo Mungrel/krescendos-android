@@ -1,7 +1,6 @@
 package com.krescendos.search;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +12,13 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.text.TextUtils;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
-public class SearchTrackListAdapter extends ArrayAdapter<Track>{
+public class SearchTrackListAdapter extends ArrayAdapter<Track> {
 
     private List<Track> playlist;
     private List<Track> searchResults;

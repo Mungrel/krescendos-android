@@ -1,7 +1,6 @@
 package com.krescendos.player;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -97,7 +96,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     }
 
     public void updateTracks(List<Track> tracks) {
-        Log.d("UPDATE", "newListSize: "+tracks.size());
+        Log.d("UPDATE", "newListSize: " + tracks.size());
         this.tracks = tracks;
         notifyDataSetChanged();
     }
@@ -128,7 +127,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return tracks;
     }
 
-    public void setItemsSelectable(boolean itemsSelectable){
+    public void setItemsSelectable(boolean itemsSelectable) {
         this.itemsSelectable = itemsSelectable;
     }
 }

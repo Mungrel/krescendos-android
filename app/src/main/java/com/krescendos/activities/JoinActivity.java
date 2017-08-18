@@ -18,7 +18,6 @@ import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class JoinActivity extends AppCompatActivity {
 

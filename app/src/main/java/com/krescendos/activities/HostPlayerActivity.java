@@ -111,7 +111,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         like.setOnClickListener(new LikeButtonClickListener(like, dislike));
         dislike.setOnClickListener(new DislikeButtonClickListener(dislike, like));
-        
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +150,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 refreshPlayBtn();
             }
         });
-
 
 
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);

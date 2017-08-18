@@ -153,7 +153,7 @@ public class TrackPlayer {
         if (trackLoaded() && spotifyPlayer.getPlaybackState().positionMs != 0) {
             resume();
         } else {
-            if (!trackList.isEmpty()){
+            if (!trackList.isEmpty()) {
                 playTrack(trackList.get(pos));
             }
         }

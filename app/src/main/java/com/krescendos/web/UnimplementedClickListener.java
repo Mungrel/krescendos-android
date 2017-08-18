@@ -8,7 +8,7 @@ public class UnimplementedClickListener implements View.OnClickListener {
 
     private Context context;
 
-    public UnimplementedClickListener(Context context){
+    public UnimplementedClickListener(Context context) {
         this.context = context;
     }
 
