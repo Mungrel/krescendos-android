@@ -1,6 +1,8 @@
 package com.krescendos.player;
 
+import com.krescendos.domain.Track;
+
 public interface OnTrackChangeListener {
 
-    void onTrackChange(int newTrackPosition);
+    void onTrackChange(Track newTrack);
 }

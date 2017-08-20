@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.krescendos.activities.JoinActivity">
 
-    <EditText
-        android:id="@+id/joinCodeField"
+    <include
+        android:id="@+id/join_toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <TextView
+        android:id="@+id/partyCodeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/join_code"
-        android:inputType="textPersonName" />
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="140dp"
+        android:text="@string/enter_party_code"
+        android:textAppearance="@style/TitleText"
+        android:textSize="@dimen/title_size" />
+
+    <include layout="@layout/join_code_layout" />
 
     <TextView
         android:id="@+id/joinErrorTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/party_does_not_exist"
         android:textColor="@android:color/holo_red_dark"
@@ -25,7 +34,8 @@
 
     <Button
         android:id="@+id/joinCodeSubmitButton"
+        style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/join" />
+        android:text="@string/join_short" />
 </LinearLayout>

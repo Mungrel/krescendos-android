@@ -3,10 +3,9 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -14,35 +13,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
-import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
-import com.krescendos.web.Requester;
-import com.spotify.sdk.android.player.ConnectionStateCallback;
-import com.spotify.sdk.android.player.Error;
 
-public class ClientPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
-    // Request code that will be used to verify if the result comes from correct activity
-    private static final int SEARCH_CODE = 1234;
+public class ClientPlayerActivity extends AppCompatActivity {
 
     private Party party;
-    private Requester requester;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_player);
-        requester = new Requester(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
+        listAdapter.setItemsSelectable(false);
+
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -50,69 +46,16 @@ public class ClientPlayerActivity extends AppCompatActivity implements Connectio
         } else if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(party.getName());
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.player_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addTrackItem:
+        ImageButton add = (ImageButton) findViewById(R.id.client_add_button);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivityForResult(intent, SEARCH_CODE);
-                break;
-            default:
-                super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        // Check if result comes from the correct activity
-        switch (requestCode) {
-            case SEARCH_CODE:
-                Gson gson = new Gson();
-                Track track = gson.fromJson(intent.getStringExtra("AddedTrack"), Track.class);
-                Log.d("APPENDTRACK", "Track: " + track.getName());
-                requester.append(party.getPartyId(), track);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onLoggedIn() {
-        Log.d("HostPlayerActivity", "User logged in");
-    }
-
-    @Override
-    public void onLoggedOut() {
-        Log.d("HostPlayerActivity", "User logged out");
-    }
-
-    @Override
-    public void onLoginFailed(Error e) {
-        Log.d("HostPlayerActivity", "Login failed");
-    }
-
-    @Override
-    public void onTemporaryError() {
-        Log.d("HostPlayerActivity", "Temporary error occurred");
-    }
-
-    @Override
-    public void onConnectionMessage(String message) {
-        Log.d("HostPlayerActivity", "Received connection message: " + message);
+                intent.putExtra("party", new Gson().toJson(party));
+                intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
     }
 }

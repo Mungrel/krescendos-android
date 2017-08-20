@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">11pt</dimen>
+    <dimen name="time_text">6pt</dimen>
+    <dimen name="list_text_size">8pt</dimen>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/host_title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:weightSum="1"
+    tools:showIn="@layout/activity_host_player">
+
+    <ImageView
+        android:id="@+id/host_title_icon"
+        android:layout_width="57dp"
+        android:layout_height="63dp"
+        android:layout_weight="0.05"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:paddingEnd="10dp"
+        android:paddingStart="5dp"
+        app:srcCompat="@drawable/icon" />
+
+    <LinearLayout
+        android:id="@+id/host_title_text_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.05"
+        android:orientation="vertical"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/host_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/krescendos"
+            android:textAppearance="@style/TitleText"
+            android:textSize="@dimen/title_size" />
+
+        <TextView
+            android:id="@+id/host_party_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/code_placeholder"
+            android:textAppearance="@style/BodyText" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/host_title_placeholder"
+        android:layout_width="57dp"
+        android:layout_height="63dp"
+        android:layout_weight="0.05"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon" />
+
+</LinearLayout>

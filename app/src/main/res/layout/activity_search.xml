@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.krescendos.activities.SearchActivity">
 
+    <include
+        android:id="@+id/search_toolbar"
+        layout="@layout/toolbar_layout" />
+
     <TextView
-        android:id="@+id/searchRecommendedText"
+        android:id="@+id/search_song_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_dark"
-        android:textColor="@android:color/darker_gray"
-        android:text="@string/recommended"
-         />
+        android:text="@string/search_for_a_song"
+        android:textAppearance="@style/TitleText"
+        android:textSize="@dimen/title_size" />
+
+    <EditText
+        android:id="@+id/search_term_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:theme="@style/TextInput" />
 
     <ListView
-        android:id="@+id/searchResultList"
+        android:id="@+id/search_result_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_dark" />
+        android:background="@null" />
 </LinearLayout>

@@ -25,12 +25,12 @@ public class TrackPlayer {
     private Requester requester;
     private String partyId;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, String partyId) {
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.partyId = partyId;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
@@ -42,8 +42,9 @@ public class TrackPlayer {
                         pos = 0;
                     }
                     playTrack(trackList.get(pos));
+                    requester.nextTrack(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
-                    onTrackChangeListener.onTrackChange(pos);
+                    onTrackChangeListener.onTrackChange(trackList.get(pos));
                 }
             }
 
@@ -78,7 +79,7 @@ public class TrackPlayer {
     private boolean trackLoaded() {
         return ((spotifyPlayer != null) && (spotifyPlayer.getMetadata() != null) &&
                 (spotifyPlayer.getPlaybackState() != null) &&
-                (spotifyPlayer.getMetadata().currentTrack != null));
+                (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
     }
 
     public void seekTo(int percent) {
@@ -93,7 +94,6 @@ public class TrackPlayer {
 
     public void queue(Track track) {
         trackList.add(track);
-        requester.append(partyId, track);
     }
 
     public void pause() {
@@ -138,6 +138,7 @@ public class TrackPlayer {
             return;
         }
         playTrack(trackList.get(pos));
+        requester.nextTrack(partyId, pos);
     }
 
     public Track getCurrentlyPlaying() {
@@ -152,7 +153,25 @@ public class TrackPlayer {
         if (trackLoaded() && spotifyPlayer.getPlaybackState().positionMs != 0) {
             resume();
         } else {
-            playTrack(trackList.get(pos));
+            if (!trackList.isEmpty()) {
+                playTrack(trackList.get(pos));
+            }
+        }
+    }
+
+    public long getCurrentTrackTime() {
+        if (trackLoaded()) {
+            return spotifyPlayer.getPlaybackState().positionMs;
+        } else {
+            return 0;
+        }
+    }
+
+    public long getCurrentTrackLength() {
+        if (trackLoaded()) {
+            return spotifyPlayer.getMetadata().currentTrack.durationMs;
+        } else {
+            return 0;
         }
     }
 

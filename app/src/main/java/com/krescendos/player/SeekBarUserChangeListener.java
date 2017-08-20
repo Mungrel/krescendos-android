@@ -2,11 +2,11 @@ package com.krescendos.player;
 
 import android.widget.SeekBar;
 
-public class SeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
+public class SeekBarUserChangeListener implements SeekBar.OnSeekBarChangeListener {
 
     private TrackPlayer trackPlayer;
 
-    public SeekBarChangeListener(TrackPlayer trackPlayer) {
+    public SeekBarUserChangeListener(TrackPlayer trackPlayer) {
         this.trackPlayer = trackPlayer;
     }
 

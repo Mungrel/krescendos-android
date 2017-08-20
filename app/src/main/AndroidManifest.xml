@@ -6,17 +6,10 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.JoinCreateActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!-- Needed for LoginActivity to work -->
         <activity
@@ -24,9 +17,16 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.JoinActivity" />
-        <activity android:name=".activities.CreateActivity" />
-        <activity android:name=".activities.HostPlayerActivity"/>
-        <activity android:name=".activities.ClientPlayerActivity"/>
+        <activity android:name=".activities.CreateDetailsActivity" />
+        <activity android:name=".activities.HostPlayerActivity" />
+        <activity android:name=".activities.ClientPlayerActivity" />
+        <activity android:name=".activities.CreateStartActivity" />
+        <activity android:name=".activities.JoinCreateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

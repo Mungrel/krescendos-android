@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_start_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    tools:context="com.krescendos.activities.CreateStartActivity">
+
+    <include layout="@layout/title_bar_layout" />
+
+    <LinearLayout
+        android:id="@+id/share_code_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="25dp">
+
+        <TextView
+            android:id="@+id/share_part_code_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/share_your_party_code"
+            android:textAppearance="@style/TitleText"
+            android:textSize="@dimen/title_size" />
+
+        <ImageButton
+            android:id="@+id/share_code_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            app:srcCompat="@drawable/share" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/create_start_title_bar"
+        layout="@layout/join_code_layout" />
+
+    <TextView
+        android:id="@+id/find_music_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="40dp"
+        android:text="@string/let_s_find_some_music"
+        android:textAppearance="@style/TitleText"
+        android:textSize="@dimen/title_size" />
+
+    <Button
+        android:id="@+id/import_spotify_playlist_button"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/import_spotify_playlist" />
+
+    <Button
+        android:id="@+id/krescendos_recommend_button"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/krescendos_recommend" />
+
+    <Button
+        android:id="@+id/manual_add_button"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/add_songs_manually" />
+
+</LinearLayout>

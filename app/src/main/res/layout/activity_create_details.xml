@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/createLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context="com.krescendos.activities.CreateDetailsActivity">
+
+    <include
+        android:id="@+id/create_details_toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <TextView
+        android:id="@+id/partyDetailsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingTop="30dp"
+        android:text="@string/party_details"
+        android:textAppearance="@style/TitleText"
+        android:textSize="@dimen/title_size" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/partyNameWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/BodyText"
+        app:theme="@style/TextInput">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/partyNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/party_name"
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/partyWelcomeWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/BodyText"
+        app:theme="@style/TextInput">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/partyWelcomeField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/party_welcome_message"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/createErrorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/could_not_create_party"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/partyOptionsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="30dp"
+        android:text="@string/party_options"
+        android:textAppearance="@style/TitleText"
+        android:textSize="@dimen/title_size" />
+
+    <Switch
+        android:id="@+id/autoSuggestSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:paddingBottom="10dp"
+        android:text="@string/auto_suggest_songs"
+        android:textColor="@color/colorText"
+        android:theme="@style/Switch" />
+
+    <Switch
+        android:id="@+id/othersSuggestSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:paddingBottom="60dp"
+        android:text="@string/allow_others_to_suggest_songs"
+        android:textColor="@color/colorText"
+        android:theme="@style/Switch" />
+
+    <Button
+        android:id="@+id/partyCreateButton"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_short" />
+
+</LinearLayout>
