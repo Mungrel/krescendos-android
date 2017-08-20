@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
               }
           }
         };
-        
+
         splashPause.start();
     }
 }
