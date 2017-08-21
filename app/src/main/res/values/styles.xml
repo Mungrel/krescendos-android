@@ -95,5 +95,9 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
+    
+    <style name="RoundTextButton" parent="@style/TextButton" >
+        <item name="background">@drawable/button_round</item>
+    </style>
 
 </resources>
