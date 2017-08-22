@@ -17,18 +17,18 @@ import java.util.List;
 public class RecommendButtonClickListener implements View.OnClickListener {
 
     private static List<String> userSelection;
-    private Button button;
+    private Button thisButton;
+    private Button[] buttons;
     private boolean buttonOn;
     private Context context;
     private Requester requester;
-    private int thisButtonInd;
 
-    public RecommendButtonClickListener(Context context, Button button, int thisButtonInd){
+    public RecommendButtonClickListener(Context context, Button[] buttons, int thisButtonInd){
         this.context = context;
-        this.button = button;
+        this.buttons = buttons;
         this.requester = Requester.getInstance(context);
         this.buttonOn = false;
-        this.thisButtonInd = thisButtonInd;
+        this.thisButton = buttons[thisButtonInd];
 
         if (userSelection == null){
             userSelection = Collections.synchronizedList(new ArrayList<String>(10));
@@ -37,15 +37,15 @@ public class RecommendButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (button.isShown()){
-            userSelection.add(button.getText().toString());
+        if (thisButton.isShown()){
+            userSelection.add(thisButton.getText().toString());
             buttonOn = !buttonOn;
             if (buttonOn){
-                button.setBackgroundResource(R.drawable.button_round_on);
-                button.setTextAppearance(context, R.style.RoundButtonTextOn);
+                thisButton.setBackgroundResource(R.drawable.button_round_on);
+                thisButton.setTextAppearance(context, R.style.RoundButtonTextOn);
             } else {
-                button.setBackgroundResource(R.drawable.button_round_off);
-                button.setTextAppearance(context, R.style.RoundButtonTextOff);
+                thisButton.setBackgroundResource(R.drawable.button_round_off);
+                thisButton.setTextAppearance(context, R.style.RoundButtonTextOff);
             }
             requester.pollPostLearner(userSelection, new Response.Listener<JSONArray>() {
                 @Override
