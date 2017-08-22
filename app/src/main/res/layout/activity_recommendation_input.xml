@@ -23,7 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -32,7 +32,7 @@
             android:id="@+id/recommend_button_1_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -51,7 +51,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -60,7 +60,7 @@
             android:id="@+id/recommend_button_2_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -79,7 +79,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -88,7 +88,7 @@
             android:id="@+id/recommend_button_3_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -107,7 +107,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />
@@ -116,7 +116,7 @@
             android:id="@+id/recommend_button_4_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_round_off"
             android:padding="15dp"
             android:text="@string/round_button_text"
             android:textAppearance="@style/TitleText" />

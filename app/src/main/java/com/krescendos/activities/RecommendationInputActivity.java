@@ -1,5 +1,6 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,14 +17,7 @@ import java.util.List;
 
 public class RecommendationInputActivity extends AppCompatActivity {
 
-    private Button opt0;
-    private Button opt1;
-    private Button opt2;
-    private Button opt3;
-    private Button opt4;
-    private Button opt5;
-    private Button opt6;
-    private Button opt7;
+    private Button[] buttons; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +35,25 @@ public class RecommendationInputActivity extends AppCompatActivity {
 
         Requester requester = Requester.getInstance(getApplicationContext());
 
-        opt0 = (Button) findViewById(R.id.recommend_button_1_1);
-        opt1 = (Button) findViewById(R.id.recommend_button_1_2);
-        opt2 = (Button) findViewById(R.id.recommend_button_2_1);
-        opt3 = (Button) findViewById(R.id.recommend_button_2_2);
-        opt4 = (Button) findViewById(R.id.recommend_button_3_1);
-        opt5 = (Button) findViewById(R.id.recommend_button_3_2);
-        opt6 = (Button) findViewById(R.id.recommend_button_4_1);
-        opt7 = (Button) findViewById(R.id.recommend_button_4_2);
+        buttons = new Button[8];
+        buttons[0] = (Button) findViewById(R.id.recommend_button_1_1);
+        buttons[1] = (Button) findViewById(R.id.recommend_button_1_2);
+        buttons[2] = (Button) findViewById(R.id.recommend_button_2_1);
+        buttons[3] = (Button) findViewById(R.id.recommend_button_2_2);
+        buttons[4] = (Button) findViewById(R.id.recommend_button_3_1);
+        buttons[5] = (Button) findViewById(R.id.recommend_button_3_2);
+        buttons[6] = (Button) findViewById(R.id.recommend_button_4_1);
+        buttons[7] = (Button) findViewById(R.id.recommend_button_4_2);
 
-        opt0.setOnClickListener(new RecommendButtonClickListener(opt0));
-        opt1.setOnClickListener(new RecommendButtonClickListener(opt1));
-        opt2.setOnClickListener(new RecommendButtonClickListener(opt2));
-        opt3.setOnClickListener(new RecommendButtonClickListener(opt3));
-        opt4.setOnClickListener(new RecommendButtonClickListener(opt4));
-        opt5.setOnClickListener(new RecommendButtonClickListener(opt5));
-        opt6.setOnClickListener(new RecommendButtonClickListener(opt6));
-        opt7.setOnClickListener(new RecommendButtonClickListener(opt7));
+        Context context = getApplicationContext();
+        buttons[0].setOnClickListener(new RecommendButtonClickListener(context, buttons, 0));
+        buttons[1].setOnClickListener(new RecommendButtonClickListener(context, buttons, 1));
+        buttons[2].setOnClickListener(new RecommendButtonClickListener(context, buttons, 2));
+        buttons[3].setOnClickListener(new RecommendButtonClickListener(context, buttons, 3));
+        buttons[4].setOnClickListener(new RecommendButtonClickListener(context, buttons, 4));
+        buttons[5].setOnClickListener(new RecommendButtonClickListener(context, buttons, 5));
+        buttons[6].setOnClickListener(new RecommendButtonClickListener(context, buttons, 6));
+        buttons[7].setOnClickListener(new RecommendButtonClickListener(context, buttons, 7));
 
         Button doneButton = (Button) findViewById(R.id.recommend_done_button);
     }
