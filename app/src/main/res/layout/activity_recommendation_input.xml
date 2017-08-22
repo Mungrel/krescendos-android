@@ -8,6 +8,7 @@
     android:gravity="center"
     tools:context="com.krescendos.activities.RecommendationInputActivity">
 
+    <include android:id="@+id/recommend_toolbar" layout="@layout/toolbar_layout" />
 
     <LinearLayout
         android:id="@+id/recommend_row_1"
@@ -24,7 +25,8 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
 
         <Button
             android:id="@+id/recommend_button_1_2"
@@ -32,7 +34,8 @@
             android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +53,8 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
 
         <Button
             android:id="@+id/recommend_button_2_2"
@@ -58,7 +62,8 @@
             android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +81,8 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
 
         <Button
             android:id="@+id/recommend_button_3_2"
@@ -84,7 +90,8 @@
             android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
     </LinearLayout>
 
     <LinearLayout
@@ -102,7 +109,8 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
 
         <Button
             android:id="@+id/recommend_button_4_2"
@@ -110,7 +118,8 @@
             android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
-            android:text="Round Button" />
+            android:text="@string/round_button_text"
+            android:textAppearance="@style/TitleText" />
     </LinearLayout>
 
     <Button
@@ -118,5 +127,5 @@
         style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I'm Done" />
+        android:text="@string/i_m_done" />
 </LinearLayout>
