@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.krescendos.activities.RecommendationInputActivity">
 
 
@@ -12,21 +13,23 @@
         android:id="@+id/recommend_row_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
 
         <Button
             android:id="@+id/recommend_button_1_1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
 
         <Button
             android:id="@+id/recommend_button_1_2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
@@ -36,22 +39,23 @@
         android:id="@+id/recommend_row_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_2_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
 
         <Button
-            android:id="@+id/button4"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_2_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
@@ -61,22 +65,23 @@
         android:id="@+id/recommend_row_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
 
         <Button
-            android:id="@+id/button5"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_3_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
 
         <Button
-            android:id="@+id/button6"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_3_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
@@ -86,24 +91,32 @@
         android:id="@+id/recommend_row_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
 
         <Button
-            android:id="@+id/button7"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_4_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
 
         <Button
-            android:id="@+id/button8"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
+            android:id="@+id/recommend_button_4_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/button_round"
             android:padding="15dp"
             android:text="Round Button" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/recommend_done_button"
+        style="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I'm Done" />
 </LinearLayout>
