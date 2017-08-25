@@ -23,6 +23,7 @@ import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
+import com.krescendos.domain.PartyState;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
@@ -96,7 +97,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         TextView title = (TextView) findViewById(R.id.host_title_text);
         title.setText(party.getName());
 
-        TextView partyCode = (TextView) findViewById(R.id.host_party_code);
+        final TextView partyCode = (TextView) findViewById(R.id.host_party_code);
         partyCode.setText(TextUtils.space(party.getPartyId()));
 
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
@@ -153,7 +154,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
 
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
-        seekBar.setMax(100);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -163,11 +163,12 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     @Override
                     public void run() {
                         if (mPlayer != null) {
-                            seekBar.setProgress(mPlayer.getProgressPercent());
-                            long elapsed = mPlayer.getCurrentTrackTime();
-                            long remaining = mPlayer.getCurrentTrackLength() - elapsed;
-                            timeElapsed.setText(Time.msTommss(elapsed));
+                            seekBar.setMax((int) mPlayer.getCurrentTrackLength());
+                            seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
+                            long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
+                            timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
                             timeRemaining.setText("-" + Time.msTommss(remaining));
+                            requester.updatePlayState(party.getPartyId(), mPlayer.getState());
                         }
                     }
                 });
