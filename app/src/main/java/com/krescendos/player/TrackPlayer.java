@@ -42,7 +42,7 @@ public class TrackPlayer {
                         pos = 0;
                     }
                     playTrack(trackList.get(pos));
-                    requester.nextTrack(partyId);
+                    requester.advancePlayhead(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
                 }
@@ -138,7 +138,7 @@ public class TrackPlayer {
             return;
         }
         playTrack(trackList.get(pos));
-        requester.nextTrack(partyId, pos);
+        requester.advancePlayhead(partyId, pos);
     }
 
     public Track getCurrentlyPlaying() {

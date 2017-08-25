@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.krescendos.domain.PartyState;
 import com.krescendos.domain.Track;
 import com.krescendos.player.PlayState;
 
@@ -119,7 +120,7 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void nextTrack(String code) {
+    public void advancePlayhead(String code) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendPath(code).appendPath("next");
         String url = builder.build().toString();
@@ -129,24 +130,29 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void nextTrack(String code, int newPos) {
+    public void advancePlayhead(String code, int newPos) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("next").appendQueryParameter("index", "" + newPos);
+        builder.appendPath("party").appendPath(code).appendPath("advancePlayhead").appendQueryParameter("nextIndex", "" + newPos);
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void updatePlayState(String code, PlayState state, long timeMs) {
+    public void updatePlayState(String code, PartyState state) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("state")
-                .appendQueryParameter("newState", state.toString().toLowerCase())
-                .appendQueryParameter("trackTime", "" + timeMs);
+        builder.appendPath("party").appendPath(code).appendPath("partyState");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        JSONObject jsonState = null;
+        try {
+            jsonState = new JSONObject(new Gson().toJson(state));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonState, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
     }
