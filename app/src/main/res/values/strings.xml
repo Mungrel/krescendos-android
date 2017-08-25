@@ -35,4 +35,7 @@
     <string name="krescendos_recommend">Krescendos Recommend</string>
     <string name="add_songs_manually">Add songs manually</string>
     <string name="search_for_a_song">Search for a song</string>
+    <string name="recommend">Recommend</string>
+    <string name="i_m_done">I\'m Done</string>
+    <string name="round_button_text">Option</string>
 </resources>

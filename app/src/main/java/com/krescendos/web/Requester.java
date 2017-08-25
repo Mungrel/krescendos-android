@@ -3,6 +3,7 @@ package com.krescendos.web;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.util.LruCache;
 
 import com.android.volley.Request;
@@ -12,11 +13,15 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.krescendos.domain.Track;
 import com.krescendos.player.PlayState;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class Requester {
 
@@ -144,6 +149,24 @@ public class Requester {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener){
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("kurtis");
+        String url = builder.build().toString();
+
+        JSONArray userSelectionArray = null;
+        try {
+            userSelectionArray = new JSONArray(new Gson().toJson(userSelection));
+        } catch (JSONException e) {
+            Log.d("JSONPARSE", "Failed to create JSON array");
+            e.printStackTrace();
+        }
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        requestQueue.add(jsonArrayRequest);
     }
 
     public ImageLoader getImageLoader() {
