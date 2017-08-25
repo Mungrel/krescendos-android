@@ -20,8 +20,8 @@ import java.util.List;
 
 public class TrackListAdapter extends ArrayAdapter<Track> {
     private List<Track> tracks;
+    private int currentPosition;
     private LayoutInflater mInflater;
-    private String currentPlayingId;
     private Requester requester;
     private boolean itemsSelectable;
 
@@ -30,7 +30,6 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
         this.requester = Requester.getInstance(context);
-        currentPlayingId = null;
         this.itemsSelectable = false;
     }
 
@@ -101,6 +100,14 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         notifyDataSetChanged();
     }
 
+    public int getCurrentPosition(){
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int position){
+        this.currentPosition = position;
+    }
+
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -117,10 +124,6 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         TextView artistAlbum;
         NetworkImageView albumArt;
         int pos;
-    }
-
-    public void setCurrentPlayingId(String currentPlayingId) {
-        this.currentPlayingId = currentPlayingId;
     }
 
     public List<Track> getTracks() {
