@@ -1,14 +1,19 @@
 package com.krescendos.domain;
 
 public class PartyState {
-    PlaybackState playbackState;
-    int playheadPositionAtLastStateChange;
+    private PlaybackState playbackState;
+    private long playheadPositionAtLastStateChange;
+
+    public PartyState(PlaybackState playbackState, long playheadPositionAtLastStateChange) {
+        this.playbackState = playbackState;
+        this.playheadPositionAtLastStateChange = playheadPositionAtLastStateChange;
+    }
 
     public PlaybackState getPlaybackState() {
         return playbackState;
     }
 
-    public int getPlayheadPositionAtLastStateChange() {
+    public long getPlayheadPositionAtLastStateChange() {
         return playheadPositionAtLastStateChange;
     }
 }

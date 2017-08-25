@@ -4,6 +4,8 @@ package com.krescendos.player;
 import android.content.Context;
 import android.util.Log;
 
+import com.krescendos.domain.PartyState;
+import com.krescendos.domain.PlaybackState;
 import com.krescendos.domain.Track;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.Error;
@@ -45,6 +47,7 @@ public class TrackPlayer {
                     requester.advancePlayhead(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
+                    requester.advancePlayhead(partyId, pos);
                 }
             }
 
@@ -74,6 +77,7 @@ public class TrackPlayer {
         Log.d("PLAYING", track.getName());
         spotifyPlayer.playUri(null, track.getTrackURI(), 0, 0);
         isPlaying = true;
+        requester.updatePlayState(partyId, getState());
     }
 
     private boolean trackLoaded() {
@@ -99,11 +103,19 @@ public class TrackPlayer {
     public void pause() {
         spotifyPlayer.pause(null);
         isPlaying = false;
+        requester.updatePlayState(partyId, getState());
     }
 
     private void resume() {
         spotifyPlayer.resume(null);
         isPlaying = true;
+        requester.updatePlayState(partyId, getState());
+    }
+
+    private PartyState getState(){
+        PlaybackState state = isPlaying() ? PlaybackState.PLAY : PlaybackState.PAUSE;
+        long trackPos = getCurrentTrackTime();
+        return new PartyState(state, trackPos);
     }
 
     public void previous() {
