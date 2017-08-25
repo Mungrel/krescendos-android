@@ -3,6 +3,7 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
+import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
@@ -39,6 +41,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
 
         SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
+        seekBar.setOnTouchListener(new SeekBarNoChangeListener());
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
