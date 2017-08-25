@@ -24,6 +24,9 @@ public class PartyStateChangeListener implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         PartyState partyState = dataSnapshot.getValue(PartyState.class);
+        if (listAdapter.getTracks().isEmpty()){
+            return;
+        }
         long currentTrackLength = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
         seekBar.setMax((int)currentTrackLength);
         seekBar.setProgress((int) partyState.getPlayheadPositionAtLastStateChange());

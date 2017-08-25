@@ -30,7 +30,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
         TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
         listAdapter.setItemsSelectable(false);
