@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 
@@ -39,7 +40,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
-        ref.child("partyState").addValueEventListener(new )
+        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(layout));
 
         // Compatibility between versions
         if (getActionBar() != null) {

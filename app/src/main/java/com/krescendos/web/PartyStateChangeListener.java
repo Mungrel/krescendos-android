@@ -19,7 +19,7 @@ public class PartyStateChangeListener implements ValueEventListener {
     public void onDataChange(DataSnapshot dataSnapshot) {
         PartyState partyState = dataSnapshot.getValue(PartyState.class);
 
-        
+
     }
 
     @Override
