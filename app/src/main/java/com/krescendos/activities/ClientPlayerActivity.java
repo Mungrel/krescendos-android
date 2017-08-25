@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,10 +38,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
+        SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
-        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(layout));
+        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(seekBar));
 
         // Compatibility between versions
         if (getActionBar() != null) {

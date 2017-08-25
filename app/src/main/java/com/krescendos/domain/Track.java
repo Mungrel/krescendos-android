@@ -1,52 +1,48 @@
 package com.krescendos.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Track {
     private String id;
     private String name;
     private Album album;
+    private long duration_ms;
     private List<Artist> artists;
-
-    public Track() {
-        this.artists = new ArrayList<Artist>();
-    }
 
     public String getId() {
         return id;
-    }
-
-    public String getTrackURI() {
-        return "spotify:track:" + this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Album getAlbum() {
         return album;
     }
 
-    public void setAlbum(Album album) {
-        this.album = album;
+    public long getDuration_ms() {
+        return duration_ms;
     }
 
     public List<Artist> getArtists() {
         return artists;
     }
 
-    public void addArtist(Artist artist) {
-        this.artists.add(artist);
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public void setDuration_ms(long duration_ms) {
+        this.duration_ms = duration_ms;
     }
 
     public void setArtists(List<Artist> artists) {
