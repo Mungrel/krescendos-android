@@ -219,7 +219,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {
-                                    listAdapter.setCurrentPlayingId(newTrack.getId());
                                     listAdapter.notifyDataSetChanged();
                                     AlbumArt largestImage = newTrack.getAlbum().getImages().get(0);
                                     albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());

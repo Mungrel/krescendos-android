@@ -48,4 +48,8 @@ public class Track {
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }
+
+    public String getTrackURI(){
+        return "spotify:track:"+id;
+    }
 }
