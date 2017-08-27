@@ -48,10 +48,15 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         updateTimer = new UpdateTimer(new OnTimerUpdateListener() {
             @Override
-            public void onUpdate(long time) {
-                if (time < seekBar.getMax()){
-                    seekBar.setProgress((int)time);
-                }
+            public void onUpdate(final long time) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (time < seekBar.getMax()){
+                            seekBar.setProgress((int)time);
+                        }
+                    }
+                });
             }
         });
 
