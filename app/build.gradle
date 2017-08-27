@@ -18,6 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        preDexLibraries = false
+    }
 }
 
 repositories {
@@ -33,7 +36,7 @@ dependencies {
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
     compile 'com.android.volley:volley:1.0.0'
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-database:10.0.1'

@@ -25,8 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progressBackgroundTint="@color/colorText"
-        android:enabled="false"
-        android:theme="@style/SeekBar" />
+        android:splitTrack="false"
+        android:theme="@style/SeekBar"
+        android:thumbTint="@color/colorAccent" />
 
     <LinearLayout
         android:id="@+id/client_buttons_container"

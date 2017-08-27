@@ -53,6 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progressBackgroundTint="@color/colorText"
+        android:splitTrack="false"
+        android:thumbTint="@color/colorAccent"
         android:theme="@style/SeekBar" />
 
     <LinearLayout

@@ -35,6 +35,10 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         int newIndex = dataSnapshot.getValue(Integer.class);
+        adapter.setCurrentPosition(newIndex);
+        if (adapter.getTracks().isEmpty()) {
+            return;
+        }
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
         trackTitle.setText(newCurrentTrack.getName());

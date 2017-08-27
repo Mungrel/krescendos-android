@@ -3,17 +3,21 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
+import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 
@@ -28,7 +32,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
         TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
         listAdapter.setItemsSelectable(false);
@@ -36,9 +40,13 @@ public class ClientPlayerActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
+        SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
+        seekBar.setOnTouchListener(new SeekBarNoChangeListener());
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
+        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(seekBar, listAdapter));
 
         // Compatibility between versions
         if (getActionBar() != null) {
