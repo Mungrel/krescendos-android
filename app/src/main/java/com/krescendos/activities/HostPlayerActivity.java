@@ -93,10 +93,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        TextView title = (TextView) findViewById(R.id.host_title_text);
+        TextView title = (TextView) findViewById(R.id.title_text);
         title.setText(party.getName());
 
-        final TextView partyCode = (TextView) findViewById(R.id.host_party_code);
+        TextView partyCode = (TextView) findViewById(R.id.party_code);
         partyCode.setText(TextUtils.space(party.getPartyId()));
 
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
@@ -172,14 +172,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 });
             }
         }, 0, 200);
-
-
-        // Compatibility between versions
-        if (getActionBar() != null) {
-            getActionBar().setTitle(party.getName());
-        } else if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(party.getName());
-        }
     }
 
     private void refreshPlayBtn() {

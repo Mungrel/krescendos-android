@@ -2,7 +2,7 @@
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/host_title_layout"
+    android:id="@+id/title_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_host_player">
 
     <ImageView
-        android:id="@+id/host_title_icon"
+        android:id="@+id/title_icon"
         android:layout_width="57dp"
         android:layout_height="63dp"
         android:layout_weight="0.05"
@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/icon" />
 
     <LinearLayout
-        android:id="@+id/host_title_text_layout"
+        android:id="@+id/title_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0.05"
@@ -32,7 +32,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/host_title_text"
+            android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/krescendos"
@@ -40,7 +40,7 @@
             android:textSize="@dimen/title_size" />
 
         <TextView
-            android:id="@+id/host_party_code"
+            android:id="@+id/party_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/code_placeholder"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/host_title_placeholder"
+        android:id="@+id/title_placeholder"
         android:layout_width="57dp"
         android:layout_height="63dp"
         android:layout_weight="0.05"

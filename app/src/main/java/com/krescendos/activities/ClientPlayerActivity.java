@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,6 +18,7 @@ import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.text.TextUtils;
 import com.krescendos.timer.UpdateTimer;
 import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
@@ -44,6 +46,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
+
+        TextView title = (TextView) findViewById(R.id.title_text);
+        title.setText(party.getName());
+
+        TextView partyCode = (TextView) findViewById(R.id.party_code);
+        partyCode.setText(TextUtils.space(party.getPartyId()));
 
         final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
@@ -74,13 +82,6 @@ public class ClientPlayerActivity extends AppCompatActivity {
             }
         }, 0, UpdateTimer.REPEAT_TIME_MS);
 
-        // Compatibility between versions
-        if (getActionBar() != null) {
-            getActionBar().setTitle(party.getName());
-        } else if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(party.getName());
-        }
-
         ImageButton add = (ImageButton) findViewById(R.id.client_add_button);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,5 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }
