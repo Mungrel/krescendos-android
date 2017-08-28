@@ -1,7 +1,9 @@
 package com.krescendos.web;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -22,10 +24,12 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
     private TextView trackTitle;
     private TextView artistAlbum;
     private NetworkImageView albumArt;
+    private SeekBar seekBar;
 
-    public PlayheadIndexChangeListener(Context context, LinearLayout trackDetailsLayout, TrackListAdapter adapter) {
+    public PlayheadIndexChangeListener(Context context, LinearLayout trackDetailsLayout, TrackListAdapter adapter, SeekBar seekBar) {
         this.adapter = adapter;
         this.imageLoader = Requester.getInstance(context).getImageLoader();
+        this.seekBar = seekBar;
 
         trackTitle = trackDetailsLayout.findViewById(R.id.current_track_title);
         artistAlbum = trackDetailsLayout.findViewById(R.id.current_track_artist_album);
@@ -34,13 +38,17 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        Log.d("ABC", "HERE");
         int newIndex = dataSnapshot.getValue(Integer.class);
-        adapter.setCurrentPosition(newIndex);
+        Log.d("SIZE", "" + adapter.getTracks().size());
         if (adapter.getTracks().isEmpty()) {
             return;
         }
+        adapter.setCurrentPosition(newIndex);
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
+        seekBar.setMax((int) newCurrentTrack.getDuration_ms());
+        Log.d("MAX", "MaxSet");
         trackTitle.setText(newCurrentTrack.getName());
         artistAlbum.setText(TextUtils.join(newCurrentTrack.getArtists()) + " - " + newCurrentTrack.getAlbum());
         albumArt.setImageUrl(newCurrentTrack.getAlbum().getImages().get(0).getUrl(), imageLoader);

@@ -23,7 +23,6 @@ import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
-import com.krescendos.domain.PartyState;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
@@ -168,14 +167,12 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
                             timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
                             timeRemaining.setText("-" + Time.msTommss(remaining));
-                            requester.updatePlayState(party.getPartyId(), mPlayer.getState());
                         }
                     }
                 });
             }
         }, 0, 200);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -215,6 +212,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
+                            seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override

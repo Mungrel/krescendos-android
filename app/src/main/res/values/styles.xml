@@ -96,8 +96,8 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
 
     </style>
-    
-    <style name="RoundTextButton" parent="@style/TextButton" >
+
+    <style name="RoundTextButton" parent="@style/TextButton">
         <item name="background">@drawable/button_round_off</item>
     </style>
 

@@ -3,7 +3,7 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -17,13 +17,19 @@ import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.timer.UpdateTimer;
 import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ClientPlayerActivity extends AppCompatActivity {
 
     private Party party;
+    private UpdateTimer updateTimer;
+    private Timer UITimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +40,55 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
-        TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
+        final TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext());
         listAdapter.setItemsSelectable(false);
 
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         listView.setAdapter(listAdapter);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
+        final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
+
+        updateTimer = new UpdateTimer();
+
+
+//        updateTimer = new UpdateTimer(new OnTimerUpdateListener() {
+//            @Override
+//            public void onUpdate(final long time) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (time < seekBar.getMax()){
+//                            seekBar.setProgress((int)time);
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter));
-        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(seekBar, listAdapter));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar));
+        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
+
+        UITimer = new Timer();
+        UITimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (listAdapter.getTracks().isEmpty()) {
+                            return;
+                        }
+                        long currentTrackDuration = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
+                        seekBar.setMax((int) currentTrackDuration);
+                        seekBar.setProgress((int) updateTimer.getTime());
+                        Log.d("PROG", "Progress Set");
+                    }
+                });
+            }
+        }, 0, UpdateTimer.REPEAT_TIME_MS);
 
         // Compatibility between versions
         if (getActionBar() != null) {
@@ -65,5 +107,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 }

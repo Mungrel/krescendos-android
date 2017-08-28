@@ -49,7 +49,7 @@ public class Track {
         this.artists = artists;
     }
 
-    public String getTrackURI(){
-        return "spotify:track:"+id;
+    public String getTrackURI() {
+        return "spotify:track:" + id;
     }
 }

@@ -16,7 +16,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.krescendos.domain.PartyState;
 import com.krescendos.domain.Track;
-import com.krescendos.player.PlayState;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -157,7 +156,7 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener){
+    public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("kurtis");
         String url = builder.build().toString();

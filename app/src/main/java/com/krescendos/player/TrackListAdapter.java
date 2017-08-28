@@ -100,11 +100,11 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         notifyDataSetChanged();
     }
 
-    public int getCurrentPosition(){
+    public int getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(int position){
+    public void setCurrentPosition(int position) {
         this.currentPosition = position;
     }
 

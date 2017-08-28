@@ -23,24 +23,24 @@ public class RecommendButtonClickListener implements View.OnClickListener {
     private Context context;
     private Requester requester;
 
-    public RecommendButtonClickListener(Context context, Button[] buttons, int thisButtonInd){
+    public RecommendButtonClickListener(Context context, Button[] buttons, int thisButtonInd) {
         this.context = context;
         this.buttons = buttons;
         this.requester = Requester.getInstance(context);
         this.buttonOn = false;
         this.thisButton = buttons[thisButtonInd];
 
-        if (userSelection == null){
+        if (userSelection == null) {
             userSelection = Collections.synchronizedList(new ArrayList<String>(10));
         }
     }
 
     @Override
     public void onClick(View view) {
-        if (thisButton.isShown()){
+        if (thisButton.isShown()) {
             userSelection.add(thisButton.getText().toString());
             buttonOn = !buttonOn;
-            if (buttonOn){
+            if (buttonOn) {
                 thisButton.setBackgroundResource(R.drawable.button_round_on);
                 thisButton.setTextAppearance(context, R.style.RoundButtonTextOn);
             } else {
@@ -56,7 +56,7 @@ public class RecommendButtonClickListener implements View.OnClickListener {
         }
     }
 
-    public static List<String> getUserSelection(){
+    public static List<String> getUserSelection() {
         return userSelection;
     }
 }

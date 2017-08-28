@@ -4,7 +4,8 @@ public class PartyState {
     private PlaybackState playbackState;
     private long playheadPositionAtLastStateChange;
 
-    public PartyState(){}
+    public PartyState() {
+    }
 
     public PartyState(PlaybackState playbackState, long playheadPositionAtLastStateChange) {
         this.playbackState = playbackState;
