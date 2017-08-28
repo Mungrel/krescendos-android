@@ -1,11 +1,10 @@
 package com.krescendos.activities;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,11 +12,9 @@ import com.krescendos.R;
 import com.krescendos.buttons.RecommendButtonClickListener;
 import com.krescendos.web.Requester;
 
-import java.util.List;
-
 public class RecommendationInputActivity extends AppCompatActivity {
 
-    private Button[] buttons; 
+    private Button[] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,7 +12,7 @@ public class SeekBarUserChangeListener implements SeekBar.OnSeekBarChangeListene
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (fromUser){
+        if (fromUser) {
             trackPlayer.seekTo(progress);
         }
     }

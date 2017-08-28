@@ -78,11 +78,11 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (listAdapter.getTracks().isEmpty()){
+                        if (listAdapter.getTracks().isEmpty()) {
                             return;
                         }
                         long currentTrackDuration = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
-                        seekBar.setMax((int)currentTrackDuration);
+                        seekBar.setMax((int) currentTrackDuration);
                         seekBar.setProgress((int) updateTimer.getTime());
                         Log.d("PROG", "Progress Set");
                     }

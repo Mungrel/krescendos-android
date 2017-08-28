@@ -108,7 +108,7 @@ public class TrackPlayer {
         requester.updatePlayState(partyId, getState());
     }
 
-    public PartyState getState(){
+    public PartyState getState() {
         PlaybackState state = isPlaying() ? PlaybackState.PLAY : PlaybackState.PAUSE;
         long trackPos = getCurrentTrackTime();
         return new PartyState(state, trackPos);

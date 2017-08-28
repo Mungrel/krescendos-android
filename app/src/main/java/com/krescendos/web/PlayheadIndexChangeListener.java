@@ -40,14 +40,14 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
     public void onDataChange(DataSnapshot dataSnapshot) {
         Log.d("ABC", "HERE");
         int newIndex = dataSnapshot.getValue(Integer.class);
-        Log.d("SIZE", ""+adapter.getTracks().size());
+        Log.d("SIZE", "" + adapter.getTracks().size());
         if (adapter.getTracks().isEmpty()) {
             return;
         }
         adapter.setCurrentPosition(newIndex);
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
-        seekBar.setMax((int)newCurrentTrack.getDuration_ms());
+        seekBar.setMax((int) newCurrentTrack.getDuration_ms());
         Log.d("MAX", "MaxSet");
         trackTitle.setText(newCurrentTrack.getName());
         artistAlbum.setText(TextUtils.join(newCurrentTrack.getArtists()) + " - " + newCurrentTrack.getAlbum());

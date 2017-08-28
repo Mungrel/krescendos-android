@@ -23,7 +23,6 @@ import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
 import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
-import com.krescendos.domain.PartyState;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
@@ -173,7 +172,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 });
             }
         }, 0, 200);
-
 
 
         // Compatibility between versions
