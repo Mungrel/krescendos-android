@@ -31,10 +31,6 @@ public class UpdateTimer {
         timer.cancel();
     }
 
-    public long getTime() {
-        return time;
-    }
-
     public void setTime(long time){
         this.time = time;
     }
