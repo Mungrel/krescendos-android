@@ -26,8 +26,8 @@ public class CreateStartActivity extends AppCompatActivity {
 
         Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
-        TextView title = (TextView) findViewById(R.id.host_title_text);
-        TextView titleCode = (TextView) findViewById(R.id.host_party_code);
+        TextView title = (TextView) findViewById(R.id.title_text);
+        TextView titleCode = (TextView) findViewById(R.id.party_code);
 
         title.setText(party.getName());
         titleCode.setText(TextUtils.space(party.getPartyId()));
