@@ -29,7 +29,6 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
     private Party party;
     private UpdateTimer updateTimer;
-    private Timer UITimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,27 +50,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         updateTimer = new UpdateTimer();
 
-
-//        updateTimer = new UpdateTimer(new OnTimerUpdateListener() {
-//            @Override
-//            public void onUpdate(final long time) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (time < seekBar.getMax()){
-//                            seekBar.setProgress((int)time);
-//                        }
-//                    }
-//                });
-//            }
-//        });
-
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar));
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
 
-        UITimer = new Timer();
+        Timer UITimer = new Timer();
         UITimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
