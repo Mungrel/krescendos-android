@@ -27,7 +27,9 @@
         android:progressBackgroundTint="@color/colorText"
         android:splitTrack="false"
         android:theme="@style/SeekBar"
-        android:thumbTint="@color/colorAccent" />
+        android:thumbTint="@color/colorAccent"
+        android:progressTint="@color/colorPrimary"
+        />
 
     <LinearLayout
         android:id="@+id/client_buttons_container"
