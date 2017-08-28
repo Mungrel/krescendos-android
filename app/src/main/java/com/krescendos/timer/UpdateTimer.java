@@ -5,33 +5,44 @@ import java.util.TimerTask;
 
 public class UpdateTimer {
 
-    private static int REPEAT_TIME_MS = 200;
+    public static final int REPEAT_TIME_MS = 200;
 
-    private Timer timer;
+    private static Timer timer;
     private long time;
-    private OnTimerUpdateListener onTimerUpdateListener;
 
-    public UpdateTimer(final OnTimerUpdateListener onTimerUpdateListener){
-        this.onTimerUpdateListener = onTimerUpdateListener;
+    public UpdateTimer(){
         time = 0;
-        timer = new Timer();
+        timer = null;
     }
 
     public void start(){
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                time += REPEAT_TIME_MS;
-                onTimerUpdateListener.onUpdate(time);
-            }
-        }, 0, REPEAT_TIME_MS);
+        if (timer != null){
+            timer.cancel();
+            timer.purge();
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new UpdateTask(), 0, REPEAT_TIME_MS);
     }
 
     public void pause(){
+        if (timer == null) { return; }
         timer.cancel();
+        timer.purge();
+        timer = null;
     }
 
     public void setTime(long time){
         this.time = time;
+    }
+
+    public long getTime(){
+        return time;
+    }
+
+    private class UpdateTask extends TimerTask{
+        @Override
+        public void run() {
+            time += REPEAT_TIME_MS;
+        }
     }
 }

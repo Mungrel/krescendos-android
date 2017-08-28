@@ -9,6 +9,7 @@ import com.krescendos.domain.PlaybackState;
 import com.krescendos.domain.Track;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
@@ -61,18 +62,6 @@ public class TrackPlayer {
         this.onTrackChangeListener = onTrackChangeListener;
     }
 
-    public int getProgressPercent() {
-        if (trackLoaded()) {
-            double trackDur = (double) spotifyPlayer.getMetadata().currentTrack.durationMs;
-            double currentPos = (double) spotifyPlayer.getPlaybackState().positionMs;
-            double prog = (currentPos / trackDur) * 100;
-            int progressPercent = (int) Math.round(prog);
-            return progressPercent;
-        } else {
-            return 0;
-        }
-    }
-
     private void playTrack(Track track) {
         Log.d("PLAYING", track.getName());
         spotifyPlayer.playUri(null, track.getTrackURI(), 0, 0);
@@ -86,14 +75,21 @@ public class TrackPlayer {
                 (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
     }
 
-    public void seekTo(int percent) {
+    public void seekTo(int newPos) {
         if (!trackLoaded()) {
             return;
         }
-        double trackDur = spotifyPlayer.getMetadata().currentTrack.durationMs;
-        double onePercent = trackDur / 100;
-        int newPos = (int) Math.round(onePercent * percent);
-        spotifyPlayer.seekToPosition(null, newPos);
+        spotifyPlayer.seekToPosition(new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                requester.updatePlayState(partyId, getState());
+            }
+
+            @Override
+            public void onError(Error error) {
+            }
+        }, newPos);
+
     }
 
     public void queue(Track track) {
@@ -126,6 +122,7 @@ public class TrackPlayer {
         if (isPlaying) {
             playTrack(trackList.get(pos));
         }
+        requester.updatePlayState(partyId, getState());
     }
 
     public void next() {
@@ -136,6 +133,7 @@ public class TrackPlayer {
         if (isPlaying) {
             playTrack(trackList.get(pos));
         }
+        requester.updatePlayState(partyId, getState());
     }
 
     public void skipTo(int newPos) {
@@ -151,6 +149,7 @@ public class TrackPlayer {
         }
         playTrack(trackList.get(pos));
         requester.advancePlayhead(partyId, pos);
+        requester.updatePlayState(partyId, getState());
     }
 
     public Track getCurrentlyPlaying() {
@@ -169,6 +168,7 @@ public class TrackPlayer {
                 playTrack(trackList.get(pos));
             }
         }
+        requester.updatePlayState(partyId, getState());
     }
 
     public long getCurrentTrackTime() {

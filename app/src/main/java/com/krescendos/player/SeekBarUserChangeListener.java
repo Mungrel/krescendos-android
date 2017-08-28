@@ -11,8 +11,10 @@ public class SeekBarUserChangeListener implements SeekBar.OnSeekBarChangeListene
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser){
+            trackPlayer.seekTo(progress);
+        }
     }
 
     @Override
@@ -22,7 +24,6 @@ public class SeekBarUserChangeListener implements SeekBar.OnSeekBarChangeListene
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        int progress = seekBar.getProgress();
-        trackPlayer.seekTo(progress);
+
     }
 }

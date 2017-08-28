@@ -15,35 +15,28 @@ import com.krescendos.timer.UpdateTimer;
 
 public class PartyStateChangeListener implements ValueEventListener {
 
-    private SeekBar seekBar;
-    private TrackListAdapter listAdapter;
     private UpdateTimer updateTimer;
 
-    public PartyStateChangeListener(SeekBar seekBar, TrackListAdapter listAdapter, UpdateTimer updateTimer){
-        this.seekBar = seekBar;
-        this.listAdapter = listAdapter;
+    public PartyStateChangeListener(UpdateTimer updateTimer){
         this.updateTimer = updateTimer;
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         PartyState partyState = dataSnapshot.getValue(PartyState.class);
+        Log.d("STATE", partyState.getPlaybackState().toString());
+        if (partyState == null){
+            partyState = new PartyState(PlaybackState.PAUSE, 0);
+        }
         if (partyState.getPlaybackState().equals(PlaybackState.PAUSE)){
+            Log.d("STATE", ""+partyState.getPlayheadPositionAtLastStateChange());
             updateTimer.pause();
+            updateTimer.setTime(partyState.getPlayheadPositionAtLastStateChange());
         } else {
+            Log.d("STATE", ""+partyState.getPlayheadPositionAtLastStateChange());
+            updateTimer.setTime(partyState.getPlayheadPositionAtLastStateChange());
             updateTimer.start();
         }
-        updateTimer.setTime(partyState.getPlayheadPositionAtLastStateChange());
-
-        if (listAdapter.getTracks().isEmpty()){
-            return;
-        }
-        
-        long currentTrackLength = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
-        seekBar.setMax((int)currentTrackLength);
-        seekBar.setProgress((int) partyState.getPlayheadPositionAtLastStateChange());
-
-
     }
 
     @Override
