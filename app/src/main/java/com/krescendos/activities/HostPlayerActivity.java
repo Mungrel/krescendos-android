@@ -30,7 +30,6 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
-import com.krescendos.utils.Utility;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
