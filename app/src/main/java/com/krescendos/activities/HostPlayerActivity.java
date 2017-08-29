@@ -30,6 +30,7 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
+import com.krescendos.utils.Utility;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -140,9 +141,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        listAdapter = new TrackListAdapter(getApplicationContext());
         final ListView listView = (ListView) findViewById(R.id.playerList);
+        listAdapter = new TrackListAdapter(getApplicationContext(), listView);
         listView.setAdapter(listAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int targetTrackPos, long l) {
@@ -150,7 +152,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 refreshPlayBtn();
             }
         });
-
 
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
@@ -167,6 +168,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
                             timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
                             timeRemaining.setText("-" + Time.msTommss(remaining));
+                            //Utility.setListViewHeightBasedOnChildren(listView);
                         }
                     }
                 });

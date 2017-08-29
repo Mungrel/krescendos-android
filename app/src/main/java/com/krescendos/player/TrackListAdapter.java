@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.krescendos.text.TextUtils;
+import com.krescendos.utils.Utility;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -24,13 +26,15 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private LayoutInflater mInflater;
     private Requester requester;
     private boolean itemsSelectable;
+    private ListView listView;
 
-    public TrackListAdapter(Context context) {
+    public TrackListAdapter(Context context, ListView listView) {
         super(context, R.layout.player_list_layout);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
         this.requester = Requester.getInstance(context);
         this.itemsSelectable = false;
+        this.listView = listView;
     }
 
     @Override
@@ -111,6 +115,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+        Utility.setListViewHeightBasedOnChildren(listView);
     }
 
     @Override
