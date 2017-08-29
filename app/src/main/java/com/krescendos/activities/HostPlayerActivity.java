@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -55,7 +56,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private TrackListAdapter listAdapter;
     private Requester requester;
-    private boolean liked = false;
     private Party party;
     private DatabaseReference ref;
 
@@ -118,7 +118,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra("party", new Gson().toJson(party));
                 intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+                startActivityForResult(intent, SearchActivity.SEARCH_CODE);
             }
         });
         LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
@@ -140,9 +140,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        listAdapter = new TrackListAdapter(getApplicationContext());
         final ListView listView = (ListView) findViewById(R.id.playerList);
+        listAdapter = new TrackListAdapter(getApplicationContext(), listView);
         listView.setAdapter(listAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int targetTrackPos, long l) {
@@ -150,7 +151,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 refreshPlayBtn();
             }
         });
-
 
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
@@ -224,7 +224,12 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         }
                     });
                     break;
+
+
                 }
+            case SearchActivity.SEARCH_CODE:
+                ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);
+                scrollView.smoothScrollTo(0, 0);
         }
     }
 
