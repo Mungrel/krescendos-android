@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -76,7 +77,6 @@ public class ClientPlayerActivity extends AppCompatActivity {
                         long currentTrackDuration = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
                         seekBar.setMax((int) currentTrackDuration);
                         seekBar.setProgress((int) updateTimer.getTime());
-                        Log.d("PROG", "Progress Set");
                     }
                 });
             }
@@ -89,8 +89,21 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra("party", new Gson().toJson(party));
                 intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+                startActivityForResult(intent, SearchActivity.SEARCH_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // Check if result comes from the correct activity
+        switch (requestCode) {
+            case SearchActivity.SEARCH_CODE:
+                ScrollView scrollView = (ScrollView) findViewById(R.id.client_scroll_view);
+                scrollView.smoothScrollTo(0, 0);
+                break;
+        }
     }
 }
