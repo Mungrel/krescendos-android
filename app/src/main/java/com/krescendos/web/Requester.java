@@ -27,7 +27,7 @@ public class Requester {
 
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
-    private static int TIMEOUT_MS = 5000;
+
 
     private static Requester instance;
 
@@ -71,7 +71,7 @@ public class Requester {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -82,7 +82,7 @@ public class Requester {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 listener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -93,7 +93,7 @@ public class Requester {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
                 listener, errorListener);
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -104,7 +104,7 @@ public class Requester {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 listener, errorListener);
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -115,7 +115,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -125,7 +125,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -135,7 +135,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -152,7 +152,7 @@ public class Requester {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonState, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -170,7 +170,7 @@ public class Requester {
         }
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy(TIMEOUT_MS));
+        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
 

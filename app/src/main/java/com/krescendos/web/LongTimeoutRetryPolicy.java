@@ -4,7 +4,10 @@ import com.android.volley.DefaultRetryPolicy;
 
 public class LongTimeoutRetryPolicy extends DefaultRetryPolicy {
 
-    public LongTimeoutRetryPolicy(int timeoutMs) {
-        super(timeoutMs, DEFAULT_MAX_RETRIES, DEFAULT_BACKOFF_MULT);
+    private static final int TIMEOUT_MS = 2000;
+    private static final int RETRY_ATTEMPTS = 3;
+
+    public LongTimeoutRetryPolicy() {
+        super(TIMEOUT_MS, RETRY_ATTEMPTS, DEFAULT_BACKOFF_MULT);
     }
 }
