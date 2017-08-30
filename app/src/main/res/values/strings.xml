@@ -38,4 +38,5 @@
     <string name="recommend">Recommend</string>
     <string name="i_m_done">I\'m Done</string>
     <string name="round_button_text">Option</string>
+    <string name="connecting">Connecting...</string>
 </resources>

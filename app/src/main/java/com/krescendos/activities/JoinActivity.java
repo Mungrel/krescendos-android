@@ -36,7 +36,7 @@ public class JoinActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.join);
 
-        Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
+        final Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
         final EditText text1 = (EditText) findViewById(R.id.joinCode1);
         final EditText text2 = (EditText) findViewById(R.id.joinCode2);
         final EditText text3 = (EditText) findViewById(R.id.joinCode3);
@@ -56,6 +56,8 @@ public class JoinActivity extends AppCompatActivity {
         joinCodeSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                joinCodeSubmit.setEnabled(false);
+                joinCodeSubmit.setText(R.string.connecting);
                 String text = text1.getText().toString();
                 text += text2.getText().toString();
                 text += text3.getText().toString();
@@ -75,6 +77,8 @@ public class JoinActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        joinCodeSubmit.setEnabled(true);
+                        joinCodeSubmit.setText(R.string.join_short);
                         Log.d("ERROR", "" + error.getMessage());
                         errorText.setVisibility(View.VISIBLE);
                     }
