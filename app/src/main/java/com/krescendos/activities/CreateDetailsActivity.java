@@ -17,6 +17,8 @@ import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
 
+import static com.krescendos.R.string.create_short;
+
 public class CreateDetailsActivity extends AppCompatActivity {
 
     @Override
@@ -34,7 +36,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.create);
 
-        Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
+        final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
@@ -44,6 +46,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = partyName.getText().toString();
                 errorText.setVisibility(View.INVISIBLE);
+                partyCreate.setEnabled(false);
+                partyCreate.setText(R.string.connecting);
                 requester.create(name, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -56,6 +60,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         errorText.setVisibility(View.VISIBLE);
+                        partyCreate.setEnabled(true);
+                        partyCreate.setText(R.string.create_short);
                     }
                 });
             }
