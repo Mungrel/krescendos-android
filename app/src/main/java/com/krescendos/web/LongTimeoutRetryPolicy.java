@@ -4,7 +4,7 @@ import com.android.volley.DefaultRetryPolicy;
 
 public class LongTimeoutRetryPolicy extends DefaultRetryPolicy {
 
-    private static final int TIMEOUT_MS = 2000;
+    private static final int TIMEOUT_MS = 3000;
     private static final int RETRY_ATTEMPTS = 3;
 
     public LongTimeoutRetryPolicy() {

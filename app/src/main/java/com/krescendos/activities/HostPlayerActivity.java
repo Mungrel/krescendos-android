@@ -140,7 +140,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        final ListView listView = (ListView) findViewById(R.id.playerList);
+        ListView listView = (ListView) findViewById(R.id.playerList);
         listAdapter = new TrackListAdapter(getApplicationContext(), listView);
         listView.setAdapter(listAdapter);
 
@@ -226,6 +226,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     break;
 
 
+                } else if (response.getType() == AuthenticationResponse.Type.ERROR){
+                    Log.d("LOGINERROR", response.getError());
                 }
             case SearchActivity.SEARCH_CODE:
                 ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);

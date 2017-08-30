@@ -45,7 +45,6 @@ public class ClientPlayerActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.client_playerList);
         final TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext(), listView);
         listAdapter.setItemsSelectable(false);
-
         listView.setAdapter(listAdapter);
 
         TextView title = (TextView) findViewById(R.id.title_text);
