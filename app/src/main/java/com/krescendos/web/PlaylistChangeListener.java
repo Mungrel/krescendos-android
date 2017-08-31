@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
@@ -15,14 +16,28 @@ import java.util.List;
 public class PlaylistChangeListener implements ValueEventListener {
     private TrackListAdapter trackListAdapter;
     private TrackPlayer trackPlayer;
+    private DatabaseReference playHeadIndexRef;
+    private DatabaseReference partyStateRef;
+    private PlayheadIndexChangeListener playheadIndexChangeListener;
+    private PartyStateChangeListener partyStateChangeListener;
+    private boolean listenersSet;
 
-    public PlaylistChangeListener(TrackListAdapter trackListAdapter) {
+    public PlaylistChangeListener(TrackListAdapter trackListAdapter, DatabaseReference playHeadIndexRef,
+                                  DatabaseReference partyStateRef,
+                                  PlayheadIndexChangeListener playheadIndexChangeListener,
+                                  PartyStateChangeListener partyStateChangeListener) {
         this.trackListAdapter = trackListAdapter;
+        this.playHeadIndexRef = playHeadIndexRef;
+        this.partyStateRef = partyStateRef;
+        this.playheadIndexChangeListener = playheadIndexChangeListener;
+        this.partyStateChangeListener = partyStateChangeListener;
+        this.listenersSet = false;
     }
 
     public PlaylistChangeListener(TrackListAdapter trackListAdapter, TrackPlayer trackPlayer) {
-        this(trackListAdapter);
+        this.trackListAdapter = trackListAdapter;
         this.trackPlayer = trackPlayer;
+        this.listenersSet = true;
     }
 
     @Override
@@ -45,6 +60,12 @@ public class PlaylistChangeListener implements ValueEventListener {
                 Log.d("QUEUE", "Track queued: " + track.getName());
                 trackPlayer.queue(track);
             }
+        }
+
+        if (!listenersSet){
+            playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
+            partyStateRef.addValueEventListener(partyStateChangeListener);
+            listenersSet = true;
         }
     }
 

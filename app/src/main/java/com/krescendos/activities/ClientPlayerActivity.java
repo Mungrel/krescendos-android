@@ -59,9 +59,13 @@ public class ClientPlayerActivity extends AppCompatActivity {
         updateTimer = new UpdateTimer();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
-        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar));
-        ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
+        DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
+        DatabaseReference partyStateRef = ref.child("partyState");
+        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar);
+        PartyStateChangeListener partyStateChangeListener = new PartyStateChangeListener(updateTimer);
+        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter,
+                playHeadIndexRef, partyStateRef, playheadIndexChangeListener, partyStateChangeListener));
+
 
         Timer UITimer = new Timer();
         UITimer.scheduleAtFixedRate(new TimerTask() {
