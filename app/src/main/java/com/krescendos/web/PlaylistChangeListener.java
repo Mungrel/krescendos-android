@@ -2,14 +2,20 @@ package com.krescendos.web;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +79,7 @@ public class PlaylistChangeListener implements ValueEventListener {
             Requester.getInstance(context).requestPartyStateUpdate(partyCode);
             listenersSet = true;
         }
+
     }
 
     @Override

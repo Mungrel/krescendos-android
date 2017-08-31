@@ -96,6 +96,10 @@ public class TrackPlayer {
 
     public void queue(Track track) {
         trackList.add(track);
+        if (trackList.size() == 1 && !trackLoaded()){
+            // First track added
+            playTrack(trackList.get(getCurrentPos()));
+        }
     }
 
     public void pause() {

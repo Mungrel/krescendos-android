@@ -234,6 +234,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             case SearchActivity.SEARCH_CODE:
                 ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);
                 scrollView.smoothScrollTo(0, 0);
+                refreshPlayBtn();
         }
     }
 
