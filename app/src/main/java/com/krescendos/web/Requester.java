@@ -179,7 +179,7 @@ public class Requester {
             e.printStackTrace();
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, userSelectionArray, responseListener, new DefaultErrorListener());
         jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
