@@ -1,5 +1,6 @@
 package com.krescendos.web;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,11 +22,15 @@ public class PlaylistChangeListener implements ValueEventListener {
     private PlayheadIndexChangeListener playheadIndexChangeListener;
     private PartyStateChangeListener partyStateChangeListener;
     private boolean listenersSet;
+    private Context context;
+    private String partyCode;
 
-    public PlaylistChangeListener(TrackListAdapter trackListAdapter, DatabaseReference playHeadIndexRef,
+    public PlaylistChangeListener(Context context, String partyCode, TrackListAdapter trackListAdapter, DatabaseReference playHeadIndexRef,
                                   DatabaseReference partyStateRef,
                                   PlayheadIndexChangeListener playheadIndexChangeListener,
                                   PartyStateChangeListener partyStateChangeListener) {
+        this.context = context;
+        this.partyCode = partyCode;
         this.trackListAdapter = trackListAdapter;
         this.playHeadIndexRef = playHeadIndexRef;
         this.partyStateRef = partyStateRef;
@@ -65,6 +70,7 @@ public class PlaylistChangeListener implements ValueEventListener {
         if (!listenersSet){
             playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
             partyStateRef.addValueEventListener(partyStateChangeListener);
+            Requester.getInstance(context).requestPartyStateUpdate(partyCode);
             listenersSet = true;
         }
     }

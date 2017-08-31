@@ -156,6 +156,16 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void requestPartyStateUpdate(String code) {
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("party").appendPath(code).appendPath("update");
+        String url = builder.build().toString();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
+        requestQueue.add(jsonObjectRequest);
+    }
+
     public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("kurtis");
