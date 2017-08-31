@@ -211,6 +211,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {
+                                    listAdapter.setCurrentPosition(mPlayer.getCurrentPos());
                                     listAdapter.notifyDataSetChanged();
                                     AlbumArt largestImage = newTrack.getAlbum().getImages().get(0);
                                     albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
@@ -228,12 +229,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     break;
 
 
-                } else if (response.getType() == AuthenticationResponse.Type.ERROR){
+                } else if (response.getType() == AuthenticationResponse.Type.ERROR) {
                     Log.d("LOGINERROR", response.getError());
                 }
             case SearchActivity.SEARCH_CODE:
                 ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);
                 scrollView.smoothScrollTo(0, 0);
+                refreshPlayBtn();
         }
     }
 
