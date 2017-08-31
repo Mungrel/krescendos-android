@@ -33,6 +33,7 @@ import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
+import com.krescendos.web.StateUpdateRequestListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -206,6 +207,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
+                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {
