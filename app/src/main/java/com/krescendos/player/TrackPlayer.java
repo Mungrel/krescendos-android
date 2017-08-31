@@ -49,6 +49,7 @@ public class TrackPlayer {
                     playTrack(trackList.get(pos));
                     requester.advancePlayhead(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
+                    Log.d("TRACK_CHANGE", "Changed, new Pos: "+pos);
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
                     requester.advancePlayhead(partyId, pos);
                 }
