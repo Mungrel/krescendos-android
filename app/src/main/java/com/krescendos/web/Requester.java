@@ -161,7 +161,7 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("update");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
@@ -179,7 +179,7 @@ public class Requester {
             e.printStackTrace();
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, userSelectionArray, responseListener, new DefaultErrorListener());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
         jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }

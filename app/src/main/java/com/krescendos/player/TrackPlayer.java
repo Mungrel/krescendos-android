@@ -27,6 +27,7 @@ public class TrackPlayer {
     private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
     private String partyId;
+    private boolean isDragging;
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
@@ -35,6 +36,7 @@ public class TrackPlayer {
         this.isPlaying = false;
         this.requester = Requester.getInstance(context);
         this.partyId = partyId;
+        this.isDragging = false;
 
         this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
             @Override
@@ -191,4 +193,11 @@ public class TrackPlayer {
         return pos;
     }
 
+    public boolean isDragging() {
+        return isDragging;
+    }
+
+    public void setDragging(boolean dragging) {
+        isDragging = dragging;
+    }
 }

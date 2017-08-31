@@ -162,7 +162,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (mPlayer != null) {
+                        if (mPlayer != null && !mPlayer.isDragging()) {
                             seekBar.setMax((int) mPlayer.getCurrentTrackLength());
                             seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();

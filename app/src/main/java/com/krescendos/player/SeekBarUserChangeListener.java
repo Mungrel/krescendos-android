@@ -12,18 +12,16 @@ public class SeekBarUserChangeListener implements SeekBar.OnSeekBarChangeListene
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (fromUser) {
-            trackPlayer.seekTo(progress);
-        }
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
+        trackPlayer.setDragging(true);
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        trackPlayer.setDragging(false);
+        trackPlayer.seekTo(seekBar.getProgress());
     }
 }
