@@ -17,8 +17,6 @@ import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
 
-import static com.krescendos.R.string.create_short;
-
 public class CreateDetailsActivity extends AppCompatActivity {
 
     @Override

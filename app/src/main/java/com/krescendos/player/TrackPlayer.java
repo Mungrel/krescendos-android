@@ -49,7 +49,7 @@ public class TrackPlayer {
                     playTrack(trackList.get(pos));
                     requester.advancePlayhead(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
-                    Log.d("TRACK_CHANGE", "Changed, new Pos: "+pos);
+                    Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
                     requester.advancePlayhead(partyId, pos);
                 }
@@ -97,7 +97,7 @@ public class TrackPlayer {
 
     public void queue(Track track) {
         trackList.add(track);
-        if (trackList.size() == 1 && !trackLoaded()){
+        if (trackList.size() == 1 && !trackLoaded()) {
             // First track added
             playTrack(trackList.get(getCurrentPos()));
         }

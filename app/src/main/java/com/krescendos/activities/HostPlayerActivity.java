@@ -229,7 +229,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     break;
 
 
-                } else if (response.getType() == AuthenticationResponse.Type.ERROR){
+                } else if (response.getType() == AuthenticationResponse.Type.ERROR) {
                     Log.d("LOGINERROR", response.getError());
                 }
             case SearchActivity.SEARCH_CODE:

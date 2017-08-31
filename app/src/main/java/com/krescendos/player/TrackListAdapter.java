@@ -90,9 +90,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
         holder.pos = position;
 
-        Log.d("HOLDER_POS", ""+holder.pos);
-        Log.d("CURRENT_POS", ""+currentPosition);
-        if (holder.pos <= currentPosition){
+        Log.d("HOLDER_POS", "" + holder.pos);
+        Log.d("CURRENT_POS", "" + currentPosition);
+        if (holder.pos <= currentPosition) {
             convertView.setVisibility(View.GONE);
             holder.trackName.setVisibility(View.GONE);
             holder.artistAlbum.setVisibility(View.GONE);
