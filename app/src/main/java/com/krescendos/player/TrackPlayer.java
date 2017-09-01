@@ -42,12 +42,13 @@ public class TrackPlayer {
             @Override
             public void onPlaybackEvent(PlayerEvent playerEvent) {
                 if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
-                    pos++;
-                    if (pos == trackList.size()) {
-                        pos = 0;
+                    if (pos+1 < trackList.size()){
+                        // Not last track in list
+                        Log.d("LAST", "last track state");
+                        pos++;
+                        playTrack(trackList.get(pos));
+                        requester.advancePlayhead(partyId);
                     }
-                    playTrack(trackList.get(pos));
-                    requester.advancePlayhead(partyId);
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
@@ -67,9 +68,18 @@ public class TrackPlayer {
 
     private void playTrack(Track track) {
         Log.d("PLAYING", track.getName());
-        spotifyPlayer.playUri(null, track.getTrackURI(), 0, 0);
-        isPlaying = true;
-        requester.updatePlayState(partyId, getState());
+        spotifyPlayer.playUri(new Player.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                isPlaying = true;
+                requester.updatePlayState(partyId, getState());
+            }
+
+            @Override
+            public void onError(Error error) {
+
+            }
+        }, track.getTrackURI(), 0, 0);
     }
 
     private boolean trackLoaded() {
@@ -121,26 +131,28 @@ public class TrackPlayer {
         return new PartyState(state, trackPos);
     }
 
-    public void previous() {
-        pos--;
-        if (pos < 0) {
-            pos = trackList.size() - 1;
-        }
-        if (isPlaying) {
-            playTrack(trackList.get(pos));
-        }
-        requester.updatePlayState(partyId, getState());
-    }
-
     public void next() {
-        pos++;
-        if (pos == trackList.size()) {
-            pos = 0;
-        }
-        if (isPlaying) {
+        if (pos+1 < trackList.size()){
+            // Not last track in list
+            Log.d("LAST", "last track state");
+            pos++;
             playTrack(trackList.get(pos));
+            requester.advancePlayhead(partyId);
+            requester.updatePlayState(partyId, getState());
+        } else {
+            // Last track in list
+            spotifyPlayer.skipToNext(new Player.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    isPlaying = false;
+                    requester.updatePlayState(partyId, getState());
+                }
+                @Override
+                public void onError(Error error) {
+                }
+            });
         }
-        requester.updatePlayState(partyId, getState());
+
     }
 
     public void skipTo(int newPos) {
