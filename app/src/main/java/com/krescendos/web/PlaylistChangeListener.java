@@ -88,6 +88,12 @@ public class PlaylistChangeListener implements ValueEventListener {
     }
 
     private List<Track> trackListDiff(List<Track> oldList, List<Track> newList) {
+        if (oldList.isEmpty()){
+            return newList;
+        }
+        if (newList.isEmpty()){
+            return oldList;
+        }
         List<Track> found = new ArrayList<Track>();
         for (Track newTrack : newList) {
             for (Track oldTrack : oldList) {

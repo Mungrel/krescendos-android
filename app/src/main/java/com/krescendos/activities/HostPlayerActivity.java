@@ -57,15 +57,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final int REQUEST_CODE = 1337;
 
     private TrackListAdapter listAdapter;
-    private Requester requester;
     private Party party;
     private DatabaseReference ref;
 
     private ImageButton playbtn;
     private SeekBar seekBar;
-    private NetworkImageView albumArt;
-    private TextView trackTitle;
-    private TextView artistAlbum;
     private TextView timeElapsed;
     private TextView timeRemaining;
 
@@ -73,7 +69,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_player);
-        requester = Requester.getInstance(getApplicationContext());
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
@@ -125,10 +120,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
         LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
-        albumArt = currentTrackLayout.findViewById(R.id.current_track_album_art);
-        trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
-        artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
-
         playbtn = (ImageButton) findViewById(R.id.host_play_button);
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +134,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
 
         ListView listView = (ListView) findViewById(R.id.playerList);
-        listAdapter = new TrackListAdapter(getApplicationContext(), listView);
+        listAdapter = new TrackListAdapter(getApplicationContext(), listView, currentTrackLayout);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -214,11 +205,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                                 @Override
                                 public void onTrackChange(Track newTrack) {
                                     listAdapter.setCurrentPosition(mPlayer.getCurrentPos());
-                                    listAdapter.notifyDataSetChanged();
-                                    AlbumArt largestImage = newTrack.getAlbum().getImages().get(0);
-                                    albumArt.setImageUrl(largestImage.getUrl(), requester.getImageLoader());
-                                    trackTitle.setText(newTrack.getName());
-                                    artistAlbum.setText(TextUtils.join(newTrack.getArtists()) + "  -  " + newTrack.getAlbum().getName());
                                 }
                             });
                         }

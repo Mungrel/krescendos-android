@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,15 +27,17 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     private LayoutInflater mInflater;
     private Requester requester;
     private boolean itemsSelectable;
-    private ListView listView;
+    private ListView upNextListView;
+    private LinearLayout currentTrackLayout;
 
-    public TrackListAdapter(Context context, ListView listView) {
+    public TrackListAdapter(Context context, ListView upNextListView, LinearLayout currentTrackLayout) {
         super(context, R.layout.player_list_layout);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
         this.requester = Requester.getInstance(context);
         this.itemsSelectable = false;
-        this.listView = listView;
+        this.upNextListView = upNextListView;
+        this.currentTrackLayout = currentTrackLayout;
     }
 
     @Override
@@ -99,6 +102,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
             holder.albumArt.setVisibility(View.GONE);
         }
 
+        updateCurrentTrackLayout();
         return convertView;
     }
 
@@ -119,12 +123,24 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
     public void setCurrentPosition(int position) {
         this.currentPosition = position;
+        notifyDataSetChanged();
+    }
+
+    private void updateCurrentTrackLayout(){
+        Track currentTrack = tracks.get(currentPosition);
+        TextView trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
+        TextView artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
+        NetworkImageView albumArt = currentTrackLayout.findViewById(R.id.current_track_album_art);
+
+        trackTitle.setText(currentTrack.getName());
+        artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
+        albumArt.setImageUrl(currentTrack.getAlbum().getImages().get(0).getUrl(), Requester.getInstance(getContext()).getImageLoader());
     }
 
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        Utility.setListViewHeightBasedOnChildren(listView);
+        Utility.setListViewHeightBasedOnChildren(upNextListView);
     }
 
     @Override
