@@ -42,13 +42,7 @@ public class TrackPlayer {
             @Override
             public void onPlaybackEvent(PlayerEvent playerEvent) {
                 if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
-                    if (pos+1 < trackList.size()){
-                        // Not last track in list
-                        Log.d("LAST", "last track state");
-                        pos++;
-                        playTrack(trackList.get(pos));
-                        requester.advancePlayhead(partyId);
-                    }
+                    next();
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
                     onTrackChangeListener.onTrackChange(trackList.get(pos));
