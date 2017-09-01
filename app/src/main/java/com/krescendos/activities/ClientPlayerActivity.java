@@ -41,8 +41,9 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ListView listView = (ListView) findViewById(R.id.client_playerList);
-        final TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext(), listView);
+        final TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext(), listView, layout);
         listAdapter.setItemsSelectable(false);
         listView.setAdapter(listAdapter);
 
@@ -57,11 +58,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         updateTimer = new UpdateTimer();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
+
         DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
         DatabaseReference partyStateRef = ref.child("partyState");
         PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar);
         PartyStateChangeListener partyStateChangeListener = new PartyStateChangeListener(updateTimer);
+
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(getApplicationContext(), party.getPartyId(), listAdapter,
                 playHeadIndexRef, partyStateRef, playheadIndexChangeListener, partyStateChangeListener));
 

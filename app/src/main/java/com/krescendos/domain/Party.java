@@ -26,6 +26,9 @@ public class Party {
     }
 
     public List<Track> getPlaylist() {
+        if (playlist == null){
+            return new ArrayList<Track>();
+        }
         return new ArrayList<Track>(playlist.values());
     }
 

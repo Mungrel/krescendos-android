@@ -49,9 +49,6 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
 
         seekBar.setMax((int) newCurrentTrack.getDuration_ms());
         Log.d("MAX", "MaxSet");
-        trackTitle.setText(newCurrentTrack.getName());
-        artistAlbum.setText(TextUtils.join(newCurrentTrack.getArtists()) + " - " + newCurrentTrack.getAlbum().getName());
-        albumArt.setImageUrl(newCurrentTrack.getAlbum().getImages().get(0).getUrl(), imageLoader);
     }
 
     @Override
