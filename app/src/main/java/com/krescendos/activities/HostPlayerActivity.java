@@ -31,6 +31,7 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
+import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.krescendos.web.StateUpdateRequestListener;
@@ -168,6 +169,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
                             timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
                             timeRemaining.setText("-" + Time.msTommss(remaining));
+                            refreshPlayBtn();
                         }
                     }
                 });
