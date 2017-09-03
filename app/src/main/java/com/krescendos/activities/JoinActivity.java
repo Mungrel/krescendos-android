@@ -1,5 +1,6 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +45,10 @@ public class JoinActivity extends AppCompatActivity {
         final EditText text4 = (EditText) findViewById(R.id.joinCode4);
         final EditText text5 = (EditText) findViewById(R.id.joinCode5);
         final EditText text6 = (EditText) findViewById(R.id.joinCode6);
+
+        text1.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         text1.addTextChangedListener(new TextChangeListener(text1, text2));
         text2.addTextChangedListener(new TextChangeListener(text1, text3));
