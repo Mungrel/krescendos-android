@@ -24,7 +24,7 @@ public class CreateStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_start);
 
-        Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
+        final Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
         TextView title = (TextView) findViewById(R.id.title_text);
         TextView titleCode = (TextView) findViewById(R.id.party_code);
@@ -70,9 +70,20 @@ public class CreateStartActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
 
-        share.setOnClickListener(new UnimplementedClickListener(context));
         importSpotifyPlaylist.setOnClickListener(new UnimplementedClickListener(context));
         krescendosRecommend.setOnClickListener(new UnimplementedClickListener(context));
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Code: "+party.getPartyId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Krescendos Party");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
 
         addSongsManually.setOnClickListener(new View.OnClickListener() {
             @Override
