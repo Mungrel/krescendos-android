@@ -39,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         resultsView.setAdapter(listAdapter);
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
+        searchField.requestFocus();
         searchField.addTextChangedListener(new SearchTextWatcher(getApplicationContext(), listAdapter));
 
     }
