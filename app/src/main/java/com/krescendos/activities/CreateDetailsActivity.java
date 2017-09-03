@@ -36,6 +36,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
 
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
+        partyName.requestFocus();
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
 
