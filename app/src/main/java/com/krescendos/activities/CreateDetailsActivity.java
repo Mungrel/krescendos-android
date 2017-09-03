@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 public class CreateDetailsActivity extends AppCompatActivity {
 
+    private InputMethodManager imm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
         partyName.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
@@ -75,6 +77,9 @@ public class CreateDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(imm.isActive()){
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
                 onBackPressed();
                 return true;
             default:
