@@ -44,6 +44,8 @@ public class JoinActivity extends AppCompatActivity {
         final EditText text5 = (EditText) findViewById(R.id.joinCode5);
         final EditText text6 = (EditText) findViewById(R.id.joinCode6);
 
+        text1.requestFocus();
+
         text1.addTextChangedListener(new TextChangeListener(text1, text2));
         text2.addTextChangedListener(new TextChangeListener(text1, text3));
         text3.addTextChangedListener(new TextChangeListener(text2, text4));
