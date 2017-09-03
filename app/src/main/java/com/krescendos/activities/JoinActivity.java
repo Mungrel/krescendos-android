@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 public class JoinActivity extends AppCompatActivity {
 
+    private InputMethodManager imm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class JoinActivity extends AppCompatActivity {
         final EditText text6 = (EditText) findViewById(R.id.joinCode6);
 
         text1.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         text1.addTextChangedListener(new TextChangeListener(text1, text2));
@@ -97,6 +99,9 @@ public class JoinActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(imm.isActive()){
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
                 onBackPressed();
                 return true;
             default:

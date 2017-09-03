@@ -19,6 +19,7 @@ import com.krescendos.search.SearchTrackListAdapter;
 public class SearchActivity extends AppCompatActivity {
 
     protected static final int SEARCH_CODE = 1234;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class SearchActivity extends AppCompatActivity {
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         searchField.addTextChangedListener(new SearchTextWatcher(getApplicationContext(), listAdapter));
 
@@ -52,6 +53,9 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(imm.isActive()){
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
                 finish();
                 return true;
             default:
