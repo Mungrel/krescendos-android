@@ -1,9 +1,11 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +42,8 @@ public class SearchActivity extends AppCompatActivity {
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         searchField.addTextChangedListener(new SearchTextWatcher(getApplicationContext(), listAdapter));
 
     }

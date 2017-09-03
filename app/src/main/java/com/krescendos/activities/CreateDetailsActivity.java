@@ -1,11 +1,13 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +39,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
         partyName.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
 
