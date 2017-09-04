@@ -60,6 +60,7 @@
             android:progressBackgroundTint="@color/colorText"
             android:splitTrack="false"
             android:thumbTint="@color/colorAccent"
+            android:progressTint="@color/colorPrimary"
             android:theme="@style/SeekBar" />
 
         <LinearLayout
