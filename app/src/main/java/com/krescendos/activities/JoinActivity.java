@@ -80,6 +80,8 @@ public class JoinActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
+                        joinCodeSubmit.setEnabled(true);
+                        joinCodeSubmit.setText(R.string.join_short);
                     }
                 }, new Response.ErrorListener() {
 

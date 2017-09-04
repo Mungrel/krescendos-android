@@ -60,6 +60,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
                         intent.putExtra("party", response.toString());
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
+                        partyCreate.setEnabled(true);
+                        partyCreate.setText(R.string.create_short);
                     }
                 }, new Response.ErrorListener() {
                     @Override
