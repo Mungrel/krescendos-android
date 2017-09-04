@@ -25,6 +25,34 @@
             android:id="@+id/client_current_track_layout"
             layout="@layout/current_track_layout" />
 
+        <LinearLayout
+            android:id="@+id/client_track_times_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp">
+
+            <TextView
+                android:id="@+id/client_time_elapsed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_0_00"
+                android:textAppearance="@style/BodyText"
+                android:textSize="@dimen/time_text" />
+
+            <TextView
+                android:id="@+id/client_time_remaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/_n0_00"
+                android:textAppearance="@style/BodyText"
+                android:textSize="@dimen/time_text" />
+        </LinearLayout>
+
         <SeekBar
             android:id="@+id/client_seek_bar"
             android:layout_width="match_parent"
