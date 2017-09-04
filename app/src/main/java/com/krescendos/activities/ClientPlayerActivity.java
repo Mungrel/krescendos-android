@@ -19,6 +19,7 @@ import com.krescendos.domain.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.text.TextUtils;
+import com.krescendos.text.Time;
 import com.krescendos.timer.UpdateTimer;
 import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
@@ -56,8 +57,10 @@ public class ClientPlayerActivity extends AppCompatActivity {
         final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
 
-        updateTimer = new UpdateTimer();
+        final TextView timeElapsed = (TextView) findViewById(R.id.client_time_elapsed);
+        final TextView timeRemaining = (TextView) findViewById(R.id.client_time_remaining);
 
+        updateTimer = new UpdateTimer();
 
         DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
         DatabaseReference partyStateRef = ref.child("partyState");
@@ -81,6 +84,9 @@ public class ClientPlayerActivity extends AppCompatActivity {
                         long currentTrackDuration = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
                         seekBar.setMax((int) currentTrackDuration);
                         seekBar.setProgress((int) updateTimer.getTime());
+                        long remaining = currentTrackDuration - updateTimer.getTime();
+                        timeElapsed.setText(Time.msTommss(updateTimer.getTime()));
+                        timeRemaining.setText("-" + Time.msTommss(remaining));
                     }
                 });
             }
