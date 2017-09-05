@@ -25,11 +25,10 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String baseURL = "krescendos-174122.appspot.com";
+    private static final String baseURL = "api.kres.io";
 
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
-
 
     private static Requester instance;
 
