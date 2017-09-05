@@ -25,9 +25,10 @@ import java.util.List;
 
 public class Requester {
 
+    private static final String baseURL = "api.kres.io";
+
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
-
 
     private static Requester instance;
 
@@ -190,7 +191,6 @@ public class Requester {
 
     private Uri.Builder getBaseBuilder() {
         Uri.Builder builder = new Uri.Builder();
-        String baseURL = "krescendos-174122.appspot.com";
         builder.scheme("https").authority(baseURL);
         return builder;
     }
