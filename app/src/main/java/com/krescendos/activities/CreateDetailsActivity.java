@@ -68,6 +68,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
                         errorText.setVisibility(View.VISIBLE);
                         partyCreate.setEnabled(true);
                         partyCreate.setText(R.string.create_short);
