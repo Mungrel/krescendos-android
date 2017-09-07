@@ -19,11 +19,8 @@ public class SearchSpinner {
     }
 
     public void start(){
+        imageView.setVisibility(View.VISIBLE);
         imageView.startAnimation(animation);
-    }
-
-    public void stop(){
-        imageView.clearAnimation();
     }
 
     public void hide(){

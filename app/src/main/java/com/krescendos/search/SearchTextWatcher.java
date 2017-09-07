@@ -28,7 +28,7 @@ public class SearchTextWatcher implements TextWatcher {
         String term = charSequence.toString();
         requester.cancelAll();
         if (!term.isEmpty()){
-            requester.search(term, new SearchResponseListener(adapter));
+            requester.search(term, new SearchResponseListener(adapter, searchSpinner));
         }
     }
 
