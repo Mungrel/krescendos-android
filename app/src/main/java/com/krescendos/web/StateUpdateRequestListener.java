@@ -15,7 +15,7 @@ public class StateUpdateRequestListener implements ValueEventListener {
     public StateUpdateRequestListener(Context context, String partyCode, TrackPlayer mPlayer) {
         this.mPlayer = mPlayer;
         this.partyCode = partyCode;
-        this.requester = Requester.getInstance(context);
+        this.requester = new Requester(context);
     }
 
     @Override

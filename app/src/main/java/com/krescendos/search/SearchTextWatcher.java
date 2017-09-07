@@ -12,7 +12,7 @@ public class SearchTextWatcher implements TextWatcher {
     private SearchTrackListAdapter adapter;
 
     public SearchTextWatcher(Context context, SearchTrackListAdapter adapter) {
-        this.requester = Requester.getInstance(context);
+        this.requester = new Requester(context);
         this.adapter = adapter;
     }
 

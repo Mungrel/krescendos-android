@@ -26,6 +26,7 @@ public class DefaultErrorListener implements Response.ErrorListener {
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+        Log.d("RESPONSE", "Handling error response...");
         Error error = Error.fromVolleyError(volleyError);
         String userMessage = null;
         if (error != null){
@@ -48,8 +49,9 @@ public class DefaultErrorListener implements Response.ErrorListener {
             }
         });
         builder.setTitle("Oops!");
-        AlertDialog alertDialog = builder.create();
+       // AlertDialog alertDialog = builder.create();
         //alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        alertDialog.show();
+       // alertDialog.show();
+        builder.show();
     }
 }

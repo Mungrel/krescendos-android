@@ -34,7 +34,7 @@ public class TrackPlayer {
         this.trackList = new ArrayList<Track>();
         this.pos = 0;
         this.isPlaying = false;
-        this.requester = Requester.getInstance(context);
+        this.requester = new Requester(context);
         this.partyId = partyId;
         this.isDragging = false;
 

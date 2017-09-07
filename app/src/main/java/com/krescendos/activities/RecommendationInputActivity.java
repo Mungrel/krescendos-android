@@ -30,7 +30,7 @@ public class RecommendationInputActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.recommend);
 
-        Requester requester = Requester.getInstance(RecommendationInputActivity.this);
+        Requester requester = new Requester(RecommendationInputActivity.this);
 
         buttons = new Button[8];
         buttons[0] = (Button) findViewById(R.id.recommend_button_1_1);
