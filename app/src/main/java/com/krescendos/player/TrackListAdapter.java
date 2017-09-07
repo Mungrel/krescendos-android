@@ -15,7 +15,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.domain.Track;
 import com.krescendos.text.TextUtils;
-import com.krescendos.utils.Utility;
+import com.krescendos.utils.ListResizer;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        Utility.setListViewHeightBasedOnChildren(upNextListView);
+        ListResizer.setListViewHeightBasedOnChildren(upNextListView);
     }
 
     @Override
