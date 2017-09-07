@@ -232,6 +232,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     }
 
     @Override
+    public void onBackPressed(){
+    }
+
+    @Override
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
         super.onDestroy();
