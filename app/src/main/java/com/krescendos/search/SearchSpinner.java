@@ -9,7 +9,6 @@ import com.krescendos.R;
 
 public class SearchSpinner {
 
-    private Context context;
     private ImageView imageView;
     private Animation animation;
 
