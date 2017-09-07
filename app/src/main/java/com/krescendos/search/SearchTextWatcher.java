@@ -24,7 +24,9 @@ public class SearchTextWatcher implements TextWatcher {
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String term = charSequence.toString();
         requester.cancelAll();
-        requester.search(term, new SearchResponseListener(adapter));
+        if (!term.isEmpty()){
+            requester.search(term, new SearchResponseListener(adapter));
+        }
     }
 
     @Override
