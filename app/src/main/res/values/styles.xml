@@ -111,5 +111,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
     </style>
+    
+    <style name="errorDialog" parent="Theme.AppCompat.Dialog" />
 
 </resources>

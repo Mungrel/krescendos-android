@@ -44,7 +44,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
         ListView listView = (ListView) findViewById(R.id.client_playerList);
-        final TrackListAdapter listAdapter = new TrackListAdapter(getApplicationContext(), listView, layout);
+        final TrackListAdapter listAdapter = new TrackListAdapter(ClientPlayerActivity.this, listView, layout);
         listAdapter.setItemsSelectable(false);
         listView.setAdapter(listAdapter);
 
@@ -64,10 +64,10 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
         DatabaseReference partyStateRef = ref.child("partyState");
-        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(getApplicationContext(), layout, listAdapter, seekBar);
+        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(ClientPlayerActivity.this, layout, listAdapter, seekBar);
         PartyStateChangeListener partyStateChangeListener = new PartyStateChangeListener(updateTimer);
 
-        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(getApplicationContext(), party.getPartyId(), listAdapter,
+        ref.child("playlist").addValueEventListener(new PlaylistChangeListener(ClientPlayerActivity.this, party.getPartyId(), listAdapter,
                 playHeadIndexRef, partyStateRef, playheadIndexChangeListener, partyStateChangeListener));
 
 
@@ -96,7 +96,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent intent = new Intent(ClientPlayerActivity.this, SearchActivity.class);
                 intent.putExtra("party", new Gson().toJson(party));
                 intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);

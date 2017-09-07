@@ -30,7 +30,7 @@ public class RecommendationInputActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.recommend);
 
-        Requester requester = Requester.getInstance(getApplicationContext());
+        Requester requester = new Requester(RecommendationInputActivity.this);
 
         buttons = new Button[8];
         buttons[0] = (Button) findViewById(R.id.recommend_button_1_1);
@@ -42,15 +42,14 @@ public class RecommendationInputActivity extends AppCompatActivity {
         buttons[6] = (Button) findViewById(R.id.recommend_button_4_1);
         buttons[7] = (Button) findViewById(R.id.recommend_button_4_2);
 
-        Context context = getApplicationContext();
-        buttons[0].setOnClickListener(new RecommendButtonClickListener(context, buttons, 0));
-        buttons[1].setOnClickListener(new RecommendButtonClickListener(context, buttons, 1));
-        buttons[2].setOnClickListener(new RecommendButtonClickListener(context, buttons, 2));
-        buttons[3].setOnClickListener(new RecommendButtonClickListener(context, buttons, 3));
-        buttons[4].setOnClickListener(new RecommendButtonClickListener(context, buttons, 4));
-        buttons[5].setOnClickListener(new RecommendButtonClickListener(context, buttons, 5));
-        buttons[6].setOnClickListener(new RecommendButtonClickListener(context, buttons, 6));
-        buttons[7].setOnClickListener(new RecommendButtonClickListener(context, buttons, 7));
+        buttons[0].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 0));
+        buttons[1].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 1));
+        buttons[2].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 2));
+        buttons[3].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 3));
+        buttons[4].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 4));
+        buttons[5].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 5));
+        buttons[6].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 6));
+        buttons[7].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 7));
 
         Button doneButton = (Button) findViewById(R.id.recommend_done_button);
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
@@ -27,7 +30,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_details);
-        final Requester requester = Requester.getInstance(getApplicationContext());
+        final Requester requester = new Requester(CreateDetailsActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_details_toolbar);
         setSupportActionBar(toolbar);
@@ -56,7 +59,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 requester.create(name, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), CreateStartActivity.class);
+                        Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
                         intent.putExtra("party", response.toString());
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
@@ -65,7 +68,12 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     }
                 }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Error error = Error.fromVolleyError(volleyError);
+                        if (error != null){
+                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                            errorText.setText(error.getUserMessage());
+                        }
                         errorText.setVisibility(View.VISIBLE);
                         partyCreate.setEnabled(true);
                         partyCreate.setText(R.string.create_short);

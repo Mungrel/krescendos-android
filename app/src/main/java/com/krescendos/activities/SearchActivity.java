@@ -36,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
 
         toolbarTitle.setText(party.getName());
-        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(getApplicationContext(), party.getPlaylist(), party.getPartyId());
+        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(SearchActivity.this, party.getPlaylist(), party.getPartyId());
 
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
@@ -45,7 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         searchField.requestFocus();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        searchField.addTextChangedListener(new SearchTextWatcher(getApplicationContext(), listAdapter));
+        searchField.addTextChangedListener(new SearchTextWatcher(SearchActivity.this, listAdapter));
 
     }
 

@@ -112,7 +112,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent intent = new Intent(HostPlayerActivity.this, SearchActivity.class);
                 intent.putExtra("party", new Gson().toJson(party));
                 intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
@@ -134,7 +134,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
 
         ListView listView = (ListView) findViewById(R.id.playerList);
-        listAdapter = new TrackListAdapter(getApplicationContext(), listView, currentTrackLayout);
+        listAdapter = new TrackListAdapter(HostPlayerActivity.this, listView, currentTrackLayout);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -197,10 +197,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, getApplicationContext(), party.getPartyId());
+                            mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
-                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(getApplicationContext(), party.getPartyId(), mPlayer));
+                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {

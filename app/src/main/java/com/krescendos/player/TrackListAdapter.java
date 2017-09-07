@@ -34,7 +34,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         super(context, R.layout.player_list_layout);
         this.tracks = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
-        this.requester = Requester.getInstance(context);
+        this.requester = new Requester(context);
         this.itemsSelectable = false;
         this.upNextListView = upNextListView;
         this.currentTrackLayout = currentTrackLayout;
@@ -134,7 +134,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
         trackTitle.setText(currentTrack.getName());
         artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
-        albumArt.setImageUrl(currentTrack.getAlbum().getImages().get(0).getUrl(), Requester.getInstance(getContext()).getImageLoader());
+        albumArt.setImageUrl(currentTrack.getAlbum().getImages().get(0).getUrl(), new Requester(getContext()).getImageLoader());
     }
 
     @Override

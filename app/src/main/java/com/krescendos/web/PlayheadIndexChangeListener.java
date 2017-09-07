@@ -28,7 +28,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
 
     public PlayheadIndexChangeListener(Context context, LinearLayout trackDetailsLayout, TrackListAdapter adapter, SeekBar seekBar) {
         this.adapter = adapter;
-        this.imageLoader = Requester.getInstance(context).getImageLoader();
+        this.imageLoader = new Requester(context).getImageLoader();
         this.seekBar = seekBar;
 
         trackTitle = trackDetailsLayout.findViewById(R.id.current_track_title);

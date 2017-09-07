@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
+import com.krescendos.domain.Error;
 import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
 
@@ -29,7 +30,7 @@ public class JoinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        final Requester requester = Requester.getInstance(getApplicationContext());
+        final Requester requester = new Requester(JoinActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.join_toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +78,7 @@ public class JoinActivity extends AppCompatActivity {
                 requester.join(text, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
+                        Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
                         joinCodeSubmit.setEnabled(true);
@@ -86,11 +87,15 @@ public class JoinActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Error error = Error.fromVolleyError(volleyError);
+                        if (error != null){
+                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                            errorText.setText(error.getUserMessage());
+                        }
+                        errorText.setVisibility(View.VISIBLE);
                         joinCodeSubmit.setEnabled(true);
                         joinCodeSubmit.setText(R.string.join_short);
-                        Log.d("ERROR", "" + error.getMessage());
-                        errorText.setVisibility(View.VISIBLE);
                     }
                 });
             }

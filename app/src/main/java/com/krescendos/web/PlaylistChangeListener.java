@@ -70,7 +70,7 @@ public class PlaylistChangeListener implements ValueEventListener {
         if (!listenersSet) {
             playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
             partyStateRef.addValueEventListener(partyStateChangeListener);
-            Requester.getInstance(context).requestPartyStateUpdate(partyCode);
+            new Requester(context).requestPartyStateUpdate(partyCode);
             listenersSet = true;
         }
 
