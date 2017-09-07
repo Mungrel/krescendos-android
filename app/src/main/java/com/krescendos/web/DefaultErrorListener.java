@@ -34,21 +34,10 @@ public class DefaultErrorListener implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError volleyError) {
 
-        if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError) {
-            Log.e("ERROR", "Timeout/No Connection");
-            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
-        } else if (volleyError instanceof AuthFailureError) {
-            Log.e("ERROR", "AuthFailure");
-            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
-        } else if (volleyError instanceof ServerError) {
-            Log.e("ERROR", "ServerError");
-            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
-        } else if (volleyError instanceof NetworkError) {
-            Log.e("ERROR", "NetworkError");
-            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
-        } else if (volleyError instanceof ParseError) {
-            Log.e("ERROR", "ParseError");
-            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        Log.d("TYPE", volleyError.getClass().getName());
+
+        if (!(volleyError instanceof ServerError)){
+            return;
         }
 
         Log.d("RESPONSE", "Handling error response...");

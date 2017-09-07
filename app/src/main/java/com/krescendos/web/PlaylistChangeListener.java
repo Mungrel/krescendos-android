@@ -53,6 +53,11 @@ public class PlaylistChangeListener implements ValueEventListener {
             newList.add(track.getValue(Track.class));
         }
 
+        if (trackPlayer == null){ // We're a client, just straight up set the list
+            trackListAdapter.updateTracks(newList);
+            setListeners();
+            return;
+        }
         List<Track> oldList = trackListAdapter.getTracks();
         logList("OLD:", oldList);
         newList = trackListDiff(oldList, newList);
@@ -68,12 +73,16 @@ public class PlaylistChangeListener implements ValueEventListener {
         }
 
         if (!listenersSet) {
-            playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
-            partyStateRef.addValueEventListener(partyStateChangeListener);
-            new Requester(context).requestPartyStateUpdate(partyCode);
-            listenersSet = true;
+            setListeners();
         }
 
+    }
+
+    private void setListeners(){
+        playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
+        partyStateRef.addValueEventListener(partyStateChangeListener);
+        new Requester(context).requestPartyStateUpdate(partyCode);
+        listenersSet = true;
     }
 
     @Override
