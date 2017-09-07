@@ -115,10 +115,10 @@ public class Requester {
 
     public void advancePlayhead(String code) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("next");
+        builder.appendPath("party").appendPath(code).appendPath("advancePlayhead");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }

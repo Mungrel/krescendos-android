@@ -87,10 +87,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Track track = tracks.get(position);
-        holder.trackName.setText(track.getName());
-        holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
-        holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
+
         holder.pos = position;
 
         Log.d("HOLDER_POS", "" + holder.pos);
@@ -100,6 +97,11 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
             holder.trackName.setVisibility(View.GONE);
             holder.artistAlbum.setVisibility(View.GONE);
             holder.albumArt.setVisibility(View.GONE);
+        } else {
+            Track track = tracks.get(position);
+            holder.trackName.setText(track.getName());
+            holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
+            holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
         }
 
         updateCurrentTrackLayout();

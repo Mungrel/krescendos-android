@@ -19,14 +19,13 @@ public class Error {
         NetworkResponse networkResponse = volleyError.networkResponse;
         Error error = null;
         if (networkResponse != null){
-            String errorStr = null;
             try {
                 JSONObject obj = new JSONObject(new String(networkResponse.data));
-                errorStr = obj.getJSONObject("error").toString();
+                String errorStr = obj.getJSONObject("error").toString();
+                error = new Gson().fromJson(errorStr, Error.class);
             } catch (JSONException e) {
                 Log.e("PARSE_ERROR", "Failed to parse error");
             }
-            error = new Gson().fromJson(errorStr, Error.class);
         }
         return error;
     }
