@@ -71,7 +71,7 @@ public class Requester {
 
     public void search(String searchTerm, Response.Listener<JSONArray> listener) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("search");//.appendQueryParameter("k", searchTerm);
+        builder.appendPath("search").appendQueryParameter("k", searchTerm);
         String url = builder.build().toString();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

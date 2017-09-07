@@ -6,8 +6,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.activities.HostPlayerActivity;
@@ -26,6 +33,24 @@ public class DefaultErrorListener implements Response.ErrorListener {
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+
+        if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError) {
+            Log.e("ERROR", "Timeout/No Connection");
+            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        } else if (volleyError instanceof AuthFailureError) {
+            Log.e("ERROR", "AuthFailure");
+            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        } else if (volleyError instanceof ServerError) {
+            Log.e("ERROR", "ServerError");
+            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        } else if (volleyError instanceof NetworkError) {
+            Log.e("ERROR", "NetworkError");
+            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        } else if (volleyError instanceof ParseError) {
+            Log.e("ERROR", "ParseError");
+            Log.d("RESPONSE", new String(volleyError.networkResponse.data));
+        }
+
         Log.d("RESPONSE", "Handling error response...");
         Error error = Error.fromVolleyError(volleyError);
         String userMessage = null;

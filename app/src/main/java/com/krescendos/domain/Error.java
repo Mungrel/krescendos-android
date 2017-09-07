@@ -1,8 +1,13 @@
 package com.krescendos.domain;
 
+import android.util.Log;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Error {
 
@@ -14,7 +19,14 @@ public class Error {
         NetworkResponse networkResponse = volleyError.networkResponse;
         Error error = null;
         if (networkResponse != null){
-            error = new Gson().fromJson(new String(networkResponse.data), Error.class);
+            String errorStr = null;
+            try {
+                JSONObject obj = new JSONObject(new String(networkResponse.data));
+                errorStr = obj.getJSONObject("error").toString();
+            } catch (JSONException e) {
+                Log.e("PARSE_ERROR", "Failed to parse error");
+            }
+            error = new Gson().fromJson(errorStr, Error.class);
         }
         return error;
     }
