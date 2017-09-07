@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -67,8 +68,12 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     }
                 }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Error error = Error.fromVolleyError(volleyError);
+                        if (error != null){
+                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                            errorText.setText(error.getUserMessage());
+                        }
                         errorText.setVisibility(View.VISIBLE);
                         partyCreate.setEnabled(true);
                         partyCreate.setText(R.string.create_short);
