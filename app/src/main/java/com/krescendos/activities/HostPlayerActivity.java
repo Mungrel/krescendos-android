@@ -32,6 +32,7 @@ import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
 import com.krescendos.web.PartyStateChangeListener;
+import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
 import com.krescendos.web.Requester;
 import com.krescendos.web.StateUpdateRequestListener;
@@ -60,6 +61,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Party party;
     private DatabaseReference ref;
 
+    private LinearLayout currentTrackLayout;
     private ImageButton playbtn;
     private SeekBar seekBar;
     private TextView timeElapsed;
@@ -73,6 +75,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
+
+        currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -118,7 +122,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
             }
         });
-        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
         playbtn = (ImageButton) findViewById(R.id.host_play_button);
         playbtn.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +203,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
+                            ref.child("playheadIndex").addListenerForSingleValueEvent(new PlayheadIndexChangeListener(HostPlayerActivity.this, currentTrackLayout, listAdapter, seekBar));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override

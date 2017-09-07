@@ -38,8 +38,11 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        Log.d("ABC", "HERE");
+        Log.d("INDEX_KEY", dataSnapshot.getKey());
+        Log.d("INDEX_VALUE", dataSnapshot.getValue().toString());
+
         int newIndex = dataSnapshot.getValue(Integer.class);
+        Log.d("INDEX_PARSED", ""+newIndex);
         Log.d("SIZE", "" + adapter.getTracks().size());
         if (adapter.getTracks().isEmpty()) {
             return;
