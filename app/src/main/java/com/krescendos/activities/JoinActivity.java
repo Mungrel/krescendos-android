@@ -30,7 +30,7 @@ public class JoinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        final Requester requester = Requester.getInstance(getApplicationContext());
+        final Requester requester = Requester.getInstance(JoinActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.join_toolbar);
         setSupportActionBar(toolbar);
@@ -78,7 +78,7 @@ public class JoinActivity extends AppCompatActivity {
                 requester.join(text, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), ClientPlayerActivity.class);
+                        Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
                         joinCodeSubmit.setEnabled(true);

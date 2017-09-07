@@ -30,7 +30,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_details);
-        final Requester requester = Requester.getInstance(getApplicationContext());
+        final Requester requester = Requester.getInstance(CreateDetailsActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_details_toolbar);
         setSupportActionBar(toolbar);
@@ -59,7 +59,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 requester.create(name, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), CreateStartActivity.class);
+                        Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
                         intent.putExtra("party", response.toString());
                         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);

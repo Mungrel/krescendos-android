@@ -3,10 +3,14 @@ package com.krescendos.web;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.krescendos.R;
+import com.krescendos.activities.HostPlayerActivity;
 import com.krescendos.domain.Error;
 
 public class DefaultErrorListener implements Response.ErrorListener {
@@ -29,7 +33,8 @@ public class DefaultErrorListener implements Response.ErrorListener {
             userMessage = error.getUserMessage();
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
+
         if (userMessage != null && !userMessage.isEmpty()){
             builder.setMessage(userMessage);
         } else {
@@ -43,6 +48,8 @@ public class DefaultErrorListener implements Response.ErrorListener {
             }
         });
         builder.setTitle("Oops!");
-        builder.create().show();
+        AlertDialog alertDialog = builder.create();
+        //alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        alertDialog.show();
     }
 }
