@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.activities.HostPlayerActivity;
 import com.krescendos.domain.Error;
+import com.krescendos.utils.QuickDialog;
 
 public class DefaultErrorListener implements Response.ErrorListener {
 
@@ -48,24 +49,14 @@ public class DefaultErrorListener implements Response.ErrorListener {
             userMessage = error.getUserMessage();
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
-
+        String message = null;
         if (userMessage != null && !userMessage.isEmpty()){
-            builder.setMessage(userMessage);
+            message = userMessage;
         } else {
-            builder.setMessage(UNKNOWN_ERROR_TEXT);
+            message = UNKNOWN_ERROR_TEXT;
         }
-        builder.setCancelable(false);
-        builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setTitle("Oops!");
-       // AlertDialog alertDialog = builder.create();
-        //alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-       // alertDialog.show();
-        builder.show();
+
+        QuickDialog dialog = new QuickDialog(context, "Oops!", message);
+        dialog.show();
     }
 }
