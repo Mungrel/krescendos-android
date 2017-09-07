@@ -95,7 +95,7 @@ public class JoinActivity extends AppCompatActivity {
                         }
                         errorText.setVisibility(View.VISIBLE);
                         joinCodeSubmit.setEnabled(true);
-                        joinCodeSubmit.setText(R.string.join_short);it 
+                        joinCodeSubmit.setText(R.string.join_short);
                     }
                 });
             }
