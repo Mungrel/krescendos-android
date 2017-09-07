@@ -42,7 +42,7 @@ public class DefaultErrorListener implements Response.ErrorListener {
                 dialogInterface.dismiss();
             }
         });
-
+        builder.setTitle("Oops!");
         builder.create().show();
     }
 }
