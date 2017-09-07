@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
+import com.krescendos.domain.Error;
 import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
 
@@ -86,11 +87,15 @@ public class JoinActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
 
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        joinCodeSubmit.setEnabled(true);
-                        joinCodeSubmit.setText(R.string.join_short);
-                        Log.d("ERROR", "" + error.getMessage());
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Error error = Error.fromVolleyError(volleyError);
+                        if (error != null){
+                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                            errorText.setText(error.getUserMessage());
+                        }
                         errorText.setVisibility(View.VISIBLE);
+                        joinCodeSubmit.setEnabled(true);
+                        joinCodeSubmit.setText(R.string.join_short);it 
                     }
                 });
             }
