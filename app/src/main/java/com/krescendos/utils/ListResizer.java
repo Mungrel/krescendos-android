@@ -9,7 +9,7 @@ import android.widget.ListView;
 From: https://stackoverflow.com/questions/3495890/how-can-i-put-a-listview-into-a-scrollview-without-it-collapsing
 Date: 29/08/17
  */
-public class Utility {
+public class ListResizer {
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
