@@ -1,6 +1,7 @@
 package com.krescendos.search;
 
 import android.content.Context;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -23,5 +24,10 @@ public class SearchSpinner {
 
     public void stop(){
         imageView.clearAnimation();
+    }
+
+    public void hide(){
+        imageView.clearAnimation();
+        imageView.setVisibility(View.GONE);
     }
 }

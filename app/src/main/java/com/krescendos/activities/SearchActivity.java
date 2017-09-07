@@ -7,12 +7,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
+import com.krescendos.search.SearchSpinner;
 import com.krescendos.search.SearchTextWatcher;
 import com.krescendos.search.SearchTrackListAdapter;
 
@@ -41,11 +43,14 @@ public class SearchActivity extends AppCompatActivity {
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
 
+        ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
+        SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage);
+
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        searchField.addTextChangedListener(new SearchTextWatcher(SearchActivity.this, listAdapter));
+        searchField.addTextChangedListener(new SearchTextWatcher(SearchActivity.this, listAdapter, searchSpinner));
 
     }
 

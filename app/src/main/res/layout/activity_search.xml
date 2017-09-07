@@ -29,7 +29,7 @@
         android:theme="@style/TextInput" />
 
     <ImageView
-        android:id="@+id/icon_spinner"
+        android:id="@+id/search_icon_spinner"
         android:layout_width="109dp"
         android:layout_height="93dp"
         android:layout_gravity="center"
