@@ -82,7 +82,7 @@ public class TrackPlayer {
                 (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
     }
 
-    public void seekTo(int newPos) {
+    void seekTo(int newPos) {
         if (!trackLoaded()) {
             return;
         }
@@ -165,10 +165,6 @@ public class TrackPlayer {
         requester.updatePlayState(partyId, getState());
     }
 
-    public Track getCurrentlyPlaying() {
-        return trackList.get(pos);
-    }
-
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -208,7 +204,7 @@ public class TrackPlayer {
         return isDragging;
     }
 
-    public void setDragging(boolean dragging) {
+    void setDragging(boolean dragging) {
         isDragging = dragging;
     }
 }
