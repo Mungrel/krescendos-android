@@ -86,7 +86,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
                         seekBar.setProgress((int) updateTimer.getTime());
                         long remaining = currentTrackDuration - updateTimer.getTime();
                         timeElapsed.setText(Time.msTommss(updateTimer.getTime()));
-                        timeRemaining.setText("-" + Time.msTommss(remaining));
+                        timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
                     }
                 });
             }
