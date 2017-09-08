@@ -1,6 +1,5 @@
 package com.krescendos.web;
 
-import android.util.Log;
 import android.widget.SeekBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +28,6 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
         seekBar.setMax((int) newCurrentTrack.getDuration_ms());
-        Log.d("MAX", "MaxSet");
     }
 
     @Override
