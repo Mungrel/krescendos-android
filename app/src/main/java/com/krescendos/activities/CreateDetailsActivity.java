@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
@@ -38,7 +37,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.create);
 
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
