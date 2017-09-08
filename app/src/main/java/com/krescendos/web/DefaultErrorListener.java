@@ -1,34 +1,22 @@
 package com.krescendos.web;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.krescendos.R;
-import com.krescendos.activities.HostPlayerActivity;
 import com.krescendos.domain.Error;
 import com.krescendos.utils.QuickDialog;
 
-public class DefaultErrorListener implements Response.ErrorListener {
+class DefaultErrorListener implements Response.ErrorListener {
 
     private static final String UNKNOWN_ERROR_TEXT = "Looks like something went wrong";
 
     private Context context;
 
 
-    public DefaultErrorListener(Context context){
+    DefaultErrorListener(Context context){
         this.context = context;
     }
 
@@ -49,7 +37,7 @@ public class DefaultErrorListener implements Response.ErrorListener {
             userMessage = error.getUserMessage();
         }
 
-        String message = null;
+        String message;
         if (userMessage != null && !userMessage.isEmpty()){
             message = userMessage;
         } else {
