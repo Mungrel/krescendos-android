@@ -39,4 +39,7 @@
     <string name="i_m_done">I\'m Done</string>
     <string name="round_button_text">Option</string>
     <string name="connecting">Connecting...</string>
+    <string name="add_a_track">Add a track</string>
+    <string name="share_your_code">Share your code</string>
+    <string name="track_search">Track Search</string>
 </resources>

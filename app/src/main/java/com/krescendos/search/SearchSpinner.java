@@ -13,17 +13,17 @@ public class SearchSpinner {
     private ImageView imageView;
     private Animation animation;
 
-    public SearchSpinner(Context context, ImageView imageView){
+    public SearchSpinner(Context context, ImageView imageView) {
         this.imageView = imageView;
         this.animation = AnimationUtils.loadAnimation(context, R.anim.rotate_indefinitely);
     }
 
-    public void start(){
+    public void start() {
         imageView.setVisibility(View.VISIBLE);
         imageView.startAnimation(animation);
     }
 
-    public void hide(){
+    public void hide() {
         imageView.clearAnimation();
         imageView.setVisibility(View.GONE);
     }

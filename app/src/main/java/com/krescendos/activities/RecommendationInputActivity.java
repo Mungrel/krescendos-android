@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +9,8 @@ import android.widget.TextView;
 
 import com.krescendos.R;
 import com.krescendos.buttons.RecommendButtonClickListener;
-import com.krescendos.web.Requester;
 
 public class RecommendationInputActivity extends AppCompatActivity {
-
-    private Button[] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +23,10 @@ public class RecommendationInputActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.recommend);
 
-        Requester requester = new Requester(RecommendationInputActivity.this);
-
-        buttons = new Button[8];
+        Button[] buttons = new Button[8];
         buttons[0] = (Button) findViewById(R.id.recommend_button_1_1);
         buttons[1] = (Button) findViewById(R.id.recommend_button_1_2);
         buttons[2] = (Button) findViewById(R.id.recommend_button_2_1);
@@ -51,7 +45,6 @@ public class RecommendationInputActivity extends AppCompatActivity {
         buttons[6].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 6));
         buttons[7].setOnClickListener(new RecommendButtonClickListener(RecommendationInputActivity.this, buttons, 7));
 
-        Button doneButton = (Button) findViewById(R.id.recommend_done_button);
     }
 
     @Override

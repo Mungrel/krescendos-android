@@ -23,7 +23,7 @@ public class QuickDialog {
         builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (alertDialog != null){
+                if (alertDialog != null) {
                     alertDialog.dismiss();
                 }
             }
@@ -39,7 +39,7 @@ public class QuickDialog {
         });
     }
 
-    public void show(){
+    public void show() {
         alertDialog.show();
     }
 }

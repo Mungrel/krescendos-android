@@ -15,10 +15,10 @@ public class Error {
     private String message;
     private String userMessage;
 
-    public static Error fromVolleyError(VolleyError volleyError){
+    public static Error fromVolleyError(VolleyError volleyError) {
         NetworkResponse networkResponse = volleyError.networkResponse;
         Error error = null;
-        if (networkResponse != null){
+        if (networkResponse != null) {
             try {
                 JSONObject obj = new JSONObject(new String(networkResponse.data));
                 String errorStr = obj.getJSONObject("error").toString();

@@ -4,6 +4,6 @@
     <item
         android:id="@+id/addTrackItem"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Add a Track"
+        android:title="@string/add_a_track"
         app:showAsAction="always" />
 </menu>

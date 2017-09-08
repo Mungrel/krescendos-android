@@ -128,7 +128,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         notifyDataSetChanged();
     }
 
-    private void updateCurrentTrackLayout(){
+    private void updateCurrentTrackLayout() {
         Track currentTrack = tracks.get(currentPosition);
         TextView trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
         TextView artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
