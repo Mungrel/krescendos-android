@@ -69,8 +69,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Error error = Error.fromVolleyError(volleyError);
-                        if (error != null){
-                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                        if (error != null) {
+                            Log.e("ERROR", error.getStatus() + ": " + error.getMessage());
                             errorText.setText(error.getUserMessage());
                         }
                         errorText.setVisibility(View.VISIBLE);
@@ -86,7 +86,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(imm.isActive()){
+                if (imm.isActive()) {
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
                 onBackPressed();

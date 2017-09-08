@@ -126,7 +126,7 @@ public class TrackPlayer {
     }
 
     public void next() {
-        if (pos+1 < trackList.size()){
+        if (pos + 1 < trackList.size()) {
             // Not last track in list
             Log.d("LAST", "last track state");
             pos++;
@@ -141,6 +141,7 @@ public class TrackPlayer {
                     isPlaying = false;
                     requester.updatePlayState(partyId, getState());
                 }
+
                 @Override
                 public void onError(Error error) {
                 }

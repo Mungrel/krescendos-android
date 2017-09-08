@@ -227,7 +227,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 
     @Override

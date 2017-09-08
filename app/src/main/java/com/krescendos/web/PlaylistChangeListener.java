@@ -53,7 +53,7 @@ public class PlaylistChangeListener implements ValueEventListener {
             newList.add(track.getValue(Track.class));
         }
 
-        if (trackPlayer == null){ // We're a client, just straight up set the list
+        if (trackPlayer == null) { // We're a client, just straight up set the list
             trackListAdapter.updateTracks(newList);
             setListeners();
             return;
@@ -78,7 +78,7 @@ public class PlaylistChangeListener implements ValueEventListener {
 
     }
 
-    private void setListeners(){
+    private void setListeners() {
         playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
         partyStateRef.addValueEventListener(partyStateChangeListener);
         new Requester(context).requestPartyStateUpdate(partyCode);
@@ -97,10 +97,10 @@ public class PlaylistChangeListener implements ValueEventListener {
     }
 
     private List<Track> trackListDiff(List<Track> oldList, List<Track> newList) {
-        if (oldList.isEmpty()){
+        if (oldList.isEmpty()) {
             return newList;
         }
-        if (newList.isEmpty()){
+        if (newList.isEmpty()) {
             return oldList;
         }
         List<Track> found = new ArrayList<Track>();

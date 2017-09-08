@@ -16,7 +16,7 @@ class DefaultErrorListener implements Response.ErrorListener {
     private Context context;
 
 
-    DefaultErrorListener(Context context){
+    DefaultErrorListener(Context context) {
         this.context = context;
     }
 
@@ -25,20 +25,20 @@ class DefaultErrorListener implements Response.ErrorListener {
 
         Log.d("TYPE", volleyError.getClass().getName());
 
-        if (!(volleyError instanceof ServerError)){
+        if (!(volleyError instanceof ServerError)) {
             return;
         }
 
         Log.d("RESPONSE", "Handling error response...");
         Error error = Error.fromVolleyError(volleyError);
         String userMessage = null;
-        if (error != null){
-            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+        if (error != null) {
+            Log.e("ERROR", error.getStatus() + ": " + error.getMessage());
             userMessage = error.getUserMessage();
         }
 
         String message;
-        if (userMessage != null && !userMessage.isEmpty()){
+        if (userMessage != null && !userMessage.isEmpty()) {
             message = userMessage;
         } else {
             message = UNKNOWN_ERROR_TEXT;

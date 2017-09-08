@@ -75,7 +75,7 @@ public class CreateStartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Code: "+party.getPartyId();
+                String shareBody = "Code: " + party.getPartyId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Krescendos Party");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
