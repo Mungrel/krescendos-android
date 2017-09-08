@@ -24,7 +24,11 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
         if (adapter.getTracks().isEmpty()) {
             return;
         }
+        if (adapter.getCurrentPosition() == newIndex){
+            return;
+        }
         adapter.setCurrentPosition(newIndex);
+
         Track newCurrentTrack = adapter.getTracks().get(newIndex);
 
         seekBar.setMax((int) newCurrentTrack.getDuration_ms());
