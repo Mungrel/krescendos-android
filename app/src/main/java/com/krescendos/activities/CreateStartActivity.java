@@ -34,12 +34,12 @@ public class CreateStartActivity extends AppCompatActivity {
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.create_start_title_bar);
 
-        EditText code1 = (EditText) layout.findViewById(R.id.joinCode1);
-        EditText code2 = (EditText) layout.findViewById(R.id.joinCode2);
-        EditText code3 = (EditText) layout.findViewById(R.id.joinCode3);
-        EditText code4 = (EditText) layout.findViewById(R.id.joinCode4);
-        EditText code5 = (EditText) layout.findViewById(R.id.joinCode5);
-        EditText code6 = (EditText) layout.findViewById(R.id.joinCode6);
+        EditText code1 = layout.findViewById(R.id.joinCode1);
+        EditText code2 = layout.findViewById(R.id.joinCode2);
+        EditText code3 = layout.findViewById(R.id.joinCode3);
+        EditText code4 = layout.findViewById(R.id.joinCode4);
+        EditText code5 = layout.findViewById(R.id.joinCode5);
+        EditText code6 = layout.findViewById(R.id.joinCode6);
 
         char[] partyCode = party.getPartyId().toCharArray();
 
@@ -56,12 +56,12 @@ public class CreateStartActivity extends AppCompatActivity {
         code6.setEnabled(false);
         code6.setFocusable(false);
 
-        code1.setText("" + partyCode[0]);
-        code2.setText("" + partyCode[1]);
-        code3.setText("" + partyCode[2]);
-        code4.setText("" + partyCode[3]);
-        code5.setText("" + partyCode[4]);
-        code6.setText("" + partyCode[5]);
+        code1.setText(String.format("%c", partyCode[0]));
+        code2.setText(String.format("%c", partyCode[1]));
+        code3.setText(String.format("%c", partyCode[2]));
+        code4.setText(String.format("%c", partyCode[3]));
+        code5.setText(String.format("%c", partyCode[4]));
+        code6.setText(String.format("%c", partyCode[5]));
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);
