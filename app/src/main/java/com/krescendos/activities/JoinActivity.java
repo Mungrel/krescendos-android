@@ -38,7 +38,7 @@ public class JoinActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.join);
 
         final Button joinCodeSubmit = (Button) findViewById(R.id.joinCodeSubmitButton);
