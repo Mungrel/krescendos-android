@@ -15,14 +15,12 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
-import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
@@ -31,10 +29,8 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
-import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
-import com.krescendos.web.Requester;
 import com.krescendos.web.StateUpdateRequestListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -162,7 +158,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
                             timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
-                            timeRemaining.setText("-" + Time.msTommss(remaining));
+                            timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
                             refreshPlayBtn();
                         }
                     }
