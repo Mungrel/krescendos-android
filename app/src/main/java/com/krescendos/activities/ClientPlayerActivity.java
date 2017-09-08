@@ -64,7 +64,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
         DatabaseReference partyStateRef = ref.child("partyState");
-        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(ClientPlayerActivity.this, layout, listAdapter, seekBar);
+        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(listAdapter, seekBar);
         PartyStateChangeListener partyStateChangeListener = new PartyStateChangeListener(updateTimer);
 
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(ClientPlayerActivity.this, party.getPartyId(), listAdapter,

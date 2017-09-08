@@ -57,8 +57,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Party party;
     private DatabaseReference ref;
 
-    private LinearLayout currentTrackLayout;
-    private ImageButton playbtn;
+    private ImageButton playButton;
     private SeekBar seekBar;
     private TextView timeElapsed;
     private TextView timeRemaining;
@@ -72,7 +71,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
-        currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
+        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -119,8 +118,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        playbtn = (ImageButton) findViewById(R.id.host_play_button);
-        playbtn.setOnClickListener(new View.OnClickListener() {
+        playButton = (ImageButton) findViewById(R.id.host_play_button);
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPlayer.isPlaying()) {
@@ -169,9 +168,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private void refreshPlayBtn() {
         if (mPlayer.isPlaying()) {
-            playbtn.setImageResource(R.drawable.pause_button);
+            playButton.setImageResource(R.drawable.pause_button);
         } else {
-            playbtn.setImageResource(R.drawable.play_button);
+            playButton.setImageResource(R.drawable.play_button);
         }
     }
 
@@ -199,7 +198,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
-                            ref.child("playheadIndex").addListenerForSingleValueEvent(new PlayheadIndexChangeListener(HostPlayerActivity.this, currentTrackLayout, listAdapter, seekBar));
+                            ref.child("playheadIndex").addListenerForSingleValueEvent(new PlayheadIndexChangeListener(listAdapter, seekBar));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
