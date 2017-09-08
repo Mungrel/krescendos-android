@@ -64,7 +64,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference playHeadIndexRef = ref.child("playheadIndex");
         DatabaseReference partyStateRef = ref.child("partyState");
-        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(ClientPlayerActivity.this, layout, listAdapter, seekBar);
+        PlayheadIndexChangeListener playheadIndexChangeListener = new PlayheadIndexChangeListener(listAdapter, seekBar);
         PartyStateChangeListener partyStateChangeListener = new PartyStateChangeListener(updateTimer);
 
         ref.child("playlist").addValueEventListener(new PlaylistChangeListener(ClientPlayerActivity.this, party.getPartyId(), listAdapter,
@@ -86,7 +86,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
                         seekBar.setProgress((int) updateTimer.getTime());
                         long remaining = currentTrackDuration - updateTimer.getTime();
                         timeElapsed.setText(Time.msTommss(updateTimer.getTime()));
-                        timeRemaining.setText("-" + Time.msTommss(remaining));
+                        timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
                     }
                 });
             }

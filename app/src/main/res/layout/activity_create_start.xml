@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/share"
+            android:contentDescription="@string/share_your_code" />
     </LinearLayout>
 
     <include

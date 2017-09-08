@@ -5,7 +5,7 @@
         android:id="@+id/searchView"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Track Search"
+        android:title="@string/track_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
 </menu>

@@ -11,7 +11,7 @@ public class QuickDialog {
 
     private AlertDialog alertDialog;
 
-    public QuickDialog(Context context, String title, String message){
+    public QuickDialog(Context context, String title, String message) {
         ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.errorDialog);
         AlertDialog.Builder builder = new AlertDialog.Builder(wrapper);
         builder.setTitle(title);
@@ -20,7 +20,7 @@ public class QuickDialog {
         builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (alertDialog != null){
+                if (alertDialog != null) {
                     alertDialog.dismiss();
                 }
             }
@@ -29,7 +29,7 @@ public class QuickDialog {
         alertDialog = builder.create();
     }
 
-    public void show(){
+    public void show() {
         alertDialog.show();
     }
 }

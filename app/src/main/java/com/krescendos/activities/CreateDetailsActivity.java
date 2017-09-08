@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
@@ -38,7 +37,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(R.string.create);
 
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
@@ -70,8 +69,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Error error = Error.fromVolleyError(volleyError);
-                        if (error != null){
-                            Log.e("ERROR", error.getStatus()+": "+error.getMessage());
+                        if (error != null) {
+                            Log.e("ERROR", error.getStatus() + ": " + error.getMessage());
                             errorText.setText(error.getUserMessage());
                         }
                         errorText.setVisibility(View.VISIBLE);
@@ -87,7 +86,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(imm.isActive()){
+                if (imm.isActive()) {
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
                 onBackPressed();

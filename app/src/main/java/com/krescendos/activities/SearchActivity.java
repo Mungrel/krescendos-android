@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
 
         toolbarTitle.setText(party.getName());
         SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(SearchActivity.this, party.getPlaylist(), party.getPartyId());
@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(imm.isActive()){
+                if (imm.isActive()) {
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
                 finish();

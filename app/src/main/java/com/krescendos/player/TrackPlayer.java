@@ -82,7 +82,7 @@ public class TrackPlayer {
                 (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
     }
 
-    public void seekTo(int newPos) {
+    void seekTo(int newPos) {
         if (!trackLoaded()) {
             return;
         }
@@ -126,7 +126,7 @@ public class TrackPlayer {
     }
 
     public void next() {
-        if (pos+1 < trackList.size()){
+        if (pos + 1 < trackList.size()) {
             // Not last track in list
             Log.d("LAST", "last track state");
             pos++;
@@ -141,6 +141,7 @@ public class TrackPlayer {
                     isPlaying = false;
                     requester.updatePlayState(partyId, getState());
                 }
+
                 @Override
                 public void onError(Error error) {
                 }
@@ -163,10 +164,6 @@ public class TrackPlayer {
         playTrack(trackList.get(pos));
         requester.advancePlayhead(partyId, pos);
         requester.updatePlayState(partyId, getState());
-    }
-
-    public Track getCurrentlyPlaying() {
-        return trackList.get(pos);
     }
 
     public boolean isPlaying() {
@@ -208,7 +205,7 @@ public class TrackPlayer {
         return isDragging;
     }
 
-    public void setDragging(boolean dragging) {
+    void setDragging(boolean dragging) {
         isDragging = dragging;
     }
 }

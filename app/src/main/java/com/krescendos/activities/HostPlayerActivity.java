@@ -15,14 +15,12 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.buttons.DislikeButtonClickListener;
 import com.krescendos.buttons.LikeButtonClickListener;
-import com.krescendos.domain.AlbumArt;
 import com.krescendos.domain.Party;
 import com.krescendos.domain.Track;
 import com.krescendos.player.OnTrackChangeListener;
@@ -31,10 +29,8 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
-import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
-import com.krescendos.web.Requester;
 import com.krescendos.web.StateUpdateRequestListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -61,8 +57,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Party party;
     private DatabaseReference ref;
 
-    private LinearLayout currentTrackLayout;
-    private ImageButton playbtn;
+    private ImageButton playButton;
     private SeekBar seekBar;
     private TextView timeElapsed;
     private TextView timeRemaining;
@@ -76,7 +71,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
-        currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
+        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -123,8 +118,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        playbtn = (ImageButton) findViewById(R.id.host_play_button);
-        playbtn.setOnClickListener(new View.OnClickListener() {
+        playButton = (ImageButton) findViewById(R.id.host_play_button);
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPlayer.isPlaying()) {
@@ -162,7 +157,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
                             timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
-                            timeRemaining.setText("-" + Time.msTommss(remaining));
+                            timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
                             refreshPlayBtn();
                         }
                     }
@@ -173,9 +168,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
     private void refreshPlayBtn() {
         if (mPlayer.isPlaying()) {
-            playbtn.setImageResource(R.drawable.pause_button);
+            playButton.setImageResource(R.drawable.pause_button);
         } else {
-            playbtn.setImageResource(R.drawable.play_button);
+            playButton.setImageResource(R.drawable.play_button);
         }
     }
 
@@ -203,7 +198,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
                             ref.child("playlist").addValueEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
-                            ref.child("playheadIndex").addListenerForSingleValueEvent(new PlayheadIndexChangeListener(HostPlayerActivity.this, currentTrackLayout, listAdapter, seekBar));
+                            ref.child("playheadIndex").addListenerForSingleValueEvent(new PlayheadIndexChangeListener(listAdapter, seekBar));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
@@ -232,7 +227,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 
     @Override
