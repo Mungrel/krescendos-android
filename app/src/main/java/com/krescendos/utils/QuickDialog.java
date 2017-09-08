@@ -12,7 +12,7 @@ public class QuickDialog {
 
     private AlertDialog alertDialog;
 
-    public QuickDialog(final Context context, String title, String message){
+    public QuickDialog(final Context context, String title, String message) {
         ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.errorDialog);
         AlertDialog.Builder builder = new AlertDialog.Builder(wrapper);
         builder.setTitle(title);
