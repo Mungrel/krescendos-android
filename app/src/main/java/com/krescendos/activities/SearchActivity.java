@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_text);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
 
         toolbarTitle.setText(party.getName());
         SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(SearchActivity.this, party.getPlaylist(), party.getPartyId());
