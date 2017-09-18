@@ -1,9 +1,13 @@
 package com.krescendos.buttons;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.krescendos.R;
 
 public class UnimplementedInputListener implements View.OnClickListener, View.OnTouchListener {
 
@@ -11,6 +15,8 @@ public class UnimplementedInputListener implements View.OnClickListener, View.On
 
     public UnimplementedInputListener(Context context) {
         toast = Toast.makeText(context, "Coming Soon!", Toast.LENGTH_SHORT);
+        TextView text = toast.getView().findViewById(android.R.id.message);
+        text.setBackground(null);
     }
 
     @Override
