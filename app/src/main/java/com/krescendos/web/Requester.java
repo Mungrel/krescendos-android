@@ -80,9 +80,12 @@ public class Requester {
         requestQueue.add(jsonArrayRequest);
     }
 
-    public void create(String partyName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public void create(String partyName, String welcomeMessage, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
+        if (welcomeMessage != null){
+            builder.appendQueryParameter("msg", welcomeMessage);
+        }
         String url = builder.build().toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
