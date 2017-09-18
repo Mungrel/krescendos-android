@@ -86,8 +86,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
         Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
         Switch othersSuggest =  (Switch) findViewById(R.id.othersSuggestSwitch);
 
-        autoSuggest.setOnClickListener(new UnimplementedInputListener(CreateDetailsActivity.this));
-        othersSuggest.setOnClickListener(new UnimplementedInputListener(CreateDetailsActivity.this));
+        autoSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
+        othersSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
     }
 
     @Override
