@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.ServiceWorkerClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -20,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
-import com.krescendos.web.UnimplementedClickListener;
+import com.krescendos.buttons.UnimplementedClickListener;
 
 import org.json.JSONObject;
 

@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.text.TextUtils;
-import com.krescendos.web.UnimplementedClickListener;
+import com.krescendos.buttons.UnimplementedClickListener;
 
 public class CreateStartActivity extends AppCompatActivity {
 
