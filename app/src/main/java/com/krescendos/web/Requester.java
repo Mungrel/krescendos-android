@@ -83,7 +83,7 @@ public class Requester {
     public void create(String partyName, String welcomeMessage, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
-        if (welcomeMessage != null){
+        if (welcomeMessage != null && !welcomeMessage.isEmpty()){
             builder.appendQueryParameter("msg", welcomeMessage);
         }
         String url = builder.build().toString();

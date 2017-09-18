@@ -42,6 +42,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
 
         final Button partyCreate = (Button) findViewById(R.id.partyCreateButton);
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
+        final EditText partyWelcomeMessage = (EditText) findViewById(R.id.partyWelcomeField);
+
         partyName.requestFocus();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -52,10 +54,11 @@ public class CreateDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = partyName.getText().toString();
+                String welcomeMessage = partyWelcomeMessage.getText().toString();
                 errorText.setVisibility(View.INVISIBLE);
                 partyCreate.setEnabled(false);
                 partyCreate.setText(R.string.connecting);
-                requester.create(name, new Response.Listener<JSONObject>() {
+                requester.create(name, welcomeMessage, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
