@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.ServiceWorkerClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -18,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
+import com.krescendos.web.UnimplementedClickListener;
 
 import org.json.JSONObject;
 
@@ -80,6 +83,12 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 });
             }
         });
+
+        Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
+        Switch othersSuggest =  (Switch) findViewById(R.id.othersSuggestSwitch);
+
+        autoSuggest.setOnClickListener(new UnimplementedClickListener(CreateDetailsActivity.this));
+        othersSuggest.setOnClickListener(new UnimplementedClickListener(CreateDetailsActivity.this));
     }
 
     @Override
