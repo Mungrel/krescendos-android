@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
-import com.krescendos.buttons.UnimplementedClickListener;
+import com.krescendos.buttons.UnimplementedInputListener;
 
 import org.json.JSONObject;
 
@@ -86,8 +86,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
         Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
         Switch othersSuggest =  (Switch) findViewById(R.id.othersSuggestSwitch);
 
-        autoSuggest.setOnClickListener(new UnimplementedClickListener(CreateDetailsActivity.this));
-        othersSuggest.setOnClickListener(new UnimplementedClickListener(CreateDetailsActivity.this));
+        autoSuggest.setOnClickListener(new UnimplementedInputListener(CreateDetailsActivity.this));
+        othersSuggest.setOnClickListener(new UnimplementedInputListener(CreateDetailsActivity.this));
     }
 
     @Override
