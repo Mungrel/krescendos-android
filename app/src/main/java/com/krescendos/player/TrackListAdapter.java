@@ -101,7 +101,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
             Track track = tracks.get(position);
             holder.trackName.setText(track.getName());
             holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
-            holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
+            holder.albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), requester.getImageLoader());
         }
 
         updateCurrentTrackLayout();
@@ -136,7 +136,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
 
         trackTitle.setText(currentTrack.getName());
         artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
-        albumArt.setImageUrl(currentTrack.getAlbum().getImages().get(0).getUrl(), new Requester(getContext()).getImageLoader());
+        albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), new Requester(getContext()).getImageLoader());
     }
 
     @Override
