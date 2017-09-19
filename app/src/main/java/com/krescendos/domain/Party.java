@@ -13,6 +13,7 @@ public class Party {
     private Map<String, Track> playlist;
     private String name;
     private String partyId;
+    private String welcomeMessage;
 
     public Party(String name, String partyId) {
         this.name = name;
@@ -38,5 +39,9 @@ public class Party {
 
     public String getPartyId() {
         return partyId;
+    }
+
+    public String getWelcomeMessage(){
+        return welcomeMessage;
     }
 }

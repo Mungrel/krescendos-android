@@ -21,6 +21,7 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.Time;
 import com.krescendos.timer.UpdateTimer;
+import com.krescendos.utils.QuickDialog;
 import com.krescendos.web.PartyStateChangeListener;
 import com.krescendos.web.PlayheadIndexChangeListener;
 import com.krescendos.web.PlaylistChangeListener;
@@ -102,6 +103,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
             }
         });
+
+        if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()){
+            QuickDialog dialog = new QuickDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
+            dialog.show();
+        }
+
     }
 
     @Override
