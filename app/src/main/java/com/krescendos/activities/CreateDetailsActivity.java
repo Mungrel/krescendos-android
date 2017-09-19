@@ -31,7 +31,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_details);
-        final Requester requester = new Requester(CreateDetailsActivity.this);
+        final Requester requester = Requester.getInstance(CreateDetailsActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.create_details_toolbar);
         setSupportActionBar(toolbar);

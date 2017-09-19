@@ -31,7 +31,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         this.playlist = playlist;
         this.searchResults = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.partyCode = partyCode;
     }
 

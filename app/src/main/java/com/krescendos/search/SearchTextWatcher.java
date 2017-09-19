@@ -13,7 +13,7 @@ public class SearchTextWatcher implements TextWatcher {
     private SearchSpinner searchSpinner;
 
     public SearchTextWatcher(Context context, SearchTrackListAdapter adapter, SearchSpinner searchSpinner) {
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.adapter = adapter;
         this.searchSpinner = searchSpinner;
     }
