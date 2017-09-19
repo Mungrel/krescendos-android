@@ -57,4 +57,12 @@ public class Album {
     public void setImages(List<AlbumArt> images) {
         this.images = images;
     }
+
+    public AlbumArt getSmallestImage(){
+        return images.get(images.size()-1);
+    }
+
+    public AlbumArt getLargestImage(){
+        return images.get(0);
+    }
 }
