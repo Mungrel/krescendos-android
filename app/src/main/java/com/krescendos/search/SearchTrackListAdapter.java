@@ -86,7 +86,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         final Track track = searchResults.get(position);
         holder.trackName.setText(track.getName());
         holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
-        holder.albumArt.setImageUrl(track.getAlbum().getImages().get(0).getUrl(), requester.getImageLoader());
+        holder.albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), requester.getImageLoader());
         if (playlist.contains(track)) {
             holder.addCheck.setImageResource(R.drawable.check);
         } else {
