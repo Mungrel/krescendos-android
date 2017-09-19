@@ -26,7 +26,7 @@ public class RecommendButtonClickListener implements View.OnClickListener {
     public RecommendButtonClickListener(Context context, Button[] buttons, int thisButtonInd) {
         this.context = context;
         this.buttons = buttons;
-        this.requester = new Requester(context);
+        this.requester = Requester.getInstance(context);
         this.buttonOn = false;
         this.thisButton = buttons[thisButtonInd];
 

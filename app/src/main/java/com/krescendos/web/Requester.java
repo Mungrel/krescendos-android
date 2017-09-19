@@ -31,7 +31,9 @@ public class Requester {
     private static ImageLoader imageLoader;
     private Context context;
 
-    public Requester(Context context) {
+    private static Requester instance;
+
+    private Requester(Context context) {
         this.context = context;
         requestQueue = Volley.newRequestQueue(context);
 
@@ -46,6 +48,13 @@ public class Requester {
                 return mCache.get(url);
             }
         });
+    }
+
+    public static Requester getInstance(Context context){
+        if (instance == null){
+            instance = new Requester(context);
+        }
+        return instance;
     }
 
     public void cancelAll() {
