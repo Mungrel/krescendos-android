@@ -12,19 +12,26 @@ public class SearchSpinner {
 
     private ImageView imageView;
     private Animation animation;
+    private boolean running;
 
     public SearchSpinner(Context context, ImageView imageView) {
         this.imageView = imageView;
         this.animation = AnimationUtils.loadAnimation(context, R.anim.rotate_indefinitely);
+        this.running = false;
     }
 
     public void start() {
+        if (running){
+            return;
+        }
         imageView.setVisibility(View.VISIBLE);
         imageView.startAnimation(animation);
+        running = true;
     }
 
     public void hide() {
         imageView.clearAnimation();
         imageView.setVisibility(View.GONE);
+        running = false;
     }
 }
