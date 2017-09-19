@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.domain.Party;
 import com.krescendos.text.TextUtils;
-import com.krescendos.web.UnimplementedClickListener;
+import com.krescendos.buttons.UnimplementedInputListener;
 
 public class CreateStartActivity extends AppCompatActivity {
 
@@ -67,8 +67,8 @@ public class CreateStartActivity extends AppCompatActivity {
         Button krescendosRecommend = (Button) findViewById(R.id.krescendos_recommend_button);
         Button addSongsManually = (Button) findViewById(R.id.manual_add_button);
 
-        importSpotifyPlaylist.setOnClickListener(new UnimplementedClickListener(this));
-        krescendosRecommend.setOnClickListener(new UnimplementedClickListener(this));
+        importSpotifyPlaylist.setOnClickListener(new UnimplementedInputListener(this));
+        krescendosRecommend.setOnClickListener(new UnimplementedInputListener(this));
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
