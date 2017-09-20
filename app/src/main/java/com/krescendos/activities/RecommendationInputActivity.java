@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.krescendos.R;
-import com.krescendos.buttons.RecommendButtonClickListener;
+import com.krescendos.input.RecommendButtonClickListener;
 
 public class RecommendationInputActivity extends AppCompatActivity {
 

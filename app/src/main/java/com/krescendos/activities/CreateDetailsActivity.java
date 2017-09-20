@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
-import com.krescendos.buttons.UnimplementedInputListener;
+import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.domain.Error;
 import com.krescendos.web.Requester;
 
