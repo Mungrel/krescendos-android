@@ -87,8 +87,8 @@ public class CreateStartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CreateStartActivity.this, HostPlayerActivity.class);
                 intent.putExtra("party", getIntent().getStringExtra("party"));
-                intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
 
