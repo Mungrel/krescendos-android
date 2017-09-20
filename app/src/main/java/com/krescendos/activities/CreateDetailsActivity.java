@@ -65,8 +65,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
                         intent.putExtra("party", response.toString());
-                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         partyCreate.setEnabled(true);
                         partyCreate.setText(R.string.create_short);
                     }
@@ -101,6 +101,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
                 onBackPressed();
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

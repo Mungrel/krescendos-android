@@ -81,6 +81,7 @@ public class JoinActivity extends AppCompatActivity {
                         Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
                         intent.putExtra("party", response.toString());
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         joinCodeSubmit.setEnabled(true);
                         joinCodeSubmit.setText(R.string.join_short);
                     }
@@ -110,6 +111,7 @@ public class JoinActivity extends AppCompatActivity {
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
                 onBackPressed();
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
