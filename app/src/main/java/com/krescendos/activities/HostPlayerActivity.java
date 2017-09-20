@@ -113,8 +113,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             public void onClick(View view) {
                 Intent intent = new Intent(HostPlayerActivity.this, SearchActivity.class);
                 intent.putExtra("party", new Gson().toJson(party));
-                intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
 
