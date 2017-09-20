@@ -24,7 +24,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
         if (adapter.getTracks().isEmpty()) {
             return;
         }
-        if (adapter.getCurrentPosition() == newIndex){
+        if (adapter.getCurrentPosition() == newIndex) {
             return;
         }
         adapter.setCurrentPosition(newIndex);

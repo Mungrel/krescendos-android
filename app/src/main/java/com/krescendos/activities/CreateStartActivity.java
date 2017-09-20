@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.buttons.UnimplementedInputListener;
 import com.krescendos.domain.Party;
 import com.krescendos.text.TextUtils;
-import com.krescendos.buttons.UnimplementedInputListener;
 
 public class CreateStartActivity extends AppCompatActivity {
 

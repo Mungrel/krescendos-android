@@ -1,8 +1,8 @@
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
     android:insetLeft="50dp"
-    android:insetRight="50dp" >
+    android:insetRight="50dp">
 
-    <shape android:shape="rectangle" >
+    <shape android:shape="rectangle">
         <solid android:color="@color/colorButtonText" />
     </shape>
 

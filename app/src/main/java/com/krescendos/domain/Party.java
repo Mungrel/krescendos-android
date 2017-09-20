@@ -41,7 +41,7 @@ public class Party {
         return partyId;
     }
 
-    public String getWelcomeMessage(){
+    public String getWelcomeMessage() {
         return welcomeMessage;
     }
 }

@@ -21,7 +21,7 @@ public class SearchSpinner {
     }
 
     public void start() {
-        if (running){
+        if (running) {
             return;
         }
         imageView.setVisibility(View.VISIBLE);

@@ -104,7 +104,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
             }
         });
 
-        if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()){
+        if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()) {
             QuickDialog dialog = new QuickDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
             dialog.show();
         }
