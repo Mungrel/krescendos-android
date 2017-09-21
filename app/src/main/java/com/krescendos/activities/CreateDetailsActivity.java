@@ -18,7 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.input.UnimplementedInputListener;
-import com.krescendos.domain.Error;
+import com.krescendos.model.Error;
 import com.krescendos.web.Requester;
 
 import org.json.JSONObject;

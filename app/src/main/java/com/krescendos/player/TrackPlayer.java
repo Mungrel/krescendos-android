@@ -4,9 +4,9 @@ package com.krescendos.player;
 import android.content.Context;
 import android.util.Log;
 
-import com.krescendos.domain.PartyState;
-import com.krescendos.domain.PlaybackState;
-import com.krescendos.domain.Track;
+import com.krescendos.model.PartyState;
+import com.krescendos.model.PlaybackState;
+import com.krescendos.model.Track;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.Player;

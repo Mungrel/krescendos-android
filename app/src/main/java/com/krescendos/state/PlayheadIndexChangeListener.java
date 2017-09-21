@@ -5,7 +5,7 @@ import android.widget.SeekBar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.krescendos.domain.Track;
+import com.krescendos.model.Track;
 import com.krescendos.player.TrackListAdapter;
 
 public class PlayheadIndexChangeListener implements ValueEventListener {

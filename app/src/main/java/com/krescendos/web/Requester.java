@@ -14,8 +14,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.krescendos.domain.PartyState;
-import com.krescendos.domain.Track;
+import com.krescendos.model.PartyState;
+import com.krescendos.model.Track;
 
 import org.json.JSONArray;
 import org.json.JSONException;

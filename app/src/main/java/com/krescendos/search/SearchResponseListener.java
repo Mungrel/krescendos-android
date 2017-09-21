@@ -3,7 +3,7 @@ package com.krescendos.search;
 import com.android.volley.Response;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.krescendos.domain.Track;
+import com.krescendos.model.Track;
 
 import org.json.JSONArray;
 
