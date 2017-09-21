@@ -28,10 +28,10 @@ import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.text.TextUtils;
-import com.krescendos.text.Time;
-import com.krescendos.web.PlayheadIndexChangeListener;
-import com.krescendos.web.PlaylistChangeListener;
-import com.krescendos.web.StateUpdateRequestListener;
+import com.krescendos.text.TimeUtils;
+import com.krescendos.state.PlayheadIndexChangeListener;
+import com.krescendos.state.PlaylistChangeListener;
+import com.krescendos.state.StateUpdateRequestListener;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -156,8 +156,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setMax((int) mPlayer.getCurrentTrackLength());
                             seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
-                            timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
-                            timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
+                            timeElapsed.setText(TimeUtils.msTommss(mPlayer.getCurrentTrackTime()));
+                            timeRemaining.setText(String.format("-%s", TimeUtils.msTommss(remaining)));
                             refreshPlayBtn();
                         }
                     }
