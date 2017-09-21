@@ -18,13 +18,13 @@ import com.krescendos.R;
 import com.krescendos.model.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.state.PartyStateChangeListener;
+import com.krescendos.state.PlayheadIndexChangeListener;
+import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.TimeUtils;
 import com.krescendos.timer.UpdateTimer;
 import com.krescendos.utils.QuickDialog;
-import com.krescendos.state.PartyStateChangeListener;
-import com.krescendos.state.PlayheadIndexChangeListener;
-import com.krescendos.state.PlaylistChangeListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
