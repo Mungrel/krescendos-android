@@ -15,16 +15,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.domain.Party;
+import com.krescendos.model.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
+import com.krescendos.state.PartyStateChangeListener;
+import com.krescendos.state.PlayheadIndexChangeListener;
+import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.text.TextUtils;
-import com.krescendos.text.Time;
+import com.krescendos.text.TimeUtils;
 import com.krescendos.timer.UpdateTimer;
 import com.krescendos.utils.QuickDialog;
-import com.krescendos.web.PartyStateChangeListener;
-import com.krescendos.web.PlayheadIndexChangeListener;
-import com.krescendos.web.PlaylistChangeListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -86,8 +86,8 @@ public class ClientPlayerActivity extends AppCompatActivity {
                         seekBar.setMax((int) currentTrackDuration);
                         seekBar.setProgress((int) updateTimer.getTime());
                         long remaining = currentTrackDuration - updateTimer.getTime();
-                        timeElapsed.setText(Time.msTommss(updateTimer.getTime()));
-                        timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
+                        timeElapsed.setText(TimeUtils.msTommss(updateTimer.getTime()));
+                        timeRemaining.setText(String.format("-%s", TimeUtils.msTommss(remaining)));
                     }
                 });
             }
@@ -104,7 +104,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
             }
         });
 
-        if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()){
+        if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()) {
             QuickDialog dialog = new QuickDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
             dialog.show();
         }

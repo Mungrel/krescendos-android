@@ -1,4 +1,4 @@
-package com.krescendos.domain;
+package com.krescendos.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class Party {
         return partyId;
     }
 
-    public String getWelcomeMessage(){
+    public String getWelcomeMessage() {
         return welcomeMessage;
     }
 }

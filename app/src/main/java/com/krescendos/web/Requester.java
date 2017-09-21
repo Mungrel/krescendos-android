@@ -14,8 +14,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.krescendos.domain.PartyState;
-import com.krescendos.domain.Track;
+import com.krescendos.model.PartyState;
+import com.krescendos.model.Track;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,8 +50,8 @@ public class Requester {
         });
     }
 
-    public static Requester getInstance(Context context){
-        if (instance == null){
+    public static Requester getInstance(Context context) {
+        if (instance == null) {
             instance = new Requester(context);
         }
         return instance;
@@ -92,7 +92,7 @@ public class Requester {
     public void create(String partyName, String welcomeMessage, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
-        if (welcomeMessage != null && !welcomeMessage.isEmpty()){
+        if (welcomeMessage != null && !welcomeMessage.isEmpty()) {
             builder.appendQueryParameter("msg", welcomeMessage);
         }
         String url = builder.build().toString();

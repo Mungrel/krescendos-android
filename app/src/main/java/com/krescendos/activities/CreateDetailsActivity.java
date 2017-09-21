@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
-import com.krescendos.domain.Error;
+import com.krescendos.input.UnimplementedInputListener;
+import com.krescendos.model.Error;
 import com.krescendos.web.Requester;
-import com.krescendos.buttons.UnimplementedInputListener;
 
 import org.json.JSONObject;
 
@@ -87,7 +87,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
         });
 
         Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
-        Switch othersSuggest =  (Switch) findViewById(R.id.othersSuggestSwitch);
+        Switch othersSuggest = (Switch) findViewById(R.id.othersSuggestSwitch);
 
         autoSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
         othersSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));

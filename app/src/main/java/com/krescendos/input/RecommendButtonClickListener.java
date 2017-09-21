@@ -1,4 +1,4 @@
-package com.krescendos.buttons;
+package com.krescendos.input;
 
 import android.content.Context;
 import android.view.View;

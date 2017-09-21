@@ -1,4 +1,4 @@
-package com.krescendos.domain;
+package com.krescendos.model;
 
 public enum PlaybackState {
     PLAY,

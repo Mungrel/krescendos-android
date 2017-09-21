@@ -1,11 +1,11 @@
-package com.krescendos.web;
+package com.krescendos.state;
 
 import android.widget.SeekBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.krescendos.domain.Track;
+import com.krescendos.model.Track;
 import com.krescendos.player.TrackListAdapter;
 
 public class PlayheadIndexChangeListener implements ValueEventListener {
@@ -24,7 +24,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
         if (adapter.getTracks().isEmpty()) {
             return;
         }
-        if (adapter.getCurrentPosition() == newIndex){
+        if (adapter.getCurrentPosition() == newIndex) {
             return;
         }
         adapter.setCurrentPosition(newIndex);

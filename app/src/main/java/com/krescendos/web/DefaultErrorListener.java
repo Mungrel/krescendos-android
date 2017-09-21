@@ -6,7 +6,7 @@ import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
-import com.krescendos.domain.Error;
+import com.krescendos.model.Error;
 import com.krescendos.utils.QuickDialog;
 
 class DefaultErrorListener implements Response.ErrorListener {

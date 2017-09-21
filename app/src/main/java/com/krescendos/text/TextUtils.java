@@ -1,6 +1,6 @@
 package com.krescendos.text;
 
-import com.krescendos.domain.Artist;
+import com.krescendos.model.Artist;
 
 import java.util.List;
 

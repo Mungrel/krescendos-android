@@ -1,4 +1,4 @@
-package com.krescendos.web;
+package com.krescendos.state;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,9 +7,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.krescendos.domain.Track;
+import com.krescendos.model.Track;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
 import java.util.List;

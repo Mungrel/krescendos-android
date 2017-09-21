@@ -1,4 +1,4 @@
-package com.krescendos.domain;
+package com.krescendos.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +58,11 @@ public class Album {
         this.images = images;
     }
 
-    public AlbumArt getSmallestImage(){
-        return images.get(images.size()-1);
+    public AlbumArt getSmallestImage() {
+        return images.get(images.size() - 1);
     }
 
-    public AlbumArt getLargestImage(){
+    public AlbumArt getLargestImage() {
         return images.get(0);
     }
 }

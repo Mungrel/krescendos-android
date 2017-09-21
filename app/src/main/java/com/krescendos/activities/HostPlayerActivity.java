@@ -19,19 +19,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.buttons.DislikeButtonClickListener;
-import com.krescendos.buttons.LikeButtonClickListener;
-import com.krescendos.domain.Party;
-import com.krescendos.domain.Track;
+import com.krescendos.input.DislikeButtonClickListener;
+import com.krescendos.input.LikeButtonClickListener;
+import com.krescendos.model.Party;
+import com.krescendos.model.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.state.PlayheadIndexChangeListener;
+import com.krescendos.state.PlaylistChangeListener;
+import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.text.TextUtils;
-import com.krescendos.text.Time;
-import com.krescendos.web.PlayheadIndexChangeListener;
-import com.krescendos.web.PlaylistChangeListener;
-import com.krescendos.web.StateUpdateRequestListener;
+import com.krescendos.text.TimeUtils;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -156,8 +156,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setMax((int) mPlayer.getCurrentTrackLength());
                             seekBar.setProgress((int) mPlayer.getCurrentTrackTime());
                             long remaining = mPlayer.getCurrentTrackLength() - mPlayer.getCurrentTrackTime();
-                            timeElapsed.setText(Time.msTommss(mPlayer.getCurrentTrackTime()));
-                            timeRemaining.setText(String.format("-%s", Time.msTommss(remaining)));
+                            timeElapsed.setText(TimeUtils.msTommss(mPlayer.getCurrentTrackTime()));
+                            timeRemaining.setText(String.format("-%s", TimeUtils.msTommss(remaining)));
                             refreshPlayBtn();
                         }
                     }

@@ -3,7 +3,7 @@ package com.krescendos.text;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Time {
+public class TimeUtils {
 
     public static String msTommss(long ms) {
         if (ms == 0) {

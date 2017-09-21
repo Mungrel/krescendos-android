@@ -1,4 +1,4 @@
-package com.krescendos.buttons;
+package com.krescendos.input;
 
 import android.view.View;
 import android.widget.ImageButton;

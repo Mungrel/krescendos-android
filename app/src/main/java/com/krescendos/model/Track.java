@@ -1,4 +1,4 @@
-package com.krescendos.domain;
+package com.krescendos.model;
 
 import java.util.List;
 
