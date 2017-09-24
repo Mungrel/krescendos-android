@@ -1,4 +1,4 @@
-# krescendos-android
+# Krescendos Android App
 Android application for krescendos
 
 ## To run 
