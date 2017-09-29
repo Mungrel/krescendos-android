@@ -91,16 +91,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:paddingBottom="60dp"
+        android:paddingBottom="10dp"
         android:text="@string/allow_others_to_suggest_songs"
         android:textColor="@color/colorText"
         android:theme="@style/Switch" />
+
+    <TextView
+        android:id="@+id/premium_requirement_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/you_ll_need_a_spotify_premium_account_to_host_a_party"
+        android:textAppearance="@style/BodyText" />
 
     <Button
         android:id="@+id/partyCreateButton"
         style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="@string/create_short" />
 
 </LinearLayout>

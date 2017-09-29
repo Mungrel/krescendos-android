@@ -42,4 +42,5 @@
     <string name="add_a_track">Add a track</string>
     <string name="share_your_code">Share your code</string>
     <string name="track_search">Track Search</string>
+    <string name="you_ll_need_a_spotify_premium_account_to_host_a_party">You\'ll need a Spotify Premium account to host a party</string>
 </resources>
