@@ -24,11 +24,13 @@ public class SearchTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        searchSpinner.start();
         String term = charSequence.toString();
         requester.cancelAll();
-        if (!term.isEmpty()) {
+        if (term.isEmpty()) {
+            searchSpinner.hide();
+        } else {
             requester.search(term, new SearchResponseListener(adapter, searchSpinner));
+            searchSpinner.start();
         }
     }
 
