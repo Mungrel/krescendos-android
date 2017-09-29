@@ -34,6 +34,7 @@ import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.TimeUtils;
+import com.krescendos.utils.OnQuickDialogCloseListener;
 import com.krescendos.utils.QuickDialog;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -203,9 +204,14 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         public void onResponse(Profile response) {
                             if (!response.isPremiumUser()) {
                                 QuickDialog quickDialog = new QuickDialog(HostPlayerActivity.this,
-                                        "Spotify Premium", "A Spotify Premium account is required to host a party.");
+                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
+                                        new OnQuickDialogCloseListener() {
+                                            @Override
+                                            public void onClose() {
+                                                finish();
+                                            }
+                                        });
                                 quickDialog.show();
-                                finish();
                             }
                         }
                     });
