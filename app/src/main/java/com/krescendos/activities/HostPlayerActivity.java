@@ -85,6 +85,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setShowDialog(true);
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -197,9 +198,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         // Check if result comes from the correct activity
         switch (requestCode) {
             case REQUEST_CODE:
-                AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-                if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                    requester.isPremiumUser(response.getAccessToken(), new Response.Listener<Profile>() {
+                final AuthenticationResponse authenticationResponse = AuthenticationClient.getResponse(resultCode, intent);
+                if (authenticationResponse.getType() == AuthenticationResponse.Type.TOKEN) {
+                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
                         @Override
                         public void onResponse(Profile response) {
                             if (!response.isPremiumUser()) {
@@ -215,7 +216,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             }
                         }
                     });
-                    Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+                    Config playerConfig = new Config(this, authenticationResponse.getAccessToken(), CLIENT_ID);
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
@@ -240,8 +241,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     break;
 
 
-                } else if (response.getType() == AuthenticationResponse.Type.ERROR) {
-                    Log.d("LOGINERROR", response.getError());
+                } else if (authenticationResponse.getType() == AuthenticationResponse.Type.ERROR) {
+                    Log.d("LOGINERROR", authenticationResponse.getError());
                 }
             case SearchActivity.SEARCH_CODE:
                 ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);
