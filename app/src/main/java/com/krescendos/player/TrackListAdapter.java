@@ -94,6 +94,7 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         Log.d("CURRENT_POS", "" + currentPosition);
         if (holder.pos <= currentPosition) {
             convertView.setVisibility(View.GONE);
+            convertView.setPadding(0, 0, 0, 0);
             holder.trackName.setVisibility(View.GONE);
             holder.artistAlbum.setVisibility(View.GONE);
             holder.albumArt.setVisibility(View.GONE);
