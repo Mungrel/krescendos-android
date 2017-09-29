@@ -1,5 +1,6 @@
 package com.krescendos.web;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.krescendos.model.PartyState;
+import com.krescendos.model.Profile;
 import com.krescendos.model.Track;
 
 import org.json.JSONArray;
@@ -73,7 +75,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                listener, new DefaultErrorListener(context));
+                listener, new DefaultErrorListener());
         jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
@@ -84,7 +86,7 @@ public class Requester {
         String url = builder.build().toString();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                listener, new DefaultErrorListener(context));
+                listener, new DefaultErrorListener());
         jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }
@@ -120,7 +122,7 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("playlist").appendQueryParameter("spotifyTrackId", track.getId());
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
@@ -130,7 +132,7 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("advancePlayhead");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
@@ -140,7 +142,7 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("advancePlayhead").appendQueryParameter("nextIndex", "" + newPos);
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
@@ -157,7 +159,7 @@ public class Requester {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonState, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonState, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
     }
@@ -167,9 +169,14 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("update");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new DefaultResponseListener(), new DefaultErrorListener(context));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new DefaultResponseListener(), new DefaultErrorListener());
         jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
+        ProfileRequest profileRequest = new ProfileRequest(context, userAccessToken, responseListener);
+        requestQueue.add(profileRequest);
     }
 
     public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
@@ -185,7 +192,7 @@ public class Requester {
             e.printStackTrace();
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener(context));
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
         jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
         requestQueue.add(jsonArrayRequest);
     }

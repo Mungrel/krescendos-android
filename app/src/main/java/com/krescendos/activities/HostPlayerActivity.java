@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.android.volley.Response;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ import com.krescendos.R;
 import com.krescendos.input.DislikeButtonClickListener;
 import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Party;
+import com.krescendos.model.Profile;
 import com.krescendos.model.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
@@ -32,6 +34,9 @@ import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.TimeUtils;
+import com.krescendos.utils.OnQuickDialogCloseListener;
+import com.krescendos.utils.QuickDialog;
+import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -49,6 +54,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final String REDIRECT_URI = "krescendosapp://callback";
 
     private TrackPlayer mPlayer;
+    private Requester requester;
 
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
@@ -69,6 +75,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
 
+        requester = Requester.getInstance(HostPlayerActivity.this);
+
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 
         LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
@@ -77,6 +85,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setShowDialog(true);
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -189,9 +198,25 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         // Check if result comes from the correct activity
         switch (requestCode) {
             case REQUEST_CODE:
-                AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-                if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                    Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+                final AuthenticationResponse authenticationResponse = AuthenticationClient.getResponse(resultCode, intent);
+                if (authenticationResponse.getType() == AuthenticationResponse.Type.TOKEN) {
+                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
+                        @Override
+                        public void onResponse(Profile response) {
+                            if (!response.isPremiumUser()) {
+                                QuickDialog quickDialog = new QuickDialog(HostPlayerActivity.this,
+                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
+                                        new OnQuickDialogCloseListener() {
+                                            @Override
+                                            public void onClose() {
+                                                finish();
+                                            }
+                                        });
+                                quickDialog.show();
+                            }
+                        }
+                    });
+                    Config playerConfig = new Config(this, authenticationResponse.getAccessToken(), CLIENT_ID);
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
@@ -216,8 +241,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     break;
 
 
-                } else if (response.getType() == AuthenticationResponse.Type.ERROR) {
-                    Log.d("LOGINERROR", response.getError());
+                } else if (authenticationResponse.getType() == AuthenticationResponse.Type.ERROR) {
+                    Log.d("LOGINERROR", authenticationResponse.getError());
                 }
             case SearchActivity.SEARCH_CODE:
                 ScrollView scrollView = (ScrollView) findViewById(R.id.host_scroll_view);
