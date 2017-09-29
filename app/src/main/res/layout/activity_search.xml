@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:imeOptions="actionDone"
         android:theme="@style/TextInput" />
 
     <ImageView
