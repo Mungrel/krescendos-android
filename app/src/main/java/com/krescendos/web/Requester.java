@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.krescendos.model.PartyState;
+import com.krescendos.model.Profile;
 import com.krescendos.model.Track;
 
 import org.json.JSONArray;
@@ -172,7 +173,7 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public boolean isPremiumUser(String userAccessToken) {
+    public boolean isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
         return false;
     }
 
