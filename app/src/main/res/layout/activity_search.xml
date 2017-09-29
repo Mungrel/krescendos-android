@@ -33,11 +33,12 @@
         android:layout_width="109dp"
         android:layout_height="93dp"
         android:layout_gravity="center"
+        android:background="@null"
         android:paddingBottom="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="20dp"
-        android:background="@null"
+        android:visibility="gone"
         app:srcCompat="@drawable/icon" />
 
     <ListView
