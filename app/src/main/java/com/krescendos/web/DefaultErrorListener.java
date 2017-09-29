@@ -10,6 +10,6 @@ class DefaultErrorListener implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError volleyError) {
 
-        Log.e("NET-ERROR", ""+volleyError.getMessage());
+        Log.e("NET-ERROR", "" + volleyError.getMessage());
     }
 }

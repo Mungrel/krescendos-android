@@ -5,15 +5,11 @@ import android.content.Context;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.krescendos.model.Profile;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -25,7 +21,7 @@ public class ProfileRequest extends JsonRequest<Profile> {
 
     private String accessToken;
 
-    public ProfileRequest(Context context, String accessToken, Response.Listener<Profile> listener){
+    public ProfileRequest(Context context, String accessToken, Response.Listener<Profile> listener) {
         super(Method.GET, url, null, listener, new DefaultErrorListener());
         this.accessToken = accessToken;
     }
@@ -45,7 +41,7 @@ public class ProfileRequest extends JsonRequest<Profile> {
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", "Bearer "+accessToken);
+        headers.put("Authorization", "Bearer " + accessToken);
         return headers;
     }
 

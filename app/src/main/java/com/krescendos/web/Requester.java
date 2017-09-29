@@ -1,6 +1,5 @@
 package com.krescendos.web;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
