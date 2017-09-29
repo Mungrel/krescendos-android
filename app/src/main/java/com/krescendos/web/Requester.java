@@ -1,5 +1,6 @@
 package com.krescendos.web;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -173,8 +174,9 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public boolean isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
-        return false;
+    public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
+        ProfileRequest profileRequest = new ProfileRequest(context, userAccessToken, responseListener);
+        requestQueue.add(profileRequest);
     }
 
     public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
