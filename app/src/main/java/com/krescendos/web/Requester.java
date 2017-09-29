@@ -172,6 +172,10 @@ public class Requester {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public boolean isPremiumUser(String userAccessToken) {
+        return false;
+    }
+
     public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("kurtis");
