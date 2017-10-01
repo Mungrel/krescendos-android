@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
+import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 
 import org.json.JSONArray;
@@ -68,15 +69,22 @@ public class Requester {
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
-    public void recommend(String trackID, Response.Listener<JSONArray> listener) {
+    public void recommend(SpotifySeedCollection collection, Response.Listener<JSONObject> listener) {
         Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("recommend").appendQueryParameter("trackSeed", trackID);
+        builder.appendPath("recommend");
         String url = builder.build().toString();
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+        JSONObject postBody = null;
+        try {
+            postBody = new JSONObject(new Gson().toJson(collection));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postBody,
                 listener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonArrayRequest);
+        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void search(String searchTerm, Response.Listener<JSONArray> listener) {
