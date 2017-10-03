@@ -19,6 +19,7 @@ import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
+import com.krescendos.web.requests.AppendRequest;
 import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
 import com.krescendos.web.requests.ProfileRequest;
@@ -121,9 +122,8 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("playlist").appendQueryParameter("spotifyTrackId", track.getId());
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        AppendRequest request = new AppendRequest(url);
+        requestQueue.add(request);
     }
 
     public void advancePlayhead(String code) {
