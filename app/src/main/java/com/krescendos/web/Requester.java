@@ -19,6 +19,7 @@ import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
+import com.krescendos.web.requests.AdvancePlayheadRequest;
 import com.krescendos.web.requests.AppendRequest;
 import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
@@ -131,9 +132,8 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("advancePlayhead");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        AdvancePlayheadRequest request = new AdvancePlayheadRequest(url);
+        requestQueue.add(request);
     }
 
     public void advancePlayhead(String code, int newPos) {
@@ -141,9 +141,8 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("advancePlayhead").appendQueryParameter("nextIndex", "" + newPos);
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        AdvancePlayheadRequest request = new AdvancePlayheadRequest(url);
+        requestQueue.add(request);
     }
 
     public void updatePlayState(String code, PartyState state) {
