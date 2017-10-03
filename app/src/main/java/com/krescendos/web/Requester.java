@@ -26,6 +26,7 @@ import com.krescendos.web.requests.JoinRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
 import com.krescendos.web.requests.SearchRequest;
+import com.krescendos.web.requests.UpdatePlayStateRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,16 +151,8 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("partyState");
         String url = builder.build().toString();
 
-        JSONObject jsonState = null;
-        try {
-            jsonState = new JSONObject(new Gson().toJson(state));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonState, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        UpdatePlayStateRequest request = new UpdatePlayStateRequest(url, state);
+        requestQueue.add(request);
     }
 
     public void requestPartyStateUpdate(String code) {
