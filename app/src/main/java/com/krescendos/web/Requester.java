@@ -23,6 +23,7 @@ import com.krescendos.web.requests.AdvancePlayheadRequest;
 import com.krescendos.web.requests.AppendRequest;
 import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
+import com.krescendos.web.requests.PollPostLearnerRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
 import com.krescendos.web.requests.RequestStateUpdateRequest;
@@ -170,22 +171,13 @@ public class Requester {
         requestQueue.add(profileRequest);
     }
 
-    public void pollPostLearner(List<String> userSelection, Response.Listener<JSONArray> responseListener) {
+    public void pollPostLearner(List<String> userSelection, Response.Listener<List<String>> responseListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("kurtis");
         String url = builder.build().toString();
 
-        JSONArray userSelectionArray = null;
-        try {
-            userSelectionArray = new JSONArray(new Gson().toJson(userSelection));
-        } catch (JSONException e) {
-            Log.d("JSONPARSE", "Failed to create JSON array");
-            e.printStackTrace();
-        }
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, userSelectionArray, responseListener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonArrayRequest);
+        PollPostLearnerRequest request = new PollPostLearnerRequest(url, userSelection, responseListener);
+        requestQueue.add(request);
     }
 
     public ImageLoader getImageLoader() {
