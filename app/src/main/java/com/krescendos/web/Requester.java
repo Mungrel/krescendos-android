@@ -20,6 +20,7 @@ import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.requests.CreateRequest;
+import com.krescendos.web.requests.JoinRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
 import com.krescendos.web.requests.SearchRequest;
@@ -105,15 +106,13 @@ public class Requester {
         requestQueue.add(request);
     }
 
-    public void join(String code, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public void join(String code, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.path("party").appendQueryParameter("id", code);
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                listener, errorListener);
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        JoinRequest request = new JoinRequest(url, listener, errorListener);
+        requestQueue.add(request);
     }
 
     // No response expected, so we'll handle the response listener

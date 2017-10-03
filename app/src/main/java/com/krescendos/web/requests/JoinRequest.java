@@ -7,12 +7,14 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.krescendos.model.Party;
+import com.krescendos.web.LongTimeoutRetryPolicy;
 
 import java.io.UnsupportedEncodingException;
 
 public class JoinRequest extends JsonRequest<Party> {
     public JoinRequest(String url, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
         super(Method.GET, url, null, listener, errorListener);
+        setRetryPolicy(new LongTimeoutRetryPolicy());
     }
 
     @Override
