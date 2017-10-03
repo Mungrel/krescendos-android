@@ -19,6 +19,7 @@ import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.requests.ProfileRequest;
+import com.krescendos.web.requests.RecommendRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,22 +71,14 @@ public class Requester {
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
-    public void recommend(SpotifySeedCollection collection, Response.Listener<JSONObject> listener) {
+    public void recommend(SpotifySeedCollection collection, Response.Listener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("recommend");
         String url = builder.build().toString();
 
-        JSONObject postBody = null;
-        try {
-            postBody = new JSONObject(new Gson().toJson(collection));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postBody,
-                listener, new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        RecommendRequest request = new RecommendRequest(url, collection, listener);
+        
+        requestQueue.add(request);
     }
 
     public void search(String searchTerm, Response.Listener<JSONArray> listener) {
