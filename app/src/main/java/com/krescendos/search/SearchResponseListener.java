@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class SearchResponseListener implements Response.Listener<JSONArray> {
+public class SearchResponseListener implements Response.Listener<List<Track>> {
 
     private SearchTrackListAdapter adapter;
     private SearchSpinner searchSpinner;
@@ -21,11 +21,8 @@ public class SearchResponseListener implements Response.Listener<JSONArray> {
     }
 
     @Override
-    public void onResponse(JSONArray response) {
-        Type type = new TypeToken<List<Track>>() {
-        }.getType();
-        List<Track> searchResults = new Gson().fromJson(response.toString(), type);
+    public void onResponse(List<Track> response) {
         searchSpinner.hide();
-        adapter.updateResults(searchResults);
+        adapter.updateResults(response);
     }
 }
