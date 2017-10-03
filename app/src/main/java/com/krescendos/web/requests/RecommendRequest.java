@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.DefaultErrorListener;
+import com.krescendos.web.LongTimeoutRetryPolicy;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -18,6 +19,7 @@ import java.util.List;
 public class RecommendRequest extends JsonRequest<List<Track>> {
     public RecommendRequest(String url, SpotifySeedCollection collection, Response.Listener<List<Track>> listener) {
         super(Method.POST, url, new Gson().toJson(collection), listener, new DefaultErrorListener());
+        setRetryPolicy(new LongTimeoutRetryPolicy());
     }
 
     @Override
