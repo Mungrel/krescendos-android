@@ -25,6 +25,7 @@ import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
+import com.krescendos.web.requests.RequestStateUpdateRequest;
 import com.krescendos.web.requests.SearchRequest;
 import com.krescendos.web.requests.UpdatePlayStateRequest;
 
@@ -160,9 +161,8 @@ public class Requester {
         builder.appendPath("party").appendPath(code).appendPath("update");
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new DefaultResponseListener(), new DefaultErrorListener());
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        RequestStateUpdateRequest request = new RequestStateUpdateRequest(url);
+        requestQueue.add(request);
     }
 
     public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
