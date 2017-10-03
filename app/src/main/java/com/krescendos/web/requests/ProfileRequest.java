@@ -1,4 +1,4 @@
-package com.krescendos.web;
+package com.krescendos.web.requests;
 
 import android.content.Context;
 
@@ -10,6 +10,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.krescendos.model.Profile;
+import com.krescendos.web.DefaultErrorListener;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;

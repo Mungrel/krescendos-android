@@ -47,9 +47,9 @@ public class RecommendButtonClickListener implements View.OnClickListener {
                 thisButton.setBackgroundResource(R.drawable.button_round_off);
                 thisButton.setTextAppearance(context, R.style.RoundButtonTextOff);
             }
-            requester.pollPostLearner(userSelection, new Response.Listener<JSONArray>() {
+            requester.pollPostLearner(userSelection, new Response.Listener<List<String>>() {
                 @Override
-                public void onResponse(JSONArray response) {
+                public void onResponse(List<String> response) {
                     // TODO update all buttons
                 }
             });

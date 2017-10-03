@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
+import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
 
 import org.json.JSONObject;
@@ -60,11 +62,11 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 errorText.setVisibility(View.INVISIBLE);
                 partyCreate.setEnabled(false);
                 partyCreate.setText(R.string.connecting);
-                requester.create(name, welcomeMessage, new Response.Listener<JSONObject>() {
+                requester.create(name, welcomeMessage, new Response.Listener<Party>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(Party response) {
                         Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
-                        intent.putExtra("party", response.toString());
+                        intent.putExtra("party", new Gson().toJson(response));
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         partyCreate.setEnabled(true);
