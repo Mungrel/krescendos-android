@@ -18,6 +18,7 @@ import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
+import com.krescendos.web.requests.ProfileRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
