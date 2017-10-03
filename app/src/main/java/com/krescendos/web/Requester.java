@@ -3,17 +3,13 @@ package com.krescendos.web;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 import android.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.krescendos.model.Party;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
@@ -30,15 +26,11 @@ import com.krescendos.web.requests.RequestStateUpdateRequest;
 import com.krescendos.web.requests.SearchRequest;
 import com.krescendos.web.requests.UpdatePlayStateRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 
 public class Requester {
 
-    private static final String baseURL = "api.kres.io";
+    private static final String BASE_URL = "api.kres.io";
 
     private RequestQueue requestQueue;
     private static ImageLoader imageLoader;
@@ -50,17 +42,7 @@ public class Requester {
         this.context = context;
         requestQueue = Volley.newRequestQueue(context);
 
-        imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
-
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });
+        imageLoader = new ImageLoader(requestQueue, new ImageCache());
     }
 
     public static Requester getInstance(Context context) {
@@ -186,7 +168,7 @@ public class Requester {
 
     private Uri.Builder getBaseBuilder() {
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https").authority(baseURL);
+        builder.scheme("https").authority(BASE_URL);
         return builder;
     }
 }
