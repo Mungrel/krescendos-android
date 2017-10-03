@@ -14,10 +14,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.krescendos.model.Party;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
+import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
 import com.krescendos.web.requests.SearchRequest;
@@ -91,7 +93,7 @@ public class Requester {
         requestQueue.add(searchRequest);
     }
 
-    public void create(String partyName, String welcomeMessage, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public void create(String partyName, String welcomeMessage, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
         if (welcomeMessage != null && !welcomeMessage.isEmpty()) {
@@ -99,10 +101,8 @@ public class Requester {
         }
         String url = builder.build().toString();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
-                listener, errorListener);
-        jsonObjectRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonObjectRequest);
+        CreateRequest request = new CreateRequest(url, listener);
+        requestQueue.add(request);
     }
 
     public void join(String code, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
