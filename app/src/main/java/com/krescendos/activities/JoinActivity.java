@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.model.Error;
+import com.krescendos.model.Party;
 import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
 
@@ -75,11 +77,11 @@ public class JoinActivity extends AppCompatActivity {
                 text += text6.getText().toString();
 
                 errorText.setVisibility(View.INVISIBLE);
-                requester.join(text, new Response.Listener<JSONObject>() {
+                requester.join(text, new Response.Listener<Party>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(Party response) {
                         Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
-                        intent.putExtra("party", response.toString());
+                        intent.putExtra("party", new Gson().toJson(response));
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         joinCodeSubmit.setEnabled(true);
