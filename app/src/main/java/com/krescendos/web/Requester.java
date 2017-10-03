@@ -20,6 +20,7 @@ import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
+import com.krescendos.web.requests.SearchRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,15 +82,13 @@ public class Requester {
         requestQueue.add(request);
     }
 
-    public void search(String searchTerm, Response.Listener<JSONArray> listener) {
+    public void search(String searchTerm, Response.Listener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("search").appendQueryParameter("k", searchTerm);
         String url = builder.build().toString();
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                listener, new DefaultErrorListener());
-        jsonArrayRequest.setRetryPolicy(new LongTimeoutRetryPolicy());
-        requestQueue.add(jsonArrayRequest);
+        SearchRequest searchRequest = new SearchRequest(url, listener);
+        requestQueue.add(searchRequest);
     }
 
     public void create(String partyName, String welcomeMessage, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
