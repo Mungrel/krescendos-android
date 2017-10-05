@@ -23,7 +23,7 @@ public class CreateStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_start);
 
-        final Party party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
+        final Party party = getIntent().getExtras().getParcelable("party");
 
         TextView title = (TextView) findViewById(R.id.title_text);
         TextView titleCode = (TextView) findViewById(R.id.party_code);
@@ -86,7 +86,7 @@ public class CreateStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CreateStartActivity.this, HostPlayerActivity.class);
-                intent.putExtra("party", getIntent().getStringExtra("party"));
+                intent.putExtra("party", party);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }

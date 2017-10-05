@@ -39,7 +39,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_player);
 
-        party = new Gson().fromJson(getIntent().getStringExtra("party"), Party.class);
+        party = getIntent().getExtras().getParcelable("party");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
