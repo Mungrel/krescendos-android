@@ -81,7 +81,7 @@ public class JoinActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Party response) {
                         Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
-                        intent.putExtra("party", new Gson().toJson(response));
+                        intent.putExtra("party", response);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         joinCodeSubmit.setEnabled(true);
