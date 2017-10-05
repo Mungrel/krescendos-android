@@ -27,10 +27,12 @@ public class Party implements Parcelable{
         this.partyId = partyId;
     }
 
-
-
-    public int getPlayheadIndex() {
-        return playheadIndex;
+    protected Party(Parcel in) {
+        this.playheadIndex = in.readInt();
+        this.name = in.readString();
+        this.partyId = in.readString();
+        this.welcomeMessage = in.readString();
+        this.playlist = (HashMap<String, Track>) in.readSerializable();
     }
 
     public List<Track> getPlaylist() {
@@ -38,26 +40,6 @@ public class Party implements Parcelable{
             return new ArrayList<Track>();
         }
         return new ArrayList<Track>(playlist.values());
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPartyId() {
-        return partyId;
-    }
-
-    public String getWelcomeMessage() {
-        return welcomeMessage;
-    }
-
-    protected Party(Parcel in) {
-        this.playheadIndex = in.readInt();
-        this.name = in.readString();
-        this.partyId = in.readString();
-        this.welcomeMessage = in.readString();
-        this.playlist = (HashMap<String, Track>) in.readSerializable();
     }
 
     @Override
@@ -72,5 +54,41 @@ public class Party implements Parcelable{
         parcel.writeString(partyId);
         parcel.writeString(welcomeMessage);
         parcel.writeSerializable(playlist);
+    }
+
+    public int getPlayheadIndex() {
+        return playheadIndex;
+    }
+
+    public void setPlayheadIndex(int playheadIndex) {
+        this.playheadIndex = playheadIndex;
+    }
+
+    public void setPlaylist(HashMap<String, Track> playlist) {
+        this.playlist = playlist;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPartyId() {
+        return partyId;
+    }
+
+    public void setPartyId(String partyId) {
+        this.partyId = partyId;
+    }
+
+    public String getWelcomeMessage() {
+        return welcomeMessage;
+    }
+
+    public void setWelcomeMessage(String welcomeMessage) {
+        this.welcomeMessage = welcomeMessage;
     }
 }
