@@ -6,9 +6,8 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Party implements Parcelable{
+public class Party implements Parcelable {
 
     private static int PLAYHEAD_START_POSITION = 0;
 
