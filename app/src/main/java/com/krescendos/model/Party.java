@@ -18,18 +18,7 @@ public class Party implements Parcelable{
     private String partyId;
     private String welcomeMessage;
 
-    public static final Creator<Party> CREATOR = new Creator<Party>() {
-
-        @Override
-        public Party createFromParcel(Parcel parcel) {
-            return new Party(parcel);
-        }
-
-        @Override
-        public Party[] newArray(int size) {
-            return new Party[size];
-        }
-    };
+    public static final Creator<Party> CREATOR = new PartyCreator();
 
     public Party(String name, String partyId) {
         this.name = name;
