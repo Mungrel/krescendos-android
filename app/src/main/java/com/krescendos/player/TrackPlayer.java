@@ -122,7 +122,7 @@ public class TrackPlayer {
     }
 
     public void next() {
-        if (pos + 1 < trackList.size()) {
+        if (!trackList.isEmpty()) {
             // Not last track in list
             Log.d("LAST", "last track state");
             currentlyPlaying = trackList.poll();

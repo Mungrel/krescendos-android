@@ -1,6 +1,7 @@
 package com.krescendos.player;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -21,7 +22,7 @@ import java.util.Queue;
  */
 public class PlaylistAdapter {
 
-    private Queue<Track> tracks;
+    private Queue<Track> upNextTracks;
     private Track currentTrack;
     private Context context;
     private LayoutInflater inflater;
@@ -30,7 +31,7 @@ public class PlaylistAdapter {
     private SeekBar seekBar;
 
     public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar) {
-        this.tracks = new LinkedList<>();
+        this.upNextTracks = new LinkedList<>();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
@@ -39,17 +40,22 @@ public class PlaylistAdapter {
     }
 
     public void appendTrack(Track track) {
-        tracks.add(track);
-        if (currentTrack == null && tracks.size() == 1) {
-            poll();
+        if (currentTrack == null && upNextTracks.size() == 0) {
+            currentTrack = track;
+            updateCurrentTrackLayout();
         } else {
+            upNextTracks.add(track);
             appendUpNextLayout(track);
         }
     }
 
     public void poll() {
-        currentTrack = tracks.poll();
+        currentTrack = upNextTracks.poll();
         updateCurrentTrackLayout();
+
+        if (upNextLayout.getChildCount() > 0) {
+            upNextLayout.removeViewAt(0);
+        }
     }
 
     public Track getCurrentTrack() {
