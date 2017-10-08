@@ -12,7 +12,6 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
     private PlaylistAdapter playlistAdapter;
     private Integer previousPos;
 
-
     public PlayheadIndexChangeListener(PlaylistAdapter playlistAdapter) {
         this.playlistAdapter = playlistAdapter;
         this.previousPos = null;

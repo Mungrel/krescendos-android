@@ -45,9 +45,6 @@ public class TrackPlayer {
             public void onPlaybackEvent(PlayerEvent playerEvent) {
                 if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
                     next();
-                } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
-                    Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
-                    requester.advancePlayhead(partyId, pos);
                 }
             }
 
@@ -128,7 +125,6 @@ public class TrackPlayer {
             currentlyPlaying = trackList.poll();
             playTrack(currentlyPlaying);
             requester.advancePlayhead(partyId);
-            requester.updatePlayState(partyId, getState());
         } else {
             // Last track in list
             spotifyPlayer.skipToNext(new Player.OperationCallback() {
