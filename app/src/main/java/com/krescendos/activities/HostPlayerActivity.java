@@ -219,7 +219,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
                                 @Override
                                 public void onTrackChange(Track newTrack) {
-                                    playlistAdapter.poll();
+
                                 }
                             });
                         }

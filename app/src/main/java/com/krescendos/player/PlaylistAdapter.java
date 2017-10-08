@@ -40,7 +40,11 @@ public class PlaylistAdapter {
 
     public void appendTrack(Track track) {
         tracks.add(track);
-        appendUpNextLayout(track);
+        if (currentTrack == null && tracks.size() == 1) {
+            poll();
+        } else {
+            appendUpNextLayout(track);
+        }
     }
 
     public void poll() {
