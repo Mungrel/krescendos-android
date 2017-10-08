@@ -27,11 +27,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
             return;
         }
 
-        while(previousPos != newPos) {
-            playlistAdapter.poll();
-            previousPos++;
-        }
-
+        playlistAdapter.poll();
     }
 
     @Override
