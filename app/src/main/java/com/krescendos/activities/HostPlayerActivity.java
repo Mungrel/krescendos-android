@@ -216,12 +216,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
                             ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
-                            mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
-                                @Override
-                                public void onTrackChange(Track newTrack) {
-
-                                }
-                            });
                         }
 
                         @Override

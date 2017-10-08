@@ -27,7 +27,6 @@ public class TrackPlayer {
     private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
-    private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
     private String partyId;
     private boolean isDragging;
@@ -48,7 +47,6 @@ public class TrackPlayer {
                     next();
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
-                    onTrackChangeListener.onTrackChange(currentlyPlaying);
                     requester.advancePlayhead(partyId, pos);
                 }
             }
@@ -57,10 +55,6 @@ public class TrackPlayer {
             public void onPlaybackError(Error error) {
             }
         });
-    }
-
-    public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener) {
-        this.onTrackChangeListener = onTrackChangeListener;
     }
 
     private void playTrack(Track track) {
@@ -80,9 +74,7 @@ public class TrackPlayer {
     }
 
     private boolean trackLoaded() {
-        return ((spotifyPlayer != null) && (spotifyPlayer.getMetadata() != null) &&
-                (spotifyPlayer.getPlaybackState() != null) &&
-                (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
+        return (currentlyPlaying != null);
     }
 
     void seekTo(int newPos) {
@@ -179,14 +171,10 @@ public class TrackPlayer {
 
     public long getCurrentTrackLength() {
         if (trackLoaded()) {
-            return spotifyPlayer.getMetadata().currentTrack.durationMs;
+            return currentlyPlaying.getDuration_ms();
         } else {
             return 0;
         }
-    }
-
-    public int getCurrentPos() {
-        return pos;
     }
 
     public boolean isDragging() {
