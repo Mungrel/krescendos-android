@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -16,8 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.model.Party;
+import com.krescendos.model.Track;
+import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.SeekBarNoChangeListener;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.state.PartyStateChangeListener;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.PlaylistChangeListener;
@@ -43,10 +43,8 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId());
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.client_current_track_layout);
-        LinearLayout playlistLayout = (LinearLayout) findViewById(R.id.client_playerList);
-        final TrackListAdapter listAdapter = new TrackListAdapter(ClientPlayerActivity.this, playlistLayout, layout);
-        listAdapter.setItemsSelectable(false);
+        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.client_current_track_layout);
+        LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.client_playerList);
 
         TextView title = (TextView) findViewById(R.id.title_text);
         title.setText(party.getName());
@@ -57,14 +55,16 @@ public class ClientPlayerActivity extends AppCompatActivity {
         final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
 
+        final PlaylistAdapter playlistAdapter = new PlaylistAdapter(ClientPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar);
+
         final TextView timeElapsed = (TextView) findViewById(R.id.client_time_elapsed);
         final TextView timeRemaining = (TextView) findViewById(R.id.client_time_remaining);
 
         updateTimer = new UpdateTimer();
 
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(listAdapter, seekBar));
-        ref.child("playlist").addChildEventListener(new PlaylistChangeListener(listAdapter));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter, seekBar));
+        ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
 
 
         Timer UITimer = new Timer();
@@ -74,10 +74,11 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (listAdapter.getTracks().isEmpty()) {
+                        Track currentTrack = playlistAdapter.getCurrentTrack();
+                        if (currentTrack == null) {
                             return;
                         }
-                        long currentTrackDuration = listAdapter.getTracks().get(listAdapter.getCurrentPosition()).getDuration_ms();
+                        long currentTrackDuration = currentTrack.getDuration_ms();
                         seekBar.setMax((int) currentTrackDuration);
                         seekBar.setProgress((int) updateTimer.getTime());
                         long remaining = currentTrackDuration - updateTimer.getTime();

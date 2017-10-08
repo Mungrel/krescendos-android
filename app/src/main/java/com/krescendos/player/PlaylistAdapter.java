@@ -3,6 +3,7 @@ package com.krescendos.player;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -26,13 +27,15 @@ public class PlaylistAdapter {
     private LayoutInflater inflater;
     private LinearLayout upNextLayout;
     private LinearLayout currentTrackLayout;
+    private SeekBar seekBar;
 
-    public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout) {
+    public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar) {
         this.tracks = new LinkedList<>();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
         this.currentTrackLayout = currentTrackLayout;
+        this.seekBar = seekBar;
     }
 
     public void appendTrack(Track track) {
@@ -45,6 +48,10 @@ public class PlaylistAdapter {
         updateCurrentTrackLayout();
     }
 
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
+
     private void updateCurrentTrackLayout() {
         TextView trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
         TextView artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
@@ -53,6 +60,8 @@ public class PlaylistAdapter {
         trackTitle.setText(currentTrack.getName());
         artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
         albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), Requester.getInstance(context).getImageLoader());
+
+        seekBar.setMax((int) currentTrack.getDuration_ms());
     }
 
     private void appendUpNextLayout(Track appendedTrack) {

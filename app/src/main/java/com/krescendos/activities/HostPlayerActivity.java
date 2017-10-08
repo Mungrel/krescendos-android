@@ -27,7 +27,6 @@ import com.krescendos.model.Profile;
 import com.krescendos.model.Track;
 import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.SeekBarUserChangeListener;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.PlaylistChangeListener;
