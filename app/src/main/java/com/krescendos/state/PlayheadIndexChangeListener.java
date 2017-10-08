@@ -10,16 +10,28 @@ import com.krescendos.player.PlaylistAdapter;
 public class PlayheadIndexChangeListener implements ValueEventListener {
 
     private PlaylistAdapter playlistAdapter;
-    private SeekBar seekBar;
+    private Integer previousPos;
 
-    public PlayheadIndexChangeListener(PlaylistAdapter playlistAdapter, SeekBar seekBar) {
+
+    public PlayheadIndexChangeListener(PlaylistAdapter playlistAdapter) {
         this.playlistAdapter = playlistAdapter;
-        this.seekBar = seekBar;
+        this.previousPos = null;
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        playlistAdapter.poll();
+        Integer newPos = dataSnapshot.getValue(Integer.class);
+
+        if (previousPos == null) {
+            previousPos = newPos;
+            return;
+        }
+
+        while(previousPos != newPos) {
+            playlistAdapter.poll();
+            previousPos++;
+        }
+
     }
 
     @Override
