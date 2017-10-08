@@ -1,6 +1,8 @@
 package com.krescendos.model;
 
-public class AlbumArt {
+import java.io.Serializable;
+
+public class AlbumArt implements Serializable{
     private String url;
     private int height;
     private int width;

@@ -22,7 +22,7 @@ public class Party implements Parcelable {
     public Party(String name, String partyId) {
         this.name = name;
         this.playheadIndex = PLAYHEAD_START_POSITION;
-        this.playlist = new HashMap<String, Track>();
+        this.playlist = new HashMap<>();
         this.partyId = partyId;
     }
 

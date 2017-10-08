@@ -1,8 +1,9 @@
 package com.krescendos.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Track {
+public class Track implements Serializable {
     private String id;
     private String name;
     private Album album;
