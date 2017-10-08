@@ -65,7 +65,7 @@ public class PlaylistAdapter {
     }
 
     private void appendUpNextLayout(Track appendedTrack) {
-        LinearLayout listItem = (LinearLayout) inflater.inflate(R.layout.player_list_layout, upNextLayout);
+        LinearLayout listItem = (LinearLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
         TextView artistAlbum = listItem.findViewById(R.id.up_next_artist_album);

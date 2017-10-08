@@ -14,13 +14,16 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 // Spotify player wrapper to make things easier
 
 public class TrackPlayer {
 
-    private List<Track> trackList;
+    private Queue<Track> trackList;
+    private Track currentlyPlaying;
     private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
@@ -31,7 +34,7 @@ public class TrackPlayer {
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
-        this.trackList = new ArrayList<Track>();
+        this.trackList = new LinkedList<>();
         this.pos = 0;
         this.isPlaying = false;
         this.requester = Requester.getInstance(context);
@@ -45,7 +48,7 @@ public class TrackPlayer {
                     next();
                 } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
                     Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
-                    onTrackChangeListener.onTrackChange(trackList.get(pos));
+                    onTrackChangeListener.onTrackChange(currentlyPlaying);
                     requester.advancePlayhead(partyId, pos);
                 }
             }
@@ -103,7 +106,8 @@ public class TrackPlayer {
         trackList.add(track);
         if (trackList.size() == 1 && !trackLoaded()) {
             // First track added
-            playTrack(trackList.get(getCurrentPos()));
+            currentlyPlaying = trackList.poll();
+            playTrack(currentlyPlaying);
         }
     }
 
@@ -129,8 +133,8 @@ public class TrackPlayer {
         if (pos + 1 < trackList.size()) {
             // Not last track in list
             Log.d("LAST", "last track state");
-            pos++;
-            playTrack(trackList.get(pos));
+            currentlyPlaying = trackList.poll();
+            playTrack(currentlyPlaying);
             requester.advancePlayhead(partyId);
             requester.updatePlayState(partyId, getState());
         } else {
@@ -150,22 +154,6 @@ public class TrackPlayer {
 
     }
 
-    public void skipTo(int newPos) {
-        Log.d("SKIPTO: ", "" + newPos);
-        if (newPos == pos) {
-            return;
-        }
-        if (newPos >= 0 && newPos < trackList.size()) {
-            pos = newPos;
-        } else {
-            Log.d("ERROR:", "Invalid skip to position, playlist length: " + trackList.size() + " pos: " + newPos);
-            return;
-        }
-        playTrack(trackList.get(pos));
-        requester.advancePlayhead(partyId, pos);
-        requester.updatePlayState(partyId, getState());
-    }
-
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -175,7 +163,7 @@ public class TrackPlayer {
             resume();
         } else {
             if (!trackList.isEmpty()) {
-                playTrack(trackList.get(pos));
+                playTrack(currentlyPlaying);
             }
         }
         requester.updatePlayState(partyId, getState());
