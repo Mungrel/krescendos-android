@@ -1,6 +1,8 @@
 package com.krescendos.model;
 
-public class Artist {
+import java.io.Serializable;
+
+public class Artist implements Serializable {
     private String id;
     private String name;
 

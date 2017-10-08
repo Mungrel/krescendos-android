@@ -1,9 +1,10 @@
 package com.krescendos.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album {
+public class Album implements Serializable{
     private String id;
     private String name;
     private String type;
