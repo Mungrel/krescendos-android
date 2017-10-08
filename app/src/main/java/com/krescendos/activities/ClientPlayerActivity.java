@@ -63,7 +63,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         updateTimer = new UpdateTimer();
 
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter, seekBar));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
         ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
 
 
