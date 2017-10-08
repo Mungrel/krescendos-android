@@ -18,6 +18,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionNext"
         android:theme="@style/CodeInput" />
 
     <EditText
@@ -29,6 +30,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionNext"
         android:theme="@style/CodeInput" />
 
     <EditText
@@ -40,6 +42,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionNext"
         android:theme="@style/CodeInput" />
 
     <EditText
@@ -51,6 +54,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionNext"
         android:theme="@style/CodeInput" />
 
     <EditText
@@ -62,6 +66,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionNext"
         android:theme="@style/CodeInput" />
 
     <EditText
@@ -73,6 +78,7 @@
         android:inputType="textCapCharacters"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
+        android:imeOptions="actionDone"
         android:theme="@style/CodeInput" />
 
 </LinearLayout>
