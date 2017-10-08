@@ -2,8 +2,13 @@ package com.krescendos.player;
 
 import android.content.Context;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+import com.krescendos.R;
 import com.krescendos.model.Track;
+import com.krescendos.text.TextUtils;
+import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,6 +36,7 @@ public class PlaylistAdapter {
 
     public void appendTrack(Track track) {
         tracks.add(track);
+        updateUpNextLayout();
     }
 
     public void poll() {
@@ -39,7 +45,17 @@ public class PlaylistAdapter {
     }
 
     private void updateCurrentTrackLayout() {
+        TextView trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
+        TextView artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
+        NetworkImageView albumArt = currentTrackLayout.findViewById(R.id.current_track_album_art);
 
+        trackTitle.setText(currentTrack.getName());
+        artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
+        albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), Requester.getInstance(context).getImageLoader());
+    }
+
+    private void updateUpNextLayout() {
+        
     }
 
 }
