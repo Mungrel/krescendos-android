@@ -1,118 +1,52 @@
 package com.krescendos.state;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.krescendos.model.Track;
 import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
-import com.krescendos.web.Requester;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PlaylistChangeListener implements ValueEventListener {
+public class PlaylistChangeListener implements ChildEventListener {
     private TrackListAdapter trackListAdapter;
     private TrackPlayer trackPlayer;
-    private DatabaseReference playHeadIndexRef;
-    private DatabaseReference partyStateRef;
-    private PlayheadIndexChangeListener playheadIndexChangeListener;
-    private PartyStateChangeListener partyStateChangeListener;
-    private boolean listenersSet;
-    private Context context;
-    private String partyCode;
 
-    public PlaylistChangeListener(Context context, String partyCode, TrackListAdapter trackListAdapter, DatabaseReference playHeadIndexRef,
-                                  DatabaseReference partyStateRef,
-                                  PlayheadIndexChangeListener playheadIndexChangeListener,
-                                  PartyStateChangeListener partyStateChangeListener) {
-        this.context = context;
-        this.partyCode = partyCode;
+    public PlaylistChangeListener(TrackListAdapter trackListAdapter) {
         this.trackListAdapter = trackListAdapter;
-        this.playHeadIndexRef = playHeadIndexRef;
-        this.partyStateRef = partyStateRef;
-        this.playheadIndexChangeListener = playheadIndexChangeListener;
-        this.partyStateChangeListener = partyStateChangeListener;
-        this.listenersSet = false;
     }
 
     public PlaylistChangeListener(TrackListAdapter trackListAdapter, TrackPlayer trackPlayer) {
         this.trackListAdapter = trackListAdapter;
         this.trackPlayer = trackPlayer;
-        this.listenersSet = true;
     }
 
     @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        List<Track> newList = new ArrayList<Track>();
+    public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+        Track addedTrack = dataSnapshot.getValue(Track.class);
+        Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        for (DataSnapshot track : dataSnapshot.getChildren()) {
-            newList.add(track.getValue(Track.class));
+        trackListAdapter.addTrack(addedTrack);
+        if (trackPlayer != null) {
+            trackPlayer.queue(addedTrack);
         }
-
-        if (trackPlayer == null) { // We're a client, just straight up set the list
-            trackListAdapter.updateTracks(newList);
-            setListeners();
-            return;
-        }
-        List<Track> oldList = trackListAdapter.getTracks();
-        logList("OLD:", oldList);
-        newList = trackListDiff(oldList, newList);
-        logList("DIFF:", newList);
-
-        for (Track track : newList) {
-            Log.d("TRACK", "Added: " + track.getName());
-            trackListAdapter.addTrack(track);
-            if (trackPlayer != null) {
-                Log.d("QUEUE", "Track queued: " + track.getName());
-                trackPlayer.queue(track);
-            }
-        }
-
-        if (!listenersSet) {
-            setListeners();
-        }
-
     }
 
-    private void setListeners() {
-        playHeadIndexRef.addValueEventListener(playheadIndexChangeListener);
-        partyStateRef.addValueEventListener(partyStateChangeListener);
-        Requester.getInstance(context).requestPartyStateUpdate(partyCode);
-        listenersSet = true;
+    @Override
+    public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+    }
+
+    @Override
+    public void onChildRemoved(DataSnapshot dataSnapshot) {
+    }
+
+    @Override
+    public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
     }
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
         Log.d("DB_ERROR", "" + databaseError.getMessage() + ": " + databaseError.getDetails());
-    }
-
-    private void logList(String tag, List<Track> tracks) {
-        for (Track track : tracks) {
-            Log.d(tag, track.getName());
-        }
-    }
-
-    private List<Track> trackListDiff(List<Track> oldList, List<Track> newList) {
-        if (oldList.isEmpty()) {
-            return newList;
-        }
-        if (newList.isEmpty()) {
-            return oldList;
-        }
-        List<Track> found = new ArrayList<Track>();
-        for (Track newTrack : newList) {
-            for (Track oldTrack : oldList) {
-                if (newTrack.getId().equals(oldTrack.getId())) {
-                    found.add(newTrack);
-                }
-            }
-        }
-        newList.removeAll(found);
-        return newList;
     }
 }
