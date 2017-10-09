@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.input.HideKeyboardOnKeyListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.text.TextChangeListener;
@@ -61,6 +62,7 @@ public class JoinActivity extends AppCompatActivity {
         text4.addTextChangedListener(new TextChangeListener(text3, text5));
         text5.addTextChangedListener(new TextChangeListener(text4, text6));
         text6.addTextChangedListener(new TextChangeListener(text5, text6));
+        text6.addTextChangedListener(new HideKeyboardOnKeyListener(JoinActivity.this));
 
         final TextView errorText = (TextView) findViewById(R.id.joinErrorTextView);
 
