@@ -14,7 +14,21 @@ public class QuickDialog {
     private AlertDialog alertDialog;
     private OnQuickDialogCloseListener closeListener;
 
-    public QuickDialog(final Context context, String title, String message) {
+    public QuickDialog(Context context, String title, String message) {
+        this.alertDialog = buildDialog(context, title, message);
+    }
+
+    public QuickDialog(Context context, String title, String message, OnQuickDialogCloseListener closeListener) {
+        this(context, title, message);
+        this.closeListener = closeListener;
+    }
+
+    public void show() {
+        alertDialog.show();
+    }
+
+    private AlertDialog buildDialog(final Context context, String title, String message) {
+
         ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.errorDialog);
         AlertDialog.Builder builder = new AlertDialog.Builder(wrapper);
         builder.setTitle(title);
@@ -29,7 +43,7 @@ public class QuickDialog {
             }
         });
 
-        alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
@@ -46,14 +60,7 @@ public class QuickDialog {
                 }
             }
         });
-    }
 
-    public QuickDialog(final Context context, String title, String message, OnQuickDialogCloseListener closeListener) {
-        this(context, title, message);
-        this.closeListener = closeListener;
-    }
-
-    public void show() {
-        alertDialog.show();
+        return alertDialog;
     }
 }
