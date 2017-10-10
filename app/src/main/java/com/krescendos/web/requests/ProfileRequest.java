@@ -22,7 +22,7 @@ public class ProfileRequest extends JsonRequest<Profile> {
 
     private String accessToken;
 
-    public ProfileRequest(Context context, String accessToken, Response.Listener<Profile> listener) {
+    public ProfileRequest(String accessToken, Response.Listener<Profile> listener) {
         super(Method.GET, url, null, listener, new DefaultErrorListener());
         this.accessToken = accessToken;
     }

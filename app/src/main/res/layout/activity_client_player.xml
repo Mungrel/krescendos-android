@@ -87,10 +87,11 @@
             android:text="@string/up_next"
             android:textAppearance="@style/TitleText" />
 
-        <ListView
+        <LinearLayout
             android:id="@+id/client_playerList"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical" />
 
     </LinearLayout>
 </ScrollView>

@@ -28,14 +28,12 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String BASE_URL = "api.kres.io";
+    private static final String BASE_URL = "0-1-1-31-g23c54bf-dot-krescendos-174122.appspot.com";
     private static ImageLoader imageLoader;
     private static Requester instance;
     private RequestQueue requestQueue;
-    private Context context;
 
     private Requester(Context context) {
-        this.context = context;
         requestQueue = Volley.newRequestQueue(context);
 
         imageLoader = new ImageLoader(requestQueue, new ImageCache());
@@ -145,7 +143,7 @@ public class Requester {
     }
 
     public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
-        ProfileRequest profileRequest = new ProfileRequest(context, userAccessToken, responseListener);
+        ProfileRequest profileRequest = new ProfileRequest(userAccessToken, responseListener);
         requestQueue.add(profileRequest);
     }
 

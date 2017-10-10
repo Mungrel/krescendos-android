@@ -14,24 +14,26 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 // Spotify player wrapper to make things easier
 
 public class TrackPlayer {
 
-    private List<Track> trackList;
+    private Queue<Track> trackList;
+    private Track currentlyPlaying;
     private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
-    private OnTrackChangeListener onTrackChangeListener;
     private Requester requester;
     private String partyId;
     private boolean isDragging;
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
-        this.trackList = new ArrayList<Track>();
+        this.trackList = new LinkedList<>();
         this.pos = 0;
         this.isPlaying = false;
         this.requester = Requester.getInstance(context);
@@ -43,10 +45,6 @@ public class TrackPlayer {
             public void onPlaybackEvent(PlayerEvent playerEvent) {
                 if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
                     next();
-                } else if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackChanged) {
-                    Log.d("TRACK_CHANGE", "Changed, new Pos: " + pos);
-                    onTrackChangeListener.onTrackChange(trackList.get(pos));
-                    requester.advancePlayhead(partyId, pos);
                 }
             }
 
@@ -54,10 +52,6 @@ public class TrackPlayer {
             public void onPlaybackError(Error error) {
             }
         });
-    }
-
-    public void setOnTrackChangeListener(OnTrackChangeListener onTrackChangeListener) {
-        this.onTrackChangeListener = onTrackChangeListener;
     }
 
     private void playTrack(Track track) {
@@ -77,9 +71,7 @@ public class TrackPlayer {
     }
 
     private boolean trackLoaded() {
-        return ((spotifyPlayer != null) && (spotifyPlayer.getMetadata() != null) &&
-                (spotifyPlayer.getPlaybackState() != null) &&
-                (spotifyPlayer.getMetadata().currentTrack != null) && (trackList.size() > 0));
+        return (currentlyPlaying != null);
     }
 
     void seekTo(int newPos) {
@@ -103,7 +95,8 @@ public class TrackPlayer {
         trackList.add(track);
         if (trackList.size() == 1 && !trackLoaded()) {
             // First track added
-            playTrack(trackList.get(getCurrentPos()));
+            currentlyPlaying = trackList.poll();
+            playTrack(currentlyPlaying);
         }
     }
 
@@ -126,13 +119,12 @@ public class TrackPlayer {
     }
 
     public void next() {
-        if (pos + 1 < trackList.size()) {
+        if (!trackList.isEmpty()) {
             // Not last track in list
             Log.d("LAST", "last track state");
-            pos++;
-            playTrack(trackList.get(pos));
+            currentlyPlaying = trackList.poll();
+            playTrack(currentlyPlaying);
             requester.advancePlayhead(partyId);
-            requester.updatePlayState(partyId, getState());
         } else {
             // Last track in list
             spotifyPlayer.skipToNext(new Player.OperationCallback() {
@@ -150,22 +142,6 @@ public class TrackPlayer {
 
     }
 
-    public void skipTo(int newPos) {
-        Log.d("SKIPTO: ", "" + newPos);
-        if (newPos == pos) {
-            return;
-        }
-        if (newPos >= 0 && newPos < trackList.size()) {
-            pos = newPos;
-        } else {
-            Log.d("ERROR:", "Invalid skip to position, playlist length: " + trackList.size() + " pos: " + newPos);
-            return;
-        }
-        playTrack(trackList.get(pos));
-        requester.advancePlayhead(partyId, pos);
-        requester.updatePlayState(partyId, getState());
-    }
-
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -175,7 +151,7 @@ public class TrackPlayer {
             resume();
         } else {
             if (!trackList.isEmpty()) {
-                playTrack(trackList.get(pos));
+                playTrack(currentlyPlaying);
             }
         }
         requester.updatePlayState(partyId, getState());
@@ -191,14 +167,10 @@ public class TrackPlayer {
 
     public long getCurrentTrackLength() {
         if (trackLoaded()) {
-            return spotifyPlayer.getMetadata().currentTrack.durationMs;
+            return currentlyPlaying.getDuration_ms();
         } else {
             return 0;
         }
-    }
-
-    public int getCurrentPos() {
-        return pos;
     }
 
     public boolean isDragging() {

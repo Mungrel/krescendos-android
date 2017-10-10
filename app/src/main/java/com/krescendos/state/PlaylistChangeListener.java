@@ -6,19 +6,19 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.krescendos.model.Track;
-import com.krescendos.player.TrackListAdapter;
+import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.TrackPlayer;
 
 public class PlaylistChangeListener implements ChildEventListener {
-    private TrackListAdapter trackListAdapter;
+    private PlaylistAdapter playlistAdapter;
     private TrackPlayer trackPlayer;
 
-    public PlaylistChangeListener(TrackListAdapter trackListAdapter) {
-        this.trackListAdapter = trackListAdapter;
+    public PlaylistChangeListener(PlaylistAdapter playlistAdapter) {
+        this.playlistAdapter = playlistAdapter;
     }
 
-    public PlaylistChangeListener(TrackListAdapter trackListAdapter, TrackPlayer trackPlayer) {
-        this.trackListAdapter = trackListAdapter;
+    public PlaylistChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
+        this.playlistAdapter = playlistAdapter;
         this.trackPlayer = trackPlayer;
     }
 
@@ -27,7 +27,7 @@ public class PlaylistChangeListener implements ChildEventListener {
         Track addedTrack = dataSnapshot.getValue(Track.class);
         Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        trackListAdapter.addTrack(addedTrack);
+        playlistAdapter.appendTrack(addedTrack);
         if (trackPlayer != null) {
             trackPlayer.queue(addedTrack);
         }
@@ -39,6 +39,7 @@ public class PlaylistChangeListener implements ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
+        playlistAdapter.poll();
     }
 
     @Override

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,8 +27,8 @@ import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
 import com.krescendos.model.Track;
 import com.krescendos.player.OnTrackChangeListener;
+import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
-import com.krescendos.player.TrackListAdapter;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.PlaylistChangeListener;
@@ -54,9 +53,10 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final String REDIRECT_URI = "krescendosapp://callback";
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
+
+    private PlaylistAdapter playlistAdapter;
     private TrackPlayer mPlayer;
     private Requester requester;
-    private TrackListAdapter listAdapter;
     private Party party;
     private DatabaseReference ref;
 
@@ -75,8 +75,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         requester = Requester.getInstance(HostPlayerActivity.this);
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
-
-        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -137,19 +135,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         });
 
-        ListView listView = (ListView) findViewById(R.id.playerList);
-        listAdapter = new TrackListAdapter(HostPlayerActivity.this, listView, currentTrackLayout);
-        listView.setAdapter(listAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int targetTrackPos, long l) {
-                mPlayer.skipTo(targetTrackPos);
-                refreshPlayBtn();
-            }
-        });
-
+        LinearLayout currentTrackLayout = (LinearLayout) findViewById(R.id.host_current_track_layout);
+        LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.playerList);
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
+
+        playlistAdapter = new PlaylistAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -219,15 +209,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
-                            ref.child("playlist").addChildEventListener(new PlaylistChangeListener(listAdapter, mPlayer));
-                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(listAdapter, seekBar));
+                            ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
+                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
-                            mPlayer.setOnTrackChangeListener(new OnTrackChangeListener() {
-                                @Override
-                                public void onTrackChange(Track newTrack) {
-                                    listAdapter.setCurrentPosition(mPlayer.getCurrentPos());
-                                }
-                            });
                         }
 
                         @Override
