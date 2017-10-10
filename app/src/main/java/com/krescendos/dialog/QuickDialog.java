@@ -1,4 +1,4 @@
-package com.krescendos.utils;
+package com.krescendos.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;

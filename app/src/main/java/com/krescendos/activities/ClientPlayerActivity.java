@@ -24,7 +24,7 @@ import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.text.TextUtils;
 import com.krescendos.text.TimeUtils;
 import com.krescendos.timer.UpdateTimer;
-import com.krescendos.utils.QuickDialog;
+import com.krescendos.dialog.QuickDialog;
 
 import java.util.Timer;
 import java.util.TimerTask;

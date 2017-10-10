@@ -1,4 +1,4 @@
-package com.krescendos.utils;
+package com.krescendos.dialog;
 
 public interface OnQuickDialogCloseListener {
 
