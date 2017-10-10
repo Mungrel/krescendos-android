@@ -20,7 +20,7 @@ import com.krescendos.R;
 import com.krescendos.input.HideKeyboardListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
-import com.krescendos.text.TextChangeListener;
+import com.krescendos.input.TextChangeListener;
 import com.krescendos.web.Requester;
 
 public class JoinActivity extends AppCompatActivity {

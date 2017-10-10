@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.model.Track;
-import com.krescendos.text.TextUtils;
+import com.krescendos.utils.TextUtils;
 import com.krescendos.dialog.ListResizer;
 import com.krescendos.web.Requester;
 

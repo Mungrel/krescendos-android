@@ -1,4 +1,4 @@
-package com.krescendos.timer;
+package com.krescendos.utils;
 
 import java.util.Timer;
 import java.util.TimerTask;

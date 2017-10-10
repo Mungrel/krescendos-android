@@ -21,9 +21,9 @@ import com.krescendos.player.TrackListAdapter;
 import com.krescendos.state.PartyStateChangeListener;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.PlaylistChangeListener;
-import com.krescendos.text.TextUtils;
-import com.krescendos.text.TimeUtils;
-import com.krescendos.timer.UpdateTimer;
+import com.krescendos.utils.TextUtils;
+import com.krescendos.utils.TimeUtils;
+import com.krescendos.utils.UpdateTimer;
 import com.krescendos.dialog.QuickDialog;
 
 import java.util.Timer;

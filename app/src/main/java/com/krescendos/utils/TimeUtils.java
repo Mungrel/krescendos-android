@@ -1,4 +1,4 @@
-package com.krescendos.text;
+package com.krescendos.utils;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
