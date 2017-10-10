@@ -39,6 +39,7 @@ public class PlaylistChangeListener implements ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
+        playlistAdapter.poll();
     }
 
     @Override
