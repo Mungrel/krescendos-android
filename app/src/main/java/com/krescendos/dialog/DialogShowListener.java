@@ -14,7 +14,7 @@ public class DialogShowListener implements DialogInterface.OnShowListener {
     private AlertDialog alertDialog;
     private OnQuickDialogCloseListener closeListener;
 
-    public DialogShowListener(Context context, AlertDialog alertDialog, OnQuickDialogCloseListener closeListener) {
+    DialogShowListener(Context context, AlertDialog alertDialog, OnQuickDialogCloseListener closeListener) {
         this.context = context;
         this.alertDialog = alertDialog;
         this.closeListener = closeListener;
