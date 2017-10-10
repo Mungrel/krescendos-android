@@ -8,8 +8,6 @@ import com.android.volley.Response;
 import com.krescendos.R;
 import com.krescendos.web.Requester;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,6 +33,10 @@ public class RecommendButtonClickListener implements View.OnClickListener {
         }
     }
 
+    public static List<String> getUserSelection() {
+        return userSelection;
+    }
+
     @Override
     public void onClick(View view) {
         if (thisButton.isShown()) {
@@ -54,9 +56,5 @@ public class RecommendButtonClickListener implements View.OnClickListener {
                 }
             });
         }
-    }
-
-    public static List<String> getUserSelection() {
-        return userSelection;
     }
 }

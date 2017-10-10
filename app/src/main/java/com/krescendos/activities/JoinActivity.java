@@ -18,9 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.input.HideKeyboardListener;
+import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
-import com.krescendos.input.TextChangeListener;
 import com.krescendos.web.Requester;
 
 public class JoinActivity extends AppCompatActivity {
@@ -123,7 +123,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("TOUCH", "onTouchEvent");
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.
                 INPUT_METHOD_SERVICE);
         if (getCurrentFocus().getWindowToken() != null) {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.dialog.QuickDialog;
 import com.krescendos.model.Party;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.TrackListAdapter;
@@ -24,7 +25,6 @@ import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
-import com.krescendos.dialog.QuickDialog;
 
 import java.util.Timer;
 import java.util.TimerTask;
