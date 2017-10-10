@@ -43,23 +43,8 @@ public class QuickDialog {
             }
         });
 
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-                int color = ContextCompat.getColor(context, R.color.colorPrimary);
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                if (closeListener != null) {
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            alertDialog.hide();
-                            closeListener.onClose();
-                        }
-                    });
-                }
-            }
-        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogShowListener(context, alertDialog, closeListener));
 
         return alertDialog;
     }
