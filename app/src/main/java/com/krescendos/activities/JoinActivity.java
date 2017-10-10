@@ -16,15 +16,12 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.input.HideKeyboardOnKeyListener;
+import com.krescendos.input.HideKeyboardListener;
+import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
-import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
-
-import org.json.JSONObject;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -63,7 +60,7 @@ public class JoinActivity extends AppCompatActivity {
         text4.addTextChangedListener(new TextChangeListener(text3, text5));
         text5.addTextChangedListener(new TextChangeListener(text4, text6));
         text6.addTextChangedListener(new TextChangeListener(text5, text6));
-        text6.addTextChangedListener(new HideKeyboardOnKeyListener(JoinActivity.this));
+        text6.addTextChangedListener(new HideKeyboardListener(JoinActivity.this));
 
         final TextView errorText = (TextView) findViewById(R.id.joinErrorTextView);
 
@@ -126,7 +123,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("TOUCH", "onTouchEvent");
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.
                 INPUT_METHOD_SERVICE);
         if (getCurrentFocus().getWindowToken() != null) {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

@@ -5,11 +5,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
 
-public class HideKeyboardOnKeyListener implements TextWatcher {
+public class HideKeyboardListener implements TextWatcher {
 
     private InputMethodManager imm;
 
-    public HideKeyboardOnKeyListener(Context context) {
+    public HideKeyboardListener(Context context) {
         imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 

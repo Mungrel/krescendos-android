@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
+import com.krescendos.dialog.ListResizer;
 import com.krescendos.model.Track;
-import com.krescendos.text.TextUtils;
-import com.krescendos.utils.ListResizer;
+import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -151,19 +151,19 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         return itemsSelectable;
     }
 
-    private static class ViewHolder {
-
-        TextView trackName;
-        TextView artistAlbum;
-        NetworkImageView albumArt;
-        int pos;
-    }
-
     public List<Track> getTracks() {
         return tracks;
     }
 
     public void setItemsSelectable(boolean itemsSelectable) {
         this.itemsSelectable = itemsSelectable;
+    }
+
+    private static class ViewHolder {
+
+        TextView trackName;
+        TextView artistAlbum;
+        NetworkImageView albumArt;
+        int pos;
     }
 }

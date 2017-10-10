@@ -1,9 +1,7 @@
 package com.krescendos.web;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,12 +29,10 @@ import java.util.List;
 public class Requester {
 
     private static final String BASE_URL = "api.kres.io";
-
-    private RequestQueue requestQueue;
     private static ImageLoader imageLoader;
-    private Context context;
-
     private static Requester instance;
+    private RequestQueue requestQueue;
+    private Context context;
 
     private Requester(Context context) {
         this.context = context;
@@ -68,7 +64,7 @@ public class Requester {
         String url = builder.build().toString();
 
         RecommendRequest request = new RecommendRequest(url, collection, listener);
-        
+
         requestQueue.add(request);
     }
 

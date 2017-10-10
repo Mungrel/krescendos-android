@@ -16,14 +16,11 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
-
-import org.json.JSONObject;
 
 public class CreateDetailsActivity extends AppCompatActivity {
 

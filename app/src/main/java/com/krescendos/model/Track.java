@@ -14,36 +14,36 @@ public class Track implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public long getDuration_ms() {
-        return duration_ms;
-    }
-
-    public List<Artist> getArtists() {
-        return artists;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
     public void setAlbum(Album album) {
         this.album = album;
     }
 
+    public long getDuration_ms() {
+        return duration_ms;
+    }
+
     public void setDuration_ms(long duration_ms) {
         this.duration_ms = duration_ms;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
     }
 
     public void setArtists(List<Artist> artists) {

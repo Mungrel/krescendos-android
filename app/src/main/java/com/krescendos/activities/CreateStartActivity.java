@@ -10,11 +10,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Party;
-import com.krescendos.text.TextUtils;
+import com.krescendos.utils.TextUtils;
 
 public class CreateStartActivity extends AppCompatActivity {
 

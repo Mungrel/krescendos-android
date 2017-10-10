@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.dialog.OnQuickDialogCloseListener;
+import com.krescendos.dialog.QuickDialog;
 import com.krescendos.input.DislikeButtonClickListener;
 import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Party;
@@ -32,10 +34,8 @@ import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.PlaylistChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
-import com.krescendos.text.TextUtils;
-import com.krescendos.text.TimeUtils;
-import com.krescendos.utils.OnQuickDialogCloseListener;
-import com.krescendos.utils.QuickDialog;
+import com.krescendos.utils.TextUtils;
+import com.krescendos.utils.TimeUtils;
 import com.krescendos.web.Requester;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -52,13 +52,10 @@ import java.util.TimerTask;
 public class HostPlayerActivity extends AppCompatActivity implements ConnectionStateCallback {
     private static final String CLIENT_ID = "aa1b7b09be0a44d88b57e72f2b269a88";
     private static final String REDIRECT_URI = "krescendosapp://callback";
-
-    private TrackPlayer mPlayer;
-    private Requester requester;
-
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
-
+    private TrackPlayer mPlayer;
+    private Requester requester;
     private TrackListAdapter listAdapter;
     private Party party;
     private DatabaseReference ref;
