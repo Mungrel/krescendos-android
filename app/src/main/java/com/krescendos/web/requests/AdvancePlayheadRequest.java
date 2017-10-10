@@ -1,5 +1,7 @@
 package com.krescendos.web.requests;
 
+import android.util.Log;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
@@ -23,6 +25,7 @@ public class AdvancePlayheadRequest extends JsonRequest<JSONObject> {
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         JSONObject object = null;
+
         try {
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
             object = new JSONObject(jsonString);
