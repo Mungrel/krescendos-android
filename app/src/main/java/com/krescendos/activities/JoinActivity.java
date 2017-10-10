@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,14 +16,12 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.input.HideKeyboardListener;
+import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
-import com.krescendos.text.TextChangeListener;
 import com.krescendos.web.Requester;
-
-import org.json.JSONObject;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -61,6 +60,7 @@ public class JoinActivity extends AppCompatActivity {
         text4.addTextChangedListener(new TextChangeListener(text3, text5));
         text5.addTextChangedListener(new TextChangeListener(text4, text6));
         text6.addTextChangedListener(new TextChangeListener(text5, text6));
+        text6.addTextChangedListener(new HideKeyboardListener(JoinActivity.this));
 
         final TextView errorText = (TextView) findViewById(R.id.joinErrorTextView);
 
@@ -118,5 +118,17 @@ public class JoinActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d("TOUCH", "onTouchEvent");
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        if (getCurrentFocus().getWindowToken() != null) {
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
+        return true;
     }
 }

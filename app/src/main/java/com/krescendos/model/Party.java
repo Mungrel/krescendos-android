@@ -9,15 +9,13 @@ import java.util.List;
 
 public class Party implements Parcelable {
 
+    public static final Creator<Party> CREATOR = new PartyCreator();
     private static int PLAYHEAD_START_POSITION = 0;
-
     private int playheadIndex;
     private HashMap<String, Track> playlist;
     private String name;
     private String partyId;
     private String welcomeMessage;
-
-    public static final Creator<Party> CREATOR = new PartyCreator();
 
     public Party(String name, String partyId) {
         this.name = name;
@@ -41,6 +39,10 @@ public class Party implements Parcelable {
         return new ArrayList<Track>(playlist.values());
     }
 
+    public void setPlaylist(HashMap<String, Track> playlist) {
+        this.playlist = playlist;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -61,10 +63,6 @@ public class Party implements Parcelable {
 
     public void setPlayheadIndex(int playheadIndex) {
         this.playheadIndex = playheadIndex;
-    }
-
-    public void setPlaylist(HashMap<String, Track> playlist) {
-        this.playlist = playlist;
     }
 
     public String getName() {

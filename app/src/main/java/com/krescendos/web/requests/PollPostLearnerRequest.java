@@ -7,7 +7,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.krescendos.model.Track;
 import com.krescendos.web.DefaultErrorListener;
 import com.krescendos.web.LongTimeoutRetryPolicy;
 
@@ -15,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class PollPostLearnerRequest extends JsonRequest<List<String>>{
+public class PollPostLearnerRequest extends JsonRequest<List<String>> {
     public PollPostLearnerRequest(String url, List<String> userSelection, Response.Listener<List<String>> listener) {
         super(Method.POST, url, new Gson().toJson(userSelection), listener, new DefaultErrorListener());
         setRetryPolicy(new LongTimeoutRetryPolicy());

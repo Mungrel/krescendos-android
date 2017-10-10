@@ -2,7 +2,6 @@ package com.krescendos.web.requests;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
@@ -26,7 +25,8 @@ public class SearchRequest extends JsonRequest<List<Track>> {
     protected Response<List<Track>> parseNetworkResponse(NetworkResponse response) {
         try {
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-            Type t = new TypeToken<List<Track>>() {}.getType();
+            Type t = new TypeToken<List<Track>>() {
+            }.getType();
             List<Track> tracks = new Gson().fromJson(jsonString, t);
             return Response.success(tracks, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {

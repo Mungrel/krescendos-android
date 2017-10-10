@@ -12,7 +12,7 @@ import com.krescendos.web.LongTimeoutRetryPolicy;
 
 import java.io.UnsupportedEncodingException;
 
-public class CreateRequest extends JsonRequest<Party>{
+public class CreateRequest extends JsonRequest<Party> {
     public CreateRequest(String url, Response.Listener<Party> listener) {
         super(Method.PUT, url, null, listener, new DefaultErrorListener());
         setRetryPolicy(new LongTimeoutRetryPolicy());

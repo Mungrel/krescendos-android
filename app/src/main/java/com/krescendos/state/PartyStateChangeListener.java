@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.PlaybackState;
-import com.krescendos.timer.UpdateTimer;
+import com.krescendos.utils.UpdateTimer;
 
 public class PartyStateChangeListener implements ValueEventListener {
 

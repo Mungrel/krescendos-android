@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album implements Serializable{
+public class Album implements Serializable {
     private String id;
     private String name;
     private String type;
@@ -43,12 +43,12 @@ public class Album implements Serializable{
         return artists;
     }
 
-    public void addArtist(Artist artist) {
-        this.artists.add(artist);
-    }
-
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
+    }
+
+    public void addArtist(Artist artist) {
+        this.artists.add(artist);
     }
 
     public List<AlbumArt> getImages() {
