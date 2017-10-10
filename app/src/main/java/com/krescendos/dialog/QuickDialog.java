@@ -2,10 +2,8 @@ package com.krescendos.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
-import android.view.View;
 
 import com.krescendos.R;
 
@@ -29,8 +27,7 @@ public class QuickDialog {
 
     private AlertDialog buildDialog(final Context context, String title, String message) {
 
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.errorDialog);
-        AlertDialog.Builder builder = new AlertDialog.Builder(wrapper);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setCancelable(false);
