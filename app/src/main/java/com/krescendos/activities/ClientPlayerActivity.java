@@ -64,7 +64,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
-        ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
+        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
 
 
         Timer UITimer = new Timer();

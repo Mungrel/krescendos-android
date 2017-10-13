@@ -209,7 +209,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
-                            ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
+                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
                             ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }
