@@ -102,15 +102,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 
-        ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
-        ImageButton dislike = (ImageButton) findViewById(R.id.host_dislike_button);
         ImageButton add = (ImageButton) findViewById(R.id.host_add_button);
-
-        like.setTag("off");
-        dislike.setTag("off");
-
-        like.setOnClickListener(new LikeButtonClickListener(like, dislike));
-        dislike.setOnClickListener(new DislikeButtonClickListener(dislike, like));
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

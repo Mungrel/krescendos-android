@@ -73,15 +73,6 @@
             android:paddingTop="10dp">
 
             <ImageButton
-                android:id="@+id/host_like_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@null"
-                android:paddingEnd="15dp"
-                app:srcCompat="@drawable/like_off" />
-
-            <ImageButton
                 android:id="@+id/host_add_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,15 +99,6 @@
                 android:background="@null"
                 android:text="@string/skip"
                 app:srcCompat="@drawable/next_button" />
-
-            <ImageButton
-                android:id="@+id/host_dislike_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@null"
-                android:paddingStart="15dp"
-                app:srcCompat="@drawable/dislike_off" />
 
         </LinearLayout>
 
