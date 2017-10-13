@@ -9,16 +9,23 @@ import com.krescendos.model.Track;
 import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.TrackPlayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaylistChangeListener implements ChildEventListener {
+
+    private List<String> keys;
+
     private PlaylistAdapter playlistAdapter;
     private TrackPlayer trackPlayer;
 
     public PlaylistChangeListener(PlaylistAdapter playlistAdapter) {
         this.playlistAdapter = playlistAdapter;
+        this.keys = new ArrayList<>();
     }
 
     public PlaylistChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
-        this.playlistAdapter = playlistAdapter;
+        this(playlistAdapter);
         this.trackPlayer = trackPlayer;
     }
 
