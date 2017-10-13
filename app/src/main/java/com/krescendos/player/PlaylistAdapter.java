@@ -62,6 +62,12 @@ public class PlaylistAdapter {
         }
     }
 
+    public void moveItem(int oldIndex, int newIndex) {
+        RelativeLayout item = (RelativeLayout) upNextLayout.getChildAt(oldIndex);
+        upNextLayout.removeViewAt(oldIndex);
+        upNextLayout.addView(item, newIndex);
+    }
+
     public Track getCurrentTrack() {
         return currentTrack;
     }
