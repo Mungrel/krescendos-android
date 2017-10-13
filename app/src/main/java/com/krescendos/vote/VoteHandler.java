@@ -8,11 +8,9 @@ import com.google.firebase.database.Transaction;
 
 public class VoteHandler implements Transaction.Handler {
 
-    private DatabaseReference voteCountRef;
     private VoteDirection direction;
 
-    public VoteHandler(DatabaseReference voteCountRef, VoteDirection direction) {
-        this.voteCountRef = voteCountRef;
+    public VoteHandler(VoteDirection direction) {
         this.direction = direction;
     }
 

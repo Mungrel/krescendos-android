@@ -3,22 +3,29 @@ package com.krescendos.input;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
+import com.krescendos.vote.VoteDirection;
+import com.krescendos.vote.VoteHandler;
 
 public class DislikeButtonClickListener implements View.OnClickListener {
 
     private ImageButton dislikeButton;
     private ImageButton likeButton;
 
-    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton) {
+    private DatabaseReference voteCountRef;
+
+    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton, DatabaseReference voteCountRef) {
         this.dislikeButton = dislikeButton;
         this.likeButton = likeButton;
         this.dislikeButton.setTag("off");
         this.likeButton.setTag("off");
+        this.voteCountRef = voteCountRef;
     }
 
     @Override
     public void onClick(View view) {
+        voteCountRef.runTransaction(new VoteHandler(VoteDirection.DOWN));
         updateImage();
     }
     
