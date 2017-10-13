@@ -3,6 +3,7 @@ package com.krescendos.player;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
+import com.krescendos.input.DislikeButtonClickListener;
+import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Track;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
@@ -81,6 +84,12 @@ public class PlaylistAdapter {
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
         TextView artistAlbum = listItem.findViewById(R.id.up_next_artist_album);
         NetworkImageView albumArt = listItem.findViewById(R.id.up_next_album_art);
+
+        ImageButton likeButton = listItem.findViewById(R.id.like);
+        ImageButton dislikeButton = listItem.findViewById(R.id.dislike);
+
+        likeButton.setOnClickListener(new LikeButtonClickListener(likeButton, dislikeButton));
+        dislikeButton.setOnClickListener(new DislikeButtonClickListener(dislikeButton, likeButton));
 
         trackName.setText(appendedTrack.getName());
         artistAlbum.setText(TextUtils.join(appendedTrack.getArtists()));
