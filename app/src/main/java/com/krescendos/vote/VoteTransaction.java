@@ -6,11 +6,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
-public class VoteHandler implements Transaction.Handler {
+public class VoteTransaction implements Transaction.Handler {
 
     private VoteDirection direction;
 
-    public VoteHandler(VoteDirection direction) {
+    public VoteTransaction(VoteDirection direction) {
         this.direction = direction;
     }
 

@@ -6,7 +6,7 @@ import android.widget.ImageButton;
 import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
 import com.krescendos.vote.VoteDirection;
-import com.krescendos.vote.VoteHandler;
+import com.krescendos.vote.VoteTransaction;
 
 public class DislikeButtonClickListener implements View.OnClickListener {
 
@@ -25,7 +25,7 @@ public class DislikeButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        voteCountRef.runTransaction(new VoteHandler(VoteDirection.DOWN));
+        voteCountRef.runTransaction(new VoteTransaction(VoteDirection.DOWN));
         updateImage();
     }
     
