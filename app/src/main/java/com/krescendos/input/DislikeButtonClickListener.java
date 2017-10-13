@@ -19,6 +19,10 @@ public class DislikeButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        updateImage();
+    }
+    
+    private void updateImage() {
         boolean off = dislikeButton.getTag().equals("off");
         if (off) {
             dislikeButton.setImageResource(R.drawable.dislike_on);

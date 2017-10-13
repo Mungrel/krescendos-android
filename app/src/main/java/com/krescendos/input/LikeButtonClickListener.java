@@ -4,11 +4,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.krescendos.R;
+import com.krescendos.vote.VoteHandler;
 
 public class LikeButtonClickListener implements View.OnClickListener {
 
     private ImageButton likeButton;
     private ImageButton dislikeButton;
+
+    private VoteHandler voteHandler;
 
     public LikeButtonClickListener(ImageButton likeButton, ImageButton dislikeButton) {
         this.likeButton = likeButton;
@@ -19,6 +22,10 @@ public class LikeButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        updateImage();
+    }
+
+    private void updateImage() {
         boolean off = likeButton.getTag().equals("off");
         if (off) {
             likeButton.setImageResource(R.drawable.like_on);
