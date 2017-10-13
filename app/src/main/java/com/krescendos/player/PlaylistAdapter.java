@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class PlaylistAdapter {
     }
 
     private void appendUpNextLayout(Track appendedTrack) {
-        LinearLayout listItem = (LinearLayout) inflater.inflate(R.layout.player_list_layout, null, false);
+        RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
         TextView artistAlbum = listItem.findViewById(R.id.up_next_artist_album);
