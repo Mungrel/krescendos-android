@@ -51,6 +51,15 @@ public class PlaylistChangeListener implements ChildEventListener {
 
     @Override
     public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+        String movedTrackKey = dataSnapshot.getKey();
+
+        int oldIndex = keys.indexOf(movedTrackKey);
+        int newIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
+
+        keys.remove(oldIndex);
+        keys.add(newIndex, movedTrackKey);
+
+        playlistAdapter.moveItem(oldIndex, newIndex);
     }
 
     @Override
