@@ -6,6 +6,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.krescendos.model.Track;
+import com.krescendos.model.VoteItem;
 import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.TrackPlayer;
 
@@ -32,9 +33,11 @@ public class PlaylistChangeListener implements ChildEventListener {
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
         Track addedTrack = dataSnapshot.getValue(Track.class);
+        VoteItem<Track> item = new VoteItem<>(dataSnapshot.getKey(), addedTrack);
+
         Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        playlistAdapter.appendTrack(addedTrack);
+        playlistAdapter.append(item);
         if (trackPlayer != null) {
             trackPlayer.queue(addedTrack);
         }

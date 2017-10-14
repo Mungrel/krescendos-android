@@ -5,6 +5,9 @@ import android.widget.ImageButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
+import com.krescendos.model.Track;
+import com.krescendos.model.VoteItem;
+import com.krescendos.utils.FirebaseRefs;
 import com.krescendos.vote.VoteDirection;
 import com.krescendos.vote.VoteTransaction;
 
@@ -13,18 +16,21 @@ public class DislikeButtonClickListener implements View.OnClickListener {
     private ImageButton dislikeButton;
     private ImageButton likeButton;
 
-    private DatabaseReference voteCountRef;
+    private String partyId;
+    private VoteItem<Track> item;
 
-    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton, DatabaseReference voteCountRef) {
+    public DislikeButtonClickListener(ImageButton dislikeButton, ImageButton likeButton, String partyId, VoteItem<Track> item) {
         this.dislikeButton = dislikeButton;
         this.likeButton = likeButton;
         this.dislikeButton.setTag("off");
         this.likeButton.setTag("off");
-        this.voteCountRef = voteCountRef;
+        this.partyId = partyId;
+        this.item = item;
     }
 
     @Override
     public void onClick(View view) {
+        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getDbKey());
         voteCountRef.runTransaction(new VoteTransaction(VoteDirection.DOWN));
         updateImage();
     }

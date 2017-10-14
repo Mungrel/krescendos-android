@@ -14,6 +14,7 @@ import com.krescendos.R;
 import com.krescendos.input.DislikeButtonClickListener;
 import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Track;
+import com.krescendos.model.VoteItem;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
 
@@ -26,35 +27,38 @@ import java.util.Queue;
  */
 public class PlaylistAdapter {
 
-    private Queue<Track> upNextTracks;
+    private Queue<VoteItem<Track>> upNextTracks;
     private Track currentTrack;
+    private String partyId;
+
     private Context context;
     private LayoutInflater inflater;
     private LinearLayout upNextLayout;
     private LinearLayout currentTrackLayout;
     private SeekBar seekBar;
 
-    public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar) {
+    public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
         this.upNextTracks = new LinkedList<>();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
         this.currentTrackLayout = currentTrackLayout;
         this.seekBar = seekBar;
+        this.partyId = partyId;
     }
 
-    public void appendTrack(Track track) {
+    public void append(VoteItem<Track> trackVoteItem) {
         if (currentTrack == null && upNextTracks.size() == 0) {
-            currentTrack = track;
+            currentTrack = trackVoteItem.getItem();
             updateCurrentTrackLayout();
         } else {
-            upNextTracks.add(track);
-            appendUpNextLayout(track);
+            upNextTracks.add(trackVoteItem);
+            appendUpNextLayout(trackVoteItem);
         }
     }
 
     public void poll() {
-        currentTrack = upNextTracks.poll();
+        currentTrack = upNextTracks.poll().getItem();
         updateCurrentTrackLayout();
 
         if (upNextLayout.getChildCount() > 0) {
@@ -68,7 +72,7 @@ public class PlaylistAdapter {
         upNextLayout.addView(item, newIndex);
     }
 
-    public Track getCurrentTrack() {
+    public Track getCurrentItem() {
         return currentTrack;
     }
 
@@ -84,7 +88,9 @@ public class PlaylistAdapter {
         seekBar.setMax((int) currentTrack.getDuration_ms());
     }
 
-    private void appendUpNextLayout(Track appendedTrack) {
+    private void appendUpNextLayout(VoteItem<Track> appendedItem) {
+        Track appendedTrack = appendedItem.getItem();
+
         RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
@@ -94,8 +100,8 @@ public class PlaylistAdapter {
         ImageButton likeButton = listItem.findViewById(R.id.like);
         ImageButton dislikeButton = listItem.findViewById(R.id.dislike);
 
-        likeButton.setOnClickListener(new LikeButtonClickListener(likeButton, dislikeButton));
-        dislikeButton.setOnClickListener(new DislikeButtonClickListener(dislikeButton, likeButton));
+        likeButton.setOnClickListener(new LikeButtonClickListener(likeButton, dislikeButton, partyId, appendedItem));
+        dislikeButton.setOnClickListener(new DislikeButtonClickListener(dislikeButton, likeButton, partyId, appendedItem));
 
         trackName.setText(appendedTrack.getName());
         artistAlbum.setText(TextUtils.join(appendedTrack.getArtists()));

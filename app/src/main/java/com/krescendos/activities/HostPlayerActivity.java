@@ -131,7 +131,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.playerList);
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
-        playlistAdapter = new PlaylistAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar);
+        playlistAdapter = new PlaylistAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {

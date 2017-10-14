@@ -55,7 +55,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
 
-        final PlaylistAdapter playlistAdapter = new PlaylistAdapter(ClientPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar);
+        final PlaylistAdapter playlistAdapter = new PlaylistAdapter(ClientPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
 
         final TextView timeElapsed = (TextView) findViewById(R.id.client_time_elapsed);
         final TextView timeRemaining = (TextView) findViewById(R.id.client_time_remaining);
@@ -74,7 +74,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Track currentTrack = playlistAdapter.getCurrentTrack();
+                        Track currentTrack = playlistAdapter.getCurrentItem();
                         if (currentTrack == null) {
                             return;
                         }
