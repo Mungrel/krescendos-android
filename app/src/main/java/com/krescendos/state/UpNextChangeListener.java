@@ -42,7 +42,8 @@ public class UpNextChangeListener implements ChildEventListener {
 
         int insertionIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
         keys.add(insertionIndex, dataSnapshot.getKey());
-        upNextAdapter.
+
+        upNextAdapter.insertItem(insertionIndex, item);
     }
 
     @Override
@@ -51,7 +52,9 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        upNextAdapter.poll();
+        int index = keys.indexOf(dataSnapshot.getKey());
+        upNextAdapter.removeItem(index);
+        keys.remove(index);
     }
 
     @Override
