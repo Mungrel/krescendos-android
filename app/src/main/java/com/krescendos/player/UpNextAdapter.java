@@ -28,29 +28,20 @@ import java.util.Queue;
  */
 public class UpNextAdapter {
 
-    private Track currentTrack;
     private String partyId;
     private Context context;
     private LayoutInflater inflater;
     private LinearLayout upNextLayout;
-    private LinearLayout currentTrackLayout;
-    private SeekBar seekBar;
 
-    public UpNextAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
+    public UpNextAdapter(Context context, LinearLayout upNextLayout, String partyId) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
-        this.currentTrackLayout = currentTrackLayout;
-        this.seekBar = seekBar;
         this.partyId = partyId;
     }
 
     public void removeItem(int index) {
-
-    }
-
-    public void setCurrentlyPlaying(VoteItem<Track> trackVoteItem) {
-
+        upNextLayout.removeViewAt(index);
     }
 
     /*
@@ -77,13 +68,8 @@ public class UpNextAdapter {
         upNextLayout.addView(item, newIndex);
     }
 
-    public Track getCurrentItem() {
-        return currentTrack;
-    }
 
-
-
-    private void insertUpNextLayout(int index, VoteItem<Track> item) {
+    public void insertItem(int index, VoteItem<Track> item) {
         Track track = item.getItem();
 
         RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);

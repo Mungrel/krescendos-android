@@ -22,7 +22,6 @@ public class UpNextChangeListener implements ChildEventListener {
     private Map<String, VoteItem<Track>> keyToItem;
 
     private UpNextAdapter upNextAdapter;
-    private TrackPlayer trackPlayer;
 
     public UpNextChangeListener(UpNextAdapter upNextAdapter) {
         this.upNextAdapter = upNextAdapter;
@@ -30,37 +29,20 @@ public class UpNextChangeListener implements ChildEventListener {
         this.keyToItem = new HashMap<>();
     }
 
-    public UpNextChangeListener(UpNextAdapter upNextAdapter, TrackPlayer trackPlayer) {
-        this(upNextAdapter);
-        this.trackPlayer = trackPlayer;
-    }
-
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
         GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
+
         VoteItem<Track> item = dataSnapshot.getValue(type);
         Log.d("CHILD_ADDED", "Key: "+dataSnapshot.getKey());
+
         item.setDbKey(dataSnapshot.getKey());
 
         keyToItem.put(dataSnapshot.getKey(), item);
 
-        int insertionIndex = 0;
-        for (int i = keys.size()-1; i >= 0; i--) {
-            VoteItem<Track> sortItem = keyToItem.get(keys.get(i));
-            if (sortItem.getVoteCount() >= item.getVoteCount()) {
-                insertionIndex = i+1;
-                break;
-            }
-        }
-
+        int insertionIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
         keys.add(insertionIndex, dataSnapshot.getKey());
-        Track addedTrack = item.getItem();
-        Log.d("CHILD_ADDED:", "" + addedTrack.getName());
-
-        upNextAdapter.insert(insertionIndex, item);
-        if (trackPlayer != null) {
-            trackPlayer.queue(addedTrack);
-        }
+        upNextAdapter.
     }
 
     @Override
