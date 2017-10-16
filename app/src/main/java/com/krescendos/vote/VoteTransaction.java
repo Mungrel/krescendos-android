@@ -22,9 +22,9 @@ public class VoteTransaction implements Transaction.Handler {
         }
 
         if (direction == VoteDirection.UP) {
-            voteCount += 1;
-        } else if (direction == VoteDirection.DOWN){
             voteCount -= 1;
+        } else if (direction == VoteDirection.DOWN){
+            voteCount += 1;
         }
 
         mutableData.setValue(voteCount);

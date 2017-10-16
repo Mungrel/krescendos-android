@@ -28,7 +28,7 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String BASE_URL = "0-1-1-36-g6ba62a1-dot-krescendos-174122.appspot.com";
+    private static final String BASE_URL = "0-1-1-40-g5edda11-dot-krescendos-174122.appspot.com";
     private static ImageLoader imageLoader;
     private static Requester instance;
     private RequestQueue requestQueue;
