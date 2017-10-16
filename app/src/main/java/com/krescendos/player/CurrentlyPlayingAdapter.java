@@ -15,6 +15,7 @@ import com.krescendos.web.Requester;
 public class CurrentlyPlayingAdapter {
 
     private Context context;
+    private VoteItem<Track> currentlyPlaying;
 
     private TextView trackTitle;
     private TextView artistAlbum;
@@ -23,6 +24,7 @@ public class CurrentlyPlayingAdapter {
 
     public CurrentlyPlayingAdapter(Context context, LinearLayout currentTrackLayout, SeekBar seekBar) {
         this.context = context;
+        this.currentlyPlaying = null;
 
         this.trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
         this.artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
@@ -31,6 +33,15 @@ public class CurrentlyPlayingAdapter {
     }
 
     public void setCurrentlyPlaying(VoteItem<Track> currentlyPlaying) {
+        this.currentlyPlaying = currentlyPlaying;
+        updateUI();
+    }
+
+    public VoteItem<Track> getCurrentlyPlaying() {
+        return currentlyPlaying;
+    }
+
+    private void updateUI() {
         Track currentTrack = currentlyPlaying.getItem();
 
         trackTitle.setText(currentTrack.getName());
