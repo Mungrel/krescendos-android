@@ -1,19 +1,17 @@
 package com.krescendos.state;
 
-import android.widget.SeekBar;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.krescendos.player.PlaylistAdapter;
+import com.krescendos.player.UpNextAdapater;
 
 public class PlayheadIndexChangeListener implements ValueEventListener {
 
-    private PlaylistAdapter playlistAdapter;
+    private UpNextAdapater upNextAdapater;
     private Integer previousPos;
 
-    public PlayheadIndexChangeListener(PlaylistAdapter playlistAdapter) {
-        this.playlistAdapter = playlistAdapter;
+    public PlayheadIndexChangeListener(UpNextAdapater upNextAdapater) {
+        this.upNextAdapater = upNextAdapater;
         this.previousPos = null;
     }
 
@@ -26,7 +24,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
             return;
         }
 
-        playlistAdapter.poll();
+        upNextAdapater.poll();
     }
 
     @Override

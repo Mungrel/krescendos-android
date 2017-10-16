@@ -26,7 +26,7 @@ import java.util.Queue;
 /**
  * Handles all the GUI stuff for the up-next list and current track
  */
-public class PlaylistAdapter {
+public class UpNextAdapater {
 
     private Track currentTrack;
     private String partyId;
@@ -36,7 +36,7 @@ public class PlaylistAdapter {
     private LinearLayout currentTrackLayout;
     private SeekBar seekBar;
 
-    public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
+    public UpNextAdapater(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;

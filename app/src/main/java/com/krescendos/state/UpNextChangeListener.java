@@ -8,7 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.player.PlaylistAdapter;
+import com.krescendos.player.UpNextAdapater;
 import com.krescendos.player.TrackPlayer;
 
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ public class UpNextChangeListener implements ChildEventListener {
     private List<String> keys;
     private Map<String, VoteItem<Track>> keyToItem;
 
-    private PlaylistAdapter playlistAdapter;
+    private UpNextAdapater upNextAdapater;
     private TrackPlayer trackPlayer;
 
-    public UpNextChangeListener(PlaylistAdapter playlistAdapter) {
-        this.playlistAdapter = playlistAdapter;
+    public UpNextChangeListener(UpNextAdapater upNextAdapater) {
+        this.upNextAdapater = upNextAdapater;
         this.keys = new ArrayList<>();
         this.keyToItem = new HashMap<>();
     }
 
-    public UpNextChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
-        this(playlistAdapter);
+    public UpNextChangeListener(UpNextAdapater upNextAdapater, TrackPlayer trackPlayer) {
+        this(upNextAdapater);
         this.trackPlayer = trackPlayer;
     }
 
@@ -57,7 +57,7 @@ public class UpNextChangeListener implements ChildEventListener {
         Track addedTrack = item.getItem();
         Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        playlistAdapter.insert(insertionIndex, item);
+        upNextAdapater.insert(insertionIndex, item);
         if (trackPlayer != null) {
             trackPlayer.queue(addedTrack);
         }
@@ -69,7 +69,7 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        playlistAdapter.poll();
+        upNextAdapater.poll();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class UpNextChangeListener implements ChildEventListener {
         keys.remove(oldIndex);
         keys.add(newIndex, movedTrackKey);
 
-        playlistAdapter.moveItem(oldIndex, newIndex);
+        upNextAdapater.moveItem(oldIndex, newIndex);
     }
 
     @Override
