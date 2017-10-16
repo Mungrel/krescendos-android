@@ -131,7 +131,12 @@ public class PlaylistAdapter {
         artistAlbum.setText(TextUtils.join(track.getArtists()));
         albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), Requester.getInstance(context).getImageLoader());
 
-        upNextLayout.addView(listItem, index);
+        if (index >= upNextLayout.getChildCount()) {
+            upNextLayout.addView(listItem);
+        } else {
+            upNextLayout.addView(listItem, index);
+        }
+
     }
 
 }

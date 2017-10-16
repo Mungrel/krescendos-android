@@ -42,6 +42,7 @@ public class PlaylistChangeListener implements ChildEventListener {
     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
         GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
         VoteItem<Track> item = dataSnapshot.getValue(type);
+        Log.d("CHILD_ADDED", "Key: "+dataSnapshot.getKey());
         item.setDbKey(dataSnapshot.getKey());
 
         keyToItem.put(dataSnapshot.getKey(), item);
@@ -77,6 +78,7 @@ public class PlaylistChangeListener implements ChildEventListener {
     @Override
     public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
         String movedTrackKey = dataSnapshot.getKey();
+        Log.d("CHILD_MOVED", "Key: "+movedTrackKey);
 
         int oldIndex = keys.indexOf(movedTrackKey);
         int newIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
