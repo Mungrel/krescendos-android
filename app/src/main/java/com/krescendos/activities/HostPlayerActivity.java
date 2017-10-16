@@ -22,9 +22,11 @@ import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
+import com.krescendos.player.CurrentlyPlayingAdapter;
 import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
+import com.krescendos.state.CurrentlyPlayingChangeListener;
 import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
@@ -50,6 +52,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private static final int REQUEST_CODE = 1337;
 
     private UpNextAdapter upNextAdapter;
+    private CurrentlyPlayingAdapter currentlyPlayingAdapter;
     private TrackPlayer mPlayer;
     private Requester requester;
     private Party party;
@@ -84,7 +87,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPlayer.next();
+                requester.advancePlayhead(party.getPartyId());
             }
         });
 
@@ -126,7 +129,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.playerList);
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
-        upNextAdapter = new UpNextAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
+        upNextAdapter = new UpNextAdapter(HostPlayerActivity.this, upNextLayout, party.getPartyId());
+        currentlyPlayingAdapter = new CurrentlyPlayingAdapter(HostPlayerActivity.this, currentTrackLayout, seekBar);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -198,6 +202,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
+                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter));
                             ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }

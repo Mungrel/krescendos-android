@@ -115,6 +115,10 @@ public class TrackPlayer {
         }
     }
 
+    public long getCurrentTrackLength() {
+        return (currentlyPlaying == null) ? 0 : currentlyPlaying.getDuration_ms();
+    }
+
     public boolean isDragging() {
         return isDragging;
     }
