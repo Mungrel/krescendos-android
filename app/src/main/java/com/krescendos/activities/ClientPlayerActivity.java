@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.QuickDialog;
@@ -62,10 +63,9 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         updateTimer = new UpdateTimer();
 
+        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
-        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
-
 
         Timer UITimer = new Timer();
         UITimer.scheduleAtFixedRate(new TimerTask() {

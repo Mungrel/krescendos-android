@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -17,16 +16,13 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
-import com.krescendos.input.DislikeButtonClickListener;
-import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
-import com.krescendos.model.Track;
-import com.krescendos.player.OnTrackChangeListener;
 import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
@@ -201,6 +197,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
+
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
                             ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));

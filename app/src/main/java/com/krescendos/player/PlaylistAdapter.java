@@ -19,6 +19,7 @@ import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 
@@ -27,7 +28,7 @@ import java.util.Queue;
  */
 public class PlaylistAdapter {
 
-    private Queue<VoteItem<Track>> upNextTracks;
+    private LinkedList<VoteItem<Track>> upNextTracks;
     private Track currentTrack;
     private String partyId;
 
@@ -47,13 +48,18 @@ public class PlaylistAdapter {
         this.partyId = partyId;
     }
 
-    public void append(VoteItem<Track> trackVoteItem) {
+    public void insert(int index, VoteItem<Track> trackVoteItem) {
         if (currentTrack == null && upNextTracks.size() == 0) {
             currentTrack = trackVoteItem.getItem();
             updateCurrentTrackLayout();
         } else {
-            upNextTracks.add(trackVoteItem);
-            appendUpNextLayout(trackVoteItem);
+            if (index >= upNextTracks.size()) {
+                upNextTracks.add(trackVoteItem);
+            } else {
+                upNextTracks.add(index, trackVoteItem);
+            }
+
+            insertUpNextLayout(index, trackVoteItem);
         }
     }
 
@@ -66,7 +72,25 @@ public class PlaylistAdapter {
         }
     }
 
+    /*
+    Basically, only way to move shit by index is to remove it and re-add it
+    Doing shit by indexes is so mf prone to off-by-ones, Mark Wilson would have a field day
+
+    Anyway, basically, if the new index is past the old index, when you remove the old view,
+    you gotta minus 1 of the new index, because everything would've been shifted back 1 space.
+    Vice-versa for if the new index is before the old index, you gotta add 1. (Or maybe you do nothing again)
+    FUCK IDK
+
+    Fuck knows what happens if they're equal. (Maybe do nothing?)
+    Yeah. Do nothing.
+     */
     public void moveItem(int oldIndex, int newIndex) {
+        if (oldIndex == newIndex) {
+            return;
+        } else if (oldIndex < newIndex) {
+            newIndex--;
+        }
+
         RelativeLayout item = (RelativeLayout) upNextLayout.getChildAt(oldIndex);
         upNextLayout.removeViewAt(oldIndex);
         upNextLayout.addView(item, newIndex);
@@ -88,8 +112,8 @@ public class PlaylistAdapter {
         seekBar.setMax((int) currentTrack.getDuration_ms());
     }
 
-    private void appendUpNextLayout(VoteItem<Track> appendedItem) {
-        Track appendedTrack = appendedItem.getItem();
+    private void insertUpNextLayout(int index, VoteItem<Track> item) {
+        Track track = item.getItem();
 
         RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
@@ -100,14 +124,14 @@ public class PlaylistAdapter {
         ImageButton likeButton = listItem.findViewById(R.id.like);
         ImageButton dislikeButton = listItem.findViewById(R.id.dislike);
 
-        likeButton.setOnClickListener(new LikeButtonClickListener(likeButton, dislikeButton, partyId, appendedItem));
-        dislikeButton.setOnClickListener(new DislikeButtonClickListener(dislikeButton, likeButton, partyId, appendedItem));
+        likeButton.setOnClickListener(new LikeButtonClickListener(likeButton, dislikeButton, partyId, item));
+        dislikeButton.setOnClickListener(new DislikeButtonClickListener(dislikeButton, likeButton, partyId, item));
 
-        trackName.setText(appendedTrack.getName());
-        artistAlbum.setText(TextUtils.join(appendedTrack.getArtists()));
-        albumArt.setImageUrl(appendedTrack.getAlbum().getSmallestImage().getUrl(), Requester.getInstance(context).getImageLoader());
+        trackName.setText(track.getName());
+        artistAlbum.setText(TextUtils.join(track.getArtists()));
+        albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), Requester.getInstance(context).getImageLoader());
 
-        upNextLayout.addView(listItem);
+        upNextLayout.addView(listItem, index);
     }
 
 }

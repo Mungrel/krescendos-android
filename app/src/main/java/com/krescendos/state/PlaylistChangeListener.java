@@ -14,11 +14,15 @@ import com.krescendos.player.TrackPlayer;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlaylistChangeListener implements ChildEventListener {
 
     private List<String> keys;
+    private Map<String, VoteItem<Track>> keyToItem;
 
     private PlaylistAdapter playlistAdapter;
     private TrackPlayer trackPlayer;
@@ -26,6 +30,7 @@ public class PlaylistChangeListener implements ChildEventListener {
     public PlaylistChangeListener(PlaylistAdapter playlistAdapter) {
         this.playlistAdapter = playlistAdapter;
         this.keys = new ArrayList<>();
+        this.keyToItem = new HashMap<>();
     }
 
     public PlaylistChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
@@ -39,10 +44,22 @@ public class PlaylistChangeListener implements ChildEventListener {
         VoteItem<Track> item = dataSnapshot.getValue(type);
         item.setDbKey(dataSnapshot.getKey());
 
+        keyToItem.put(dataSnapshot.getKey(), item);
+
+        int insertionIndex = 0;
+        for (int i = keys.size()-1; i >= 0; i--) {
+            VoteItem<Track> sortItem = keyToItem.get(keys.get(i));
+            if (sortItem.getVoteCount() >= item.getVoteCount()) {
+                insertionIndex = i+1;
+                break;
+            }
+        }
+
+        keys.add(insertionIndex, dataSnapshot.getKey());
         Track addedTrack = item.getItem();
         Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        playlistAdapter.append(item);
+        playlistAdapter.insert(insertionIndex, item);
         if (trackPlayer != null) {
             trackPlayer.queue(addedTrack);
         }
@@ -63,6 +80,12 @@ public class PlaylistChangeListener implements ChildEventListener {
 
         int oldIndex = keys.indexOf(movedTrackKey);
         int newIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
+
+        if (oldIndex == newIndex) {
+            return;
+        } else if (oldIndex < newIndex) {
+            newIndex--;
+        }
 
         keys.remove(oldIndex);
         keys.add(newIndex, movedTrackKey);
