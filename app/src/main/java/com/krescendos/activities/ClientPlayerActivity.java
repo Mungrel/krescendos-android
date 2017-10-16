@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.QuickDialog;
@@ -22,7 +21,7 @@ import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.state.PartyStateChangeListener;
 import com.krescendos.state.PlayheadIndexChangeListener;
-import com.krescendos.state.PlaylistChangeListener;
+import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
@@ -63,7 +62,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
         updateTimer = new UpdateTimer();
 
-        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter));
+        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(playlistAdapter));
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
         ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
 

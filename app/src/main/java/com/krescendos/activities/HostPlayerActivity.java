@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
@@ -27,7 +26,7 @@ import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.PlayheadIndexChangeListener;
-import com.krescendos.state.PlaylistChangeListener;
+import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
@@ -198,7 +197,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
-                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
+                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(playlistAdapter, mPlayer));
                             ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }

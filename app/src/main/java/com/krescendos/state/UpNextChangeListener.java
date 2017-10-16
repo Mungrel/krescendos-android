@@ -6,20 +6,17 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.gson.reflect.TypeToken;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.player.PlaylistAdapter;
 import com.krescendos.player.TrackPlayer;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlaylistChangeListener implements ChildEventListener {
+public class UpNextChangeListener implements ChildEventListener {
 
     private List<String> keys;
     private Map<String, VoteItem<Track>> keyToItem;
@@ -27,13 +24,13 @@ public class PlaylistChangeListener implements ChildEventListener {
     private PlaylistAdapter playlistAdapter;
     private TrackPlayer trackPlayer;
 
-    public PlaylistChangeListener(PlaylistAdapter playlistAdapter) {
+    public UpNextChangeListener(PlaylistAdapter playlistAdapter) {
         this.playlistAdapter = playlistAdapter;
         this.keys = new ArrayList<>();
         this.keyToItem = new HashMap<>();
     }
 
-    public PlaylistChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
+    public UpNextChangeListener(PlaylistAdapter playlistAdapter, TrackPlayer trackPlayer) {
         this(playlistAdapter);
         this.trackPlayer = trackPlayer;
     }
