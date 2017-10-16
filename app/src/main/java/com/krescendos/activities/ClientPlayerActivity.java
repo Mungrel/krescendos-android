@@ -17,7 +17,7 @@ import com.krescendos.R;
 import com.krescendos.dialog.QuickDialog;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
-import com.krescendos.player.UpNextAdapater;
+import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.state.PartyStateChangeListener;
 import com.krescendos.state.PlayheadIndexChangeListener;
@@ -55,16 +55,16 @@ public class ClientPlayerActivity extends AppCompatActivity {
         final SeekBar seekBar = (SeekBar) findViewById(R.id.client_seek_bar);
         seekBar.setOnTouchListener(new SeekBarNoChangeListener());
 
-        final UpNextAdapater upNextAdapater = new UpNextAdapater(ClientPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
+        final UpNextAdapter upNextAdapter = new UpNextAdapter(ClientPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
 
         final TextView timeElapsed = (TextView) findViewById(R.id.client_time_elapsed);
         final TextView timeRemaining = (TextView) findViewById(R.id.client_time_remaining);
 
         updateTimer = new UpdateTimer();
 
-        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapater));
+        ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapater));
+        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapter));
 
         Timer UITimer = new Timer();
         UITimer.scheduleAtFixedRate(new TimerTask() {
@@ -73,7 +73,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Track currentTrack = upNextAdapater.getCurrentItem();
+                        Track currentTrack = upNextAdapter.getCurrentItem();
                         if (currentTrack == null) {
                             return;
                         }

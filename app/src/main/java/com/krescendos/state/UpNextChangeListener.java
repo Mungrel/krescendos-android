@@ -8,7 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.player.UpNextAdapater;
+import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.TrackPlayer;
 
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ public class UpNextChangeListener implements ChildEventListener {
     private List<String> keys;
     private Map<String, VoteItem<Track>> keyToItem;
 
-    private UpNextAdapater upNextAdapater;
+    private UpNextAdapter upNextAdapter;
     private TrackPlayer trackPlayer;
 
-    public UpNextChangeListener(UpNextAdapater upNextAdapater) {
-        this.upNextAdapater = upNextAdapater;
+    public UpNextChangeListener(UpNextAdapter upNextAdapter) {
+        this.upNextAdapter = upNextAdapter;
         this.keys = new ArrayList<>();
         this.keyToItem = new HashMap<>();
     }
 
-    public UpNextChangeListener(UpNextAdapater upNextAdapater, TrackPlayer trackPlayer) {
-        this(upNextAdapater);
+    public UpNextChangeListener(UpNextAdapter upNextAdapter, TrackPlayer trackPlayer) {
+        this(upNextAdapter);
         this.trackPlayer = trackPlayer;
     }
 
@@ -57,7 +57,7 @@ public class UpNextChangeListener implements ChildEventListener {
         Track addedTrack = item.getItem();
         Log.d("CHILD_ADDED:", "" + addedTrack.getName());
 
-        upNextAdapater.insert(insertionIndex, item);
+        upNextAdapter.insert(insertionIndex, item);
         if (trackPlayer != null) {
             trackPlayer.queue(addedTrack);
         }
@@ -69,7 +69,7 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        upNextAdapater.poll();
+        upNextAdapter.poll();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class UpNextChangeListener implements ChildEventListener {
         keys.remove(oldIndex);
         keys.add(newIndex, movedTrackKey);
 
-        upNextAdapater.moveItem(oldIndex, newIndex);
+        upNextAdapter.moveItem(oldIndex, newIndex);
     }
 
     @Override

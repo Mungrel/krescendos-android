@@ -3,15 +3,15 @@ package com.krescendos.state;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.krescendos.player.UpNextAdapater;
+import com.krescendos.player.UpNextAdapter;
 
 public class PlayheadIndexChangeListener implements ValueEventListener {
 
-    private UpNextAdapater upNextAdapater;
+    private UpNextAdapter upNextAdapter;
     private Integer previousPos;
 
-    public PlayheadIndexChangeListener(UpNextAdapater upNextAdapater) {
-        this.upNextAdapater = upNextAdapater;
+    public PlayheadIndexChangeListener(UpNextAdapter upNextAdapter) {
+        this.upNextAdapter = upNextAdapter;
         this.previousPos = null;
     }
 
@@ -24,7 +24,7 @@ public class PlayheadIndexChangeListener implements ValueEventListener {
             return;
         }
 
-        upNextAdapater.poll();
+        upNextAdapter.poll();
     }
 
     @Override

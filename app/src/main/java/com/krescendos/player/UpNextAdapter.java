@@ -26,7 +26,7 @@ import java.util.Queue;
 /**
  * Handles all the GUI stuff for the up-next list and current track
  */
-public class UpNextAdapater {
+public class UpNextAdapter {
 
     private Track currentTrack;
     private String partyId;
@@ -36,7 +36,7 @@ public class UpNextAdapater {
     private LinearLayout currentTrackLayout;
     private SeekBar seekBar;
 
-    public UpNextAdapater(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
+    public UpNextAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;

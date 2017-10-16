@@ -22,7 +22,7 @@ import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
-import com.krescendos.player.UpNextAdapater;
+import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.PlayheadIndexChangeListener;
@@ -49,7 +49,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
 
-    private UpNextAdapater upNextAdapater;
+    private UpNextAdapter upNextAdapter;
     private TrackPlayer mPlayer;
     private Requester requester;
     private Party party;
@@ -126,7 +126,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.playerList);
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
-        upNextAdapater = new UpNextAdapater(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
+        upNextAdapter = new UpNextAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar, party.getPartyId());
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -197,8 +197,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
-                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapater, mPlayer));
-                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapater));
+                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter, mPlayer));
+                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }
 
