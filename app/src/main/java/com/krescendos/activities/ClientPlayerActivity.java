@@ -22,7 +22,6 @@ import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.state.CurrentlyPlayingChangeListener;
 import com.krescendos.state.PartyStateChangeListener;
-import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
@@ -68,7 +67,6 @@ public class ClientPlayerActivity extends AppCompatActivity {
         ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter));
         ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
         ref.child("partyState").addValueEventListener(new PartyStateChangeListener(updateTimer));
-        ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapter));
 
         Timer UITimer = new Timer();
         UITimer.scheduleAtFixedRate(new TimerTask() {

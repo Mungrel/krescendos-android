@@ -10,8 +10,6 @@ import java.util.List;
 public class Party implements Parcelable {
 
     public static final Creator<Party> CREATOR = new PartyCreator();
-    private static int PLAYHEAD_START_POSITION = 0;
-    private int playheadIndex;
     private HashMap<String, Track> playlist;
     private String name;
     private String partyId;
@@ -19,13 +17,11 @@ public class Party implements Parcelable {
 
     public Party(String name, String partyId) {
         this.name = name;
-        this.playheadIndex = PLAYHEAD_START_POSITION;
         this.playlist = new HashMap<>();
         this.partyId = partyId;
     }
 
     protected Party(Parcel in) {
-        this.playheadIndex = in.readInt();
         this.name = in.readString();
         this.partyId = in.readString();
         this.welcomeMessage = in.readString();
@@ -50,19 +46,10 @@ public class Party implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(playheadIndex);
         parcel.writeString(name);
         parcel.writeString(partyId);
         parcel.writeString(welcomeMessage);
         parcel.writeSerializable(playlist);
-    }
-
-    public int getPlayheadIndex() {
-        return playheadIndex;
-    }
-
-    public void setPlayheadIndex(int playheadIndex) {
-        this.playheadIndex = playheadIndex;
     }
 
     public String getName() {

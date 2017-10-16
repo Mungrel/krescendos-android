@@ -27,7 +27,6 @@ import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
 import com.krescendos.state.CurrentlyPlayingChangeListener;
-import com.krescendos.state.PlayheadIndexChangeListener;
 import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.utils.TextUtils;
@@ -203,7 +202,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
                             ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter));
-                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(upNextAdapter));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }
 
