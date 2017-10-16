@@ -19,14 +19,12 @@ import java.util.Map;
 public class UpNextChangeListener implements ChildEventListener {
 
     private List<String> keys;
-    private Map<String, VoteItem<Track>> keyToItem;
 
     private UpNextAdapter upNextAdapter;
 
     public UpNextChangeListener(UpNextAdapter upNextAdapter) {
         this.upNextAdapter = upNextAdapter;
         this.keys = new ArrayList<>();
-        this.keyToItem = new HashMap<>();
     }
 
     @Override
@@ -37,8 +35,6 @@ public class UpNextChangeListener implements ChildEventListener {
         Log.d("CHILD_ADDED", "Key: "+dataSnapshot.getKey());
 
         item.setDbKey(dataSnapshot.getKey());
-
-        keyToItem.put(dataSnapshot.getKey(), item);
 
         int insertionIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
         keys.add(insertionIndex, dataSnapshot.getKey());
