@@ -28,10 +28,8 @@ import java.util.Queue;
  */
 public class PlaylistAdapter {
 
-    private LinkedList<VoteItem<Track>> upNextTracks;
     private Track currentTrack;
     private String partyId;
-
     private Context context;
     private LayoutInflater inflater;
     private LinearLayout upNextLayout;
@@ -39,7 +37,6 @@ public class PlaylistAdapter {
     private SeekBar seekBar;
 
     public PlaylistAdapter(Context context, LinearLayout upNextLayout, LinearLayout currentTrackLayout, SeekBar seekBar, String partyId) {
-        this.upNextTracks = new LinkedList<>();
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
@@ -48,28 +45,12 @@ public class PlaylistAdapter {
         this.partyId = partyId;
     }
 
-    public void insert(int index, VoteItem<Track> trackVoteItem) {
-        if (currentTrack == null && upNextTracks.size() == 0) {
-            currentTrack = trackVoteItem.getItem();
-            updateCurrentTrackLayout();
-        } else {
-            if (index >= upNextTracks.size()) {
-                upNextTracks.add(trackVoteItem);
-            } else {
-                upNextTracks.add(index, trackVoteItem);
-            }
+    public void removeItem(int index) {
 
-            insertUpNextLayout(index, trackVoteItem);
-        }
     }
 
-    public void poll() {
-        currentTrack = upNextTracks.poll().getItem();
-        updateCurrentTrackLayout();
+    public void setCurrentlyPlaying(VoteItem<Track> trackVoteItem) {
 
-        if (upNextLayout.getChildCount() > 0) {
-            upNextLayout.removeViewAt(0);
-        }
     }
 
     /*
@@ -100,17 +81,7 @@ public class PlaylistAdapter {
         return currentTrack;
     }
 
-    private void updateCurrentTrackLayout() {
-        TextView trackTitle = currentTrackLayout.findViewById(R.id.current_track_title);
-        TextView artistAlbum = currentTrackLayout.findViewById(R.id.current_track_artist_album);
-        NetworkImageView albumArt = currentTrackLayout.findViewById(R.id.current_track_album_art);
 
-        trackTitle.setText(currentTrack.getName());
-        artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
-        albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), Requester.getInstance(context).getImageLoader());
-
-        seekBar.setMax((int) currentTrack.getDuration_ms());
-    }
 
     private void insertUpNextLayout(int index, VoteItem<Track> item) {
         Track track = item.getItem();

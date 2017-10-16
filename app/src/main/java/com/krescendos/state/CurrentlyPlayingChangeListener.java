@@ -15,7 +15,7 @@ public class CurrentlyPlayingChangeListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        
+
     }
 
     @Override
