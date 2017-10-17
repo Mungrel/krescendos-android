@@ -57,10 +57,9 @@ public class UpNextAdapter {
     Yeah. Do nothing.
      */
     public void moveItem(int oldIndex, int newIndex) {
+        Log.d("MOVING_ITEM", "From: "+oldIndex+" To: "+newIndex);
         if (oldIndex == newIndex) {
             return;
-        } else if (oldIndex < newIndex) {
-            newIndex--;
         }
 
         RelativeLayout item = (RelativeLayout) upNextLayout.getChildAt(oldIndex);

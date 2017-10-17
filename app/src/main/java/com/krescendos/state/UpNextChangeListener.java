@@ -59,15 +59,9 @@ public class UpNextChangeListener implements ChildEventListener {
         Log.d("CHILD_MOVED", "Key: "+movedTrackKey);
 
         int oldIndex = keys.indexOf(movedTrackKey);
+        keys.remove(oldIndex);
         int newIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
 
-        if (oldIndex == newIndex) {
-            return;
-        } else if (oldIndex < newIndex) {
-            newIndex--;
-        }
-
-        keys.remove(oldIndex);
         keys.add(newIndex, movedTrackKey);
 
         upNextAdapter.moveItem(oldIndex, newIndex);

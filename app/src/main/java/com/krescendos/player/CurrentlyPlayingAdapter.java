@@ -42,6 +42,9 @@ public class CurrentlyPlayingAdapter {
     }
 
     private void updateUI() {
+        if (currentlyPlaying == null) {
+            return;
+        }
         Track currentTrack = currentlyPlaying.getItem();
 
         trackTitle.setText(currentTrack.getName());
