@@ -43,7 +43,7 @@ public class UpNextAdapter {
     public void removeItem(int index) {
         upNextLayout.removeViewAt(index);
     }
-    
+
     public void moveItem(int oldIndex, int newIndex) {
         Log.d("MOVING_ITEM", "From: "+oldIndex+" To: "+newIndex);
         if (oldIndex == newIndex) {

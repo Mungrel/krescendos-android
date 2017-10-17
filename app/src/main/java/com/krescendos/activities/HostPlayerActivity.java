@@ -201,7 +201,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
-                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter));
+                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }
 
