@@ -54,7 +54,7 @@ public class TrackPlayer {
 
             @Override
             public void onError(Error error) {
-
+                Log.d("SPOTIFY_ERROR", "Failed to play track:" +error.toString());
             }
         }, track.getTrackURI(), 0, 0);
     }
