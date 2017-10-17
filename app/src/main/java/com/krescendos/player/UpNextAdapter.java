@@ -43,19 +43,7 @@ public class UpNextAdapter {
     public void removeItem(int index) {
         upNextLayout.removeViewAt(index);
     }
-
-    /*
-    Basically, only way to move shit by index is to remove it and re-add it
-    Doing shit by indexes is so mf prone to off-by-ones, Mark Wilson would have a field day
-
-    Anyway, basically, if the new index is past the old index, when you remove the old view,
-    you gotta minus 1 of the new index, because everything would've been shifted back 1 space.
-    Vice-versa for if the new index is before the old index, you gotta add 1. (Or maybe you do nothing again)
-    FUCK IDK
-
-    Fuck knows what happens if they're equal. (Maybe do nothing?)
-    Yeah. Do nothing.
-     */
+    
     public void moveItem(int oldIndex, int newIndex) {
         Log.d("MOVING_ITEM", "From: "+oldIndex+" To: "+newIndex);
         if (oldIndex == newIndex) {
