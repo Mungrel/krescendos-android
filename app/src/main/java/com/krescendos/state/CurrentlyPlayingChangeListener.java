@@ -28,7 +28,15 @@ public class CurrentlyPlayingChangeListener implements ValueEventListener {
         GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
 
         VoteItem<Track> newItem = dataSnapshot.getValue(type);
+        if (newItem == null) {
+            return;
+        }
         currentlyPlayingAdapter.setCurrentlyPlaying(newItem);
+
+        if (trackPlayer != null) {
+            trackPlayer.setCurrentlyPlaying(newItem.getItem());
+            trackPlayer.play();
+        }
     }
 
     @Override

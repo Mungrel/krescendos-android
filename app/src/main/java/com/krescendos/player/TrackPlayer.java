@@ -38,6 +38,10 @@ public class TrackPlayer {
         this.currentlyPlaying = null;
     }
 
+    public void setCurrentlyPlaying(Track currentlyPlaying) {
+        this.currentlyPlaying = currentlyPlaying;
+    }
+
     private void playTrack(final Track track) {
         Log.d("PLAYING", track.getName());
         spotifyPlayer.playUri(new Player.OperationCallback() {
