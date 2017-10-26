@@ -40,6 +40,7 @@ public class TrackPlayer {
 
     public void setCurrentlyPlaying(Track currentlyPlaying) {
         this.currentlyPlaying = currentlyPlaying;
+        playTrack(currentlyPlaying);
     }
 
     private void playTrack(final Track track) {

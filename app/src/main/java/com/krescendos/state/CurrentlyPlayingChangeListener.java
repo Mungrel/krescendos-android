@@ -35,7 +35,6 @@ public class CurrentlyPlayingChangeListener implements ValueEventListener {
 
         if (trackPlayer != null) {
             trackPlayer.setCurrentlyPlaying(newItem.getItem());
-            trackPlayer.play();
         }
     }
 
