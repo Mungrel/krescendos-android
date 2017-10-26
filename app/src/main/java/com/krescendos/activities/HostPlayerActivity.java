@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,17 +20,16 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
-import com.krescendos.input.DislikeButtonClickListener;
-import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Party;
+import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
-import com.krescendos.model.Track;
-import com.krescendos.player.OnTrackChangeListener;
-import com.krescendos.player.PlaylistAdapter;
+import com.krescendos.player.CurrentlyPlayingAdapter;
+import com.krescendos.player.UpNextAdapter;
 import com.krescendos.player.SeekBarUserChangeListener;
 import com.krescendos.player.TrackPlayer;
-import com.krescendos.state.PlayheadIndexChangeListener;
-import com.krescendos.state.PlaylistChangeListener;
+import com.krescendos.state.CurrentlyPlayingChangeListener;
+import com.krescendos.state.PartyStateChangeListener;
+import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.state.StateUpdateRequestListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
@@ -54,7 +52,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     // Request code that will be used to verify if the result comes from correct activity
     private static final int REQUEST_CODE = 1337;
 
-    private PlaylistAdapter playlistAdapter;
+    private UpNextAdapter upNextAdapter;
+    private CurrentlyPlayingAdapter currentlyPlayingAdapter;
     private TrackPlayer mPlayer;
     private Requester requester;
     private Party party;
@@ -89,7 +88,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPlayer.next();
+                requester.advancePlayhead(party.getPartyId());
             }
         });
 
@@ -102,15 +101,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         timeElapsed = (TextView) findViewById(R.id.host_time_elapsed);
         timeRemaining = (TextView) findViewById(R.id.host_time_remaining);
 
-        ImageButton like = (ImageButton) findViewById(R.id.host_like_button);
-        ImageButton dislike = (ImageButton) findViewById(R.id.host_dislike_button);
         ImageButton add = (ImageButton) findViewById(R.id.host_add_button);
-
-        like.setTag("off");
-        dislike.setTag("off");
-
-        like.setOnClickListener(new LikeButtonClickListener(like, dislike));
-        dislike.setOnClickListener(new DislikeButtonClickListener(dislike, like));
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +130,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         LinearLayout upNextLayout = (LinearLayout) findViewById(R.id.playerList);
         seekBar = (SeekBar) findViewById(R.id.host_seek_bar);
 
-        playlistAdapter = new PlaylistAdapter(HostPlayerActivity.this, upNextLayout, currentTrackLayout, seekBar);
+        upNextAdapter = new UpNextAdapter(HostPlayerActivity.this, upNextLayout, party.getPartyId());
+        currentlyPlayingAdapter = new CurrentlyPlayingAdapter(HostPlayerActivity.this, currentTrackLayout, seekBar);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -209,8 +201,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
                             mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
-                            ref.child("playlist").addChildEventListener(new PlaylistChangeListener(playlistAdapter, mPlayer));
-                            ref.child("playheadIndex").addValueEventListener(new PlayheadIndexChangeListener(playlistAdapter));
+
+                            ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
+                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
                         }
 

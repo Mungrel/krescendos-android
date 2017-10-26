@@ -22,9 +22,7 @@ import java.util.Queue;
 
 public class TrackPlayer {
 
-    private Queue<Track> trackList;
     private Track currentlyPlaying;
-    private int pos;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
     private Requester requester;
@@ -33,45 +31,37 @@ public class TrackPlayer {
 
     public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
-        this.trackList = new LinkedList<>();
-        this.pos = 0;
         this.isPlaying = false;
         this.requester = Requester.getInstance(context);
         this.partyId = partyId;
         this.isDragging = false;
-
-        this.spotifyPlayer.addNotificationCallback(new com.spotify.sdk.android.player.Player.NotificationCallback() {
-            @Override
-            public void onPlaybackEvent(PlayerEvent playerEvent) {
-                if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
-                    next();
-                }
-            }
-
-            @Override
-            public void onPlaybackError(Error error) {
-            }
-        });
+        this.currentlyPlaying = null;
     }
 
-    private void playTrack(Track track) {
+    public void setCurrentlyPlaying(Track currentlyPlaying) {
+        this.currentlyPlaying = currentlyPlaying;
+        playTrack(currentlyPlaying);
+    }
+
+    private void playTrack(final Track track) {
         Log.d("PLAYING", track.getName());
         spotifyPlayer.playUri(new Player.OperationCallback() {
             @Override
             public void onSuccess() {
                 isPlaying = true;
+                currentlyPlaying = track;
                 requester.updatePlayState(partyId, getState());
             }
 
             @Override
             public void onError(Error error) {
-
+                Log.d("SPOTIFY_ERROR", "Failed to play track:" +error.toString());
             }
         }, track.getTrackURI(), 0, 0);
     }
 
     private boolean trackLoaded() {
-        return (currentlyPlaying != null);
+        return currentlyPlaying != null;
     }
 
     void seekTo(int newPos) {
@@ -89,15 +79,6 @@ public class TrackPlayer {
             }
         }, newPos);
 
-    }
-
-    public void queue(Track track) {
-        trackList.add(track);
-        if (trackList.size() == 1 && !trackLoaded()) {
-            // First track added
-            currentlyPlaying = trackList.poll();
-            playTrack(currentlyPlaying);
-        }
     }
 
     public void pause() {
@@ -118,30 +99,6 @@ public class TrackPlayer {
         return new PartyState(state, trackPos);
     }
 
-    public void next() {
-        if (!trackList.isEmpty()) {
-            // Not last track in list
-            Log.d("LAST", "last track state");
-            currentlyPlaying = trackList.poll();
-            playTrack(currentlyPlaying);
-            requester.advancePlayhead(partyId);
-        } else {
-            // Last track in list
-            spotifyPlayer.skipToNext(new Player.OperationCallback() {
-                @Override
-                public void onSuccess() {
-                    isPlaying = false;
-                    requester.updatePlayState(partyId, getState());
-                }
-
-                @Override
-                public void onError(Error error) {
-                }
-            });
-        }
-
-    }
-
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -150,9 +107,7 @@ public class TrackPlayer {
         if (trackLoaded() && spotifyPlayer.getPlaybackState().positionMs != 0) {
             resume();
         } else {
-            if (!trackList.isEmpty()) {
-                playTrack(currentlyPlaying);
-            }
+            playTrack(currentlyPlaying);
         }
         requester.updatePlayState(partyId, getState());
     }
@@ -166,11 +121,7 @@ public class TrackPlayer {
     }
 
     public long getCurrentTrackLength() {
-        if (trackLoaded()) {
-            return currentlyPlaying.getDuration_ms();
-        } else {
-            return 0;
-        }
+        return (currentlyPlaying == null) ? 0 : currentlyPlaying.getDuration_ms();
     }
 
     public boolean isDragging() {
