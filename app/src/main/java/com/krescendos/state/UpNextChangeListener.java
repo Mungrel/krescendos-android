@@ -44,6 +44,14 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+        Log.d("CHILD_CHANGED", "Key:" +dataSnapshot.getKey());
+        int index = keys.indexOf(dataSnapshot.getKey());
+
+        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
+
+        VoteItem<Track> item = dataSnapshot.getValue(type);
+
+        upNextAdapter.setItemVoteCount(index, item.getVoteCount());
     }
 
     @Override
