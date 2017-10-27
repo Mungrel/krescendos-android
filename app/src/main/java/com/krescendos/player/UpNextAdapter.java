@@ -88,9 +88,7 @@ public class UpNextAdapter {
         TextView voteCountView = likeDislikeLayout.findViewById(R.id.vote_count);
 
         String voteCountText = ""+voteCount;
-        if (voteCount < 0) {
-            voteCountText = "-"+voteCountText;
-        } else if (voteCount > 0) {
+        if (voteCount > 0) {
             voteCountText = "+"+voteCountText;
         }
 
