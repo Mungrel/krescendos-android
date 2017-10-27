@@ -64,9 +64,19 @@
             android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
             android:background="@null"
             app:srcCompat="@drawable/like_off" />
+
+        <TextView
+            android:id="@+id/vote_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/_0"
+            android:textAppearance="@style/BodyText"
+            android:textSize="@dimen/list_text_size" />
 
         <ImageButton
             android:id="@+id/dislike"

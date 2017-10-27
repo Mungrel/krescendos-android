@@ -44,6 +44,9 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+        Log.d("CHILD_CHANGED", "Key:" +dataSnapshot.getKey());
+        int index = keys.indexOf(dataSnapshot.getKey());
+
     }
 
     @Override
