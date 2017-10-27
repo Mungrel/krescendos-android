@@ -8,8 +8,8 @@ android {
         applicationId "com.krescendos"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 14
-        versionName "0.1.4"
+        versionCode 15
+        versionName "0.1.5"
     }
     buildTypes {
         release {

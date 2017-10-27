@@ -55,7 +55,6 @@ public class UpNextAdapter {
         upNextLayout.addView(item, newIndex);
     }
 
-
     public void insertItem(int index, VoteItem<Track> item) {
         Track track = item.getItem();
 
@@ -81,6 +80,21 @@ public class UpNextAdapter {
             upNextLayout.addView(listItem, index);
         }
 
+    }
+
+    public void setItemVoteCount(int index, long voteCount) {
+        RelativeLayout item = (RelativeLayout) upNextLayout.getChildAt(index);
+        LinearLayout likeDislikeLayout = item.findViewById(R.id.like_dislike_layout);
+        TextView voteCountView = likeDislikeLayout.findViewById(R.id.vote_count);
+
+        String voteCountText = ""+voteCount;
+        if (voteCount < 0) {
+            voteCountText = "-"+voteCountText;
+        } else if (voteCount > 0) {
+            voteCountText = "+"+voteCountText;
+        }
+
+        voteCountView.setText(voteCountText);
     }
 
 }
