@@ -51,7 +51,7 @@ public class UpNextChangeListener implements ChildEventListener {
 
         VoteItem<Track> item = dataSnapshot.getValue(type);
 
-        upNextAdapter.setItemVoteCount(index, item.getVoteCount());
+        upNextAdapter.setItemVoteCount(index, item.getVoteCount() * -1);
     }
 
     @Override
