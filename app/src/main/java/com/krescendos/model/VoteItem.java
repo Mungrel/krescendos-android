@@ -6,7 +6,8 @@ public class VoteItem<T> {
     private Long voteCount;
     private T item;
 
-    public VoteItem() {}
+    public VoteItem() {
+    }
 
     public VoteItem(String dbKey, T item) {
         this.dbKey = dbKey;

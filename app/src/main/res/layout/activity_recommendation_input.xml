@@ -12,7 +12,6 @@
         layout="@layout/toolbar_layout" />
 
     <LinearLayout
-        android:id="@+id/recommend_row_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -40,7 +39,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/recommend_row_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -68,7 +66,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/recommend_row_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -96,7 +93,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/recommend_row_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -124,7 +120,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/recommend_done_button"
         style="@style/TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

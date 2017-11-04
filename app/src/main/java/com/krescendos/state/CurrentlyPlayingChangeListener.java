@@ -32,7 +32,8 @@ public class CurrentlyPlayingChangeListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
+        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {
+        };
 
         VoteItem<Track> newItem = dataSnapshot.getValue(type);
         if (newItem == null) {

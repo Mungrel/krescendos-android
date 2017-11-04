@@ -13,11 +13,6 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 // Spotify player wrapper to make things easier
 
 public class TrackPlayer {
@@ -57,7 +52,7 @@ public class TrackPlayer {
 
             @Override
             public void onError(Error error) {
-                Log.d("SPOTIFY_ERROR", "Failed to play track:" +error.toString());
+                Log.d("SPOTIFY_ERROR", "Failed to play track:" + error.toString());
             }
         }, track.getTrackURI(), 0, 0);
     }
@@ -146,7 +141,7 @@ public class TrackPlayer {
 
             @Override
             public void onPlaybackError(Error error) {
-                Log.d("PLAYBACK_ERROR", ""+error.toString());
+                Log.d("PLAYBACK_ERROR", "" + error.toString());
             }
         });
     }

@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class UpdatePlayStateRequest extends JsonRequest<JSONObject>{
+public class UpdatePlayStateRequest extends JsonRequest<JSONObject> {
     public UpdatePlayStateRequest(String url, PartyState state) {
         super(Method.POST, url, new Gson().toJson(state), new DefaultResponseListener(), new DefaultErrorListener());
         setRetryPolicy(new LongTimeoutRetryPolicy());

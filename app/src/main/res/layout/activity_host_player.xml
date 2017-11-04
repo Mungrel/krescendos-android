@@ -7,7 +7,6 @@
     android:layout_height="fill_parent">
 
     <LinearLayout
-        android:id="@+id/host_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,16 +16,13 @@
         android:paddingTop="10dp"
         tools:context="com.krescendos.activities.HostPlayerActivity">
 
-        <include
-            android:id="@+id/host_title_bar"
-            layout="@layout/title_bar_layout" />
+        <include layout="@layout/title_bar_layout" />
 
         <include
             android:id="@+id/host_current_track_layout"
             layout="@layout/current_track_layout" />
 
         <LinearLayout
-            android:id="@+id/host_track_times_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -64,7 +60,6 @@
             android:theme="@style/SeekBar" />
 
         <LinearLayout
-            android:id="@+id/host_buttons_container"
             style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +98,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/playerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/up_next"

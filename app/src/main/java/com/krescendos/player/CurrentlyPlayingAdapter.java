@@ -32,13 +32,13 @@ public class CurrentlyPlayingAdapter {
         this.seekBar = seekBar;
     }
 
+    public VoteItem<Track> getCurrentlyPlaying() {
+        return currentlyPlaying;
+    }
+
     public void setCurrentlyPlaying(VoteItem<Track> currentlyPlaying) {
         this.currentlyPlaying = currentlyPlaying;
         updateUI();
-    }
-
-    public VoteItem<Track> getCurrentlyPlaying() {
-        return currentlyPlaying;
     }
 
     private void updateUI() {
