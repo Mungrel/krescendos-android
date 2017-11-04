@@ -37,7 +37,7 @@ public class TrackPlayer {
         this.isDragging = false;
         this.currentlyPlaying = null;
 
-        this.spotifyPlayer.addNotificationCallback(new AutoNextListener(requester, partyId));
+        addNotificationListener();
     }
 
     public void setCurrentlyPlaying(Track currentlyPlaying) {
@@ -132,5 +132,22 @@ public class TrackPlayer {
 
     void setDragging(boolean dragging) {
         isDragging = dragging;
+    }
+
+    private void addNotificationListener() {
+        this.spotifyPlayer.addNotificationCallback(new Player.NotificationCallback() {
+            @Override
+            public void onPlaybackEvent(PlayerEvent playerEvent) {
+                if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
+                    requester.advancePlayhead(partyId);
+                    requester.updatePlayState(partyId, getState());
+                }
+            }
+
+            @Override
+            public void onPlaybackError(Error error) {
+                Log.d("PLAYBACK_ERROR", ""+error.toString());
+            }
+        });
     }
 }
