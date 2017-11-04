@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class AppendRequest extends JsonRequest<JSONObject>{
+public class AppendRequest extends JsonRequest<JSONObject> {
 
     public AppendRequest(String url) {
         super(Method.POST, url, null, new DefaultResponseListener(), new DefaultErrorListener());

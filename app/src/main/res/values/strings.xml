@@ -1,19 +1,14 @@
 <resources>
     <string name="app_name">Krescendos</string>
-    <string name="searchResults">Search Results</string>
     <string name="up_next">Up Next</string>
     <string name="party_name">Party Name</string>
     <string name="could_not_create_party">Could not create party</string>
     <string name="create">Start a party</string>
-    <string name="back">Back</string>
     <string name="play_pause">Play/Pause</string>
     <string name="skip">Skip</string>
-    <string name="join_code">Join Code</string>
     <string name="party_does_not_exist">Party does not exist</string>
     <string name="join">Join a party</string>
-    <string name="recommended">Recommended</string>
     <string name="track_name">Track Name</string>
-    <string name="artist_name">Artist Name</string>
     <string name="krescendos_logo">Krescendos Logo</string>
     <string name="enter_party_code">Enter Party Code</string>
     <string name="join_short">Join</string>
@@ -41,7 +36,6 @@
     <string name="connecting">Connecting...</string>
     <string name="add_a_track">Add a track</string>
     <string name="share_your_code">Share your code</string>
-    <string name="track_search">Track Search</string>
     <string name="you_ll_need_a_spotify_premium_account_to_host_a_party">You\'ll need a Spotify Premium account to host a party</string>
     <string name="_0">0</string>
 </resources>

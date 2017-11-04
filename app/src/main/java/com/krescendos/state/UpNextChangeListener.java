@@ -9,12 +9,9 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.player.UpNextAdapter;
-import com.krescendos.player.TrackPlayer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UpNextChangeListener implements ChildEventListener {
 
@@ -29,10 +26,11 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
+        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {
+        };
 
         VoteItem<Track> item = dataSnapshot.getValue(type);
-        Log.d("CHILD_ADDED", "Key: "+dataSnapshot.getKey());
+        Log.d("CHILD_ADDED", "Key: " + dataSnapshot.getKey());
 
         item.setDbKey(dataSnapshot.getKey());
 
@@ -44,10 +42,11 @@ public class UpNextChangeListener implements ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-        Log.d("CHILD_CHANGED", "Key:" +dataSnapshot.getKey());
+        Log.d("CHILD_CHANGED", "Key:" + dataSnapshot.getKey());
         int index = keys.indexOf(dataSnapshot.getKey());
 
-        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {};
+        GenericTypeIndicator<VoteItem<Track>> type = new GenericTypeIndicator<VoteItem<Track>>() {
+        };
 
         VoteItem<Track> item = dataSnapshot.getValue(type);
 
@@ -64,7 +63,7 @@ public class UpNextChangeListener implements ChildEventListener {
     @Override
     public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
         String movedTrackKey = dataSnapshot.getKey();
-        Log.d("CHILD_MOVED", "Key: "+movedTrackKey);
+        Log.d("CHILD_MOVED", "Key: " + movedTrackKey);
 
         int oldIndex = keys.indexOf(movedTrackKey);
         keys.remove(oldIndex);

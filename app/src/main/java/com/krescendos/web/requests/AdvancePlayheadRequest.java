@@ -28,7 +28,7 @@ public class AdvancePlayheadRequest extends JsonRequest<JSONObject> {
 
         try {
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-            Log.d("ADVANCE_PLAYHEAD", "Response: "+jsonString);
+            Log.d("ADVANCE_PLAYHEAD", "Response: " + jsonString);
             object = new JSONObject(jsonString);
         } catch (UnsupportedEncodingException | JSONException e) {
             e.printStackTrace();

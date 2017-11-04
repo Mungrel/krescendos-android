@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/createLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,7 +15,6 @@
         layout="@layout/toolbar_layout" />
 
     <TextView
-        android:id="@+id/partyDetailsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
@@ -26,7 +24,6 @@
         android:textSize="@dimen/title_size" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/partyNameWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextAppearance="@style/BodyText"
@@ -45,7 +42,6 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/partyWelcomeWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextAppearance="@style/BodyText"
@@ -71,7 +67,6 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/partyOptionsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -101,7 +96,6 @@
         android:theme="@style/Switch" />
 
     <TextView
-        android:id="@+id/premium_requirement_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

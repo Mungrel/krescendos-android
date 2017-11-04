@@ -37,7 +37,7 @@ public class DislikeButtonClickListener implements View.OnClickListener {
         voteCountRef.runTransaction(new VoteTransaction(direction));
         updateImage();
     }
-    
+
     private void updateImage() {
         boolean off = dislikeButton.getTag().equals("off");
         if (off) {

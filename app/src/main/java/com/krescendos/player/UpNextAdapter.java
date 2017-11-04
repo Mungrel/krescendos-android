@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -17,10 +16,6 @@ import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 
 /**
@@ -45,7 +40,7 @@ public class UpNextAdapter {
     }
 
     public void moveItem(int oldIndex, int newIndex) {
-        Log.d("MOVING_ITEM", "From: "+oldIndex+" To: "+newIndex);
+        Log.d("MOVING_ITEM", "From: " + oldIndex + " To: " + newIndex);
         if (oldIndex == newIndex) {
             return;
         }
@@ -87,9 +82,9 @@ public class UpNextAdapter {
         LinearLayout likeDislikeLayout = item.findViewById(R.id.like_dislike_layout);
         TextView voteCountView = likeDislikeLayout.findViewById(R.id.vote_count);
 
-        String voteCountText = ""+voteCount;
+        String voteCountText = "" + voteCount;
         if (voteCount > 0) {
-            voteCountText = "+"+voteCountText;
+            voteCountText = "+" + voteCountText;
         }
 
         voteCountView.setText(voteCountText);

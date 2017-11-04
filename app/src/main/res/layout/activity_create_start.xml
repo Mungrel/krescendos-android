@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/create_start_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -15,7 +14,6 @@
     <include layout="@layout/title_bar_layout" />
 
     <LinearLayout
-        android:id="@+id/share_code_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -23,7 +21,6 @@
         android:paddingTop="25dp">
 
         <TextView
-            android:id="@+id/share_part_code_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,7 +43,6 @@
         layout="@layout/join_code_layout" />
 
     <TextView
-        android:id="@+id/find_music_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
