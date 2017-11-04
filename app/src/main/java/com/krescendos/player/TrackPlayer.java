@@ -36,6 +36,8 @@ public class TrackPlayer {
         this.partyId = partyId;
         this.isDragging = false;
         this.currentlyPlaying = null;
+
+        this.spotifyPlayer.addNotificationCallback(new AutoNextListener(requester, partyId));
     }
 
     public void setCurrentlyPlaying(Track currentlyPlaying) {
