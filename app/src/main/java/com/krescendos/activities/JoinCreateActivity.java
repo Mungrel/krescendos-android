@@ -36,8 +36,9 @@ public class JoinCreateActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     @Override
     public void onBackPressed() {
+        finish();
     }
 }
