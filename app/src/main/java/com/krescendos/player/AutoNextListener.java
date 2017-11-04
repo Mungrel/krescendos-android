@@ -22,6 +22,7 @@ public class AutoNextListener implements Player.NotificationCallback {
     public void onPlaybackEvent(PlayerEvent playerEvent) {
         if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
             requester.advancePlayhead(partyCode);
+            requester.requestPartyStateUpdate(partyCode);
         }
     }
 
