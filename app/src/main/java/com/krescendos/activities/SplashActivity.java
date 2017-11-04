@@ -25,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
                     Intent intent = new Intent(SplashActivity.this, JoinCreateActivity.class);
                     intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
+                    finish();
                 }
             }
         };

@@ -36,4 +36,5 @@ public class JoinCreateActivity extends AppCompatActivity {
             }
         });
     }
+
 }
