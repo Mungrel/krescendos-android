@@ -11,6 +11,8 @@ import com.krescendos.firebase.transactions.UpdateState;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
+import com.krescendos.vote.VoteDirection;
+import com.krescendos.vote.VoteTransaction;
 
 public class FirebaseManager {
 
@@ -44,5 +46,10 @@ public class FirebaseManager {
 
             }
         });
+    }
+
+    public static void vote(String partyId, String itemId, VoteDirection direction, boolean alternateWasActive) {
+        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, itemId);
+        voteCountRef.runTransaction(new VoteTransaction(direction, alternateWasActive));
     }
 }
