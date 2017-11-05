@@ -203,7 +203,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
                             ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, HostPlayerActivity.this, party.getPartyId()));
-                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
+                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
                         }
 
                         @Override
