@@ -20,6 +20,10 @@ public class FirebaseRefs {
         return getPartyRef(partyId).child("partyState");
     }
 
+    public static DatabaseReference getPlaylistRef(String partyId) {
+        return getPartyRef(partyId).child("playlist");
+    }
+
     private static DatabaseReference getPartyRef(String partyId) {
         return ROOT.child("party").child(partyId);
     }
