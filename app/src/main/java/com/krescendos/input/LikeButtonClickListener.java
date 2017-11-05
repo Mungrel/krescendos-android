@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.utils.FirebaseRefs;
+import com.krescendos.firebase.FirebaseRefs;
 import com.krescendos.vote.VoteDirection;
 import com.krescendos.vote.VoteTransaction;
 
