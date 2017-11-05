@@ -28,6 +28,7 @@ public class AddTrack implements Transaction.Handler {
             tracks = new ArrayList<>();
         }
 
+
         tracks.add(new VoteItem<Track>(track));
 
         mutableData.setValue(tracks);

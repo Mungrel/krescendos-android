@@ -2,6 +2,7 @@ package com.krescendos.model;
 
 public class VoteItem<T> {
 
+    private String dbKey;
     private Long voteCount;
     private T item;
 
@@ -11,6 +12,14 @@ public class VoteItem<T> {
     public VoteItem(T item) {
         this.item = item;
         this.voteCount = 0L;
+    }
+
+    public String getDbKey() {
+        return dbKey;
+    }
+
+    public void setDbKey(String dbKey) {
+        this.dbKey = dbKey;
     }
 
     public Long getVoteCount() {
