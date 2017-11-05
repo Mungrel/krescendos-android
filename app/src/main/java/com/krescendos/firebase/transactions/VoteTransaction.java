@@ -1,9 +1,10 @@
-package com.krescendos.vote;
+package com.krescendos.firebase.transactions;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.krescendos.model.VoteDirection;
 
 public class VoteTransaction implements Transaction.Handler {
 

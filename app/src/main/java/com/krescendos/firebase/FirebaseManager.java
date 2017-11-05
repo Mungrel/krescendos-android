@@ -11,8 +11,8 @@ import com.krescendos.firebase.transactions.UpdateState;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.vote.VoteDirection;
-import com.krescendos.vote.VoteTransaction;
+import com.krescendos.model.VoteDirection;
+import com.krescendos.firebase.transactions.VoteTransaction;
 
 public class FirebaseManager {
 

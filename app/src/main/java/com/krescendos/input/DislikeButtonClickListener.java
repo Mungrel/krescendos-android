@@ -3,14 +3,11 @@ package com.krescendos.input;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
 import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.firebase.FirebaseRefs;
-import com.krescendos.vote.VoteDirection;
-import com.krescendos.vote.VoteTransaction;
+import com.krescendos.model.VoteDirection;
 
 public class DislikeButtonClickListener implements View.OnClickListener {
 

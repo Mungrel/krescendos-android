@@ -1,4 +1,4 @@
-package com.krescendos.vote;
+package com.krescendos.model;
 
 public enum VoteDirection {
     UP, DOWN
