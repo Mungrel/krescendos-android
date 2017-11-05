@@ -6,12 +6,12 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.krescendos.model.VoteDirection;
 
-public class VoteTransaction implements Transaction.Handler {
+public class Vote implements Transaction.Handler {
 
     private VoteDirection direction;
     private boolean alternateWasActive;
 
-    public VoteTransaction(VoteDirection direction, boolean alternateWasActive) {
+    public Vote(VoteDirection direction, boolean alternateWasActive) {
         this.direction = direction;
         this.alternateWasActive = alternateWasActive;
     }
