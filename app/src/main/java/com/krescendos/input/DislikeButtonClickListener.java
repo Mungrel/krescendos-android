@@ -31,7 +31,7 @@ public class DislikeButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         toggleState();
-        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getDbKey());
+        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getItemId());
         boolean off = dislikeButton.getTag().equals("off");
         VoteDirection direction = (off) ? VoteDirection.UP : VoteDirection.DOWN;
         voteCountRef.runTransaction(new VoteTransaction(direction));

@@ -1,7 +1,6 @@
 package com.krescendos.firebase;
 
 import com.google.firebase.database.DatabaseReference;
-import com.krescendos.firebase.transactions.AddTrack;
 import com.krescendos.firebase.transactions.PollQueue;
 import com.krescendos.firebase.transactions.UpdateState;
 import com.krescendos.model.PartyState;
@@ -22,7 +21,8 @@ public class FirebaseManager {
 
     public static void addTrack(String partyId, Track track) {
         DatabaseReference playlistRef = FirebaseRefs.getPlaylistRef(partyId);
-        DatabaseReference itemRef = playlistRef.push();
-        itemRef.runTransaction(new AddTrack(track));
+        DatabaseReference newItemRef = playlistRef.push();
+        newItemRef.setValue(new VoteItem<Track>(newItemRef.getKey(), track));
+
     }
 }

@@ -2,24 +2,25 @@ package com.krescendos.model;
 
 public class VoteItem<T> {
 
-    private String dbKey;
+    private String itemId;
     private Long voteCount;
     private T item;
 
     public VoteItem() {
     }
 
-    public VoteItem(T item) {
-        this.item = item;
+    public VoteItem(String itemId, T item) {
+        this.itemId = itemId;
         this.voteCount = 0L;
+        this.item = item;
     }
 
-    public String getDbKey() {
-        return dbKey;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setDbKey(String dbKey) {
-        this.dbKey = dbKey;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public Long getVoteCount() {

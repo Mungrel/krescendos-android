@@ -31,7 +31,7 @@ public class LikeButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         toggleState();
-        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getDbKey());
+        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getItemId());
         boolean off = likeButton.getTag().equals("off");
         VoteDirection direction = (off) ? VoteDirection.DOWN : VoteDirection.UP;
         voteCountRef.runTransaction(new VoteTransaction(direction));

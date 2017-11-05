@@ -32,7 +32,7 @@ public class UpNextChangeListener implements ChildEventListener {
         VoteItem<Track> item = dataSnapshot.getValue(type);
         Log.d("CHILD_ADDED", "Key: " + dataSnapshot.getKey());
 
-        item.setDbKey(dataSnapshot.getKey());
+        item.setItemId(dataSnapshot.getKey());
 
         int insertionIndex = (previousChildName == null) ? 0 : keys.indexOf(previousChildName) + 1;
         keys.add(insertionIndex, dataSnapshot.getKey());
