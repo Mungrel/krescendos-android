@@ -96,52 +96,6 @@ public class Requester {
         requestQueue.add(request);
     }
 
-    // No response expected, so we'll handle the response listener
-    public void append(String code, Track track) {
-        Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("playlist").appendQueryParameter("spotifyTrackId", track.getId());
-        String url = builder.build().toString();
-
-        AppendRequest request = new AppendRequest(url);
-        requestQueue.add(request);
-    }
-
-    public void advancePlayhead(String code) {
-        Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("advancePlayhead");
-        String url = builder.build().toString();
-
-        AdvancePlayheadRequest request = new AdvancePlayheadRequest(url);
-        requestQueue.add(request);
-    }
-
-    public void advancePlayhead(String code, int newPos) {
-        Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("advancePlayhead").appendQueryParameter("nextIndex", "" + newPos);
-        String url = builder.build().toString();
-
-        AdvancePlayheadRequest request = new AdvancePlayheadRequest(url);
-        requestQueue.add(request);
-    }
-
-    public void updatePlayState(String code, PartyState state) {
-        Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("partyState");
-        String url = builder.build().toString();
-
-        UpdatePlayStateRequest request = new UpdatePlayStateRequest(url, state);
-        requestQueue.add(request);
-    }
-
-    public void requestPartyStateUpdate(String code) {
-        Uri.Builder builder = getBaseBuilder();
-        builder.appendPath("party").appendPath(code).appendPath("update");
-        String url = builder.build().toString();
-
-        RequestStateUpdateRequest request = new RequestStateUpdateRequest(url);
-        requestQueue.add(request);
-    }
-
     public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
         ProfileRequest profileRequest = new ProfileRequest(userAccessToken, responseListener);
         requestQueue.add(profileRequest);

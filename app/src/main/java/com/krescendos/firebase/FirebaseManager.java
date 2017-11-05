@@ -23,6 +23,5 @@ public class FirebaseManager {
         DatabaseReference playlistRef = FirebaseRefs.getPlaylistRef(partyId);
         DatabaseReference newItemRef = playlistRef.push();
         newItemRef.setValue(new VoteItem<Track>(newItemRef.getKey(), track));
-
     }
 }

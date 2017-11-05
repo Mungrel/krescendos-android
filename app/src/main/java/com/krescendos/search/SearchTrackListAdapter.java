@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
@@ -98,7 +99,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
             @Override
             public void onClick(View view) {
                 holder.addCheck.setImageResource(R.drawable.check);
-                requester.append(partyCode, track);
+                FirebaseManager.addTrack(partyCode, track);
             }
         });
 
