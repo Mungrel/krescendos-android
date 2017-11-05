@@ -7,11 +7,11 @@ import com.google.firebase.database.Transaction;
 import com.krescendos.model.Party;
 import com.krescendos.model.PartyState;
 
-public class UpdateStateTransaction implements Transaction.Handler{
+public class UpdateState implements Transaction.Handler{
 
     private PartyState partyState;
 
-    public UpdateStateTransaction(PartyState partyState) {
+    public UpdateState(PartyState partyState) {
         this.partyState = partyState;
     }
 
