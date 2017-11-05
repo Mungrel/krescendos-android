@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.utils.FirebaseRefs;
+import com.krescendos.firebase.FirebaseRefs;
 import com.krescendos.vote.VoteDirection;
 import com.krescendos.vote.VoteTransaction;
 
@@ -31,7 +31,7 @@ public class LikeButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         toggleState();
-        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getDbKey());
+        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getItemId());
         boolean off = likeButton.getTag().equals("off");
         VoteDirection direction = (off) ? VoteDirection.DOWN : VoteDirection.UP;
         voteCountRef.runTransaction(new VoteTransaction(direction));

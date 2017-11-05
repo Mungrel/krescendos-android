@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -86,7 +87,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         fwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.advancePlayhead(party.getPartyId());
+                FirebaseManager.advancePlayhead(party.getPartyId());
             }
         });
 
@@ -202,7 +203,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
                             ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, HostPlayerActivity.this, party.getPartyId()));
-                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(HostPlayerActivity.this, party.getPartyId(), mPlayer));
+                            ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
                         }
 
                         @Override

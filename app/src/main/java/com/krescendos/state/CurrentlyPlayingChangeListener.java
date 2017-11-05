@@ -6,6 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -43,7 +44,7 @@ public class CurrentlyPlayingChangeListener implements ValueEventListener {
 
         if (trackPlayer != null) {
             trackPlayer.setCurrentlyPlaying(newItem.getItem());
-            requester.updatePlayState(partyId, trackPlayer.getState());
+            FirebaseManager.updatePlayState(partyId, trackPlayer.getState());
         }
     }
 

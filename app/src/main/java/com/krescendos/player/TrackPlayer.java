@@ -4,6 +4,7 @@ package com.krescendos.player;
 import android.content.Context;
 import android.util.Log;
 
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.PlaybackState;
 import com.krescendos.model.Track;
@@ -47,7 +48,7 @@ public class TrackPlayer {
             public void onSuccess() {
                 isPlaying = true;
                 currentlyPlaying = track;
-                requester.updatePlayState(partyId, getState());
+                FirebaseManager.updatePlayState(partyId, getState());
             }
 
             @Override
@@ -68,7 +69,7 @@ public class TrackPlayer {
         spotifyPlayer.seekToPosition(new Player.OperationCallback() {
             @Override
             public void onSuccess() {
-                requester.updatePlayState(partyId, getState());
+                FirebaseManager.updatePlayState(partyId, getState());
             }
 
             @Override
@@ -81,13 +82,13 @@ public class TrackPlayer {
     public void pause() {
         spotifyPlayer.pause(null);
         isPlaying = false;
-        requester.updatePlayState(partyId, getState());
+        FirebaseManager.updatePlayState(partyId, getState());
     }
 
     private void resume() {
         spotifyPlayer.resume(null);
         isPlaying = true;
-        requester.updatePlayState(partyId, getState());
+        FirebaseManager.updatePlayState(partyId, getState());
     }
 
     public PartyState getState() {
@@ -106,7 +107,7 @@ public class TrackPlayer {
         } else {
             playTrack(currentlyPlaying);
         }
-        requester.updatePlayState(partyId, getState());
+        FirebaseManager.updatePlayState(partyId, getState());
     }
 
     public long getCurrentTrackTime() {
@@ -134,8 +135,8 @@ public class TrackPlayer {
             @Override
             public void onPlaybackEvent(PlayerEvent playerEvent) {
                 if (playerEvent == PlayerEvent.kSpPlaybackNotifyTrackDelivered) {
-                    requester.advancePlayhead(partyId);
-                    requester.updatePlayState(partyId, getState());
+                    FirebaseManager.advancePlayhead(partyId);
+                    FirebaseManager.updatePlayState(partyId, getState());
                 }
             }
 
