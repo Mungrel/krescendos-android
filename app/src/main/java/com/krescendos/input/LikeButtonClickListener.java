@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.firebase.FirebaseRefs;
@@ -32,10 +33,9 @@ public class LikeButtonClickListener implements View.OnClickListener {
     public void onClick(View view) {
         boolean dislikeWasActive = dislikeButton.getTag().equals("on");
         toggleState();
-        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getItemId());
         boolean off = likeButton.getTag().equals("off");
         VoteDirection direction = (off) ? VoteDirection.DOWN : VoteDirection.UP;
-        voteCountRef.runTransaction(new VoteTransaction(direction, dislikeWasActive));
+        FirebaseManager.vote(partyId, item.getItemId(), direction, dislikeWasActive);
         updateImage();
     }
 
