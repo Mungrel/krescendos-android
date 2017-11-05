@@ -1,6 +1,11 @@
 package com.krescendos.firebase;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.krescendos.firebase.transactions.PollQueue;
 import com.krescendos.firebase.transactions.UpdateState;
 import com.krescendos.model.PartyState;
@@ -19,9 +24,25 @@ public class FirebaseManager {
         playStateRef.runTransaction(new UpdateState(state));
     }
 
-    public static void addTrack(String partyId, Track track) {
+    public static void addTrack(final String partyId, Track track) {
         DatabaseReference playlistRef = FirebaseRefs.getPlaylistRef(partyId);
         DatabaseReference newItemRef = playlistRef.push();
         newItemRef.setValue(new VoteItem<Track>(newItemRef.getKey(), track));
+
+        DatabaseReference currentlyPlayingRef = FirebaseRefs.getCurrentlyPlayingRef(partyId);
+        currentlyPlayingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("REF", ""+dataSnapshot.toString());
+                if (dataSnapshot.getValue() == null) {
+                    FirebaseManager.advancePlayhead(partyId);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
