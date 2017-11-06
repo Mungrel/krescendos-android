@@ -1,7 +1,5 @@
 package com.krescendos.firebase.transactions;
 
-import android.provider.ContactsContract;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,11 +12,10 @@ import com.krescendos.model.VoteItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PollQueue implements Transaction.Handler{
+public class PollQueue implements Transaction.Handler {
 
     private DatabaseReference currentlyPlayingRef;
 
@@ -28,7 +25,8 @@ public class PollQueue implements Transaction.Handler{
 
     @Override
     public Transaction.Result doTransaction(MutableData mutableData) {
-        GenericTypeIndicator<Map<String, VoteItem<Track>>> type = new GenericTypeIndicator<Map<String, VoteItem<Track>>>() {};
+        GenericTypeIndicator<Map<String, VoteItem<Track>>> type = new GenericTypeIndicator<Map<String, VoteItem<Track>>>() {
+        };
         List<VoteItem<Track>> tracks = new ArrayList<>(mutableData.getValue(type).values());
 
         if (tracks.isEmpty()) {

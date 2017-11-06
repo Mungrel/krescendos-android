@@ -198,11 +198,11 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
                         public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                            mPlayer = new TrackPlayer(spotifyPlayer, HostPlayerActivity.this, party.getPartyId());
+                            mPlayer = new TrackPlayer(spotifyPlayer, party.getPartyId());
                             seekBar.setOnSeekBarChangeListener(new SeekBarUserChangeListener(mPlayer));
 
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
-                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, HostPlayerActivity.this, party.getPartyId()));
+                            ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, party.getPartyId()));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
                         }
 

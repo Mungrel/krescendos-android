@@ -6,8 +6,8 @@ import android.widget.ImageButton;
 import com.krescendos.R;
 import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
-import com.krescendos.model.VoteItem;
 import com.krescendos.model.VoteDirection;
+import com.krescendos.model.VoteItem;
 
 public class DislikeButtonClickListener implements View.OnClickListener {
 

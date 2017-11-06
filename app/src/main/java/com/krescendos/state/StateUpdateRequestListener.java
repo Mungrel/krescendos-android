@@ -1,13 +1,10 @@
 package com.krescendos.state;
 
-import android.content.Context;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.player.TrackPlayer;
-import com.krescendos.web.Requester;
 
 public class StateUpdateRequestListener implements ValueEventListener {
     private TrackPlayer mPlayer;

@@ -54,10 +54,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:progressBackgroundTint="@color/colorText"
-            android:splitTrack="false"
-            android:thumbTint="@color/colorAccent"
             android:progressTint="@color/colorPrimary"
-            android:theme="@style/SeekBar" />
+            android:splitTrack="false"
+            android:theme="@style/SeekBar"
+            android:thumbTint="@color/colorAccent" />
 
         <LinearLayout
             style="?android:attr/buttonBarStyle"

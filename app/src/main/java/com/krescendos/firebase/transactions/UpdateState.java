@@ -4,10 +4,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.krescendos.model.Party;
 import com.krescendos.model.PartyState;
 
-public class UpdateState implements Transaction.Handler{
+public class UpdateState implements Transaction.Handler {
 
     private PartyState partyState;
 

@@ -8,22 +8,22 @@
         android:id="@+id/current_track_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/trackname"
-        android:scrollHorizontally="true"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="@string/trackname"
         android:textAppearance="@style/TitleText" />
 
     <TextView
         android:id="@+id/current_track_artist_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/artist_album"
-        android:scrollHorizontally="true"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="@string/artist_album"
         android:textAppearance="@style/BodyText" />
 
     <com.android.volley.toolbox.NetworkImageView

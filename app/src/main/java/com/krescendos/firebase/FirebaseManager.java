@@ -8,11 +8,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.krescendos.firebase.transactions.PollQueue;
 import com.krescendos.firebase.transactions.UpdateState;
+import com.krescendos.firebase.transactions.Vote;
 import com.krescendos.model.PartyState;
 import com.krescendos.model.Track;
-import com.krescendos.model.VoteItem;
 import com.krescendos.model.VoteDirection;
-import com.krescendos.firebase.transactions.Vote;
+import com.krescendos.model.VoteItem;
 
 public class FirebaseManager {
 
@@ -35,7 +35,7 @@ public class FirebaseManager {
         currentlyPlayingRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("REF", ""+dataSnapshot.toString());
+                Log.d("REF", "" + dataSnapshot.toString());
                 if (dataSnapshot.getValue() == null) {
                     FirebaseManager.advancePlayhead(partyId);
                 }
