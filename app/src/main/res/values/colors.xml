@@ -5,4 +5,6 @@
     <color name="colorAccent">#ffdf00</color>
     <color name="colorButtonText">#555555</color>
     <color name="colorText">#ffffff</color>
+    <color name="colorPositiveVotes">#5dff7f</color>
+    <color name="colorNegativeVotes">#ff5d73</color>
 </resources>
