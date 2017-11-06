@@ -3,13 +3,11 @@ package com.krescendos.input;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.google.firebase.database.DatabaseReference;
 import com.krescendos.R;
+import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
-import com.krescendos.firebase.FirebaseRefs;
-import com.krescendos.vote.VoteDirection;
-import com.krescendos.vote.VoteTransaction;
+import com.krescendos.model.VoteDirection;
 
 public class DislikeButtonClickListener implements View.OnClickListener {
 
@@ -30,11 +28,11 @@ public class DislikeButtonClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        boolean likeWasActive = likeButton.getTag().equals("on");
         toggleState();
-        DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, item.getItemId());
         boolean off = dislikeButton.getTag().equals("off");
         VoteDirection direction = (off) ? VoteDirection.UP : VoteDirection.DOWN;
-        voteCountRef.runTransaction(new VoteTransaction(direction));
+        FirebaseManager.vote(partyId, item.getItemId(), direction, likeWasActive);
         updateImage();
     }
 

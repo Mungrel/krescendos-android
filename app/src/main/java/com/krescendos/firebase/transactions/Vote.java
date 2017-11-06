@@ -1,16 +1,19 @@
-package com.krescendos.vote;
+package com.krescendos.firebase.transactions;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.krescendos.model.VoteDirection;
 
-public class VoteTransaction implements Transaction.Handler {
+public class Vote implements Transaction.Handler {
 
     private VoteDirection direction;
+    private boolean alternateWasActive;
 
-    public VoteTransaction(VoteDirection direction) {
+    public Vote(VoteDirection direction, boolean alternateWasActive) {
         this.direction = direction;
+        this.alternateWasActive = alternateWasActive;
     }
 
     @Override
@@ -20,10 +23,12 @@ public class VoteTransaction implements Transaction.Handler {
             return Transaction.success(mutableData);
         }
 
+        int delta = (alternateWasActive) ? 2 : 1;
+
         if (direction == VoteDirection.UP) {
-            voteCount -= 1;
+            voteCount -= delta;
         } else if (direction == VoteDirection.DOWN) {
-            voteCount += 1;
+            voteCount += delta;
         }
 
         mutableData.setValue(voteCount);
