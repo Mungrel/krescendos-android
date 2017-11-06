@@ -9,20 +9,15 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.krescendos.model.Party;
-import com.krescendos.model.PartyState;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
-import com.krescendos.web.requests.AdvancePlayheadRequest;
-import com.krescendos.web.requests.AppendRequest;
 import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
 import com.krescendos.web.requests.PollPostLearnerRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
-import com.krescendos.web.requests.RequestStateUpdateRequest;
 import com.krescendos.web.requests.SearchRequest;
-import com.krescendos.web.requests.UpdatePlayStateRequest;
 
 import java.util.List;
 

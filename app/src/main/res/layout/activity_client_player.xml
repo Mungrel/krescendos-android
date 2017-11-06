@@ -71,8 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                app:srcCompat="@drawable/add"
-                android:contentDescription="@string/add_a_track" />
+                android:contentDescription="@string/add_a_track"
+                app:srcCompat="@drawable/add" />
         </LinearLayout>
 
         <TextView

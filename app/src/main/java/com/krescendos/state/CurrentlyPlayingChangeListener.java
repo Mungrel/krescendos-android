@@ -1,7 +1,5 @@
 package com.krescendos.state;
 
-import android.content.Context;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -11,7 +9,6 @@ import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.player.CurrentlyPlayingAdapter;
 import com.krescendos.player.TrackPlayer;
-import com.krescendos.web.Requester;
 
 public class CurrentlyPlayingChangeListener implements ValueEventListener {
 
