@@ -21,14 +21,12 @@ public class TrackPlayer {
     private Track currentlyPlaying;
     private SpotifyPlayer spotifyPlayer;
     private boolean isPlaying;
-    private Requester requester;
     private String partyId;
     private boolean isDragging;
 
-    public TrackPlayer(final SpotifyPlayer spotifyPlayer, Context context, final String partyId) {
+    public TrackPlayer(final SpotifyPlayer spotifyPlayer, final String partyId) {
         this.spotifyPlayer = spotifyPlayer;
         this.isPlaying = false;
-        this.requester = Requester.getInstance(context);
         this.partyId = partyId;
         this.isDragging = false;
         this.currentlyPlaying = null;
