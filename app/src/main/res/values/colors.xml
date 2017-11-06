@@ -7,4 +7,5 @@
     <color name="colorText">#ffffff</color>
     <color name="colorPositiveVotes">#5dff7f</color>
     <color name="colorNegativeVotes">#ff5d73</color>
+    <color name="colorNeutralVotes">#ffffff</color>
 </resources>

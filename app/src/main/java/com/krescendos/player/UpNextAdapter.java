@@ -1,6 +1,7 @@
 package com.krescendos.player;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
@@ -88,6 +89,15 @@ public class UpNextAdapter {
         }
 
         voteCountView.setText(voteCountText);
+        
+        int colour = ContextCompat.getColor(context, R.color.colorNeutralVotes);
+        if (voteCount > 0) {
+            colour = ContextCompat.getColor(context, R.color.colorPositiveVotes);
+        } else if (voteCount < 0) {
+            colour = ContextCompat.getColor(context, R.color.colorNegativeVotes);
+        }
+
+        voteCountView.setTextColor(colour);
     }
 
 }
