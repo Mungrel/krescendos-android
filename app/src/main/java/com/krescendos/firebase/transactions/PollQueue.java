@@ -35,16 +35,7 @@ public class PollQueue implements Transaction.Handler {
             return Transaction.success(mutableData);
         }
 
-        Collections.sort(tracks, new Comparator<VoteItem<Track>>() {
-            @Override
-            public int compare(VoteItem<Track> item1, VoteItem<Track> item2) {
-                int c = item1.getVoteCount().compareTo(item2.getVoteCount());
-                if (c == 0) {
-                    c = item1.getItemId().compareTo(item2.getItemId());
-                }
-                return c;
-            }
-        });
+        Collections.sort(tracks, getComparator());
 
 
         VoteItem<Track> topTrack = tracks.get(0);
@@ -59,5 +50,18 @@ public class PollQueue implements Transaction.Handler {
     @Override
     public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
+    }
+
+    private Comparator<VoteItem<Track>> getComparator() {
+        return new Comparator<VoteItem<Track>>() {
+            @Override
+            public int compare(VoteItem<Track> item1, VoteItem<Track> item2) {
+                int c = item1.getVoteCount().compareTo(item2.getVoteCount());
+                if (c == 0) {
+                    c = item1.getItemId().compareTo(item2.getItemId());
+                }
+                return c;
+            }
+        };
     }
 }
