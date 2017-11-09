@@ -25,9 +25,11 @@ public class PollQueue implements Transaction.Handler {
 
     @Override
     public Transaction.Result doTransaction(MutableData mutableData) {
+
         GenericTypeIndicator<Map<String, VoteItem<Track>>> type = new GenericTypeIndicator<Map<String, VoteItem<Track>>>() {
         };
-        List<VoteItem<Track>> tracks = new ArrayList<>(mutableData.getValue(type).values());
+        Map<String, VoteItem<Track>> map = mutableData.getValue(type);
+        List<VoteItem<Track>> tracks = new ArrayList<>(map.values());
 
         if (tracks.isEmpty()) {
             return Transaction.success(mutableData);
@@ -47,9 +49,9 @@ public class PollQueue implements Transaction.Handler {
 
         VoteItem<Track> topTrack = tracks.get(0);
         currentlyPlayingRef.setValue(topTrack);
-        tracks.remove(0);
+        map.remove(topTrack.getItemId());
 
-        mutableData.setValue(tracks);
+        mutableData.setValue(map);
 
         return Transaction.success(mutableData);
     }
