@@ -25,15 +25,35 @@ public class PollQueue implements Transaction.Handler {
 
     @Override
     public Transaction.Result doTransaction(MutableData mutableData) {
+
         GenericTypeIndicator<Map<String, VoteItem<Track>>> type = new GenericTypeIndicator<Map<String, VoteItem<Track>>>() {
         };
-        List<VoteItem<Track>> tracks = new ArrayList<>(mutableData.getValue(type).values());
+        Map<String, VoteItem<Track>> map = mutableData.getValue(type);
+        List<VoteItem<Track>> tracks = new ArrayList<>(map.values());
 
         if (tracks.isEmpty()) {
             return Transaction.success(mutableData);
         }
 
-        Collections.sort(tracks, new Comparator<VoteItem<Track>>() {
+        Collections.sort(tracks, getComparator());
+
+
+        VoteItem<Track> topTrack = tracks.get(0);
+        currentlyPlayingRef.setValue(topTrack);
+        map.remove(topTrack.getItemId());
+
+        mutableData.setValue(map);
+
+        return Transaction.success(mutableData);
+    }
+
+    @Override
+    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+    }
+
+    private Comparator<VoteItem<Track>> getComparator() {
+        return new Comparator<VoteItem<Track>>() {
             @Override
             public int compare(VoteItem<Track> item1, VoteItem<Track> item2) {
                 int c = item1.getVoteCount().compareTo(item2.getVoteCount());
@@ -42,20 +62,6 @@ public class PollQueue implements Transaction.Handler {
                 }
                 return c;
             }
-        });
-
-
-        VoteItem<Track> topTrack = tracks.get(0);
-        currentlyPlayingRef.setValue(topTrack);
-        tracks.remove(0);
-
-        mutableData.setValue(tracks);
-
-        return Transaction.success(mutableData);
-    }
-
-    @Override
-    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-
+        };
     }
 }
