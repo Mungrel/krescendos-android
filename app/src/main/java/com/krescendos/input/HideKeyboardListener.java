@@ -1,10 +1,8 @@
 package com.krescendos.input;
 
 import android.app.Activity;
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.inputmethod.InputMethodManager;
 
 public class HideKeyboardListener implements TextWatcher {
 
