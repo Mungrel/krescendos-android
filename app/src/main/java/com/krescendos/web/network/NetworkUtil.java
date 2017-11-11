@@ -43,11 +43,11 @@ public class NetworkUtil {
         return status;
     }
 
-    public static void registerConnectivityReceiver(Context context) {
+    public static void registerConnectivityReceiver(Context context, ConnectionLostListener listener) {
         final String action = "android.net.conn.CONNECTIVITY_CHANGE";
 
         IntentFilter filter = new IntentFilter(action);
-        NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(listener);
         context.registerReceiver(receiver, filter);
     }
 }

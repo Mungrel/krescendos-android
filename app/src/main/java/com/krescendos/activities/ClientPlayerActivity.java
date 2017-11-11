@@ -3,6 +3,7 @@ package com.krescendos.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
+import com.krescendos.web.network.ConnectionLostListener;
 import com.krescendos.web.network.NetworkUtil;
 
 import java.util.Timer;
@@ -107,7 +109,13 @@ public class ClientPlayerActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this);
+        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this, new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                Log.d("CONNECTION_LOST", "onNetworkConnectionLost");
+                finish();
+            }
+        });
 
     }
 

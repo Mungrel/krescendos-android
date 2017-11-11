@@ -22,6 +22,8 @@ import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkUtil;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -101,6 +103,13 @@ public class JoinActivity extends AppCompatActivity {
                         joinCodeSubmit.setText(R.string.join_short);
                     }
                 });
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(JoinActivity.this, new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
             }
         });
     }

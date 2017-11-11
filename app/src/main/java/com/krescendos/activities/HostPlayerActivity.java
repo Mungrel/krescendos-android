@@ -33,6 +33,8 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkUtil;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -151,6 +153,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 });
             }
         }, 0, 200);
+
+        NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
     }
 
     private void refreshPlayBtn() {
