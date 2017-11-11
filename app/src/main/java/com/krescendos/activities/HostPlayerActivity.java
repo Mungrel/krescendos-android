@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,6 +22,7 @@ import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
 import com.krescendos.firebase.FirebaseManager;
+import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -244,6 +246,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
         NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this);
+        Keyboard.hide(HostPlayerActivity.this);
         super.onDestroy();
     }
 

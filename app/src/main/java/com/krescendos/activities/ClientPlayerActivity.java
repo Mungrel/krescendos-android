@@ -1,9 +1,11 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -15,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.QuickDialog;
+import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -135,6 +138,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Keyboard.hide(ClientPlayerActivity.this);
         NetworkUtil.unregisterConnectivityReceiver(ClientPlayerActivity.this);
         super.onDestroy();
     }

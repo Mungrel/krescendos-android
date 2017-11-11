@@ -2,6 +2,7 @@ package com.krescendos.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.input.HideKeyboardListener;
+import com.krescendos.input.Keyboard;
 import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
@@ -27,8 +29,6 @@ import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
 
 public class JoinActivity extends AppCompatActivity {
-
-    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,6 @@ public class JoinActivity extends AppCompatActivity {
         final EditText text6 = (EditText) findViewById(R.id.joinCode6);
 
         text1.requestFocus();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         text1.addTextChangedListener(new TextChangeListener(text1, text2));
         text2.addTextChangedListener(new TextChangeListener(text1, text3));
@@ -115,15 +113,15 @@ public class JoinActivity extends AppCompatActivity {
         });
 
         NetworkUtil.registerConnectivityReceiver(JoinActivity.this, receiver);
+
+        Keyboard.show(JoinActivity.this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (imm.isActive()) {
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                }
+                Keyboard.hide(JoinActivity.this);
                 onBackPressed();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
@@ -147,6 +145,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         NetworkUtil.unregisterConnectivityReceiver(JoinActivity.this);
+        Keyboard.hide(JoinActivity.this);
         super.onDestroy();
     }
 }
