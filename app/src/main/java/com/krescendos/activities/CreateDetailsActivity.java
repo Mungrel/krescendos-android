@@ -17,10 +17,14 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
+import com.krescendos.input.Keyboard;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 
 public class CreateDetailsActivity extends AppCompatActivity {
 
@@ -90,6 +94,23 @@ public class CreateDetailsActivity extends AppCompatActivity {
 
         autoSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
         othersSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
+
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(CreateDetailsActivity.this, receiver);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        Keyboard.hide(CreateDetailsActivity.this);
+        NetworkUtil.unregisterConnectivityReceiver(CreateDetailsActivity.this);
+        super.onDestroy();
     }
 
     @Override
