@@ -26,7 +26,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
         int status = NetworkUtil.getConnectivityStatusString(context);
         if ("android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
-            if(status==NetworkUtil.NETWORK_STATUS_NOT_CONNECTED){
+            if (status == NetworkUtil.NETWORK_STATUS_NOT_CONNECTED) {
                 Log.d("NETWORK", "NOT CONNECTED");
                 QuickDialog dialog = new QuickDialog(context, "Network",
                         "You need an internet connection to use Krescendos", new OnQuickDialogCloseListener() {
@@ -38,7 +38,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 });
                 dialog.show();
 
-            }else{
+            } else {
                 Log.d("NETWORK", "CONNECTION RESUMED");
             }
         }

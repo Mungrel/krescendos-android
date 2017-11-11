@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
