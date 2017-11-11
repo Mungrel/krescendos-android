@@ -111,7 +111,7 @@ public class JoinActivity extends AppCompatActivity {
 
         NetworkUtil.registerConnectivityReceiver(JoinActivity.this, receiver);
 
-        Keyboard.show(JoinActivity.this);
+        //Keyboard.show(JoinActivity.this);
     }
 
     @Override
@@ -137,8 +137,9 @@ public class JoinActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Log.d("DESTROY", "JoinActivity destroyed");
         NetworkUtil.unregisterConnectivityReceiver(JoinActivity.this);
-        Keyboard.hide(JoinActivity.this);
+
         super.onDestroy();
     }
 }

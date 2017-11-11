@@ -245,7 +245,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
         NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this);
-        Keyboard.hide(HostPlayerActivity.this);
         super.onDestroy();
     }
 
