@@ -34,6 +34,7 @@ import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.web.Requester;
 import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -59,6 +60,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Requester requester;
     private Party party;
     private DatabaseReference ref;
+
+    private NetworkChangeReceiver receiver;
 
     private ImageButton playButton;
     private SeekBar seekBar;
@@ -154,12 +157,14 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             }
         }, 0, 200);
 
-        NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, new ConnectionLostListener() {
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
             @Override
             public void onNetworkConnectionLost() {
                 finish();
             }
         });
+
+        NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, receiver);
     }
 
     private void refreshPlayBtn() {
@@ -240,6 +245,9 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     @Override
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
+        if (receiver != null) {
+            NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this, receiver);
+        }
         super.onDestroy();
     }
 
