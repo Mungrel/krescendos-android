@@ -26,6 +26,7 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
+import com.krescendos.web.network.NetworkUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -105,6 +106,8 @@ public class ClientPlayerActivity extends AppCompatActivity {
             QuickDialog dialog = new QuickDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
             dialog.show();
         }
+
+        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this);
 
     }
 
