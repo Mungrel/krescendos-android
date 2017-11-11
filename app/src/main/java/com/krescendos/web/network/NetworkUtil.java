@@ -5,6 +5,10 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Retrieved from: https://stackoverflow.com/questions/25678216/android-internet-connectivity-change-listener
  * Date: 4:31 p.m. 11/11/2017
@@ -15,6 +19,8 @@ public class NetworkUtil {
     public static int TYPE_WIFI = 1;
     public static int TYPE_MOBILE = 2;
     public static int TYPE_NOT_CONNECTED = 0;
+
+    private static Map<Context, NetworkChangeReceiver> receivers = new HashMap<>();
 
     public static int getConnectivityStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -48,9 +54,15 @@ public class NetworkUtil {
 
         IntentFilter filter = new IntentFilter(action);
         context.registerReceiver(receiver, filter);
+
+        receivers.put(context, receiver);
     }
 
-    public static void unregisterConnectivityReceiver(Context context, NetworkChangeReceiver receiver) {
-        context.unregisterReceiver(receiver);
+    public static void unregisterConnectivityReceiver(Context context) {
+        if (!receivers.containsKey(context)) {
+            return;
+        }
+        context.unregisterReceiver(receivers.get(context));
+        receivers.remove(context);
     }
 }

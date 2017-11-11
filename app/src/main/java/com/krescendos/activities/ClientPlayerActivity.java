@@ -28,6 +28,7 @@ import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
 import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
 
 import java.util.Timer;
@@ -109,13 +110,14 @@ public class ClientPlayerActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this, new ConnectionLostListener() {
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
             @Override
             public void onNetworkConnectionLost() {
-                Log.d("CONNECTION_LOST", "onNetworkConnectionLost");
                 finish();
             }
         });
+
+        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this, receiver);
 
     }
 
@@ -130,5 +132,11 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(0, 0);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        NetworkUtil.unregisterConnectivityReceiver(ClientPlayerActivity.this);
+        super.onDestroy();
     }
 }

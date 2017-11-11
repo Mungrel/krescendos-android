@@ -61,8 +61,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private Party party;
     private DatabaseReference ref;
 
-    private NetworkChangeReceiver receiver;
-
     private ImageButton playButton;
     private SeekBar seekBar;
     private TextView timeElapsed;
@@ -245,9 +243,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     @Override
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
-        if (receiver != null) {
-            NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this, receiver);
-        }
+        NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this);
         super.onDestroy();
     }
 

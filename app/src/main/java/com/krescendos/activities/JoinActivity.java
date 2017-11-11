@@ -23,6 +23,7 @@ import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
 import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
 
 public class JoinActivity extends AppCompatActivity {
@@ -106,12 +107,14 @@ public class JoinActivity extends AppCompatActivity {
             }
         });
 
-        NetworkUtil.registerConnectivityReceiver(JoinActivity.this, new ConnectionLostListener() {
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
             @Override
             public void onNetworkConnectionLost() {
                 finish();
             }
         });
+
+        NetworkUtil.registerConnectivityReceiver(JoinActivity.this, receiver);
     }
 
     @Override
@@ -139,5 +142,11 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        NetworkUtil.unregisterConnectivityReceiver(JoinActivity.this);
+        super.onDestroy();
     }
 }
