@@ -133,11 +133,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("TOUCH", "onTouchEvent");
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.
-                INPUT_METHOD_SERVICE);
-        if (getCurrentFocus().getWindowToken() != null) {
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
+        Keyboard.show(JoinActivity.this);
 
         return true;
     }
