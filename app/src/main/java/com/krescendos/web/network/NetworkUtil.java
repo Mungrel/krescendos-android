@@ -1,6 +1,7 @@
 package com.krescendos.web.network;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -40,5 +41,12 @@ public class NetworkUtil {
             status = NETWORK_STATUS_NOT_CONNECTED;
         }
         return status;
+    }
+
+    public static void registerConnectivityReceiver(Context context) {
+        final String action = "com.krescendos.web.network.NetworkChangeReceiver";
+        IntentFilter filter = new IntentFilter(action);
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+        context.registerReceiver(receiver, filter);
     }
 }
