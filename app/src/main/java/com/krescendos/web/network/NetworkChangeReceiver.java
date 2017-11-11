@@ -3,6 +3,7 @@ package com.krescendos.web.network;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.krescendos.dialog.QuickDialog;
 
@@ -17,13 +18,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
 
         int status = NetworkUtil.getConnectivityStatusString(context);
-        if (!"android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
+        if ("android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
             if(status==NetworkUtil.NETWORK_STATUS_NOT_CONNECTED){
+                Log.d("NETWORK", "NOT CONNECTED");
                 QuickDialog dialog = new QuickDialog(context, "Network", "You need an internet connection to use Krescendos");
                 dialog.show();
             }else{
-                QuickDialog dialog = new QuickDialog(context, "Network", "Network connection resumed");
-                dialog.show();
+                Log.d("NETWORK", "CONNECTION RESUMED");
             }
         }
     }

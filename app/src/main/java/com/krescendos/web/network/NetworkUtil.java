@@ -44,7 +44,8 @@ public class NetworkUtil {
     }
 
     public static void registerConnectivityReceiver(Context context) {
-        final String action = "com.krescendos.web.network.NetworkChangeReceiver";
+        final String action = "android.net.conn.CONNECTIVITY_CHANGE";
+
         IntentFilter filter = new IntentFilter(action);
         NetworkChangeReceiver receiver = new NetworkChangeReceiver();
         context.registerReceiver(receiver, filter);
