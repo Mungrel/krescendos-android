@@ -11,9 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.krescendos.R;
+import com.krescendos.input.Keyboard;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Party;
 import com.krescendos.utils.TextUtils;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 
 public class CreateStartActivity extends AppCompatActivity {
 
@@ -91,5 +95,21 @@ public class CreateStartActivity extends AppCompatActivity {
             }
         });
 
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(CreateStartActivity.this, receiver);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        Keyboard.hide(CreateStartActivity.this);
+        NetworkUtil.unregisterConnectivityReceiver(CreateStartActivity.this);
+        super.onDestroy();
     }
 }

@@ -1,16 +1,15 @@
 package com.krescendos.input;
 
-import android.content.Context;
+import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.inputmethod.InputMethodManager;
 
 public class HideKeyboardListener implements TextWatcher {
 
-    private InputMethodManager imm;
+    private Activity activity;
 
-    public HideKeyboardListener(Context context) {
-        imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    public HideKeyboardListener(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -20,8 +19,8 @@ public class HideKeyboardListener implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String text = charSequence.toString();
-        if (!text.isEmpty() && imm.isActive()) {
-            hide();
+        if (!text.isEmpty()) {
+            Keyboard.hide(activity);
         }
     }
 
@@ -29,7 +28,4 @@ public class HideKeyboardListener implements TextWatcher {
     public void afterTextChanged(Editable editable) {
     }
 
-    private void hide() {
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-    }
 }

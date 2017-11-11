@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.krescendos">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,13 +12,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+
         <!-- Needed for LoginActivity to work -->
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.JoinActivity" />
-        <activity android:name=".activities.CreateDetailsActivity" />
+        <activity android:name=".activities.JoinActivity" android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".activities.CreateDetailsActivity" android:windowSoftInputMode="stateVisible" />
         <activity android:name=".activities.HostPlayerActivity" />
         <activity android:name=".activities.ClientPlayerActivity" />
         <activity android:name=".activities.CreateStartActivity" />

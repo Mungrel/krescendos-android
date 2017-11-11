@@ -89,7 +89,7 @@ public class UpNextAdapter {
         }
 
         voteCountView.setText(voteCountText);
-        
+
         int colour = ContextCompat.getColor(context, R.color.colorNeutralVotes);
         if (voteCount > 0) {
             colour = ContextCompat.getColor(context, R.color.colorPositiveVotes);

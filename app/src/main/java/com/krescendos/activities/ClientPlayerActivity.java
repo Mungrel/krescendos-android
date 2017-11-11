@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.QuickDialog;
+import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -26,6 +27,9 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.utils.UpdateTimer;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -106,6 +110,15 @@ public class ClientPlayerActivity extends AppCompatActivity {
             dialog.show();
         }
 
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(ClientPlayerActivity.this, receiver);
+
     }
 
     @Override
@@ -119,5 +132,12 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 scrollView.smoothScrollTo(0, 0);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Keyboard.hide(ClientPlayerActivity.this);
+        NetworkUtil.unregisterConnectivityReceiver(ClientPlayerActivity.this);
+        super.onDestroy();
     }
 }

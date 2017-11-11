@@ -3,7 +3,8 @@ package com.krescendos.dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 
 import com.krescendos.R;
 
@@ -35,13 +36,17 @@ public class QuickDialog {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (alertDialog != null) {
+                    Log.d("DIALOG", "onClick, setPositive button");
                     alertDialog.dismiss();
+                    if (closeListener != null) {
+                        closeListener.onClose();
+                    }
                 }
             }
         });
 
         AlertDialog alertDialog = builder.create();
-        alertDialog.setOnShowListener(new DialogShowListener(context, alertDialog, closeListener));
+        alertDialog.setOnShowListener(new DialogShowListener(context, alertDialog));
 
         return alertDialog;
     }

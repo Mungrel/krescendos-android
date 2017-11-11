@@ -17,10 +17,14 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
+import com.krescendos.input.Keyboard;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 
 public class CreateDetailsActivity extends AppCompatActivity {
 
@@ -46,8 +50,6 @@ public class CreateDetailsActivity extends AppCompatActivity {
         final EditText partyWelcomeMessage = (EditText) findViewById(R.id.partyWelcomeField);
 
         partyName.requestFocus();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
 
@@ -90,15 +92,28 @@ public class CreateDetailsActivity extends AppCompatActivity {
 
         autoSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
         othersSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
+
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(CreateDetailsActivity.this, receiver);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        NetworkUtil.unregisterConnectivityReceiver(CreateDetailsActivity.this);
+        super.onDestroy();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (imm.isActive()) {
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                }
                 onBackPressed();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;

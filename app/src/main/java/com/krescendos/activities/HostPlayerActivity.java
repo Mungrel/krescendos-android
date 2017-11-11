@@ -21,6 +21,7 @@ import com.krescendos.R;
 import com.krescendos.dialog.OnQuickDialogCloseListener;
 import com.krescendos.dialog.QuickDialog;
 import com.krescendos.firebase.FirebaseManager;
+import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -33,6 +34,9 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -151,6 +155,15 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                 });
             }
         }, 0, 200);
+
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, receiver);
     }
 
     private void refreshPlayBtn() {
@@ -231,6 +244,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     @Override
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
+        NetworkUtil.unregisterConnectivityReceiver(HostPlayerActivity.this);
         super.onDestroy();
     }
 

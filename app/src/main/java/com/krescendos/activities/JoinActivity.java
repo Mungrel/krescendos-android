@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,14 +16,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
 import com.krescendos.input.HideKeyboardListener;
+import com.krescendos.input.Keyboard;
 import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.network.ConnectionLostListener;
+import com.krescendos.web.network.NetworkChangeReceiver;
+import com.krescendos.web.network.NetworkUtil;
 
 public class JoinActivity extends AppCompatActivity {
-
-    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,6 @@ public class JoinActivity extends AppCompatActivity {
         final EditText text6 = (EditText) findViewById(R.id.joinCode6);
 
         text1.requestFocus();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         text1.addTextChangedListener(new TextChangeListener(text1, text2));
         text2.addTextChangedListener(new TextChangeListener(text1, text3));
@@ -103,15 +101,24 @@ public class JoinActivity extends AppCompatActivity {
                 });
             }
         });
+
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
+            @Override
+            public void onNetworkConnectionLost() {
+                finish();
+            }
+        });
+
+        NetworkUtil.registerConnectivityReceiver(JoinActivity.this, receiver);
+
+        //Keyboard.show(JoinActivity.this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (imm.isActive()) {
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                }
+                Keyboard.hide(JoinActivity.this);
                 onBackPressed();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
@@ -123,12 +130,16 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("TOUCH", "onTouchEvent");
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.
-                INPUT_METHOD_SERVICE);
-        if (getCurrentFocus().getWindowToken() != null) {
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
+        Keyboard.show(JoinActivity.this);
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("DESTROY", "JoinActivity destroyed");
+        NetworkUtil.unregisterConnectivityReceiver(JoinActivity.this);
+
+        super.onDestroy();
     }
 }
