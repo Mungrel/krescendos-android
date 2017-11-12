@@ -15,6 +15,10 @@ public class RemoveTrackDialog {
         this.alertDialog = buildDialog(context, onYesListener);
     }
 
+    public void show() {
+        alertDialog.show();
+    }
+
     private AlertDialog buildDialog(Context context, final OnYesListener onYesListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
         builder.setTitle("Remove");
@@ -33,6 +37,7 @@ public class RemoveTrackDialog {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.setOnShowListener(new DialogShowListener(context, alertDialog));
-        return null;
+
+        return alertDialog;
     }
 }
