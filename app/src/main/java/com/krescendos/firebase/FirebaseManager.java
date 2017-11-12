@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.krescendos.firebase.transactions.PollQueue;
+import com.krescendos.firebase.transactions.RemoveItem;
 import com.krescendos.firebase.transactions.UpdateState;
 import com.krescendos.firebase.transactions.Vote;
 import com.krescendos.model.PartyState;
@@ -51,5 +52,10 @@ public class FirebaseManager {
     public static void vote(String partyId, String itemId, VoteDirection direction, boolean alternateWasActive) {
         DatabaseReference voteCountRef = FirebaseRefs.getVoteCountRef(partyId, itemId);
         voteCountRef.runTransaction(new Vote(direction, alternateWasActive));
+    }
+
+    public static void removeItem(String partyId, String itemId) {
+        DatabaseReference playlistRef = FirebaseRefs.getPlaylistRef(partyId);
+        playlistRef.runTransaction(new RemoveItem(itemId));
     }
 }

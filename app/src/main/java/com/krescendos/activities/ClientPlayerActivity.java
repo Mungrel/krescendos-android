@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.dialog.QuickDialog;
+import com.krescendos.dialog.ConfirmDialog;
 import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
@@ -106,7 +106,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         });
 
         if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()) {
-            QuickDialog dialog = new QuickDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
+            ConfirmDialog dialog = new ConfirmDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
             dialog.show();
         }
 

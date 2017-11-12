@@ -1,6 +1,6 @@
 package com.krescendos.dialog;
 
-public interface OnQuickDialogCloseListener {
+public interface OnConfirmDialogCloseListener {
 
     void onClose();
 }
