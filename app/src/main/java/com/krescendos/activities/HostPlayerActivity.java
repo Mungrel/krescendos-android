@@ -18,10 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
-import com.krescendos.dialog.OnQuickDialogCloseListener;
-import com.krescendos.dialog.QuickDialog;
+import com.krescendos.dialog.OnConfirmDialogCloseListener;
+import com.krescendos.dialog.ConfirmDialog;
 import com.krescendos.firebase.FirebaseManager;
-import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Profile;
 import com.krescendos.player.CurrentlyPlayingAdapter;
@@ -195,15 +194,15 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                         @Override
                         public void onResponse(Profile response) {
                             if (!response.isPremiumUser()) {
-                                QuickDialog quickDialog = new QuickDialog(HostPlayerActivity.this,
+                                ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
                                         "Spotify Premium", "A Spotify Premium account is required to host a party.",
-                                        new OnQuickDialogCloseListener() {
+                                        new OnConfirmDialogCloseListener() {
                                             @Override
                                             public void onClose() {
                                                 finish();
                                             }
                                         });
-                                quickDialog.show();
+                                confirmDialog.show();
                             }
                         }
                     });

@@ -8,16 +8,16 @@ import android.view.ContextThemeWrapper;
 
 import com.krescendos.R;
 
-public class QuickDialog {
+public class ConfirmDialog {
 
     private AlertDialog alertDialog;
-    private OnQuickDialogCloseListener closeListener;
+    private OnConfirmDialogCloseListener closeListener;
 
-    public QuickDialog(Context context, String title, String message) {
+    public ConfirmDialog(Context context, String title, String message) {
         this.alertDialog = buildDialog(context, title, message);
     }
 
-    public QuickDialog(Context context, String title, String message, OnQuickDialogCloseListener closeListener) {
+    public ConfirmDialog(Context context, String title, String message, OnConfirmDialogCloseListener closeListener) {
         this(context, title, message);
         this.closeListener = closeListener;
     }

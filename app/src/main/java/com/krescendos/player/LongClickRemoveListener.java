@@ -17,6 +17,7 @@ public class LongClickRemoveListener implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View view) {
+
         FirebaseManager.removeItem(partyID, itemID);
         return true;
     }
