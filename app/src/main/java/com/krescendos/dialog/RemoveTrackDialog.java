@@ -1,8 +1,8 @@
 package com.krescendos.dialog;
 
-import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextThemeWrapper;
 
 import com.krescendos.R;

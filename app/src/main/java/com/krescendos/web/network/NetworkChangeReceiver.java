@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.krescendos.dialog.OnConfirmDialogCloseListener;
 import com.krescendos.dialog.ConfirmDialog;
+import com.krescendos.dialog.OnConfirmDialogCloseListener;
 
 /**
  * Adapted from: https://stackoverflow.com/questions/25678216/android-internet-connectivity-change-listener

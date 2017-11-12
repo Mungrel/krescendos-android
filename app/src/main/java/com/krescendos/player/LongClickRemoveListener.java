@@ -6,7 +6,6 @@ import android.view.View;
 import com.krescendos.dialog.OnYesListener;
 import com.krescendos.dialog.RemoveTrackDialog;
 import com.krescendos.firebase.FirebaseManager;
-import com.krescendos.firebase.FirebaseRefs;
 
 public class LongClickRemoveListener implements View.OnLongClickListener {
 

@@ -1,6 +1,5 @@
 package com.krescendos.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.krescendos.R;
-import com.krescendos.input.Keyboard;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
