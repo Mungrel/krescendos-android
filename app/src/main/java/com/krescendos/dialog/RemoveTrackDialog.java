@@ -1,18 +1,39 @@
 package com.krescendos.dialog;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.view.ContextThemeWrapper;
+
+import com.krescendos.R;
 
 public class RemoveTrackDialog {
 
     private AlertDialog alertDialog;
-    private DialogInterface.OnClickListener listener;
+    private OnYesListener onYesListener;
 
-    public RemoveTrackDialog(DialogInterface.OnClickListener listener) {
-        this.alertDialog = buildDialog(listener);
+    public RemoveTrackDialog(Context context, OnYesListener onYesListener) {
+        this.alertDialog = buildDialog(context, onYesListener);
     }
 
-    private AlertDialog buildDialog(DialogInterface.OnClickListener listener) {
+    private AlertDialog buildDialog(Context context, OnYesListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
+        builder.setTitle("Remove");
+        builder.setMessage("Remove this track from Up Next?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (alertDialog != null) {
+                    alertDialog.dismiss();
+                    onYesListener.onYes();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogShowListener(context, alertDialog));
         return null;
     }
 }
