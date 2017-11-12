@@ -10,13 +10,12 @@ import com.krescendos.R;
 public class RemoveTrackDialog {
 
     private AlertDialog alertDialog;
-    private OnYesListener onYesListener;
 
     public RemoveTrackDialog(Context context, OnYesListener onYesListener) {
         this.alertDialog = buildDialog(context, onYesListener);
     }
 
-    private AlertDialog buildDialog(Context context, OnYesListener listener) {
+    private AlertDialog buildDialog(Context context, final OnYesListener onYesListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
         builder.setTitle("Remove");
         builder.setMessage("Remove this track from Up Next?");
