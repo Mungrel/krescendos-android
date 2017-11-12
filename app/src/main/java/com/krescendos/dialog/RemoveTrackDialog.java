@@ -23,7 +23,7 @@ public class RemoveTrackDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.errorDialog));
         builder.setTitle("Remove");
         builder.setMessage("Remove this track from Up Next?");
-        builder.setCancelable(false);
+        builder.setCancelable(true);
 
         builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
             @Override
@@ -32,6 +32,13 @@ public class RemoveTrackDialog {
                     alertDialog.dismiss();
                     onYesListener.onYes();
                 }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.dismiss();
             }
         });
 
