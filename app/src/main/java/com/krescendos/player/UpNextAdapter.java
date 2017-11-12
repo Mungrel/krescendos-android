@@ -56,6 +56,8 @@ public class UpNextAdapter {
 
         RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
+        listItem.setOnLongClickListener(new LongClickRemoveListener(partyId, item.getItemId()));
+        
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
         TextView artistAlbum = listItem.findViewById(R.id.up_next_artist_album);
         NetworkImageView albumArt = listItem.findViewById(R.id.up_next_album_art);
