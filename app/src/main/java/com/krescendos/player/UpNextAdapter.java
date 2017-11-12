@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
+import com.krescendos.activities.HostPlayerActivity;
 import com.krescendos.input.DislikeButtonClickListener;
 import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Track;
@@ -29,11 +30,15 @@ public class UpNextAdapter {
     private LayoutInflater inflater;
     private LinearLayout upNextLayout;
 
+    private boolean isHost;
+
     public UpNextAdapter(Context context, LinearLayout upNextLayout, String partyId) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.upNextLayout = upNextLayout;
         this.partyId = partyId;
+
+        this.isHost = (context instanceof HostPlayerActivity);
     }
 
     public void removeItem(int index) {
@@ -56,7 +61,9 @@ public class UpNextAdapter {
 
         RelativeLayout listItem = (RelativeLayout) inflater.inflate(R.layout.player_list_layout, null, false);
 
-        listItem.setOnLongClickListener(new LongClickRemoveListener(context, partyId, item.getItemId()));
+        if (isHost) {
+            listItem.setOnLongClickListener(new LongClickRemoveListener(context, partyId, item.getItemId()));
+        }
 
         TextView trackName = listItem.findViewById(R.id.up_next_track_name);
         TextView artistAlbum = listItem.findViewById(R.id.up_next_artist_album);
