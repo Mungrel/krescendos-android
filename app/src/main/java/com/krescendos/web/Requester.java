@@ -70,12 +70,14 @@ public class Requester {
         requestQueue.add(searchRequest);
     }
 
-    public void create(String partyName, String welcomeMessage, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
+    public void create(String partyName, String welcomeMessage, boolean allowSuggestions, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
         if (welcomeMessage != null && !welcomeMessage.isEmpty()) {
             builder.appendQueryParameter("msg", welcomeMessage);
         }
+        builder.appendQueryParameter("allowSuggestions", Boolean.toString(allowSuggestions));
+        
         String url = builder.build().toString();
 
         CreateRequest request = new CreateRequest(url, listener);
