@@ -77,7 +77,7 @@ public class Requester {
             builder.appendQueryParameter("msg", welcomeMessage);
         }
         builder.appendQueryParameter("allowSuggestions", Boolean.toString(allowSuggestions));
-        
+
         String url = builder.build().toString();
 
         CreateRequest request = new CreateRequest(url, listener);
