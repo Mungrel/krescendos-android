@@ -14,17 +14,20 @@ public class Party implements Parcelable {
     private String name;
     private String partyId;
     private String welcomeMessage;
+    private boolean allowSuggestions;
 
     public Party(String name, String partyId) {
         this.name = name;
         this.playlist = new HashMap<>();
         this.partyId = partyId;
+        this.allowSuggestions = true;
     }
 
     protected Party(Parcel in) {
         this.name = in.readString();
         this.partyId = in.readString();
         this.welcomeMessage = in.readString();
+        this.allowSuggestions = in.readByte() != 0;
         this.playlist = (HashMap<String, Track>) in.readSerializable();
     }
 
@@ -49,6 +52,7 @@ public class Party implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(partyId);
         parcel.writeString(welcomeMessage);
+        parcel.writeByte((byte) (allowSuggestions ? 1 : 0));
         parcel.writeSerializable(playlist);
     }
 
@@ -74,5 +78,13 @@ public class Party implements Parcelable {
 
     public void setWelcomeMessage(String welcomeMessage) {
         this.welcomeMessage = welcomeMessage;
+    }
+
+    public boolean getAllowSuggestions() {
+        return allowSuggestions;
+    }
+
+    public void setAllowSuggestions(boolean allowSuggestions) {
+        this.allowSuggestions = allowSuggestions;
     }
 }
