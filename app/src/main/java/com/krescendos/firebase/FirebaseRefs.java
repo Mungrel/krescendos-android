@@ -1,5 +1,7 @@
 package com.krescendos.firebase;
 
+import android.provider.ContactsContract;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,6 +22,10 @@ public class FirebaseRefs {
 
     public static DatabaseReference getPlaylistRef(String partyId) {
         return getPartyRef(partyId).child("playlist");
+    }
+
+    public static DatabaseReference getAllowSuggestionsRef(String partyId) {
+        return getPartyRef(partyId).child("allowSuggestions");
     }
 
     private static DatabaseReference getPartyRef(String partyId) {

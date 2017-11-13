@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String BASE_URL = "api.kres.io";
+    private static final String BASE_URL = "0-1-1-30-g6749490-dot-krescendos-174122.appspot.com";
     private static ImageLoader imageLoader;
     private static Requester instance;
     private RequestQueue requestQueue;
