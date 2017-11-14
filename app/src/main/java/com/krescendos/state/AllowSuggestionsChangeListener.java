@@ -3,11 +3,11 @@ package com.krescendos.state;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.krescendos.dialog.Toaster;
 
 public class AllowSuggestionsChangeListener implements ValueEventListener {
 
@@ -24,7 +24,6 @@ public class AllowSuggestionsChangeListener implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         boolean allowSuggestions = dataSnapshot.getValue(Boolean.class);
-        addTrack.setEnabled(allowSuggestions);
 
         if (allowSuggestions) {
             addTrack.setOnClickListener(baseListener);
@@ -32,7 +31,8 @@ public class AllowSuggestionsChangeListener implements ValueEventListener {
             addTrack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "This party is not currently accepting suggestions", Toast.LENGTH_LONG).show();
+                    String text = "This party is not currently accepting suggestions";
+                    Toaster.showToast(context, text);
                 }
             });
         }

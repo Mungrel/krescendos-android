@@ -6,24 +6,25 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.krescendos.dialog.Toaster;
+
 public class UnimplementedInputListener implements View.OnClickListener, View.OnTouchListener {
 
-    private Toast toast;
+    private Context context;
+    private static final String TOAST_TEXT = "Coming soon!";
 
     public UnimplementedInputListener(Context context) {
-        toast = Toast.makeText(context, "Coming Soon!", Toast.LENGTH_SHORT);
-        TextView text = toast.getView().findViewById(android.R.id.message);
-        text.setBackground(null);
+        this.context = context;
     }
 
     @Override
     public void onClick(View view) {
-        toast.show();
+        Toaster.showToast(context, TOAST_TEXT);
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        toast.show();
+        Toaster.showToast(context, TOAST_TEXT);
         return true;
     }
 }
