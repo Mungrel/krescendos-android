@@ -47,6 +47,9 @@ public class CreateDetailsActivity extends AppCompatActivity {
         final EditText partyName = (EditText) findViewById(R.id.partyNameField);
         final EditText partyWelcomeMessage = (EditText) findViewById(R.id.partyWelcomeField);
 
+        Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
+        final Switch othersSuggest = (Switch) findViewById(R.id.othersSuggestSwitch);
+
         partyName.requestFocus();
 
         final TextView errorText = (TextView) findViewById(R.id.createErrorTextView);
@@ -59,7 +62,7 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 errorText.setVisibility(View.INVISIBLE);
                 partyCreate.setEnabled(false);
                 partyCreate.setText(R.string.connecting);
-                requester.create(name, welcomeMessage, new Response.Listener<Party>() {
+                requester.create(name, welcomeMessage, othersSuggest.isChecked(), new Response.Listener<Party>() {
                     @Override
                     public void onResponse(Party response) {
                         Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
@@ -85,11 +88,8 @@ public class CreateDetailsActivity extends AppCompatActivity {
             }
         });
 
-        Switch autoSuggest = (Switch) findViewById(R.id.autoSuggestSwitch);
-        Switch othersSuggest = (Switch) findViewById(R.id.othersSuggestSwitch);
 
         autoSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
-        othersSuggest.setOnTouchListener(new UnimplementedInputListener(CreateDetailsActivity.this));
 
         NetworkChangeReceiver receiver = new NetworkChangeReceiver(new ConnectionLostListener() {
             @Override

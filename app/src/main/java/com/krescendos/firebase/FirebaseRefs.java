@@ -22,6 +22,10 @@ public class FirebaseRefs {
         return getPartyRef(partyId).child("playlist");
     }
 
+    public static DatabaseReference getAllowSuggestionsRef(String partyId) {
+        return getPartyRef(partyId).child("allowSuggestions");
+    }
+
     private static DatabaseReference getPartyRef(String partyId) {
         return ROOT.child("party").child(partyId);
     }

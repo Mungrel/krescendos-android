@@ -15,12 +15,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.dialog.ConfirmDialog;
+import com.krescendos.firebase.FirebaseRefs;
 import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
 import com.krescendos.player.CurrentlyPlayingAdapter;
 import com.krescendos.player.SeekBarNoChangeListener;
 import com.krescendos.player.UpNextAdapter;
+import com.krescendos.state.AllowSuggestionsChangeListener;
 import com.krescendos.state.CurrentlyPlayingChangeListener;
 import com.krescendos.state.PartyStateChangeListener;
 import com.krescendos.state.UpNextChangeListener;
@@ -95,7 +97,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         }, 0, UpdateTimer.REPEAT_TIME_MS);
 
         ImageButton add = (ImageButton) findViewById(R.id.client_add_button);
-        add.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener baseAddListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ClientPlayerActivity.this, SearchActivity.class);
@@ -103,7 +105,10 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
-        });
+        };
+        add.setOnClickListener(baseAddListener);
+
+        FirebaseRefs.getAllowSuggestionsRef(party.getPartyId()).addValueEventListener(new AllowSuggestionsChangeListener(ClientPlayerActivity.this, add, baseAddListener));
 
         if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()) {
             ConfirmDialog dialog = new ConfirmDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
