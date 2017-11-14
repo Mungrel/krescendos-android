@@ -3,15 +3,13 @@ package com.krescendos.input;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.krescendos.dialog.Toaster;
 
 public class UnimplementedInputListener implements View.OnClickListener, View.OnTouchListener {
 
-    private Context context;
     private static final String TOAST_TEXT = "Coming soon!";
+    private Context context;
 
     public UnimplementedInputListener(Context context) {
         this.context = context;
