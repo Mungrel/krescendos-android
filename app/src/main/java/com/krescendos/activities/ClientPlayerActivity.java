@@ -97,7 +97,7 @@ public class ClientPlayerActivity extends AppCompatActivity {
         }, 0, UpdateTimer.REPEAT_TIME_MS);
 
         ImageButton add = (ImageButton) findViewById(R.id.client_add_button);
-        add.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener baseAddListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ClientPlayerActivity.this, SearchActivity.class);
@@ -105,9 +105,10 @@ public class ClientPlayerActivity extends AppCompatActivity {
                 startActivityForResult(intent, SearchActivity.SEARCH_CODE);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
-        });
+        };
+        add.setOnClickListener(baseAddListener);
 
-        FirebaseRefs.getAllowSuggestionsRef(party.getPartyId()).addValueEventListener(new AllowSuggestionsChangeListener(add));
+        FirebaseRefs.getAllowSuggestionsRef(party.getPartyId()).addValueEventListener(new AllowSuggestionsChangeListener(ClientPlayerActivity.this, add, baseAddListener));
 
         if (party.getWelcomeMessage() != null && !party.getWelcomeMessage().isEmpty()) {
             ConfirmDialog dialog = new ConfirmDialog(ClientPlayerActivity.this, party.getName(), party.getWelcomeMessage());
