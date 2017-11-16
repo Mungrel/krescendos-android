@@ -70,8 +70,12 @@ public class CreateStartActivity extends AppCompatActivity {
 
         // Persist party ID locally for rejoining
         SharedPreferences pref = getApplicationContext().getSharedPreferences(PersistenceConstants.ID_PREFS, 0);
+
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(PersistenceConstants.LAST_ID_HOSTED, party.getPartyId());
+
+        editor.apply();
+
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);
