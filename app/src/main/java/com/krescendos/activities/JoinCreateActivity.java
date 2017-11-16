@@ -7,10 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Response;
 import com.krescendos.R;
 import com.krescendos.local.PersistenceConstants;
+import com.krescendos.model.Party;
+import com.krescendos.web.DefaultErrorListener;
+import com.krescendos.web.Requester;
 
 public class JoinCreateActivity extends AppCompatActivity {
+
+    private Intent rejoinAsHostIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,7 @@ public class JoinCreateActivity extends AppCompatActivity {
 
         Button joinButton = (Button) findViewById(R.id.joinButton);
         Button createButton = (Button) findViewById(R.id.createButton);
+        final Button rejoinButton = (Button) findViewById(R.id.rejoinButton);
 
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,12 +49,24 @@ public class JoinCreateActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(PersistenceConstants.ID_PREFS, 0);
         String lasthostedID = pref.getString(PersistenceConstants.LAST_ID_HOSTED, "");
 
-        if (lasthostedID.isEmpty()) {
-            // Default value, no previously hosted parties
+        if (!lasthostedID.isEmpty()) {
+            Requester.getInstance(JoinCreateActivity.this).join(lasthostedID, new Response.Listener<Party>() {
+                @Override
+                public void onResponse(Party response) {
+                    rejoinAsHostIntent = new Intent(JoinCreateActivity.this, HostPlayerActivity.class);
+                    rejoinAsHostIntent.putExtra("party", response);
 
-        } else {
-            // Check if the party still exists on Firebase
+                    rejoinButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(rejoinAsHostIntent);
+                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                        }
+                    });
 
+                    rejoinButton.setVisibility(View.VISIBLE);
+                }
+            }, new DefaultErrorListener());
         }
     }
 
