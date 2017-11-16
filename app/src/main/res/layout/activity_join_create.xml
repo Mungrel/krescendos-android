@@ -36,6 +36,7 @@
     <Button
         android:id="@+id/rejoinButton"
         style="@style/TextButton"
-        android:text="@string/rejoin_last_party_as_host" />
+        android:text="@string/rejoin_last_party_as_host"
+        android:visibility="invisible" />
 
 </LinearLayout>
