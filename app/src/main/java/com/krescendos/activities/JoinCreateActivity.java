@@ -47,7 +47,7 @@ public class JoinCreateActivity extends AppCompatActivity {
 
         } else {
             // Check if the party still exists on Firebase
-            
+
         }
     }
 
