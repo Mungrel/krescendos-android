@@ -1,6 +1,8 @@
 package com.krescendos.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -64,6 +66,11 @@ public class CreateStartActivity extends AppCompatActivity {
         code4.setText(String.format("%c", partyCode[3]));
         code5.setText(String.format("%c", partyCode[4]));
         code6.setText(String.format("%c", partyCode[5]));
+
+        // Persist party ID locally for rejoining
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Host", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("LastIDHosted", party.getPartyId());
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);
