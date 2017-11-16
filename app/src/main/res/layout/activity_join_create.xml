@@ -29,8 +29,14 @@
     <Button
         android:id="@+id/createButton"
         style="@style/TextButton"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="0dp"
         android:text="@string/create" />
+
+    <Button
+        android:id="@+id/rejoinButton"
+        style="@style/TextButton"
+        android:text="@string/rejoin_last_party_as_host"
+        android:visibility="invisible" />
 
 </LinearLayout>
