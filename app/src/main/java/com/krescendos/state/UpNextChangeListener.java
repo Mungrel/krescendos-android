@@ -38,7 +38,7 @@ public class UpNextChangeListener implements ChildEventListener {
         keys.add(insertionIndex, dataSnapshot.getKey());
 
         upNextAdapter.insertItem(insertionIndex, item);
-        upNextAdapter.setItemVoteCount(insertionIndex, item.getVoteCount());
+        upNextAdapter.setItemVoteCount(insertionIndex, item.getVoteCount() * -1);
     }
 
     @Override
