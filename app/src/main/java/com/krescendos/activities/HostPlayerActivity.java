@@ -195,22 +195,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             case REQUEST_CODE:
                 final AuthenticationResponse authenticationResponse = AuthenticationClient.getResponse(resultCode, intent);
                 if (authenticationResponse.getType() == AuthenticationResponse.Type.TOKEN) {
-                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
-                        @Override
-                        public void onResponse(Profile response) {
-                            if (!response.isPremiumUser()) {
-                                ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
-                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
-                                        new OnConfirmDialogCloseListener() {
-                                            @Override
-                                            public void onClose() {
-                                                finish();
-                                            }
-                                        });
-                                confirmDialog.show();
-                            }
-                        }
-                    });
                     Config playerConfig = new Config(this, authenticationResponse.getAccessToken(), CLIENT_ID);
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
@@ -223,10 +207,31 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
 
                             if (importPlaylist) {
-                                Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
-                                intent.putExtra("party", party);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+
+                                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
+                                        @Override
+                                        public void onResponse(Profile response) {
+                                            if (!response.isPremiumUser()) {
+                                                ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
+                                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
+                                                        new OnConfirmDialogCloseListener() {
+                                                            @Override
+                                                            public void onClose() {
+                                                                finish();
+                                                            }
+                                                        });
+                                                confirmDialog.show();
+                                            } else {
+                                                Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
+                                                intent.putExtra("party", party);
+                                                intent.putExtra("username", response.getUserID());
+
+                                                startActivity(intent);
+                                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                                            }
+                                        }
+                                    });
+                                
                             }
                         }
 
