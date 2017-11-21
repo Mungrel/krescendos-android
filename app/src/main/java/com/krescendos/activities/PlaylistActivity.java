@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.krescendos.R;
 import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
 import com.krescendos.playlist.PlaylistAdapter;
+import com.krescendos.search.SearchSpinner;
 import com.krescendos.web.Requester;
 
 import java.util.List;
@@ -40,11 +42,17 @@ public class PlaylistActivity extends AppCompatActivity {
         final ListView resultsView = (ListView) findViewById(R.id.playlists_list);
         resultsView.setAdapter(listAdapter);
 
+        ImageView icon = (ImageView) findViewById(R.id.playlist_icon_spinner);
+
+        final SearchSpinner spinner = new SearchSpinner(PlaylistActivity.this, icon);
+        spinner.start();
+
         Requester requester = Requester.getInstance(PlaylistActivity.this);
         requester.userPlaylists(spotifyUsername, new Response.Listener<List<Playlist>>() {
             @Override
             public void onResponse(List<Playlist> response) {
                 listAdapter.updateResults(response);
+                spinner.hide();
             }
         });
 

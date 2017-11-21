@@ -3,12 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.krescendos.activities.PlaylistActivity">
 
     <include
         android:id="@+id/search_toolbar"
         layout="@layout/toolbar_layout" />
+
+    <ImageView
+        android:id="@+id/playlist_icon_spinner"
+        android:layout_width="109dp"
+        android:layout_height="93dp"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/icon" />
 
     <ListView
         android:id="@+id/playlists_list"
