@@ -8,6 +8,7 @@ public class Playlist {
     private String name;
     private String owner;
     private List<Track> tracks;
+    private List<AlbumArt> images;
 
     public String getId() {
         return id;
@@ -39,6 +40,22 @@ public class Playlist {
 
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
+    }
+
+    public List<AlbumArt> getImages() {
+        return images;
+    }
+
+    public void setImages(List<AlbumArt> images) {
+        this.images = images;
+    }
+
+    public AlbumArt getSmallestImage() {
+        return images.get(images.size() - 1);
+    }
+
+    public AlbumArt getLargestImage() {
+        return images.get(0);
     }
 
     public int size() {
