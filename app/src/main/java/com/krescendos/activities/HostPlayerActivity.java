@@ -167,12 +167,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, receiver);
 
-        if (importPlaylist) {
-            Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
-            intent.putExtra("party", party);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-        }
+
     }
 
     private void refreshPlayBtn() {
@@ -226,6 +221,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
                             ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, party.getPartyId()));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
+
+                            if (importPlaylist) {
+                                Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
+                                intent.putExtra("party", party);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            }
                         }
 
                         @Override
