@@ -38,6 +38,7 @@ public class PlaylistTracksActivity extends AppCompatActivity {
         ListView resultsView = (ListView) findViewById(R.id.playlist_tracks_list);
         resultsView.setAdapter(listAdapter);
 
+        listAdapter.updateResults(playlist.getTracks());
     }
 
     @Override
