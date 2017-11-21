@@ -15,11 +15,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.activities.PlaylistTracksActivity;
-import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Playlist;
-import com.krescendos.model.Track;
-import com.krescendos.search.SearchTrackListAdapter;
-import com.krescendos.utils.TextUtils;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;

@@ -208,30 +208,30 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
                             if (importPlaylist) {
 
-                                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
-                                        @Override
-                                        public void onResponse(Profile response) {
-                                            if (!response.isPremiumUser()) {
-                                                ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
-                                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
-                                                        new OnConfirmDialogCloseListener() {
-                                                            @Override
-                                                            public void onClose() {
-                                                                finish();
-                                                            }
-                                                        });
-                                                confirmDialog.show();
-                                            } else {
-                                                Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
-                                                intent.putExtra("party", party);
-                                                intent.putExtra("username", response.getUserID());
+                                requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
+                                    @Override
+                                    public void onResponse(Profile response) {
+                                        if (!response.isPremiumUser()) {
+                                            ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
+                                                    "Spotify Premium", "A Spotify Premium account is required to host a party.",
+                                                    new OnConfirmDialogCloseListener() {
+                                                        @Override
+                                                        public void onClose() {
+                                                            finish();
+                                                        }
+                                                    });
+                                            confirmDialog.show();
+                                        } else {
+                                            Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
+                                            intent.putExtra("party", party);
+                                            intent.putExtra("username", response.getUserID());
 
-                                                startActivity(intent);
-                                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                                            }
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                                         }
-                                    });
-                                
+                                    }
+                                });
+
                             }
                         }
 

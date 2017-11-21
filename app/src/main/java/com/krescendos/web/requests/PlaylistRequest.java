@@ -7,7 +7,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
 import com.krescendos.web.DefaultErrorListener;
 import com.krescendos.web.LongTimeoutRetryPolicy;
@@ -26,7 +25,8 @@ public class PlaylistRequest extends JsonRequest<List<Playlist>> {
     protected Response<List<Playlist>> parseNetworkResponse(NetworkResponse response) {
         try {
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-            Type type = new TypeToken<List<Playlist>>() {}.getType();
+            Type type = new TypeToken<List<Playlist>>() {
+            }.getType();
             List<Playlist> playlists = new Gson().fromJson(jsonString, type);
             return Response.success(playlists, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
