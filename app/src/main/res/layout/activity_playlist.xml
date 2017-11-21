@@ -24,6 +24,15 @@
         android:visibility="gone"
         app:srcCompat="@drawable/icon" />
 
+    <TextView
+        android:id="@+id/playlists_none_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/no_public_playlists_found"
+        android:textAppearance="@style/BodyText"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/playlists_list"
         android:layout_width="match_parent"

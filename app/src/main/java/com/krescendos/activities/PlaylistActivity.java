@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class PlaylistActivity extends AppCompatActivity {
 
         ImageView icon = (ImageView) findViewById(R.id.playlist_icon_spinner);
 
+        final TextView noneFound = (TextView) findViewById(R.id.playlists_none_found);
+
         final SearchSpinner spinner = new SearchSpinner(PlaylistActivity.this, icon);
         spinner.start();
 
@@ -52,8 +55,13 @@ public class PlaylistActivity extends AppCompatActivity {
         requester.userPlaylists(spotifyUsername, new Response.Listener<List<Playlist>>() {
             @Override
             public void onResponse(List<Playlist> response) {
-                listAdapter.updateResults(response);
                 spinner.hide();
+
+                if (response.isEmpty()) {
+                    noneFound.setVisibility(View.VISIBLE);
+                } else {
+                    listAdapter.updateResults(response);
+                }
             }
         });
 
