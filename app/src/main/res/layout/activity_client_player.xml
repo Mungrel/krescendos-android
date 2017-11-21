@@ -85,6 +85,8 @@
             android:id="@+id/client_playerList"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:divider="@drawable/list_divider"
+            android:showDividers="middle"
             android:orientation="vertical" />
 
     </LinearLayout>

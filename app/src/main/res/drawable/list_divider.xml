@@ -3,6 +3,7 @@
     android:insetRight="50dp">
 
     <shape android:shape="rectangle">
+        <size android:height="1dp"/>
         <solid android:color="@color/colorButtonText" />
     </shape>
 
