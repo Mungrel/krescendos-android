@@ -3,6 +3,7 @@ package com.krescendos.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,5 +48,17 @@ public class PlaylistActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
