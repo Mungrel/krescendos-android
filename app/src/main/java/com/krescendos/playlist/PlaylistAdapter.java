@@ -99,7 +99,6 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
         holder.expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.expandButton.setImageResource(R.drawable.check);
                 Intent intent = new Intent(context, PlaylistTracksActivity.class);
                 intent.putExtra("playlist", new Gson().toJson(playlists.get(position)));
                 context.startActivity(intent);
