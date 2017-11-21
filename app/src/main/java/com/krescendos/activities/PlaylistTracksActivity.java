@@ -12,7 +12,10 @@ import com.krescendos.R;
 import com.krescendos.input.Keyboard;
 import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
+import com.krescendos.model.Track;
 import com.krescendos.search.SearchTrackListAdapter;
+
+import java.util.ArrayList;
 
 public class PlaylistTracksActivity extends AppCompatActivity {
 
@@ -33,7 +36,7 @@ public class PlaylistTracksActivity extends AppCompatActivity {
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(playlist.getName());
 
-        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(PlaylistTracksActivity.this, playlist.getTracks(), partyID);
+        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(PlaylistTracksActivity.this, new ArrayList<Track>(), partyID);
 
         ListView resultsView = (ListView) findViewById(R.id.playlist_tracks_list);
         resultsView.setAdapter(listAdapter);
