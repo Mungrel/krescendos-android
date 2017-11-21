@@ -10,4 +10,10 @@
         android:id="@+id/playlist_tracks_toolbar"
         layout="@layout/toolbar_layout" />
 
+    <ListView
+        android:id="@+id/playlist_tracks_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null" />
+
 </android.support.constraint.ConstraintLayout>

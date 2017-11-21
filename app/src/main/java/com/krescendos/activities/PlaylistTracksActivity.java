@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -27,9 +28,15 @@ public class PlaylistTracksActivity extends AppCompatActivity {
         }
 
         Playlist playlist = new Gson().fromJson(getIntent().getStringExtra("playlist"), Playlist.class);
+        Party party = getIntent().getExtras().getParcelable("party");
 
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(playlist.getName());
+
+        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(PlaylistTracksActivity.this, playlist.getTracks(), party.getPartyId());
+
+        ListView resultsView = (ListView) findViewById(R.id.playlist_tracks_list);
+        resultsView.setAdapter(listAdapter);
 
     }
 
