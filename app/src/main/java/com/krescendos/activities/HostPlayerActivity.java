@@ -59,6 +59,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackPlayer mPlayer;
     private Requester requester;
     private Party party;
+    private boolean importPlaylist;
     private DatabaseReference ref;
 
     private ImageButton playButton;
@@ -72,6 +73,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         setContentView(R.layout.activity_host_player);
 
         party = getIntent().getExtras().getParcelable("party");
+
+        importPlaylist = getIntent().getBooleanExtra("import", false);
 
         requester = Requester.getInstance(HostPlayerActivity.this);
 
@@ -163,6 +166,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
 
         NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, receiver);
+
+
     }
 
     private void refreshPlayBtn() {
@@ -190,22 +195,6 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
             case REQUEST_CODE:
                 final AuthenticationResponse authenticationResponse = AuthenticationClient.getResponse(resultCode, intent);
                 if (authenticationResponse.getType() == AuthenticationResponse.Type.TOKEN) {
-                    requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
-                        @Override
-                        public void onResponse(Profile response) {
-                            if (!response.isPremiumUser()) {
-                                ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
-                                        "Spotify Premium", "A Spotify Premium account is required to host a party.",
-                                        new OnConfirmDialogCloseListener() {
-                                            @Override
-                                            public void onClose() {
-                                                finish();
-                                            }
-                                        });
-                                confirmDialog.show();
-                            }
-                        }
-                    });
                     Config playerConfig = new Config(this, authenticationResponse.getAccessToken(), CLIENT_ID);
                     Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                         @Override
@@ -216,7 +205,36 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             ref.child("playlist").orderByChild("voteCount").addChildEventListener(new UpNextChangeListener(upNextAdapter));
                             ref.child("currentlyPlaying").addValueEventListener(new CurrentlyPlayingChangeListener(currentlyPlayingAdapter, mPlayer, party.getPartyId()));
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
+
+
+                            requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
+                                @Override
+                                public void onResponse(Profile response) {
+                                    if (!response.isPremiumUser()) {
+                                        ConfirmDialog confirmDialog = new ConfirmDialog(HostPlayerActivity.this,
+                                                "Spotify Premium", "A Spotify Premium account is required to host a party.",
+                                                new OnConfirmDialogCloseListener() {
+                                                    @Override
+                                                    public void onClose() {
+                                                        finish();
+                                                    }
+                                                });
+                                        confirmDialog.show();
+                                    } else {
+                                        if (importPlaylist) {
+                                            Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
+                                            intent.putExtra("party", party);
+                                            intent.putExtra("username", response.getUserID());
+
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                                        }
+                                    }
+                                }
+                            });
+
                         }
+
 
                         @Override
                         public void onError(Throwable throwable) {

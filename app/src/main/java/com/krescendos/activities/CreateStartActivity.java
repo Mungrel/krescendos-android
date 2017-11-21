@@ -81,8 +81,18 @@ public class CreateStartActivity extends AppCompatActivity {
         Button krescendosRecommend = (Button) findViewById(R.id.krescendos_recommend_button);
         Button addSongsManually = (Button) findViewById(R.id.manual_add_button);
 
-        importSpotifyPlaylist.setOnClickListener(new UnimplementedInputListener(this));
         krescendosRecommend.setOnClickListener(new UnimplementedInputListener(this));
+
+        importSpotifyPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateStartActivity.this, HostPlayerActivity.class);
+                intent.putExtra("party", party);
+                intent.putExtra("import", true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            }
+        });
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +111,7 @@ public class CreateStartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CreateStartActivity.this, HostPlayerActivity.class);
                 intent.putExtra("party", party);
+                intent.putExtra("import", false);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }

@@ -9,11 +9,13 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.krescendos.model.Party;
+import com.krescendos.model.Playlist;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.requests.CreateRequest;
 import com.krescendos.web.requests.JoinRequest;
+import com.krescendos.web.requests.PlaylistRequest;
 import com.krescendos.web.requests.PollPostLearnerRequest;
 import com.krescendos.web.requests.ProfileRequest;
 import com.krescendos.web.requests.RecommendRequest;
@@ -104,6 +106,16 @@ public class Requester {
         String url = builder.build().toString();
 
         PollPostLearnerRequest request = new PollPostLearnerRequest(url, userSelection, responseListener);
+        requestQueue.add(request);
+    }
+
+    public void userPlaylists(String username, Response.Listener<List<Playlist>> responseListener) {
+        Uri.Builder builder = getBaseBuilder();
+        builder.appendPath("playlists");
+        builder.appendQueryParameter("username", username);
+        String url = builder.build().toString();
+
+        PlaylistRequest request = new PlaylistRequest(url, responseListener);
         requestQueue.add(request);
     }
 

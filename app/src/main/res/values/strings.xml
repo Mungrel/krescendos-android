@@ -39,4 +39,8 @@
     <string name="you_ll_need_a_spotify_premium_account_to_host_a_party">You\'ll need a Spotify Premium account to host a party</string>
     <string name="_0">0</string>
     <string name="rejoin_last_party_as_host">Rejoin last party as host</string>
+    <string name="playlists_title">\'s Playlists</string>
+    <string name="playlist_size">playlist_size</string>
+    <string name="playlist_name">playlist_name</string>
+    <string name="no_public_playlists_found">No public playlists found</string>
 </resources>

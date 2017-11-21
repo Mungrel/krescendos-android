@@ -30,8 +30,8 @@ public class ProfileRequest extends JsonRequest<Profile> {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-            return Response.success(new Gson().fromJson(jsonString, Profile.class),
-                    HttpHeaderParser.parseCacheHeaders(response));
+            Profile profile = new Gson().fromJson(jsonString, Profile.class);
+            return Response.success(profile, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         }
