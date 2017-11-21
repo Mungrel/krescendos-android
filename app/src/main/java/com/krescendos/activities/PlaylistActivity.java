@@ -36,7 +36,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
         final PlaylistAdapter listAdapter = new PlaylistAdapter(PlaylistActivity.this);
 
-        final ListView resultsView = (ListView) findViewById(R.id.search_result_list);
+        final ListView resultsView = (ListView) findViewById(R.id.playlists_list);
         resultsView.setAdapter(listAdapter);
 
         Requester requester = Requester.getInstance(PlaylistActivity.this);
