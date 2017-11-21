@@ -59,6 +59,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
     private TrackPlayer mPlayer;
     private Requester requester;
     private Party party;
+    private boolean importPlaylist;
     private DatabaseReference ref;
 
     private ImageButton playButton;
@@ -72,6 +73,8 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         setContentView(R.layout.activity_host_player);
 
         party = getIntent().getExtras().getParcelable("party");
+
+        importPlaylist = getIntent().getBooleanExtra("import", false);
 
         requester = Requester.getInstance(HostPlayerActivity.this);
 
@@ -163,6 +166,13 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
         });
 
         NetworkUtil.registerConnectivityReceiver(HostPlayerActivity.this, receiver);
+
+        if (importPlaylist) {
+            Intent intent = new Intent(HostPlayerActivity.this, PlaylistActivity.class);
+            intent.putExtra("party", party);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+        }
     }
 
     private void refreshPlayBtn() {
