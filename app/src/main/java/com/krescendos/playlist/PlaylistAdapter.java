@@ -75,11 +75,11 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
         final PlaylistAdapter.ViewHolder holder;
         if (convertView == null) {
             holder = new PlaylistAdapter.ViewHolder();
-            convertView = mInflater.inflate(R.layout.search_list_layout, parent, false);
-            holder.playlistName = convertView.findViewById(R.id.search_list_track_name);
-            holder.playlistSize = convertView.findViewById(R.id.search_list_artist_album);
-            holder.playlistArt = convertView.findViewById(R.id.search_list_album_art);
-            holder.expandButton = convertView.findViewById(R.id.search_list_add_button);
+            convertView = mInflater.inflate(R.layout.playlist_list_layout, parent, false);
+            holder.playlistName = convertView.findViewById(R.id.playlist_name);
+            holder.playlistSize = convertView.findViewById(R.id.playlist_size);
+            holder.playlistArt = convertView.findViewById(R.id.playlist_art);
+            holder.expandButton = convertView.findViewById(R.id.playlist_expand_button);
 
             convertView.setTag(holder);
 
@@ -91,7 +91,6 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
         holder.playlistSize.setText(String.format("%d %s", playlist.size(), "tracks"));
         holder.playlistArt.setImageUrl(playlist.getSmallestImage().getUrl(), requester.getImageLoader());
 
-        holder.expandButton.setImageResource(R.drawable.add);
         holder.pos = position;
 
         holder.expandButton.setOnClickListener(new View.OnClickListener() {
