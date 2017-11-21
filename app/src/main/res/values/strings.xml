@@ -40,4 +40,6 @@
     <string name="_0">0</string>
     <string name="rejoin_last_party_as_host">Rejoin last party as host</string>
     <string name="playlists_title">\'s Playlists</string>
+    <string name="playlist_size">playlist_size</string>
+    <string name="playlist_name">playlist_name</string>
 </resources>
