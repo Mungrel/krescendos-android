@@ -33,11 +33,12 @@ public class PlaylistActivity extends AppCompatActivity {
         }
 
         String spotifyUsername = getIntent().getStringExtra("username");
+        Party party = getIntent().getExtras().getParcelable("party");
 
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(String.format("%s%s", spotifyUsername, getString(R.string.playlists_title)));
 
-        final PlaylistAdapter listAdapter = new PlaylistAdapter(PlaylistActivity.this);
+        final PlaylistAdapter listAdapter = new PlaylistAdapter(PlaylistActivity.this, party.getPartyId());
 
         final ListView resultsView = (ListView) findViewById(R.id.playlists_list);
         resultsView.setAdapter(listAdapter);

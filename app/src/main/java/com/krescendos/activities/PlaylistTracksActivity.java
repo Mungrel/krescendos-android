@@ -28,12 +28,12 @@ public class PlaylistTracksActivity extends AppCompatActivity {
         }
 
         Playlist playlist = new Gson().fromJson(getIntent().getStringExtra("playlist"), Playlist.class);
-        Party party = getIntent().getExtras().getParcelable("party");
+        String partyID = getIntent().getStringExtra("partyID");
 
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
         toolbarTitle.setText(playlist.getName());
 
-        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(PlaylistTracksActivity.this, playlist.getTracks(), party.getPartyId());
+        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(PlaylistTracksActivity.this, playlist.getTracks(), partyID);
 
         ListView resultsView = (ListView) findViewById(R.id.playlist_tracks_list);
         resultsView.setAdapter(listAdapter);

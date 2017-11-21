@@ -31,13 +31,15 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
     private LayoutInflater mInflater;
     private Requester requester;
     private Context context;
+    private String partyID;
 
-    public PlaylistAdapter(Context context) {
+    public PlaylistAdapter(Context context, String partyID) {
         super(context, R.layout.player_list_layout);
         this.mInflater = LayoutInflater.from(context);
         this.requester = Requester.getInstance(context);
         this.playlists = new ArrayList<>();
         this.context = context;
+        this.partyID = partyID;
     }
 
     @Override
@@ -101,6 +103,7 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlaylistTracksActivity.class);
                 intent.putExtra("playlist", new Gson().toJson(playlists.get(position)));
+                intent.putExtra("partyID", partyID);
                 context.startActivity(intent);
                 ((Activity) context).overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
