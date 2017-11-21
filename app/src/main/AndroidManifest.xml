@@ -35,7 +35,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RecommendationInputActivity" />
-        <activity android:name=".activities.PlaylistActivity"></activity>
+        <activity android:name=".activities.PlaylistActivity" />
+        <activity android:name=".activities.PlaylistTracksActivity"></activity>
     </application>
 
 </manifest>
