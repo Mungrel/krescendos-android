@@ -1,6 +1,8 @@
 package com.krescendos.playlist;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.gson.Gson;
 import com.krescendos.R;
+import com.krescendos.activities.PlaylistTracksActivity;
 import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Playlist;
 import com.krescendos.model.Track;
@@ -26,12 +30,14 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
     private List<Playlist> playlists;
     private LayoutInflater mInflater;
     private Requester requester;
+    private Context context;
 
     public PlaylistAdapter(Context context) {
         super(context, R.layout.player_list_layout);
         this.mInflater = LayoutInflater.from(context);
         this.requester = Requester.getInstance(context);
         this.playlists = new ArrayList<>();
+        this.context = context;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         final PlaylistAdapter.ViewHolder holder;
         if (convertView == null) {
             holder = new PlaylistAdapter.ViewHolder();
@@ -94,6 +100,10 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
             @Override
             public void onClick(View view) {
                 holder.expandButton.setImageResource(R.drawable.check);
+                Intent intent = new Intent(context, PlaylistTracksActivity.class);
+                intent.putExtra("playlist", new Gson().toJson(playlists.get(position)));
+                context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
 

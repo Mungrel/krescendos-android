@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.model.Party;
+import com.krescendos.model.Playlist;
 
 public class PlaylistTracksActivity extends AppCompatActivity {
 
@@ -22,6 +23,11 @@ public class PlaylistTracksActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        Playlist playlist = new Gson().fromJson(getIntent().getStringExtra("playlist"), Playlist.class);
+
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
+        toolbarTitle.setText(playlist.getName());
+
+
     }
 }
