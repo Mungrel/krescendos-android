@@ -40,4 +40,8 @@ public class Playlist {
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
+
+    public int size() {
+        return tracks.size();
+    }
 }
