@@ -50,7 +50,7 @@ public class PlaylistActivity extends AppCompatActivity {
         final SearchSpinner spinner = new SearchSpinner(PlaylistActivity.this, icon);
         spinner.start();
 
-        Requester requester = Requester.getInstance(PlaylistActivity.this);
+        Requester requester = Requester.getInstance();
         requester.userPlaylists(spotifyUsername, new Response.Listener<List<Playlist>>() {
             @Override
             public void onResponse(List<Playlist> response) {

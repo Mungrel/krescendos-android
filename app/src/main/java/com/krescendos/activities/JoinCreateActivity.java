@@ -50,7 +50,7 @@ public class JoinCreateActivity extends AppCompatActivity {
         String lasthostedID = pref.getString(PersistenceConstants.LAST_ID_HOSTED, "");
 
         if (!lasthostedID.isEmpty()) {
-            Requester.getInstance(JoinCreateActivity.this).join(lasthostedID, new Response.Listener<Party>() {
+            Requester.getInstance().join(lasthostedID, new Response.Listener<Party>() {
                 @Override
                 public void onResponse(Party response) {
                     rejoinAsHostIntent = new Intent(JoinCreateActivity.this, HostPlayerActivity.class);

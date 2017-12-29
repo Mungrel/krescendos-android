@@ -8,11 +8,11 @@ import com.android.volley.toolbox.Volley;
 
 public class ImageHandler {
     private static ImageHandler instance;
-    private ImageLoader loader;
+    private ImageLoader imageLoader;
 
     private ImageHandler(Context context){
         RequestQueue queue = Volley.newRequestQueue(context);
-        loader = new ImageLoader(queue, new ImageCache());
+        imageLoader = new ImageLoader(queue, new ImageCache());
     }
 
     public static ImageHandler getInstance(Context context) {
@@ -23,7 +23,7 @@ public class ImageHandler {
         return instance;
     }
 
-    public ImageLoader getLoader() {
-        return loader;
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 }

@@ -76,7 +76,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
 
         importPlaylist = getIntent().getBooleanExtra("import", false);
 
-        requester = Requester.getInstance(HostPlayerActivity.this);
+        requester = Requester.getInstance();
 
         ref = FirebaseDatabase.getInstance().getReference("party").child(party.getPartyId()).orderByKey().getRef();
 

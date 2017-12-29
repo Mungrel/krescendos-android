@@ -13,7 +13,7 @@ public class SearchTextWatcher implements TextWatcher {
     private SearchSpinner searchSpinner;
 
     public SearchTextWatcher(Context context, SearchTrackListAdapter adapter, SearchSpinner searchSpinner) {
-        this.requester = Requester.getInstance(context);
+        this.requester = Requester.getInstance();
         this.adapter = adapter;
         this.searchSpinner = searchSpinner;
     }
@@ -25,7 +25,6 @@ public class SearchTextWatcher implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String term = charSequence.toString();
-        requester.cancelAll();
         if (term.isEmpty()) {
             searchSpinner.hide();
         } else {
