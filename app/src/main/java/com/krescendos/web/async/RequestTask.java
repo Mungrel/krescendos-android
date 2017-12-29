@@ -10,13 +10,17 @@ import com.mashape.unirest.request.HttpRequest;
 import java.lang.reflect.Type;
 
 public class RequestTask<T> extends AsyncTask<Void, Void, T> {
-    private AsyncResponseListener<T> responseListener;
+
     private HttpRequest request;
+    private AsyncResponseListener<T> responseListener;
 
-
-    public RequestTask(AsyncResponseListener<T> responseListener, HttpRequest request) {
-        this.responseListener = responseListener;
+    public RequestTask(HttpRequest request) {
         this.request = request;
+    }
+
+    public RequestTask(HttpRequest request, AsyncResponseListener<T> responseListener) {
+        this.request = request;
+        this.responseListener = responseListener;
     }
 
     @Override
@@ -35,6 +39,8 @@ public class RequestTask<T> extends AsyncTask<Void, Void, T> {
 
     @Override
     protected void onPostExecute(T result) {
-        responseListener.onResponse(result);
+        if (responseListener != null && result != null) {
+            responseListener.onResponse(result);
+        }
     }
 }
