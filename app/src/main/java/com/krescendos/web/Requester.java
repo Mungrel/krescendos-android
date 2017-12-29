@@ -20,10 +20,20 @@ import java.util.List;
 public class Requester {
 
     private static final String BASE_URL = "api.kres.io";
+    private static Requester instance;
+
     private Gson gson;
 
     private Requester() {
         this.gson = new Gson();
+    }
+
+    public static Requester getInstance() {
+        if (instance == null) {
+            instance = new Requester();
+        }
+
+        return instance;
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
