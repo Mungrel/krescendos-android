@@ -20,6 +20,7 @@ import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 import com.krescendos.web.network.ConnectionLostListener;
 import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
@@ -62,25 +63,13 @@ public class CreateDetailsActivity extends AppCompatActivity {
                 errorText.setVisibility(View.INVISIBLE);
                 partyCreate.setEnabled(false);
                 partyCreate.setText(R.string.connecting);
-                requester.create(name, welcomeMessage, othersSuggest.isChecked(), new Response.Listener<Party>() {
+                requester.create(name, welcomeMessage, othersSuggest.isChecked(), new AsyncResponseListener<Party>() {
                     @Override
                     public void onResponse(Party response) {
                         Intent intent = new Intent(CreateDetailsActivity.this, CreateStartActivity.class);
                         intent.putExtra("party", response);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                        partyCreate.setEnabled(true);
-                        partyCreate.setText(R.string.create_short);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Error error = Error.fromVolleyError(volleyError);
-                        if (error != null) {
-                            Log.e("ERROR", error.getStatus() + ": " + error.getMessage());
-                            errorText.setText(error.getUserMessage());
-                        }
-                        errorText.setVisibility(View.VISIBLE);
                         partyCreate.setEnabled(true);
                         partyCreate.setText(R.string.create_short);
                     }

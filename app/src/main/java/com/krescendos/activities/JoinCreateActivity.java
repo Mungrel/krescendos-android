@@ -13,6 +13,7 @@ import com.krescendos.local.PersistenceConstants;
 import com.krescendos.model.Party;
 import com.krescendos.web.DefaultErrorListener;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 
 public class JoinCreateActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class JoinCreateActivity extends AppCompatActivity {
         String lasthostedID = pref.getString(PersistenceConstants.LAST_ID_HOSTED, "");
 
         if (!lasthostedID.isEmpty()) {
-            Requester.getInstance().join(lasthostedID, new Response.Listener<Party>() {
+            Requester.getInstance().join(lasthostedID, new AsyncResponseListener<Party>() {
                 @Override
                 public void onResponse(Party response) {
                     rejoinAsHostIntent = new Intent(JoinCreateActivity.this, HostPlayerActivity.class);

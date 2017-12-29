@@ -16,6 +16,7 @@ import com.krescendos.model.Playlist;
 import com.krescendos.playlist.PlaylistAdapter;
 import com.krescendos.search.SearchSpinner;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class PlaylistActivity extends AppCompatActivity {
         spinner.start();
 
         Requester requester = Requester.getInstance();
-        requester.userPlaylists(spotifyUsername, new Response.Listener<List<Playlist>>() {
+        requester.userPlaylists(spotifyUsername, new AsyncResponseListener<List<Playlist>>() {
             @Override
             public void onResponse(List<Playlist> response) {
                 spinner.hide();

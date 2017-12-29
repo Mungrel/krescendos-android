@@ -33,6 +33,7 @@ import com.krescendos.state.UpNextChangeListener;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.utils.TimeUtils;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 import com.krescendos.web.network.ConnectionLostListener;
 import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
@@ -207,7 +208,7 @@ public class HostPlayerActivity extends AppCompatActivity implements ConnectionS
                             ref.child("partyStateUpdateRequested").addValueEventListener(new StateUpdateRequestListener(party.getPartyId(), mPlayer));
 
 
-                            requester.isPremiumUser(authenticationResponse.getAccessToken(), new Response.Listener<Profile>() {
+                            requester.isPremiumUser(authenticationResponse.getAccessToken(), new AsyncResponseListener<Profile>() {
                                 @Override
                                 public void onResponse(Profile response) {
                                     if (!response.isPremiumUser()) {

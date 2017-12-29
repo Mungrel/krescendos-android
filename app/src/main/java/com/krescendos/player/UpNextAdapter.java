@@ -17,6 +17,7 @@ import com.krescendos.input.LikeButtonClickListener;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.utils.TextUtils;
+import com.krescendos.web.ImageHandler;
 import com.krescendos.web.Requester;
 
 
@@ -77,7 +78,7 @@ public class UpNextAdapter {
 
         trackName.setText(track.getName());
         artistAlbum.setText(TextUtils.join(track.getArtists()));
-        albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), Requester.getInstance(context).getImageLoader());
+        albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), ImageHandler.getInstance(context).getImageLoader());
 
         if (index >= upNextLayout.getChildCount()) {
             upNextLayout.addView(listItem);

@@ -21,6 +21,7 @@ import com.krescendos.input.TextChangeListener;
 import com.krescendos.model.Error;
 import com.krescendos.model.Party;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 import com.krescendos.web.network.ConnectionLostListener;
 import com.krescendos.web.network.NetworkChangeReceiver;
 import com.krescendos.web.network.NetworkUtil;
@@ -75,7 +76,7 @@ public class JoinActivity extends AppCompatActivity {
                 text += text6.getText().toString();
 
                 errorText.setVisibility(View.INVISIBLE);
-                requester.join(text, new Response.Listener<Party>() {
+                requester.join(text, new AsyncResponseListener<Party>() {
                     @Override
                     public void onResponse(Party response) {
                         Intent intent = new Intent(JoinActivity.this, ClientPlayerActivity.class);
