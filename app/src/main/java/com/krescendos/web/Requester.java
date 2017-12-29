@@ -1,78 +1,55 @@
 package com.krescendos.web;
 
-import android.content.Context;
 import android.net.Uri;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
 import com.krescendos.model.Profile;
 import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
-import com.krescendos.web.requests.CreateRequest;
-import com.krescendos.web.requests.JoinRequest;
-import com.krescendos.web.requests.PlaylistRequest;
-import com.krescendos.web.requests.PollPostLearnerRequest;
-import com.krescendos.web.requests.ProfileRequest;
-import com.krescendos.web.requests.RecommendRequest;
-import com.krescendos.web.requests.SearchRequest;
+import com.krescendos.web.async.AsyncResponseListener;
+import com.krescendos.web.async.RequestTask;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.request.GetRequest;
+import com.mashape.unirest.request.HttpRequestWithBody;
 
 import java.util.List;
 
 public class Requester {
 
     private static final String BASE_URL = "api.kres.io";
-    private static ImageLoader imageLoader;
-    private static Requester instance;
-    private RequestQueue requestQueue;
+    private Gson gson;
 
-    private Requester(Context context) {
-        requestQueue = Volley.newRequestQueue(context);
-
-        imageLoader = new ImageLoader(requestQueue, new ImageCache());
-    }
-
-    public static Requester getInstance(Context context) {
-        if (instance == null) {
-            instance = new Requester(context);
-        }
-        return instance;
-    }
-
-    public void cancelAll() {
-        requestQueue.cancelAll(new RequestQueue.RequestFilter() {
-            @Override
-            public boolean apply(Request<?> request) {
-                return true;
-            }
-        });
+    private Requester() {
+        this.gson = new Gson();
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
-    public void recommend(SpotifySeedCollection collection, Response.Listener<List<Track>> listener) {
+    public void recommend(SpotifySeedCollection collection, AsyncResponseListener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("recommend");
         String url = builder.build().toString();
 
-        RecommendRequest request = new RecommendRequest(url, collection, listener);
+        HttpRequestWithBody request = Unirest.post(url);
+        request.body(gson.toJson(collection));
 
-        requestQueue.add(request);
+        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, listener);
+        task.execute();
     }
 
-    public void search(String searchTerm, Response.Listener<List<Track>> listener) {
+    public void search(String searchTerm, AsyncResponseListener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("search").appendQueryParameter("k", searchTerm);
         String url = builder.build().toString();
 
-        SearchRequest searchRequest = new SearchRequest(url, listener);
-        requestQueue.add(searchRequest);
+        GetRequest request = Unirest.get(url);
+        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, listener);
+        task.execute();
     }
 
-    public void create(String partyName, String welcomeMessage, boolean allowSuggestions, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
+    public void create(String partyName, String welcomeMessage, boolean allowSuggestions, AsyncResponseListener<Party> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("party").appendQueryParameter("name", partyName);
         if (welcomeMessage != null && !welcomeMessage.isEmpty()) {
@@ -82,45 +59,44 @@ public class Requester {
 
         String url = builder.build().toString();
 
-        CreateRequest request = new CreateRequest(url, listener);
-        requestQueue.add(request);
+        HttpRequestWithBody request = Unirest.put(url);
+        RequestTask<Party> task = new RequestTask<Party>(request, listener);
+        task.execute();
     }
 
-    public void join(String code, Response.Listener<Party> listener, Response.ErrorListener errorListener) {
+    public void join(String code, AsyncResponseListener<Party> listener, Response.ErrorListener errorListener) {
         Uri.Builder builder = getBaseBuilder();
         builder.path("party").appendQueryParameter("id", code);
         String url = builder.build().toString();
 
-        JoinRequest request = new JoinRequest(url, listener, errorListener);
-        requestQueue.add(request);
+        GetRequest request = Unirest.get(url);
+        RequestTask<Party> task = new RequestTask<Party>(request, listener);
     }
 
-    public void isPremiumUser(String userAccessToken, Response.Listener<Profile> responseListener) {
-        ProfileRequest profileRequest = new ProfileRequest(userAccessToken, responseListener);
-        requestQueue.add(profileRequest);
+    public void isPremiumUser(String userAccessToken, AsyncResponseListener<Profile> listener) {
+        GetRequest request = Unirest.get("https://api.spotify.com/v1/me");
+        request.header("Authorization", "Bearer " + userAccessToken);
+
+        RequestTask<Profile> task = new RequestTask<Profile>(request, listener);
     }
 
-    public void pollPostLearner(List<String> userSelection, Response.Listener<List<String>> responseListener) {
+    public void pollPostLearner(List<String> userSelection, AsyncResponseListener<List<String>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("kurtis");
         String url = builder.build().toString();
 
-        PollPostLearnerRequest request = new PollPostLearnerRequest(url, userSelection, responseListener);
-        requestQueue.add(request);
+        HttpRequestWithBody request = Unirest.post(url);
+        RequestTask<List<String>> task = new RequestTask<List<String>>(request, listener);
     }
 
-    public void userPlaylists(String username, Response.Listener<List<Playlist>> responseListener) {
+    public void userPlaylists(String username, AsyncResponseListener<List<Playlist>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("playlists");
         builder.appendQueryParameter("username", username);
         String url = builder.build().toString();
 
-        PlaylistRequest request = new PlaylistRequest(url, responseListener);
-        requestQueue.add(request);
-    }
-
-    public ImageLoader getImageLoader() {
-        return imageLoader;
+        HttpRequestWithBody request = Unirest.put(url);
+        RequestTask<List<Playlist>> task = new RequestTask<List<Playlist>>(request, listener);
     }
 
     private Uri.Builder getBaseBuilder() {
