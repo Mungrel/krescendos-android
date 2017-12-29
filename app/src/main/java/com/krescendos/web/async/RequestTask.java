@@ -3,7 +3,6 @@ package com.krescendos.web.async;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 
@@ -13,13 +12,15 @@ public class RequestTask<T> extends AsyncTask<Void, Void, T> {
 
     private HttpRequest request;
     private AsyncResponseListener<T> responseListener;
+    private Type typeOfT;
 
-    public RequestTask(HttpRequest request) {
+    public RequestTask(HttpRequest request, Type typeOfT) {
         this.request = request;
+        this.typeOfT = typeOfT;
     }
 
-    public RequestTask(HttpRequest request, AsyncResponseListener<T> responseListener) {
-        this.request = request;
+    public RequestTask(HttpRequest request, Type typeOfT, AsyncResponseListener<T> responseListener) {
+        this(request, typeOfT);
         this.responseListener = responseListener;
     }
 
@@ -32,9 +33,7 @@ public class RequestTask<T> extends AsyncTask<Void, Void, T> {
             e.printStackTrace();
         }
 
-        Type type = new TypeToken<T>(){}.getType();
-
-        return new Gson().fromJson(response, type);
+        return new Gson().fromJson(response, typeOfT);
     }
 
     @Override

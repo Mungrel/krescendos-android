@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.android.volley.Response;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
 import com.krescendos.model.Profile;
@@ -11,10 +12,12 @@ import com.krescendos.model.SpotifySeedCollection;
 import com.krescendos.model.Track;
 import com.krescendos.web.async.AsyncResponseListener;
 import com.krescendos.web.async.RequestTask;
+import com.krescendos.web.async.Types;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.GetRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class Requester {
@@ -45,7 +48,7 @@ public class Requester {
         HttpRequestWithBody request = Unirest.post(url);
         request.body(gson.toJson(collection));
 
-        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, listener);
+        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
     }
 
@@ -55,7 +58,8 @@ public class Requester {
         String url = builder.build().toString();
 
         GetRequest request = Unirest.get(url);
-        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, listener);
+        Type type = new TypeToken<List<Track>>(){}.getType();
+        RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
     }
 
@@ -70,7 +74,7 @@ public class Requester {
         String url = builder.build().toString();
 
         HttpRequestWithBody request = Unirest.put(url);
-        RequestTask<Party> task = new RequestTask<Party>(request, listener);
+        RequestTask<Party> task = new RequestTask<Party>(request, Types.PARTY, listener);
         task.execute();
     }
 
@@ -80,14 +84,14 @@ public class Requester {
         String url = builder.build().toString();
 
         GetRequest request = Unirest.get(url);
-        RequestTask<Party> task = new RequestTask<Party>(request, listener);
+        RequestTask<Party> task = new RequestTask<Party>(request, Types.PARTY, listener);
     }
 
     public void isPremiumUser(String userAccessToken, AsyncResponseListener<Profile> listener) {
         GetRequest request = Unirest.get("https://api.spotify.com/v1/me");
         request.header("Authorization", "Bearer " + userAccessToken);
 
-        RequestTask<Profile> task = new RequestTask<Profile>(request, listener);
+        RequestTask<Profile> task = new RequestTask<Profile>(request, Types.PROFILE, listener);
     }
 
     public void pollPostLearner(List<String> userSelection, AsyncResponseListener<List<String>> listener) {
@@ -96,7 +100,7 @@ public class Requester {
         String url = builder.build().toString();
 
         HttpRequestWithBody request = Unirest.post(url);
-        RequestTask<List<String>> task = new RequestTask<List<String>>(request, listener);
+        RequestTask<List<String>> task = new RequestTask<List<String>>(request, Types.LIST_STRING, listener);
     }
 
     public void userPlaylists(String username, AsyncResponseListener<List<Playlist>> listener) {
@@ -106,7 +110,7 @@ public class Requester {
         String url = builder.build().toString();
 
         HttpRequestWithBody request = Unirest.put(url);
-        RequestTask<List<Playlist>> task = new RequestTask<List<Playlist>>(request, listener);
+        RequestTask<List<Playlist>> task = new RequestTask<List<Playlist>>(request, Types.LIST_PLAYLIST, listener);
     }
 
     private Uri.Builder getBaseBuilder() {
