@@ -38,7 +38,7 @@ public class RequestTask<T> extends AsyncTask<Void, Void, T> {
 
     @Override
     protected void onPostExecute(T result) {
-        if (responseListener != null && result != null) {
+        if (responseListener != null && result != null && !isCancelled()) {
             responseListener.onResponse(result);
         }
     }
