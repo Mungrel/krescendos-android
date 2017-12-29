@@ -52,7 +52,7 @@ public class Requester {
         task.execute();
     }
 
-    public void search(String searchTerm, AsyncResponseListener<List<Track>> listener) {
+    public RequestTask<List<Track>> search(String searchTerm, AsyncResponseListener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("search").appendQueryParameter("k", searchTerm);
         String url = builder.build().toString();
@@ -61,6 +61,8 @@ public class Requester {
         Type type = new TypeToken<List<Track>>(){}.getType();
         RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
+
+        return task;
     }
 
     public void create(String partyName, String welcomeMessage, boolean allowSuggestions, AsyncResponseListener<Party> listener) {
