@@ -7,6 +7,7 @@ import android.widget.Button;
 import com.android.volley.Response;
 import com.krescendos.R;
 import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,7 @@ public class RecommendButtonClickListener implements View.OnClickListener {
     public RecommendButtonClickListener(Context context, Button[] buttons, int thisButtonInd) {
         this.context = context;
         this.buttons = buttons;
-        this.requester = Requester.getInstance(context);
+        this.requester = Requester.getInstance();
         this.buttonOn = false;
         this.thisButton = buttons[thisButtonInd];
 
@@ -49,7 +50,7 @@ public class RecommendButtonClickListener implements View.OnClickListener {
                 thisButton.setBackgroundResource(R.drawable.button_round_off);
                 thisButton.setTextAppearance(context, R.style.RoundButtonTextOff);
             }
-            requester.pollPostLearner(userSelection, new Response.Listener<List<String>>() {
+            requester.pollPostLearner(userSelection, new AsyncResponseListener<List<String>>() {
                 @Override
                 public void onResponse(List<String> response) {
                     // TODO update all buttons

@@ -10,6 +10,7 @@ import com.krescendos.R;
 import com.krescendos.model.Track;
 import com.krescendos.model.VoteItem;
 import com.krescendos.utils.TextUtils;
+import com.krescendos.web.ImageHandler;
 import com.krescendos.web.Requester;
 
 public class CurrentlyPlayingAdapter {
@@ -49,7 +50,7 @@ public class CurrentlyPlayingAdapter {
 
         trackTitle.setText(currentTrack.getName());
         artistAlbum.setText(TextUtils.join(currentTrack.getArtists()) + " - " + currentTrack.getAlbum().getName());
-        albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), Requester.getInstance(context).getImageLoader());
+        albumArt.setImageUrl(currentTrack.getAlbum().getLargestImage().getUrl(), ImageHandler.getInstance(context).getImageLoader());
 
         seekBar.setMax((int) currentTrack.getDuration_ms());
     }

@@ -2,10 +2,11 @@ package com.krescendos.search;
 
 import com.android.volley.Response;
 import com.krescendos.model.Track;
+import com.krescendos.web.async.AsyncResponseListener;
 
 import java.util.List;
 
-public class SearchResponseListener implements Response.Listener<List<Track>> {
+public class SearchResponseListener implements AsyncResponseListener<List<Track>> {
 
     private SearchTrackListAdapter adapter;
     private SearchSpinner searchSpinner;

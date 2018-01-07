@@ -27,6 +27,9 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    maven{
+        url 'https://raw.github.com/zeeshanejaz/unirest-android/mvn-repo'
+    }
 }
 
 dependencies {
@@ -38,6 +41,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.google.firebase:firebase-database:11.8.0'
+    compile 'com.mashape.unirest:unirest-android:1.0+'
 }
 
 

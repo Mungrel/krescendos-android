@@ -9,11 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.krescendos.R;
 import com.krescendos.firebase.FirebaseManager;
 import com.krescendos.model.Track;
 import com.krescendos.utils.TextUtils;
+import com.krescendos.web.ImageHandler;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
     private List<Track> searchResults;
     private LayoutInflater mInflater;
     private Requester requester;
+    private ImageLoader imageLoader;
     private String partyCode;
 
     public SearchTrackListAdapter(Context context, List<Track> playlist, String partyCode) {
@@ -32,7 +35,8 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         this.playlist = playlist;
         this.searchResults = new ArrayList<Track>();
         this.mInflater = LayoutInflater.from(context);
-        this.requester = Requester.getInstance(context);
+        this.imageLoader = ImageHandler.getInstance(context).getImageLoader();
+        this.requester = Requester.getInstance();
         this.partyCode = partyCode;
     }
 
@@ -87,7 +91,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         final Track track = searchResults.get(position);
         holder.trackName.setText(track.getName());
         holder.artistAlbum.setText(TextUtils.join(track.getArtists()));
-        holder.albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), requester.getImageLoader());
+        holder.albumArt.setImageUrl(track.getAlbum().getSmallestImage().getUrl(), imageLoader);
         if (playlist.contains(track)) {
             holder.addCheck.setImageResource(R.drawable.check);
         } else {

@@ -11,11 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.activities.PlaylistTracksActivity;
 import com.krescendos.model.Playlist;
+import com.krescendos.web.ImageHandler;
 import com.krescendos.web.Requester;
 
 import java.util.ArrayList;
@@ -26,13 +28,15 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
     private List<Playlist> playlists;
     private LayoutInflater mInflater;
     private Requester requester;
+    private ImageLoader imageLoader;
     private Context context;
     private String partyID;
 
     public PlaylistAdapter(Context context, String partyID) {
         super(context, R.layout.player_list_layout);
         this.mInflater = LayoutInflater.from(context);
-        this.requester = Requester.getInstance(context);
+        this.requester = Requester.getInstance();
+        this.imageLoader = ImageHandler.getInstance(context).getImageLoader();
         this.playlists = new ArrayList<>();
         this.context = context;
         this.partyID = partyID;
@@ -89,7 +93,7 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
         final Playlist playlist = playlists.get(position);
         holder.playlistName.setText(playlist.getName());
         holder.playlistSize.setText(String.format("%d %s", playlist.size(), "tracks"));
-        holder.playlistArt.setImageUrl(playlist.getSmallestImage().getUrl(), requester.getImageLoader());
+        holder.playlistArt.setImageUrl(playlist.getSmallestImage().getUrl(), imageLoader);
 
         holder.pos = position;
 
