@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 });
             }
         }
-        
+
         ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
         SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage);
 
