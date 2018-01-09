@@ -1,6 +1,7 @@
 package com.krescendos.web.async;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -32,6 +33,8 @@ public class RequestTask<T> extends AsyncTask<Void, Void, T> {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+
+        Log.d("RESPONSE: ", ""+response);
 
         return new Gson().fromJson(response, typeOfT);
     }
