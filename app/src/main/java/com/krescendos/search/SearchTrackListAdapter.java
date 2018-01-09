@@ -39,7 +39,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         this.imageLoader = ImageHandler.getInstance(context).getImageLoader();
         this.requester = Requester.getInstance();
         this.partyCode = partyCode;
-        this.acceptingRecommendations = false;
+        this.acceptingRecommendations = true;
     }
 
     @Override
@@ -117,6 +117,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
     }
 
     public void updateResults(List<Track> tracks) {
+        acceptingRecommendations = false;
         this.searchResults = tracks;
         notifyDataSetChanged();
     }
