@@ -29,6 +29,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
     private Requester requester;
     private ImageLoader imageLoader;
     private String partyCode;
+    private boolean acceptingRecommendations;
 
     public SearchTrackListAdapter(Context context, List<Track> playlist, String partyCode) {
         super(context, R.layout.search_list_layout);
@@ -38,6 +39,7 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         this.imageLoader = ImageHandler.getInstance(context).getImageLoader();
         this.requester = Requester.getInstance();
         this.partyCode = partyCode;
+        this.acceptingRecommendations = true;
     }
 
     @Override
@@ -110,7 +112,12 @@ public class SearchTrackListAdapter extends ArrayAdapter<Track> {
         return convertView;
     }
 
+    public boolean isAcceptingRecommendations() {
+        return acceptingRecommendations;
+    }
+
     public void updateResults(List<Track> tracks) {
+        acceptingRecommendations = false;
         this.searchResults = tracks;
         notifyDataSetChanged();
     }

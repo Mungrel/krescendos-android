@@ -46,7 +46,9 @@ public class Requester {
         String url = builder.build().toString();
 
         HttpRequestWithBody request = Unirest.post(url);
-        request.body(gson.toJson(collection));
+        if (collection != null && collection.getTotalSize() != 0) {
+            request.body(gson.toJson(collection));
+        }
 
         RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
