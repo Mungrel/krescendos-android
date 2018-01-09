@@ -14,9 +14,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.model.Party;
+import com.krescendos.model.Track;
 import com.krescendos.search.SearchSpinner;
 import com.krescendos.search.SearchTextWatcher;
 import com.krescendos.search.SearchTrackListAdapter;
+import com.krescendos.web.Requester;
+import com.krescendos.web.async.AsyncResponseListener;
+
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -38,10 +43,22 @@ public class SearchActivity extends AppCompatActivity {
         TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_text);
 
         toolbarTitle.setText(party.getName());
-        SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(SearchActivity.this, party.getPlaylist(), party.getPartyId());
+        List<Track> playlist = party.getPlaylist();
+        final SearchTrackListAdapter listAdapter = new SearchTrackListAdapter(SearchActivity.this, playlist, party.getPartyId());
 
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
+
+        if (playlist == null || playlist.isEmpty()) {
+            Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
+                @Override
+                public void onResponse(List<Track> response) {
+                   if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
+                       listAdapter.updateResults(response);
+                   }
+                }
+            });
+        }
 
         ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
         SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage);
