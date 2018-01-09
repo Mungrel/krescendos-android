@@ -49,17 +49,19 @@ public class SearchActivity extends AppCompatActivity {
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
 
-        if (playlist == null || playlist.isEmpty()) {
-            Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
-                @Override
-                public void onResponse(List<Track> response) {
-                   if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
-                       listAdapter.updateResults(response);
-                   }
-                }
-            });
+        if (listAdapter.isAcceptingRecommendations()) {
+            if (playlist == null || playlist.isEmpty()) {
+                Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
+                    @Override
+                    public void onResponse(List<Track> response) {
+                        if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
+                            listAdapter.updateResults(response);
+                        }
+                    }
+                });
+            }
         }
-
+        
         ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
         SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage);
 
