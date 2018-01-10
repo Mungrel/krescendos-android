@@ -87,6 +87,7 @@ public class Requester {
 
         GetRequest request = Unirest.get(url);
         RequestTask<Party> task = new RequestTask<Party>(request, Types.PARTY, listener);
+        task.execute();
     }
 
     public void isPremiumUser(String userAccessToken, AsyncResponseListener<Profile> listener) {
@@ -94,6 +95,7 @@ public class Requester {
         request.header("Authorization", "Bearer " + userAccessToken);
 
         RequestTask<Profile> task = new RequestTask<Profile>(request, Types.PROFILE, listener);
+        task.execute();
     }
 
     public void pollPostLearner(List<String> userSelection, AsyncResponseListener<List<String>> listener) {
@@ -103,6 +105,7 @@ public class Requester {
 
         HttpRequestWithBody request = Unirest.post(url);
         RequestTask<List<String>> task = new RequestTask<List<String>>(request, Types.LIST_STRING, listener);
+        task.execute();
     }
 
     public void userPlaylists(String username, AsyncResponseListener<List<Playlist>> listener) {
@@ -113,6 +116,7 @@ public class Requester {
 
         HttpRequestWithBody request = Unirest.put(url);
         RequestTask<List<Playlist>> task = new RequestTask<List<Playlist>>(request, Types.LIST_PLAYLIST, listener);
+        task.execute();
     }
 
     private Uri.Builder getBaseBuilder() {
