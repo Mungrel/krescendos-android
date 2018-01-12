@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String BASE_URL = "api.kres.io";
+    private static final String BASE_URL = "0-1-1-32-gcb49d12-dot-krescendos-174122.appspot.com";
     private static Requester instance;
 
     private Gson gson;
@@ -40,13 +40,13 @@ public class Requester {
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
-    public void recommend(SpotifySeedCollection collection, AsyncResponseListener<List<Track>> listener) {
+    public void recommend(String partyID, AsyncResponseListener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("recommend");
+        builder.appendQueryParameter("id", partyID);
         String url = builder.build().toString();
 
-        HttpRequestWithBody request = Unirest.post(url);
-        request.body(gson.toJson(collection));
+        GetRequest request = Unirest.get(url);
 
         RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
