@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Requester {
 
-    private static final String BASE_URL = "0-1-1-32-gcb49d12-dot-krescendos-174122.appspot.com";
+    private static final String BASE_URL = "api.kres.io";
     private static Requester instance;
 
     private Gson gson;
