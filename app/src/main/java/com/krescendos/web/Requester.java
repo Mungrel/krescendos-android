@@ -40,15 +40,13 @@ public class Requester {
     }
 
     // Should take a list of track IDs, artist IDs, and genres, but for now just a single trackID
-    public void recommend(SpotifySeedCollection collection, AsyncResponseListener<List<Track>> listener) {
+    public void recommend(String partyID, AsyncResponseListener<List<Track>> listener) {
         Uri.Builder builder = getBaseBuilder();
         builder.appendPath("recommend");
+        builder.appendQueryParameter("id", partyID);
         String url = builder.build().toString();
 
-        HttpRequestWithBody request = Unirest.post(url);
-        if (collection != null && collection.getTotalSize() != 0) {
-            request.body(gson.toJson(collection));
-        }
+        GetRequest request = Unirest.get(url);
 
         RequestTask<List<Track>> task = new RequestTask<List<Track>>(request, Types.LIST_TRACK, listener);
         task.execute();
