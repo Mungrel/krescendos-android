@@ -16,14 +16,10 @@ public class SearchSpinner {
     private Animation animation;
     private boolean running;
 
-    public SearchSpinner(Context context, ImageView imageView) {
+    public SearchSpinner(Context context, ImageView imageView, TextView textView) {
         this.imageView = imageView;
         this.animation = AnimationUtils.loadAnimation(context, R.anim.rotate_indefinitely);
         this.running = false;
-    }
-
-    public SearchSpinner(Context context, ImageView imageView, TextView textView) {
-        this(context, imageView);
         this.textView = textView;
     }
 

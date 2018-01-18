@@ -63,7 +63,10 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
-        SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage);
+
+        final TextView searchSpinnerText = (TextView) findViewById(R.id.search_icon_spinner_text);
+
+        SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage, searchSpinnerText);
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
