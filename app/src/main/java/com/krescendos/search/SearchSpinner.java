@@ -43,4 +43,8 @@ public class SearchSpinner {
 
         running = false;
     }
+
+    public void setText(int resID) {
+        textView.setText(resID);
+    }
 }

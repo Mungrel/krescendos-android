@@ -70,9 +70,11 @@ public class SearchActivity extends AppCompatActivity {
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
+
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        searchField.addTextChangedListener(new SearchTextWatcher(SearchActivity.this, listAdapter, searchSpinner));
+
+        searchField.addTextChangedListener(new SearchTextWatcher(listAdapter, searchSpinner));
 
     }
 

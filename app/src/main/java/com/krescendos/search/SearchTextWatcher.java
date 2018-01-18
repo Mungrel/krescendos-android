@@ -1,9 +1,9 @@
 package com.krescendos.search;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.krescendos.R;
 import com.krescendos.model.Track;
 import com.krescendos.web.Requester;
 import com.krescendos.web.async.RequestTask;
@@ -18,7 +18,7 @@ public class SearchTextWatcher implements TextWatcher {
 
     private RequestTask<List<Track>> previousSearchTask;
 
-    public SearchTextWatcher(Context context, SearchTrackListAdapter adapter, SearchSpinner searchSpinner) {
+    public SearchTextWatcher(SearchTrackListAdapter adapter, SearchSpinner searchSpinner) {
         this.requester = Requester.getInstance();
         this.adapter = adapter;
         this.searchSpinner = searchSpinner;
@@ -38,6 +38,7 @@ public class SearchTextWatcher implements TextWatcher {
             searchSpinner.hide();
         } else {
             previousSearchTask = requester.search(term, new SearchResponseListener(adapter, searchSpinner));
+            searchSpinner.setText(R.string.searching_spotify);
             searchSpinner.start();
         }
     }
