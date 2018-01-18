@@ -43,4 +43,6 @@
     <string name="playlist_size">playlist_size</string>
     <string name="playlist_name">playlist_name</string>
     <string name="no_public_playlists_found">No public playlists found</string>
+    <string name="finding_playlists">Finding playlists</string>
+    <string name="searching_for_recommendations">Searching for recommendations...</string>
 </resources>
