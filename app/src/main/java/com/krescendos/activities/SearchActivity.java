@@ -49,24 +49,25 @@ public class SearchActivity extends AppCompatActivity {
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
 
+        ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
+        final TextView searchSpinnerText = (TextView) findViewById(R.id.search_icon_spinner_text);
+        final SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage, searchSpinnerText);
+
         if (listAdapter.isAcceptingRecommendations()) {
             if (playlist == null || playlist.isEmpty()) {
+                searchSpinner.start();
                 Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
                     @Override
                     public void onResponse(List<Track> response) {
                         if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
+                            searchSpinner.hide();
                             listAdapter.updateResults(response);
+
                         }
                     }
                 });
             }
         }
-
-        ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
-
-        final TextView searchSpinnerText = (TextView) findViewById(R.id.search_icon_spinner_text);
-
-        SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage, searchSpinnerText);
 
         EditText searchField = (EditText) findViewById(R.id.search_term_text);
         searchField.requestFocus();
