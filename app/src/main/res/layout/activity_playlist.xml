@@ -25,6 +25,15 @@
         app:srcCompat="@drawable/icon" />
 
     <TextView
+        android:id="@+id/playlist_icon_spinner_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/finding_playlists"
+        android:textAppearance="@style/BodyText"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/playlists_none_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
