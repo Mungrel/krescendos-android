@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.google.gson.Gson;
 import com.krescendos.R;
 import com.krescendos.model.Party;
 import com.krescendos.model.Track;
-import com.krescendos.search.SearchSpinner;
 import com.krescendos.search.SearchTextWatcher;
 import com.krescendos.search.SearchTrackListAdapter;
 import com.krescendos.spinner.SpinnerView;
