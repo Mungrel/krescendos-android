@@ -9,12 +9,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.krescendos.R;
 import com.krescendos.model.Party;
 import com.krescendos.model.Playlist;
 import com.krescendos.playlist.PlaylistAdapter;
-import com.krescendos.search.SearchSpinner;
+import com.krescendos.spinner.SpinnerView;
 import com.krescendos.web.Requester;
 import com.krescendos.web.async.AsyncResponseListener;
 
@@ -44,13 +43,10 @@ public class PlaylistActivity extends AppCompatActivity {
         final ListView resultsView = (ListView) findViewById(R.id.playlists_list);
         resultsView.setAdapter(listAdapter);
 
-        ImageView icon = (ImageView) findViewById(R.id.playlist_icon_spinner);
-
         final TextView noneFound = (TextView) findViewById(R.id.playlists_none_found);
 
-        final TextView searchSpinnerText = (TextView) findViewById(R.id.playlist_icon_spinner_text);
-
-        final SearchSpinner spinner = new SearchSpinner(PlaylistActivity.this, icon, searchSpinnerText);
+        final SpinnerView spinner = findViewById(R.id.playlist_search_spinner);
+        spinner.setText(R.string.fetching_playlists);
         spinner.start();
 
         Requester requester = Requester.getInstance();

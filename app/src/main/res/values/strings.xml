@@ -46,4 +46,6 @@
     <string name="finding_playlists">Finding playlists</string>
     <string name="searching_for_recommendations">Searching for recommendations...</string>
     <string name="searching_spotify">Searching Spotify...</string>
+    <string name="fetching_playlists">Fetching your public playlists...</string>
+    <string name="searching">Searching...</string>
 </resources>
