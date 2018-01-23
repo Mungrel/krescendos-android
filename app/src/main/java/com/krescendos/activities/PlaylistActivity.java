@@ -43,8 +43,6 @@ public class PlaylistActivity extends AppCompatActivity {
         final ListView resultsView = (ListView) findViewById(R.id.playlists_list);
         resultsView.setAdapter(listAdapter);
 
-        ImageView icon = (ImageView) findViewById(R.id.playlist_icon_spinner);
-
         final TextView noneFound = (TextView) findViewById(R.id.playlists_none_found);
 
         final SpinnerView spinner = findViewById(R.id.playlist_search_spinner);
