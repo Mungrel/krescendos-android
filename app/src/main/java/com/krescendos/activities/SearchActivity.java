@@ -54,12 +54,14 @@ public class SearchActivity extends AppCompatActivity {
 
         if (listAdapter.isAcceptingRecommendations()) {
             if (playlist == null || playlist.isEmpty()) {
+                spinnerView.start();
                 Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
                     @Override
                     public void onResponse(List<Track> response) {
                         if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
                             spinnerView.hide();
                             listAdapter.updateResults(response);
+
                         }
                     }
                 });
@@ -71,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
+        
         searchField.addTextChangedListener(new SearchTextWatcher(listAdapter, spinnerView));
 
     }
