@@ -46,6 +46,7 @@ public class PlaylistActivity extends AppCompatActivity {
         final TextView noneFound = (TextView) findViewById(R.id.playlists_none_found);
 
         final SpinnerView spinner = findViewById(R.id.playlist_search_spinner);
+        spinner.setText(R.string.fetching_playlists);
         spinner.start();
 
         Requester requester = Requester.getInstance();
