@@ -18,6 +18,7 @@ import com.krescendos.model.Track;
 import com.krescendos.search.SearchSpinner;
 import com.krescendos.search.SearchTextWatcher;
 import com.krescendos.search.SearchTrackListAdapter;
+import com.krescendos.spinner.SpinnerView;
 import com.krescendos.web.Requester;
 import com.krescendos.web.async.AsyncResponseListener;
 
@@ -49,20 +50,18 @@ public class SearchActivity extends AppCompatActivity {
         ListView resultsView = (ListView) findViewById(R.id.search_result_list);
         resultsView.setAdapter(listAdapter);
 
-        ImageView spinnerImage = (ImageView) findViewById(R.id.search_icon_spinner);
-        final TextView searchSpinnerText = (TextView) findViewById(R.id.search_icon_spinner_text);
-        final SearchSpinner searchSpinner = new SearchSpinner(SearchActivity.this, spinnerImage, searchSpinnerText);
+        final SpinnerView spinnerView = (SpinnerView) findViewById(R.id.track_search_spinner);
+        spinnerView.setText(R.string.searching_for_recommendations);
+        spinnerView.start();
 
         if (listAdapter.isAcceptingRecommendations()) {
             if (playlist == null || playlist.isEmpty()) {
-                searchSpinner.start();
                 Requester.getInstance().recommend(null, new AsyncResponseListener<List<Track>>() {
                     @Override
                     public void onResponse(List<Track> response) {
                         if(listAdapter.isAcceptingRecommendations() && !response.isEmpty()) {
-                            searchSpinner.hide();
+                            spinnerView.hide();
                             listAdapter.updateResults(response);
-
                         }
                     }
                 });
@@ -75,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        searchField.addTextChangedListener(new SearchTextWatcher(listAdapter, searchSpinner));
+        searchField.addTextChangedListener(new SearchTextWatcher(listAdapter, spinnerView));
 
     }
 

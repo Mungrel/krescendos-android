@@ -28,6 +28,7 @@
         android:theme="@style/TextInput" />
 
     <com.krescendos.spinner.SpinnerView
+        android:id="@+id/track_search_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

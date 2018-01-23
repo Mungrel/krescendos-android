@@ -33,8 +33,8 @@ public class SpinnerView extends LinearLayout {
         textView =  layout.findViewById(R.id.spinner_icon_text);
     }
 
-    public void setText(String text) {
-        textView.setText(text);
+    public void setText(int resId) {
+        textView.setText(getContext().getString(resId));
     }
 
     public void start() {

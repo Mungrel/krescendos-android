@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 
 import com.krescendos.R;
 import com.krescendos.model.Track;
+import com.krescendos.spinner.SpinnerView;
 import com.krescendos.web.Requester;
 import com.krescendos.web.async.RequestTask;
 
@@ -14,11 +15,11 @@ public class SearchTextWatcher implements TextWatcher {
 
     private Requester requester;
     private SearchTrackListAdapter adapter;
-    private SearchSpinner searchSpinner;
+    private SpinnerView searchSpinner;
 
     private RequestTask<List<Track>> previousSearchTask;
 
-    public SearchTextWatcher(SearchTrackListAdapter adapter, SearchSpinner searchSpinner) {
+    public SearchTextWatcher(SearchTrackListAdapter adapter, SpinnerView searchSpinner) {
         this.requester = Requester.getInstance();
         this.adapter = adapter;
         this.searchSpinner = searchSpinner;
