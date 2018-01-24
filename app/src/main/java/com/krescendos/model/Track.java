@@ -8,7 +8,6 @@ public class Track implements Serializable {
     private String name;
     private Album album;
     private long duration_ms;
-    private long voteCount;
     private List<Artist> artists;
 
     public String getId() {
@@ -41,14 +40,6 @@ public class Track implements Serializable {
 
     public void setDuration_ms(long duration_ms) {
         this.duration_ms = duration_ms;
-    }
-
-    public long getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(long voteCount) {
-        this.voteCount = voteCount;
     }
 
     public List<Artist> getArtists() {
