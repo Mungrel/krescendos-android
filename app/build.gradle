@@ -43,6 +43,4 @@ dependencies {
     compile 'com.mashape.unirest:unirest-android:1.0.6'
 }
 
-
-
 apply plugin: 'com.google.gms.google-services'
