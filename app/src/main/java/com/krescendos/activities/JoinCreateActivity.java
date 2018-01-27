@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.volley.Response;
 import com.krescendos.R;
 import com.krescendos.local.PersistenceConstants;
+import com.krescendos.local.PersistenceManager;
 import com.krescendos.model.Party;
 import com.krescendos.web.DefaultErrorListener;
 import com.krescendos.web.Requester;
@@ -47,7 +47,7 @@ public class JoinCreateActivity extends AppCompatActivity {
         });
 
         // Retrieve last hosted party code from disk
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(PersistenceConstants.ID_PREFS, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(PersistenceManager.ID_PREFS, 0);
         String lasthostedID = pref.getString(PersistenceConstants.LAST_ID_HOSTED, "");
 
         if (!lasthostedID.isEmpty()) {
