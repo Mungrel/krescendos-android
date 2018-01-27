@@ -21,4 +21,15 @@ public class PersistenceManager {
 
         return instance;
     }
+
+    public void persist(String key, String value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+
+        editor.apply();
+    }
+
+    public String retrieve(String key) {
+        return sharedPreferences.getString(key, "");
+    }
 }
