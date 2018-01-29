@@ -55,18 +55,20 @@ public class JoinCreateActivity extends AppCompatActivity {
             Requester.getInstance().join(lasthostedID, new AsyncResponseListener<Party>() {
                 @Override
                 public void onResponse(Party response) {
-                    rejoinAsHostIntent = new Intent(JoinCreateActivity.this, HostPlayerActivity.class);
-                    rejoinAsHostIntent.putExtra("party", response);
+                    if (response.getPartyId() != null) {
+                        rejoinAsHostIntent = new Intent(JoinCreateActivity.this, HostPlayerActivity.class);
+                        rejoinAsHostIntent.putExtra("party", response);
 
-                    rejoinButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity(rejoinAsHostIntent);
-                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                        }
-                    });
+                        rejoinButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(rejoinAsHostIntent);
+                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            }
+                        });
 
-                    rejoinButton.setVisibility(View.VISIBLE);
+                        rejoinButton.setVisibility(View.VISIBLE);
+                    }
                 }
             }, new DefaultErrorListener());
         }
