@@ -15,6 +15,7 @@ import com.krescendos.R;
 import com.krescendos.input.Keyboard;
 import com.krescendos.input.UnimplementedInputListener;
 import com.krescendos.local.PersistenceConstants;
+import com.krescendos.local.PersistenceManager;
 import com.krescendos.model.Party;
 import com.krescendos.utils.TextUtils;
 import com.krescendos.web.network.ConnectionLostListener;
@@ -68,13 +69,8 @@ public class CreateStartActivity extends AppCompatActivity {
         code6.setText(String.format("%c", partyCode[5]));
 
         // Persist party ID locally for rejoining
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(PersistenceConstants.ID_PREFS, 0);
-
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(PersistenceConstants.LAST_ID_HOSTED, party.getPartyId());
-
-        editor.apply();
-
+        PersistenceManager manager = PersistenceManager.getInstance(CreateStartActivity.this);
+        manager.persist(PersistenceConstants.LAST_ID_HOSTED, party.getPartyId());
 
         ImageButton share = (ImageButton) findViewById(R.id.share_code_button);
         Button importSpotifyPlaylist = (Button) findViewById(R.id.import_spotify_playlist_button);
